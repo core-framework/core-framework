@@ -8,9 +8,8 @@
 
 namespace Core\Controllers;
 
-use Core\Views\view;
 use Core\Models;
-use Core\Models\model;
+use Core\Views\view;
 
 class controller
 {
@@ -28,6 +27,28 @@ class controller
     private $postVars;
     private $modelDir;
     private $defaultTpl = 'homepage/home.tpl';
+    private $illegal = [
+        '$',
+        '*',
+        '\'',
+        '<',
+        '>',
+        '^',
+        '(',
+        ')',
+        '[',
+        ']',
+        '\\',
+        '/',
+        '!',
+        '~',
+        '`',
+        '{',
+        '}',
+        '|',
+        '?php',
+        'script'
+    ];
 
     /**
      * instantiates Controller object from route vars
@@ -85,8 +106,33 @@ class controller
     {
         $postdata = file_get_contents("php://input");
         if ($postdata) {
+            $postdata = $this->inputSanitize($postdata);
             $this->postVars['json'] = json_decode($postdata);
         }
+    }
+
+    private function inputSanitize($data)
+    {
+        $sanitizedData = [];
+        foreach ($data as $key => $val) {
+            switch ($key) {
+                case 'email':
+                    $sanitizedData[$key] = htmlentities(filter_var($val, FILTER_SANITIZE_EMAIL));
+                    break;
+
+                case 'phone':
+                case 'mobile':
+                    $sanitizedData[$key] = htmlentities(filter_var($val, FILTER_SANITIZE_NUMBER_INT));
+                    break;
+
+                default:
+                    $sanitizedData[$key] = htmlentities(filter_var($val, FILTER_SANITIZE_STRING));
+                    break;
+            }
+        }
+        str_replace($this->illegal, '', $sanitizedData);
+
+        return $sanitizedData;
     }
 
     /**
@@ -108,34 +154,6 @@ class controller
     {
         $key = sha1(microtime());
         $_SESSION['csrf'] = empty($_SESSION['csrf']) ? $key : $_SESSION['csrf'];
-    }
-
-    /**
-     * @param $model
-     * @return bool false if file does not exist;
-     */
-    private function __autoload($model)
-    {
-        $file = _ROOT . DS . "Core " . DS . "Models" . DS . $model . ".php";
-
-        $elsefile = _ROOT . $this->modelDir . $model . ".php";
-
-        $loaded = $this->__fileLoad($file);
-        if (!$loaded)
-            return false;
-    }
-
-    /**
-     * @param $file
-     * @return bool
-     */
-    private function __fileLoad($file)
-    {
-        if (file_exists($file)) {
-            require_once $file;
-        } else {
-            return false;
-        }
     }
 
     /**
@@ -223,6 +241,35 @@ class controller
             foreach ($req['php'] as $filepath) {
                 $this->__fileLoad(_ROOT . $filepath);
             }
+        }
+    }
+
+    /**
+     * @param $file
+     * @return bool
+     */
+    private function __fileLoad($file)
+    {
+        if (file_exists($file)) {
+            require_once $file;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @param $model
+     * @return bool false if file does not exist;
+     */
+    private function __autoload($model)
+    {
+        $file = _ROOT . DS . "Core " . DS . "Models" . DS . $model . ".php";
+
+        $elsefile = _ROOT . $this->modelDir . $model . ".php";
+
+        $loaded = $this->__fileLoad($file);
+        if (!$loaded) {
+            return false;
         }
     }
 

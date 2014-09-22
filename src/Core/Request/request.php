@@ -106,7 +106,6 @@ class request
             $this->cookies[$key] = htmlentities(filter_var($value, FILTER_SANITIZE_STRING));
         }
 
-
         //path
         str_replace($this->illegal, '', $this->getVars['page']);
         $this->path = isset($this->getVars['page']) && $this->getVars['page'] != 'index.php' ? htmlentities(

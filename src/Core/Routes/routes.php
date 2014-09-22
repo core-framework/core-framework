@@ -138,7 +138,7 @@ class routes
             $is_readable = is_readable($filePath);
             if (($this->urlPathArr[0] === $file)) {
                 $this->isRootFile = true;
-                if(!$is_readable) {
+                if (!$is_readable) {
                     //add warning
                 }
             }
@@ -461,6 +461,15 @@ class routes
     public function getPostVars()
     {
         return $this->postVars;
+    }
+
+    /**
+     * returns sanitized $_COOKIE
+     * @return array
+     */
+    public function getCookies()
+    {
+        return $this->cookies;
     }
 
     /**

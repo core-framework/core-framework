@@ -21,5 +21,13 @@
             "name": "Shalom Sam",
             "email": "shalom.k.sam@gmail.com"
         }
-    ]
+    ],
+    "scripts": {
+        "post-install-cmd": [
+            "bower install"
+        ],
+        "post-update-cmd": [
+            "bower install"
+        ]
+    }
 }

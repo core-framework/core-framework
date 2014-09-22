@@ -25,6 +25,7 @@ class core
     private $templateInfo;
     private $getVars;
     private $postVars;
+    private $cookies;
     private $validExtensions = [
         'js',
         'css',
@@ -142,6 +143,7 @@ class core
 
         $this->getVars = $this->route->getGetVars();
         $this->postVars = $this->route->getPostVars();
+        $this->cookies = $this->route->getCookies();
         $isFEComponent = $this->route->getIsFEComponent();
         $isRootFile = $this->route->getIsRootFile();
         $controller = $this->route->getController();
