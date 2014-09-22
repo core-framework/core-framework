@@ -73,9 +73,17 @@ class core
         spl_autoload_register([$this, 'autoloadModel']);
 
         $getVars = $this->route->getGetVars();
-        if($getVars['action'] === 'clear_cache'){
+        if ($getVars['action'] === 'clear_cache') {
             $this->clearCache();
         }
+    }
+
+    /**
+     * Clear / reset APC Cache
+     */
+    private function clearCache()
+    {
+        apc_clear_cache();
     }
 
     /**
@@ -108,7 +116,6 @@ class core
         } else {
             $this->loadAll();
         }
-
     }
 
     /**
@@ -127,7 +134,7 @@ class core
                 $this->route = apc_fetch($pathKey);
             } else {
                 $this->route->findMatch();
-                apc_store($pathKey, $this->route, $ttl);
+                apc_store($pathKey, $this->route, 2 * $ttl);
             }
         } else {
             $this->route->findMatch();
@@ -205,7 +212,7 @@ class core
                     if ($hasKey) {
                         $this->view = apc_fetch($pathKey);
                     } else {
-                        apc_store($pathKey, $this->view, 2 * $ttl);
+                        apc_store($pathKey, $this->view, $ttl);
                     }
                 }
 
@@ -239,7 +246,7 @@ class core
             if ($this->route->urlPathArr[1] === $fileName . "." . $fileExt) {
                 $folder = "";
                 $controller = $scriptsDir;
-            }elseif($this->route->urlPathArr[1] === 'base'){
+            } elseif ($this->route->urlPathArr[1] === 'base') {
                 $folder = "";
                 $controller = DS . "src" . DS . "Core" . DS . "Resources" . DS . "scripts" . DS;
             } else {
@@ -254,7 +261,7 @@ class core
             if ($this->route->urlPathArr[1] === $fileName . "." . $fileExt) {
                 $folder = "";
                 $controller = $stylesDir;
-            }elseif($this->route->urlPathArr[1] === 'base'){
+            } elseif ($this->route->urlPathArr[1] === 'base') {
                 $folder = "";
                 $controller = DS . "src" . DS . "Core" . DS . "Resources" . DS . "styles" . DS;
             } else {
@@ -266,10 +273,10 @@ class core
 
 
         } elseif ($this->route->urlPathArr[0] === 'images') {
-            if($this->route->urlPathArr[1] === 'base'){
+            if ($this->route->urlPathArr[1] === 'base') {
                 $controller = DS . "src" . DS . "Core" . DS . "Resources" . DS . "images" . DS;
                 $pathTpl = _ROOT . $controller . $fileName . "." . $fileExt;
-            }else{
+            } else {
                 $controller = $imagesDir;
                 $pathTpl = _ROOT . $controller . $folder . $fileName . "." . $fileExt;
             }
@@ -339,14 +346,6 @@ class core
     }
 
     /**
-     * Clear / reset APC Cache
-     */
-    private function clearCache()
-    {
-        apc_clear_cache();
-    }
-
-    /**
      * Set the cache TTL defaults
      * @param $sec
      */
@@ -376,7 +375,7 @@ class core
         $this->addModelDir($appDir . "Models" . DS);
         $this->setResourcesDir($appDir);
 
-        if($this->devMode === true){
+        if ($this->devMode === true) {
             $whoops = new Run;
             $handler = new PrettyPageHandler;
             $whoops->pushHandler($handler);
@@ -513,7 +512,7 @@ class core
     {
         $file = _ROOT . $this->modelDir . $modelName . ".php";
         //else check in Core
-        $elsefile = _ROOT . DS . "src" . DS .  "Core" . DS . "Models" . DS . $modelName . ".php";
+        $elsefile = _ROOT . DS . "src" . DS . "Core" . DS . "Models" . DS . $modelName . ".php";
 
         if (file_exists($file)) {
             require_once $file;

@@ -24,9 +24,9 @@ class view
     public function __construct()
     {
         $this->smarty_init();
-        $this->debugfile = DS . "src" . DS .  "Core" . DS . 'Views' . DS . "debug.php";
-        $this->httpTestsDir = DS . "src" . DS .  "Core" . DS . "Tests" . DS . "HttpTests" . DS;
-        $this->baseTemplateDir = DS . "src" . DS .  "Core" . DS . "Resources" . DS . "BaseTemplates" . DS;
+        $this->debugfile = DS . "src" . DS . "Core" . DS . 'Views' . DS . "debug.php";
+        $this->httpTestsDir = DS . "src" . DS . "Core" . DS . "Tests" . DS . "HttpTests" . DS;
+        $this->baseTemplateDir = DS . "src" . DS . "Core" . DS . "Resources" . DS . "BaseTemplates" . DS;
     }
 
     private function smarty_init()
@@ -38,9 +38,9 @@ class view
 
         $smarty->setTemplateDir(_ROOT . $this->templateDir);
         $smarty->addTemplateDir(_ROOT . $this->baseTemplateDir);
-        $smarty->setCompileDir(_ROOT . DS . "src" . DS .  "Core" . DS . 'smarty_cache' . DS . 'templates_c' . DS);
-        $smarty->setConfigDir(_ROOT . DS . "src" . DS .  "Core" . DS . 'smarty_cache' . DS . 'configs' . DS);
-        $smarty->setCacheDir(_ROOT . DS . "src" . DS .  "Core" . DS . 'smarty_cache' . DS . 'cache' . DS);
+        $smarty->setCompileDir(_ROOT . DS . "src" . DS . "Core" . DS . 'smarty_cache' . DS . 'templates_c' . DS);
+        $smarty->setConfigDir(_ROOT . DS . "src" . DS . "Core" . DS . 'smarty_cache' . DS . 'configs' . DS);
+        $smarty->setCacheDir(_ROOT . DS . "src" . DS . "Core" . DS . 'smarty_cache' . DS . 'cache' . DS);
     }
 
     public function debugMode($bool = true)
@@ -61,7 +61,7 @@ class view
         if ($this->disabled === false) {
             $tplInfo = $this->tplInfo;
             $tpl = $this->tpl = $tplInfo['tpl'];
-            $tpl_exists = $this->smarty->template_exists($tpl);
+            $tpl_exists = $this->smarty->templateExists($tpl);
             $tplVars = $this->tplVars = $this->tplInfo['vars'];
 
             if ($this->debugMode) {
@@ -69,7 +69,7 @@ class view
                 $this->smarty->assign('debugDfltHtml', $this->debugDfltHtml);
             }
 
-            if(!$tpl_exists){
+            if (!$tpl_exists) {
                 $tpl = "BaseTemplates/errors/error404.tpl";
             }
 
