@@ -2,8 +2,8 @@
 
 .idea/
 .htaccess
-Core/smarty_cache
 vendor/
 bower_components/
 logs/
 composer.lock
+src/Core/smarty_cache
