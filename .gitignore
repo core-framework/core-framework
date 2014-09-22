@@ -1,2 +1,7 @@
 # Created by .gitignore support plugin (hsz.mobi)
-smarty_cache
+
+.idea/
+Core/smarty_cache
+vendor/
+bower_components/
+

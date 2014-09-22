@@ -56,8 +56,8 @@ class core
     {
         $this->devMode = $devMode;
 
-        $this->controllerDir[0] = DS . "Core" . DS . "Controllers" . DS;
-        $this->modelDir[0] = DS . "Core" . DS . "Models" . DS;
+        $this->controllerDir[0] = DS . "src" . DS . "Core" . DS . "Controllers" . DS;
+        $this->modelDir[0] = DS . "src" . DS . "Core" . DS . "Models" . DS;
         $this->confFile = DS . "config" . DS . "config.php";
 
         $apcisloaded = extension_loaded("apc");
@@ -241,7 +241,7 @@ class core
                 $controller = $scriptsDir;
             }elseif($this->route->urlPathArr[1] === 'base'){
                 $folder = "";
-                $controller = DS . "Core" . DS . "Resources" . DS . "scripts" . DS;
+                $controller = DS . "src" . DS . "Core" . DS . "Resources" . DS . "scripts" . DS;
             } else {
                 $folder = $this->route->urlPathArr[1] . DS;
                 $controller = $scriptsDir;
@@ -256,7 +256,7 @@ class core
                 $controller = $stylesDir;
             }elseif($this->route->urlPathArr[1] === 'base'){
                 $folder = "";
-                $controller = DS . "Core" . DS . "Resources" . DS . "styles" . DS;
+                $controller = DS . "src" . DS . "Core" . DS . "Resources" . DS . "styles" . DS;
             } else {
                 $folder = $this->route->urlPathArr[1] . DS;
                 $controller = $stylesDir;
@@ -267,7 +267,7 @@ class core
 
         } elseif ($this->route->urlPathArr[0] === 'images') {
             if($this->route->urlPathArr[1] === 'base'){
-                $controller = DS . "Core" . DS . "Resources" . DS . "images" . DS;
+                $controller = DS . "src" . DS . "Core" . DS . "Resources" . DS . "images" . DS;
                 $pathTpl = _ROOT . $controller . $fileName . "." . $fileExt;
             }else{
                 $controller = $imagesDir;
@@ -486,7 +486,7 @@ class core
         $found = false;
 
         $file = _ROOT . DS . strtr($namespacedClass, '\\', DS) . ".php";
-        $elsefile = _ROOT . DS . "Core" . DS . "Controllers" . DS . $classname . ".php";
+        $elsefile = _ROOT . DS . "src" . DS . "Core" . DS . "Controllers" . DS . $classname . ".php";
 
         if (file_exists($file)) {
             require_once $file;
@@ -513,7 +513,7 @@ class core
     {
         $file = _ROOT . $this->modelDir . $modelName . ".php";
         //else check in Core
-        $elsefile = _ROOT . DS . "Core" . DS . "Models" . DS . $modelName . ".php";
+        $elsefile = _ROOT . DS . "src" . DS .  "Core" . DS . "Models" . DS . $modelName . ".php";
 
         if (file_exists($file)) {
             require_once $file;
