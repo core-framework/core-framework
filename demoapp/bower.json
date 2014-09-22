@@ -1,0 +1,27 @@
+{
+  "name": "coreFramework",
+  "version": "0.0.0",
+  "authors": [
+    "Shalom Sam <shalom-s@hotmail.com>"
+  ],
+  "description": "new project",
+  "main": "index.html",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "framework"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0"
+  }
+}

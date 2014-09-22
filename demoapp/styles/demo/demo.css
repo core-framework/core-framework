@@ -1,0 +1,62 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    padding: 52px 0px 0px;
+}
+
+.mainWrp {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 40px;
+}
+.navbar-brand {
+    font-size: 30px;
+}
+.navbar-brand .small{
+    font-size: 10px;
+}
+.navbar .nav {
+    float: right;
+}
+.hero-unit {
+    padding: 33px 60px;
+}
+.bg-green {
+    background: #27ae60;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 5px;
+}
+.text-green{
+    background: white;
+    color: #27ae60;
+}
+
+.footerWrp {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+.footerWrp footer {
+    margin: 0px auto;
+}
+
+.productInfo .odd{
+    margin: 0px 30px;
+}
+
+.navbar-inverse .navbar-brand{
+    color: white;
+}
+
+.home .nav.navbar-nav li.about a{
+    color: white;
+}
+
+
+@media (min-width: 768px){
+
+}
