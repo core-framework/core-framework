@@ -7,4 +7,4 @@ bower_components/
 logs/
 composer.lock
 src/Core/smarty_cache
-config/
+config/.DS_Store
