@@ -1,15 +1,22 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: shalom.s
- * Date: 24/08/14
- * Time: 12:13 AM
+ * This file is part of the Core Framework package.
+ *
+ * (c) Shalom Sam <shalom.s@coreframework.in>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace demoapp\Controllers;
 
 use Core\Controllers\controller;
 
+/**
+ * @author Shalom Sam <shalom.s@coreframework.in>
+ * Class demoController
+ * @package demoapp\Controllers
+ */
 class demoController extends controller
 {
 

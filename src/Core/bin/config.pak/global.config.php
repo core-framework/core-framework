@@ -1,9 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: shalom.s
- * Date: 24/03/14
- * Time: 2:18 PM
+ * This file is part of the Core Framework package.
+ *
+ * (c) Shalom Sam <shalom.s@coreframework.in>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 global $_CONFIG;

@@ -1,12 +1,12 @@
 <?php
-
-
-//global $start;
-//$time = microtime();
-//$time = explode(' ', $time);
-//$time = $time[1] + $time[0];
-//$finish = $time;
-//$total_time = round(($finish - $start), 3);
+/**
+ * This file is part of the Core Framework package.
+ *
+ * (c) Shalom Sam <shalom.s@coreframework.in>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 $total_time = round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 3);
 

@@ -1,13 +1,20 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: shalom.s
- * Date: 18/09/14
- * Time: 10:59 AM
+ * This file is part of the Core Framework package.
+ *
+ * (c) Shalom Sam <shalom.s@coreframework.in>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Core\Controllers;
 
+/**
+ * @author Shalom Sam <shalom.s@coreframework.in>
+ * Class testController
+ * @package Core\Controllers
+ */
 class testController extends controller
 {
     public function indexAction()

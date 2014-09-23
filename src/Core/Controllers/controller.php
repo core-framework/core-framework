@@ -1,9 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: shalom.s
- * Date: 21/08/14
- * Time: 8:41 PM
+ * This file is part of the Core Framework package.
+ *
+ * (c) Shalom Sam <shalom.s@coreframework.in>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Core\Controllers;
@@ -11,6 +13,11 @@ namespace Core\Controllers;
 use Core\Models;
 use Core\Views\view;
 
+/**
+ * @author Shalom Sam <shalom.s@coreframework.in>
+ * Class controller
+ * @package Core\Controllers
+ */
 class controller
 {
     public $view;

@@ -1,11 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: shalom.s
- * Date: 29/05/14
- * Time: 8:38 PM
+ * This file is part of the Core Framework package.
+ *
+ * (c) Shalom Sam <shalom.s@coreframework.in>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
+/**
+ * @author Shalom Sam <shalom.s@coreframework.in>
+ * Class errHandle
+ */
 class errHandle {
     private $file = "/logs/error_log";
 

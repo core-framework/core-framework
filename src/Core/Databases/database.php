@@ -1,14 +1,21 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: shalom.s
- * Date: 15/09/14
- * Time: 9:54 AM
+ * This file is part of the Core Framework package.
+ *
+ * (c) Shalom Sam <shalom.s@coreframework.in>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Core\Databases;
 use PDO;
 
+/**
+ * @author Shalom Sam <shalom.s@coreframework.in>
+ * Class database
+ * @package Core\Databases
+ */
 class database extends PDO {
     private $dsn;
     private $u;

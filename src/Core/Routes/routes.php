@@ -1,15 +1,22 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: shalom.s
- * Date: 22/08/14
- * Time: 1:13 PM
+ * This file is part of the Core Framework package.
+ *
+ * (c) Shalom Sam <shalom.s@coreframework.in>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Core\Routes;
 
 use Core\Request\request;
 
+/**
+ * @author Shalom Sam <shalom.s@coreframework.in>
+ * Class routes
+ * @package Core\Routes
+ */
 class routes
 {
     public $path = "";

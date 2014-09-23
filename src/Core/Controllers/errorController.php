@@ -1,9 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: shalom.s
- * Date: 25/08/14
- * Time: 11:10 AM
+ * This file is part of the Core Framework package.
+ *
+ * (c) Shalom Sam <shalom.s@coreframework.in>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Controllers;
@@ -11,6 +13,11 @@ namespace Controllers;
 
 use Core\Controllers\controller;
 
+/**
+ * @author Shalom Sam <shalom.s@coreframework.in>
+ * Class errorController
+ * @package Controllers
+ */
 class errorController extends controller {
 
     public function indexAction(){
