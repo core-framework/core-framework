@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  */
 
-global $_CONFIG;
+//global $_CONFIG;
 
-$_CONFIG = [
+return $_CONFIG = [
+    'pdoDriver' => '{pdoDriver}',
     'db' => '{db}',
     'tables' => [],
     'host' => '{host}',
     'user' => '{user}',
-    'pass' => '{pass}',
-    'dbtype' => '{dbtype}'
+    'pass' => '{pass}'
 ];

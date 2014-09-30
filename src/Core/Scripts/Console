@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+define('DS', DIRECTORY_SEPARATOR);
+chdir(__DIR__ . DS . ".." . DS . ".." . DS . ".." . DS);
+$rootDir = getcwd();
+define('_pROOT', $rootDir);
+
+$loader = require_once _pROOT . DS . "vendor" . DS . "autoload.php";
+
+use Core\Scripts\corecmd;
+
+$cmd = new corecmd($argv, $argc);
+

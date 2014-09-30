@@ -36,7 +36,7 @@ class database extends PDO {
         }else{
             $rdb = "dbname=".$_CONFIG['db'];
         }
-        $dsn = 'mysql:host='.$_CONFIG['host'].';'.$rdb;
+        $dsn = $_CONFIG['pdoDriver'].':host='.$_CONFIG['host'].';'.$rdb;
 
         $u = $_CONFIG['user'];
         $p = $_CONFIG['pass'];

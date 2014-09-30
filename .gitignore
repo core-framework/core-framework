@@ -8,4 +8,5 @@ logs/
 composer.lock
 src/Core/smarty_cache
 config/
+index.php
 .DS_Store

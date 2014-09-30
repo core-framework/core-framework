@@ -3,6 +3,7 @@
     "description": "Core PHP Framework",
     "type": "project",
     "license": "MIT",
+    "keywords": [ "php", "framework", "Core", "Core PHP Framework" ],
     "autoload": {
         "psr-4": { "Core\\": "src/Core" }
     },
@@ -24,10 +25,12 @@
     ],
     "scripts": {
         "post-install-cmd": [
-            "bower install"
+            "bower install",
+            "Core\\Scripts\\installer::install"
         ],
         "post-update-cmd": [
-            "bower install"
+            "bower install",
+            "Core\\Scripts\\installer::install"
         ]
     }
 }
