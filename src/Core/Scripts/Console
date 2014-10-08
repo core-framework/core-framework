@@ -3,10 +3,25 @@
 
 define('DS', DIRECTORY_SEPARATOR);
 chdir(__DIR__ . DS . ".." . DS . ".." . DS . ".." . DS);
-$rootDir = getcwd();
-define('_pROOT', $rootDir);
+$vendor = getcwd() . DS . "vendor";
+if(is_dir($vendor)){
+    $rootDir = getcwd();
+    define('_ROOT', $rootDir);
+    define('_isPROJECT', true);
+}else{
+    chdir(".." . DS . ".." . DS . ".." . DS);
+    $vendor = getcwd() . DS . "vendor";
+    if($vendor){
+        $rootDir = getcwd();
+        define('_ROOT', $rootDir);
+        define('_isPROJECT', false);
+    } else {
+        echo "ERROR: root path not found";
+    }
+}
 
-$loader = require_once _pROOT . DS . "vendor" . DS . "autoload.php";
+
+$loader = require_once _ROOT . DS . "vendor" . DS . "autoload.php";
 
 use Core\Scripts\corecmd;
 

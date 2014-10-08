@@ -10,3 +10,5 @@ src/Core/smarty_cache
 config/
 index.php
 .DS_Store
+cache/*
+demoapp/

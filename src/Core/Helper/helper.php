@@ -35,25 +35,29 @@ class helper
     {
         $dir = opendir($source);
         @mkdir($dest);
-        while (false !== ($file = readdir($dir))) {
-            if (($file != '.') && ($file != '..')) {
-                if (is_dir($source . '/' . $file)) {
-                    self::copyr($source . '/' . $file, $dest . '/' . $file);
-                } else {
-                    copy($source . '/' . $file, $dest . '/' . $file);
+        if(is_resource($dir)){
+            while (false !== ($file = readdir($dir))) {
+                if (($file != '.') && ($file != '..')) {
+                    if (is_dir($source . '/' . $file)) {
+                        self::copyr($source . '/' . $file, $dest . '/' . $file);
+                    } else {
+                        copy($source . '/' . $file, $dest . '/' . $file);
+                    }
                 }
             }
+        }else{
+            throw new \Exception("readdir() expects parameter 1 to be resource",10);
         }
         closedir($dir);
     }
 
-    public static function chmodDir($dir, $mod = null, $recursive = true)
+    public static function chmodDirFiles($dir, $mod = null, $recursive = true)
     {
         chmod($dir, 0755);
         if ($recursive && $objs = glob($dir . DS . "*")) {
             foreach ($objs as $file) {
                 if (is_dir($file)) {
-                    self::chmodDir($file, $mod, $recursive);
+                    self::chmodDirFiles($file, $mod, $recursive);
                 } else {
                     self::change_perms($file, $mod);
                 }

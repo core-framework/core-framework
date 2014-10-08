@@ -33,7 +33,7 @@ class IOStream extends cmdcolors
         fclose($this->error);
     }
 
-    public function askAndValidata($msg, $callback, $format, $default = null, $repeat = 2)
+    public function askAndValidate($msg, $callback, $format, $default = null, $repeat = 2)
     {
         for ($i = $repeat; $i >= 0; $i--) {
             $resp = $this->ask($msg, $default);
@@ -76,7 +76,7 @@ class IOStream extends cmdcolors
                 return $input;
             } elseif (!is_array($opt)) {
                 $this->showErr("Option must be of type array");
-                return true;
+                return false;
             } else {
                 return false;
             }
@@ -88,7 +88,7 @@ class IOStream extends cmdcolors
     public function showErr($msg)
     {
         $coloredMsg = $this->getColoredString($msg, 'white', 'red');
-        fprintf($this->output, "\n %s \n", $coloredMsg);
+        fprintf($this->output, PHP_EOL."%20.40s".PHP_EOL, $coloredMsg);
     }
 
     public function writeln($msg, $foreColor = null, $backColor = null, $format = null)
@@ -102,7 +102,7 @@ class IOStream extends cmdcolors
         if (!empty($format)) {
             fprintf($this->output, $format, $coloredMsg);
         } else {
-            fprintf($this->output, " %s \n", $coloredMsg);
+            fprintf($this->output, "%s".PHP_EOL, $coloredMsg);
         }
     }
 
@@ -138,7 +138,7 @@ class IOStream extends cmdcolors
             $split = explode(':', $txt);
             $decoratedLine .= " " . $this->getColoredString($split[0], $split[1]);
         }
-        $format = empty($format) ? "%s \n" : $format;
+        $format = empty($format) ? "%s".PHP_EOL : $format;
         $decoratedLine = rtrim($decoratedLine, " ");
         $this->writeln($decoratedLine, null, null, $format);
     }
