@@ -4,13 +4,13 @@
   "authors": [
     "Shalom Sam <shalom-s@hotmail.com>"
   ],
-  "description": "new project",
+  "description": "Core Framework is a PHP framework",
   "main": "index.html",
   "moduleType": [
     "globals"
   ],
   "keywords": [
-    "framework"
+    "php framework", "Core Framework", "php", "core", "framework"
   ],
   "license": "MIT",
   "private": true,

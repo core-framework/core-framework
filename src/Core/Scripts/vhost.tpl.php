@@ -15,4 +15,4 @@ ServerName dev.{userDomain}
 CustomLog "{accessLog}" combined
 ErrorLog "{errorLog}"
 </VirtualHost>
-##-- Entry End for {userDomain} --';
+##-- Entry end for {userDomain} --';

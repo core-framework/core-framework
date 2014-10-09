@@ -90,7 +90,7 @@ class core
     /**
      * Clear / reset APC Cache
      */
-    private function clearCache()
+    public static function clearCache()
     {
         apc_clear_cache();
     }

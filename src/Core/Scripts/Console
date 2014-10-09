@@ -1,17 +1,19 @@
 #!/usr/bin/env php
 <?php
 
+namespace Core\Scripts;
+
 define('DS', DIRECTORY_SEPARATOR);
 chdir(__DIR__ . DS . ".." . DS . ".." . DS . ".." . DS);
 $vendor = getcwd() . DS . "vendor";
-if(is_dir($vendor)){
+if (is_dir($vendor)) {
     $rootDir = getcwd();
     define('_ROOT', $rootDir);
     define('_isPROJECT', true);
-}else{
+} else {
     chdir(".." . DS . ".." . DS . ".." . DS);
     $vendor = getcwd() . DS . "vendor";
-    if($vendor){
+    if ($vendor) {
         $rootDir = getcwd();
         define('_ROOT', $rootDir);
         define('_isPROJECT', false);
@@ -23,7 +25,7 @@ if(is_dir($vendor)){
 
 $loader = require_once _ROOT . DS . "vendor" . DS . "autoload.php";
 
-use Core\Scripts\corecmd;
-
+/** @var TYPE_NAME $argv */
+/** @var TYPE_NAME $argc */
 $cmd = new corecmd($argv, $argc);
 

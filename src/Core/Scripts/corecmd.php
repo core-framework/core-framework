@@ -80,7 +80,7 @@ class corecmd
                 $this->install();
             }
         } elseif ($args[1] === 'addHostFileEntry') {
-            self::addHostsFileEntry($args[2], $args[3]);
+            self::addHosts($args[2], $args[3]);
 
         } elseif ($args[1] === 'removeVhost') {
             if ($args[3] === '--vhost') {
@@ -112,24 +112,57 @@ class corecmd
     private function showHelp()
     {
         $this->printSign();
-        $usage = "Console:cyan [--global-options]:white command:cyan [options]:white [--command-options]:white";
+        $usage = "Console:cyan ( ||:white corecon:cyan ) [--global-options]:white command:cyan [options]:white [--command-options]:white";
+        $note = "corecon:cyan will be available if during app setup the alias was created successfully";
         $options = [
             'install' => [
                 'info' => "To install this Framework",
-                'ex' => "console:cyan install:cyan [--dev]:white",
+                'ex' => "Console:cyan install:cyan [--dev]:white",
                 'args' => "--dev",
                 'reqArgs' => false,
             ],
-            'addpage' => [
-                'info' => "To add page to App [or] Project [or] site",
-                'ex' => "console:cyan addpage:cyan [pagename]:white",
-                'args' => ["route", "pageName", "pageTitle", "argReq", "argDefault", "controller"],
-                'reqArgs' => true
+            'setupApp' => [
+                'info' => "To setup up app identified by appName (where appName is provided by the user) i.e. create htaccess, create index , create symlinks to front-end resources",
+                'ex' => "Console:cyan setupApp:cyan [appName]:white",
+                'args' => "appName",
+                'reqArgs' => true,
+            ],
+            'symResources' => [
+                'info' => "Creates symlinks of front-end bower components to app directory under specific style or scripts or fonts folders. Ex: The front-end component jquery will be available in path appName/scripts/jquery (urlpath: yourdomain.com/scripts/jquery/jquery.min.js)",
+                'ex' => "Console:cyan symResources:cyan [appName]:white",
+                'args' => "appName",
+                'reqArgs' => true,
+            ],
+            'addHosts' => [
+                'info' => "Adds an entry to the hosts file with provided parameters(Domain & ip)",
+                'ex' => "sudo:yellow Console:cyan addHosts:cyan [ip]:white [domain]:white",
+                'args' => ["domain", "ip"],
+                'reqArgs' => true,
+            ],
+            'addVhost' => [
+                'info' => "Adds a virtual host. The vhost entry is added to the httpd-vhosts.conf file if found else its added to the httpd.conf file",
+                'ex' => "sudo:yellow Console:cyan addVhost:cyan [ip]:white [domain]:white",
+                'args' => ["ip", "domain"],
+                'reqArgs' => true,
+            ],
+            'setupHost' => [
+                'info' => "Sets up local host for the app. Its a cumulative of addHosts and addVhost",
+                'ex' => "sudo:yellow Console:cyan setupHost:cyan [ip]:white [domain]:white",
+                'args' => ["ip", "domain"],
+                'reqArgs' => true,
             ]
+            //TODO: `addpage` feature to add in next iterations
+            //'addpage' => [
+            //  'info' => "To add page to App [or] Project [or] site",
+            //  'ex' => "console:cyan addpage:cyan [pagename]:white",
+            //  'args' => ["route", "pageName", "pageTitle", "argReq", "argDefault", "controller"],
+            //  'reqArgs' => true
+            //]
         ];
 
         $this::$IOStream->writeln("Usage", 'green', null, "%s:" . PHP_EOL);
         $this::$IOStream->writeColoredLn($usage);
+        $this::$IOStream->writeln($note);
         $this::$IOStream->writeln('');
         $this::$IOStream->writeln("Commands", 'green', null, "%s:" . PHP_EOL);
         foreach ($options as $key => $val) {
@@ -146,11 +179,11 @@ class corecmd
     private function printSign()
     {
         self::$IOStream->writeln(
-            '01000011 01101111 01110010 01100101  01000110 01110010 01100001 01101101 01100101 01110111 01101111 01110010 01101011 01000011 01101111 01110010 01100101',
+            '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',
             'green'
         );
         self::$IOStream->writeln(
-            '01000011 01101111 01110010 01100101  01000110 01110010 01100001 01101101 01100101 01110111 01101111 01110010 01101011 01000011 01101111 01110010 01100101',
+            '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',
             'green'
         );
         self::$IOStream->writeln(
@@ -181,11 +214,11 @@ class corecmd
             '                                                                                                                                                        '
         );
         self::$IOStream->writeln(
-            '01000011 01101111 01110010 01100101  01000110 01110010 01100001 01101101 01100101 01110111 01101111 01110010 01101011 01000011 01101111 01110010 01100101',
+            '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',
             'green'
         );
         self::$IOStream->writeln(
-            '01000011 01101111 01110010 01100101  01000110 01110010 01100001 01101101 01100101 01110111 01101111 01110010 01101011 01000011 01101111 01110010 01100101',
+            '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',
             'green'
         );
 
@@ -213,8 +246,8 @@ class corecmd
 
         self::$IOStream->writeln("Application setup successfully!", 'green');
         self::$IOStream->writeln("You can setup virtual hosts using the following command -", 'yellow');
-        self::$IOStream->writeln(
-            "sudo " . _ROOT . "src" . DS . "Core" . DS . "Scripts" . DS . "Console setupHost " . self::$appName,
+        self::$IOStream->writeColoredLn(
+            "sudo:yellow " . _ROOT . "src" . DS . "Core" . DS . "Scripts" . DS . "Console:cyan setupHost:cyan " . self::$appName . ":white",
             'green'
         );
 
@@ -346,7 +379,10 @@ class corecmd
 
         } else {
             self::$IOStream->writeln("App Directory by $appName already exists", "yellow");
-            self::$IOStream->writeln("Aborting ...", "yellow");
+            self::$IOStream->writeln("Recreating app's index.php file...", "yellow");
+            self::createIndex($appName);
+            self::$IOStream->writeln("Recreating app's .htaccess file...", "yellow");
+            self::createHtaccess($appName);
             exit;
         }
     }
@@ -379,15 +415,23 @@ class corecmd
     /**
      * @param $appName
      */
-    private function symResources($appName)
+    public static function symResources($appName)
     {
         self::$IOStream->writeln("Attempting to sym links resources from Bower -> $appName", "green");
         $appDir = _ROOT . DS . $appName . DS;
         $bowerDir = _ROOT . DS . "bower_components" . DS;
-        mkdir($appDir . "images" . DS, 0755);
-        mkdir($appDir . "scripts" . DS, 0755);
-        mkdir($appDir . "styles" . DS, 0755);
-        mkdir($appDir . "styles" . DS . "fonts" . DS, 0755);
+        if (!is_dir($appDir . "images" . DS)) {
+            mkdir($appDir . "images" . DS, 0755);
+        }
+        if (!is_dir($appDir . "scripts" . DS)) {
+            mkdir($appDir . "scripts" . DS, 0755);
+        }
+        if (!is_dir($appDir . "styles" . DS)) {
+            mkdir($appDir . "styles" . DS, 0755);
+        }
+        if (!is_dir($appDir . "styles" . DS . "fonts")) {
+            mkdir($appDir . "styles" . DS . "fonts" . DS, 0755);
+        }
 
         $dir = new \DirectoryIterator($bowerDir);
         foreach ($dir as $resource) {
@@ -398,6 +442,12 @@ class corecmd
                     is_dir($bowerDir . $packName . DS . "dist" . DS . "js") &&
                     is_dir($bowerDir . $packName . DS . "dist" . DS . "fonts")
                 ) {
+                    if (is_dir($appDir . "scripts" . DS . $packName)) {
+                        unlink($appDir . "scripts" . DS . $packName);
+                    }
+                    if (is_dir($appDir . "styles" . DS . $packName)) {
+                        unlink($appDir . "styles" . DS . $packName);
+                    }
                     symlink($bowerDir . $packName . DS . "dist" . DS . "js" . DS, $appDir . "scripts" . DS . $packName);
                     symlink($bowerDir . $packName . DS . "dist" . DS . "css" . DS, $appDir . "styles" . DS . $packName);
                     $fonts = new \DirectoryIterator($bowerDir . $packName . DS . "dist" . DS . "fonts" . DS);
@@ -438,7 +488,7 @@ class corecmd
      * @param $ip
      * @param $domain
      */
-    public static function addHostsFileEntry($ip, $domain)
+    public static function addHosts($domain, $ip)
     {
         $hostFile = self::getHostsFile();
         $hostTpl = "{ip}\tdev.{userDomain}\n";
@@ -448,7 +498,7 @@ class corecmd
         $h = fopen($hostFile, 'a');
         $return = fwrite($h, ($hostContent != "" ? "\n" . $hostNewContent : $hostNewContent));
         fclose($h);
-        if($return !== false){
+        if ($return !== false) {
             self::$IOStream->writeln("Hosts file successfully updated!", 'green');
         } else {
             self::$IOStream->writeln("Warning: could not update hosts file.", 'yellow');
@@ -493,44 +543,66 @@ class corecmd
      */
     public static function removeVhost($appName, $removeVhost = true, $removeHostEntry = true)
     {
+        $appName = strtolower($appName);
         $hostFile = self::getHostsFile();
         $httpdConfFile = self::findHttpdConf();
         if ($removeVhost === true) {
             $fileArr = file($httpdConfFile);
+            $start = 0;
+            $end = 0;
+            $startLine = "##-- Entry start for $appName --";
+            $endLine = "##-- Entry end for $appName --";
             foreach ($fileArr as $i => $line) {
-                if (strpos($line, "##-- Entry start for $appName --") === true) {
+
+                if (strpos($line, $startLine) !== false) {
                     $start = $i;
                 }
 
-                if (strpos($line, "##-- Entry end for $appName --") === true) {
+                if (strpos($line, $endLine) !== false) {
                     $end = $i;
                 }
             }
 
-            for ($i = $start; $i <= $end; $i++) {
-                unset($fileArr[$i]);
-            }
-
-            $newContents = implode("", $fileArr);
-            $h = fopen($hostFile, 'w');
-            fwrite($h, $newContents);
-            fclose($h);
-        }
-        if ($removeHostEntry === true) {
-            $fileArr = file($hostFile);
-            foreach ($fileArr as $i => $line) {
-                if (strpos($line, "dev" . $appName) === true) {
+            if ($end !== 0) {
+                for ($i = $start; $i <= $end; $i++) {
                     unset($fileArr[$i]);
                 }
+
+                $newContents = implode("", $fileArr);
+                $h = fopen($httpdConfFile, 'w');
+                fwrite($h, $newContents);
+                fclose($h);
+                self::$IOStream->writeln(
+                    "Entries for $appName have been removed from $httpdConfFile successfully",
+                    'green'
+                );
+            } else {
+                self::$IOStream->writeln("Could not find vhost entry for $appName in $httpdConfFile", 'yellow');
+            }
+        }
+        if ($removeHostEntry === true) {
+            $fa = file($hostFile);
+            $f = false;
+            $domain = "dev." . $appName;
+            foreach ($fa as $i => $line) {
+                if (strpos($line, $domain) !== false) {
+                    unset($fa[$i]);
+                    $f = true;
+                }
+            }
+            if ($f === true) {
+                $newContents = implode("", $fa);
+                $h = fopen($hostFile, 'w');
+                fwrite($h, $newContents);
+                fclose($h);
+                self::$IOStream->writeln("Entries for $appName have been removed from $hostFile successfully", 'green');
+            } else {
+                self::$IOStream->writeln("Could not fine vhost entry for $appName in $hostFile", 'yellow');
             }
 
-            $newContents = implode("", $fileArr);
-            $h = fopen($hostFile, 'w');
-            fwrite($h, $newContents);
-            fclose($h);
         }
 
-        self::$IOStream->writeln("Entries for $appName have been removed successfully", 'green');
+
     }
 
     /**
@@ -590,7 +662,7 @@ class corecmd
     public static function setupHost($domain = null, $ip = '127.0.0.1')
     {
         $docRoot = _ROOT . DS . $domain . DS;
-        if(empty($domain)){
+        if (empty($domain)) {
             $domain = self::$appName;
         }
         $resp = self::$IOStream->ask(
@@ -644,7 +716,7 @@ class corecmd
         self::addVhost($domain, $ip);
 
         //Adding hosts entry
-        self::addHostsFileEntry($ip, $domain);
+        self::addHosts($domain, $ip);
 
     }
 
@@ -658,7 +730,7 @@ class corecmd
         $docRoot = _ROOT . DS . $domain;
         $logsPath = _ROOT . DS . 'logs' . DS;
         $errLog = $logsPath . "error_log";
-        $accessLog = $logsPath . "error_log";
+        $accessLog = $logsPath . "access_log";
         if (!is_dir($logsPath)) {
             mkdir($logsPath);
             touch($errLog);
