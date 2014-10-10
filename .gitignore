@@ -11,7 +11,8 @@ config/
 index.php
 .DS_Store
 cache/*
-demoapp/styles/bootstrap
+demoapp/styles/*
+!demoapp/styles/*.*
 demoapp/styles/fonts/glyphicons*.*
 demoapp/scripts/jquery
 demoapp/scripts/bootstrap

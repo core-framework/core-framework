@@ -60,6 +60,7 @@ class corecmd
      */
     public function __construct($args, $count)
     {
+        error_reporting(E_ERROR);
         unset($args[0]);
         $shortopts = "dh";
         $longopts = ["dev", "help"];
@@ -231,14 +232,13 @@ class corecmd
      */
     public static function install($dev = false)
     {
-        //error_reporting(E_ERROR | E_PARSE);
         self::printSign();
         self::$dev = $dev;
         $devTxt = $dev ? 'dev' : 'normal';
         self::$IOStream->writeln("Installing Core in " . $devTxt . " mode ...", 'green');
         self::createAlias();
         self::createConf();
-
+        self::symResources('demoapp');
         $resp = self::$IOStream->ask("Do you want to setup your app now", 'yes', ['yes', 'no']);
         if ($resp == 'yes') {
             self::setupApp();
@@ -330,6 +330,116 @@ class corecmd
     }
 
     /**
+     * @param $appName
+     */
+    public static function symResources($appName)
+    {
+        self::$IOStream->writeln("Attempting to sym links resources from Bower -> $appName", "green");
+        $appDir = _ROOT . DS . $appName . DS;
+        $bowerDir = _ROOT . DS . "bower_components" . DS;
+        if (!is_dir($appDir . "images" . DS)) {
+            mkdir($appDir . "images" . DS, 0755);
+        }
+        if (!is_dir($appDir . "scripts" . DS)) {
+            mkdir($appDir . "scripts" . DS, 0755);
+        }
+        if (!is_dir($appDir . "styles" . DS)) {
+            mkdir($appDir . "styles" . DS, 0755);
+        }
+        if (!is_dir($appDir . "styles" . DS . "fonts")) {
+            mkdir($appDir . "styles" . DS . "fonts" . DS, 0755);
+        }
+
+        $dir = new \DirectoryIterator($bowerDir);
+        foreach ($dir as $resource) {
+            $packName = $resource->getFilename();
+            if ($resource->isDir() && !$resource->isDot()) {
+
+                $appStyles = $appDir . "styles" . DS . $packName;
+                $appScripts = $appDir . "scripts" . DS . $packName;
+
+                if (is_dir($bowerDir . $packName . DS . "dist") &&
+                    is_dir($bowerDir . $packName . DS . "dist" . DS . "css") &&
+                    is_dir($bowerDir . $packName . DS . "dist" . DS . "js") &&
+                    is_dir($bowerDir . $packName . DS . "dist" . DS . "fonts")
+                ) {
+
+                    if (is_dir($appScripts)) {
+                        rmdir($appScripts);
+                    } elseif (is_file($appScripts) || is_readable($appScripts)) {
+                        unlink($appScripts);
+                    }
+                    if (is_dir($appStyles)) {
+                        rmdir($appStyles);
+                    } elseif (is_file($appStyles) || is_readable($appStyles)) {
+                        unlink($appStyles);
+                    }
+
+                    $return = symlink($bowerDir . $packName . DS . "dist" . DS . "js" . DS, $appScripts);
+                    $return2 = symlink($bowerDir . $packName . DS . "dist" . DS . "css" . DS, $appStyles);
+
+                    if ($return === true) {
+                        self::$IOStream->writeln("Symlink created for $appScripts ..", 'green');
+                    } elseif ($return2 === true) {
+                        self::$IOStream->writeln("Symlink created for $appStyles ..", 'green');
+                    } elseif ($return === false) {
+                        self::$IOStream->writeln("Unable to create Symlink for $appScripts ..", 'yellow');
+                    } elseif ($return2 === false) {
+                        self::$IOStream->writeln("Unable to create Symlink for $appStyles ..", 'yellow');
+                    }
+
+                    $fonts = new \DirectoryIterator($bowerDir . $packName . DS . "dist" . DS . "fonts" . DS);
+                    foreach ($fonts as $font) {
+                        if (!$font->isDir()) {
+                            $fontFilename = $font->getFilename();
+                            $fontFile = $appDir . "styles" . DS . "fonts" . DS . $fontFilename;
+                            $return = symlink(
+                                $bowerDir . $packName . DS . "dist" . DS . "font" . DS . $fontFilename,
+                                $fontFile
+                            );
+
+                            if ($return === true) {
+                                self::$IOStream->writeln("Symlink created for $fontFile ..", 'green');
+                            } else {
+                                self::$IOStream->writeln("Unable to create Symlink for $fontFile ..", 'yellow');
+                            }
+                        }
+                    }
+
+                } elseif (is_dir($bowerDir . $packName . DS . "dist") && !(is_dir(
+                            $bowerDir . $packName . DS . "dist" . DS . "css"
+                        ) && !is_dir($bowerDir . $packName . DS . "dist" . DS . "js"))
+                ) {
+                    $distDir = $bowerDir . $packName . DS . "dist" . DS;
+                    $file = new \DirectoryIterator($distDir);
+                    foreach ($file as $res) {
+                        if (!$res->isDot() && !$res->isDir()) {
+                            $fileExt = $res->getFileInfo()->getExtension();
+                            $return = false;
+                            $path = '';
+                            if ($fileExt === 'js') {
+                                $return = symlink($bowerDir . $packName . DS . "dist" . DS, $appScripts);
+                                $path = 'appScripts';
+                            } elseif ($fileExt === 'css') {
+                                $return = symlink($bowerDir . $packName . DS . "dist" . DS, $appStyles);
+                                $path = 'appStyles';
+                            }
+
+                            if ($return === true) {
+                                self::$IOStream->writeln("Symlink created for ". $$path ."..", 'green');
+                            } else {
+                                self::$IOStream->writeln("Unable to create Symlink for ".$$path." ..", 'yellow');
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    /**
      * @throws \Exception
      */
     public static function setupApp()
@@ -377,6 +487,8 @@ class corecmd
             self::createHtaccess($appName);
             self::symResources($appName);
 
+            //self::
+
         } else {
             self::$IOStream->writeln("App Directory by $appName already exists", "yellow");
             self::$IOStream->writeln("Recreating app's index.php file...", "yellow");
@@ -389,6 +501,7 @@ class corecmd
 
     /**
      * @param $appName
+     * @return bool
      */
     private function createIndex($appName)
     {
@@ -399,9 +512,20 @@ class corecmd
         $newContents = preg_replace('/\{appName\}/', $appName, $contents);
         touch($newIndex);
         //chmod($newIndex, 0755);
-        file_put_contents($newIndex, $newContents);
+        $return = file_put_contents($newIndex, $newContents);
+        if ($return !== false) {
+            self::$IOStream->writeln("Index file created successfully!", 'green');
+            return true;
+        } else {
+            self::$IOStream->showErr("Failed to create .htaccess file!!");
+            return false;
+        }
     }
 
+    /**
+     * @param $appName
+     * @return bool
+     */
     private function createHtaccess($appName)
     {
         $htaccess = __DIR__ . DS . "pak" . DS . ".htaccess.pak";
@@ -409,79 +533,15 @@ class corecmd
         $newHtaccess = $appDir . ".htaccess";
         $htaccessContents = file_get_contents($htaccess);
         touch($newHtaccess);
-        file_put_contents($newHtaccess, $htaccessContents);
-    }
+        $return = file_put_contents($newHtaccess, $htaccessContents);
 
-    /**
-     * @param $appName
-     */
-    public static function symResources($appName)
-    {
-        self::$IOStream->writeln("Attempting to sym links resources from Bower -> $appName", "green");
-        $appDir = _ROOT . DS . $appName . DS;
-        $bowerDir = _ROOT . DS . "bower_components" . DS;
-        if (!is_dir($appDir . "images" . DS)) {
-            mkdir($appDir . "images" . DS, 0755);
+        if ($return !== false) {
+            self::$IOStream->writeln(".htaccess file created successfully!", 'green');
+            return true;
+        } else {
+            self::$IOStream->showErr("Failed to create .htaccess file!!");
+            return false;
         }
-        if (!is_dir($appDir . "scripts" . DS)) {
-            mkdir($appDir . "scripts" . DS, 0755);
-        }
-        if (!is_dir($appDir . "styles" . DS)) {
-            mkdir($appDir . "styles" . DS, 0755);
-        }
-        if (!is_dir($appDir . "styles" . DS . "fonts")) {
-            mkdir($appDir . "styles" . DS . "fonts" . DS, 0755);
-        }
-
-        $dir = new \DirectoryIterator($bowerDir);
-        foreach ($dir as $resource) {
-            $packName = $resource->getFilename();
-            if ($resource->isDir() && !$resource->isDot()) {
-                if (is_dir($bowerDir . $packName . DS . "dist") &&
-                    is_dir($bowerDir . $packName . DS . "dist" . DS . "css") &&
-                    is_dir($bowerDir . $packName . DS . "dist" . DS . "js") &&
-                    is_dir($bowerDir . $packName . DS . "dist" . DS . "fonts")
-                ) {
-                    if (is_dir($appDir . "scripts" . DS . $packName)) {
-                        unlink($appDir . "scripts" . DS . $packName);
-                    }
-                    if (is_dir($appDir . "styles" . DS . $packName)) {
-                        unlink($appDir . "styles" . DS . $packName);
-                    }
-                    symlink($bowerDir . $packName . DS . "dist" . DS . "js" . DS, $appDir . "scripts" . DS . $packName);
-                    symlink($bowerDir . $packName . DS . "dist" . DS . "css" . DS, $appDir . "styles" . DS . $packName);
-                    $fonts = new \DirectoryIterator($bowerDir . $packName . DS . "dist" . DS . "fonts" . DS);
-                    foreach ($fonts as $font) {
-                        if (!$font->isDir()) {
-                            //$fontPath = $font->getPath();
-                            $fontFilename = $font->getFilename();
-                            symlink(
-                                $bowerDir . $packName . DS . "dist" . DS . "font" . DS . $fontFilename,
-                                $appDir . "styles" . DS . "fonts" . DS . $fontFilename
-                            );
-                        }
-                    }
-
-                } elseif (is_dir($bowerDir . $packName . DS . "dist") && !(is_dir(
-                            $bowerDir . $packName . DS . "dist" . DS . "css"
-                        ) && is_dir($bowerDir . $packName . DS . "dist" . DS . "js"))
-                ) {
-                    $distDir = $bowerDir . $packName . DS . "dist" . DS;
-                    $file = new \DirectoryIterator($distDir);
-                    foreach ($file as $res) {
-                        if (!$res->isDot() && !$res->isDir()) {
-                            $fileExt = $res->getFileInfo()->getExtension();
-                            if ($fileExt === 'js') {
-                                symlink($bowerDir . $packName . DS . "dist" . DS, $appDir . "scripts" . DS . $packName);
-                            } elseif ($fileExt === 'css') {
-                                symlink($bowerDir . $packName . DS . "dist" . DS, $appDir . "styles" . DS . $packName);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
     }
 
     /**
