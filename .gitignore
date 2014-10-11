@@ -10,11 +10,14 @@ src/Core/smarty_cache
 config/
 index.php
 .DS_Store
+*/.DS_Store
 cache/*
-demoapp/styles/*
+demoapp/styles
+demoapp/.DS_Store
 !demoapp/styles/*.*
 demoapp/styles/fonts/glyphicons*.*
 demoapp/scripts/jquery
 demoapp/scripts/bootstrap
 demoapp/scripts/angular
 demoapp/scripts/angular-route
+demoapp/index.php

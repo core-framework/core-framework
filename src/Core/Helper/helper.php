@@ -31,22 +31,28 @@ class helper
         }
     }
 
-    public static function copyr($source, $dest)
+    public static function copyr($source, $dest, $override = false)
     {
         $dir = opendir($source);
-        @mkdir($dest);
-        if(is_resource($dir)){
+        if (!is_dir($dest)) {
+            mkdir($dest);
+        } else {
+            chmod($dest, 0755);
+        }
+        if (is_resource($dir)) {
             while (false !== ($file = readdir($dir))) {
                 if (($file != '.') && ($file != '..')) {
-                    if (is_dir($source . '/' . $file)) {
-                        self::copyr($source . '/' . $file, $dest . '/' . $file);
-                    } else {
-                        copy($source . '/' . $file, $dest . '/' . $file);
+                    if (is_dir($source . DS . $file)) {
+                        self::copyr($source . DS . $file, $dest . DS . $file);
+                    } elseif (is_readable($dest . DS . $file) && $override === true) {
+                        copy($source . DS . $file, $dest . DS . $file);
+                    } elseif (!is_readable($dest . DS . $file)) {
+                        copy($source . DS . $file, $dest . DS . $file);
                     }
                 }
             }
-        }else{
-            throw new \Exception("readdir() expects parameter 1 to be resource",10);
+        } else {
+            throw new \Exception("readdir() expects parameter 1 to be resource", 10);
         }
         closedir($dir);
     }

@@ -114,7 +114,7 @@ class corecmd
     {
         $this->printSign();
         $usage = "Console:cyan ( ||:white corecon:cyan ) [--global-options]:white command:cyan [options]:white [--command-options]:white";
-        $note = "corecon:cyan will be available if during app setup the alias was created successfully";
+        $note = "corecon will be available if during app setup the alias was created successfully";
         $options = [
             'install' => [
                 'info' => "To install this Framework",
@@ -163,7 +163,7 @@ class corecmd
 
         $this::$IOStream->writeln("Usage", 'green', null, "%s:" . PHP_EOL);
         $this::$IOStream->writeColoredLn($usage);
-        $this::$IOStream->writeln($note);
+        $this::$IOStream->writeln($note, "green");
         $this::$IOStream->writeln('');
         $this::$IOStream->writeln("Commands", 'green', null, "%s:" . PHP_EOL);
         foreach ($options as $key => $val) {
@@ -237,7 +237,6 @@ class corecmd
         $devTxt = $dev ? 'dev' : 'normal';
         self::$IOStream->writeln("Installing Core in " . $devTxt . " mode ...", 'green');
         self::createAlias();
-        self::createConf();
         self::symResources('demoapp');
         $resp = self::$IOStream->ask("Do you want to setup your app now", 'yes', ['yes', 'no']);
         if ($resp == 'yes') {
@@ -278,62 +277,26 @@ class corecmd
     }
 
     /**
-     * @throws \Exception
-     */
-    private function createConf()
-    {
-        $confSource = __DIR__ . DS . "pak" . DS . "config.pak";
-        $confDest = _ROOT . DS . "config";
-        $confFile = $confDest . DS . "global.conf.php";
-
-        if (!is_readable($confFile)) {
-            $accumilate['pdoDriver'] = self::$IOStream->askAndvalidate(
-                "Enter PDO Driver to use : ",
-                function ($input) {
-                    if (in_array($input, self::$pdoDrivers)) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                },
-                "of type " . helper::serialize(self::$pdoDrivers),
-                'mysql'
-            );
-
-            $accumilate['host'] = self::$IOStream->ask('Enter host ip', '127.0.0.1');
-            $accumilate['db'] = self::$IOStream->ask('Enter database name', 'coredb');
-            $accumilate['user'] = self::$IOStream->ask('Enter database user', 'root');
-            $accumilate['pass'] = self::$IOStream->ask('Enter database password', null);
-            self::$IOStream->writeln("Creating conf file...");
-
-            mkdir($confDest, 0755, true);
-            helper::copyr($confSource, $confDest);
-            helper::chmodDirFiles($confDest, 0644);
-
-            $conf = require_once $confFile;
-
-            foreach ($conf as $key => $val) {
-                $conf[$key] = $accumilate[$key];
-            }
-
-            $check = file_put_contents($confFile, '<?php return ' . var_export($conf, true) . ";\n");
-
-            if ($check) {
-                self::$IOStream->writeln("Conf file Created Successfully");
-            } else {
-                self::$IOStream->showErr("Error writing configuration file - " . $confFile);
-            }
-        } else {
-            self::$IOStream->writeln("Conf file exists! Continuing setup..");
-        }
-
-    }
-
-    /**
      * @param $appName
      */
     public static function symResources($appName)
     {
+        self::$appName = $appName;
+        if (empty($appName)) {
+            $callback = (function ($input) {
+                $appPath = _ROOT . DS . $input;
+                if (is_dir($appPath)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            self::$appName = $appName = self::$IOStream->askAndValidate(
+                "Please enter the appName of the application to create symlinks for ",
+                $callback,
+                "Must be an existing appName"
+            );
+        }
         self::$IOStream->writeln("Attempting to sym links resources from Bower -> $appName", "green");
         $appDir = _ROOT . DS . $appName . DS;
         $bowerDir = _ROOT . DS . "bower_components" . DS;
@@ -426,9 +389,9 @@ class corecmd
                             }
 
                             if ($return === true) {
-                                self::$IOStream->writeln("Symlink created for ". $$path ."..", 'green');
+                                self::$IOStream->writeln("Symlink created for " . $$path . "..", 'green');
                             } else {
-                                self::$IOStream->writeln("Unable to create Symlink for ".$$path." ..", 'yellow');
+                                self::$IOStream->writeln("Unable to create Symlink for " . $$path . " ..", 'yellow');
                             }
 
                         }
@@ -483,6 +446,7 @@ class corecmd
                 $appDir . DS . "Templates" . DS . "root"
             );
 
+            self::createConf();
             self::createIndex($appName);
             self::createHtaccess($appName);
             self::symResources($appName);
@@ -500,6 +464,62 @@ class corecmd
     }
 
     /**
+     * @throws \Exception
+     */
+    public static function createConf()
+    {
+        $confSource = __DIR__ . DS . "pak" . DS . "config.pak";
+        $confDest = _ROOT . DS . "config";
+        $confFile = $confDest . DS . "global.conf.php";
+        $routesConf = $confDest . DS . "routes.conf.php";
+
+        if (!is_readable($confFile) || !is_readable($routesConf)) {
+            $accumilate['pdoDriver'] = self::$IOStream->askAndvalidate(
+                "Enter PDO Driver to use : ",
+                function ($input) {
+                    if (in_array($input, self::$pdoDrivers)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                "of type " . helper::serialize(self::$pdoDrivers),
+                'mysql'
+            );
+
+            $accumilate['host'] = self::$IOStream->ask('Enter host ip', '127.0.0.1');
+            $accumilate['db'] = self::$IOStream->ask('Enter database name', 'coredb');
+            $accumilate['user'] = self::$IOStream->ask('Enter database user', 'root');
+            $accumilate['pass'] = self::$IOStream->ask('Enter database password', null);
+            self::$IOStream->writeln("Creating conf file...");
+
+            if (!is_dir($confDest)) {
+                mkdir($confDest, 0755, true);
+            }
+
+            helper::copyr($confSource, $confDest);
+            helper::chmodDirFiles($confDest, 0644);
+
+            $conf = require_once $confFile;
+
+            foreach ($conf as $key => $val) {
+                $conf[$key] = $accumilate[$key];
+            }
+
+            $check = file_put_contents($confFile, '<?php return ' . var_export($conf, true) . ";\n");
+
+            if ($check) {
+                self::$IOStream->writeln("Conf file Created Successfully");
+            } else {
+                self::$IOStream->showErr("Error writing configuration file - " . $confFile);
+            }
+        } else {
+            self::$IOStream->writeln("Conf file exists! Continuing setup..");
+        }
+
+    }
+
+    /**
      * @param $appName
      * @return bool
      */
@@ -510,8 +530,10 @@ class corecmd
         $newIndex = $appDir . "index.php";
         $contents = file_get_contents($index);
         $newContents = preg_replace('/\{appName\}/', $appName, $contents);
+        if (is_readable($newIndex)) {
+            unlink($newIndex);
+        }
         touch($newIndex);
-        //chmod($newIndex, 0755);
         $return = file_put_contents($newIndex, $newContents);
         if ($return !== false) {
             self::$IOStream->writeln("Index file created successfully!", 'green');
@@ -532,6 +554,9 @@ class corecmd
         $appDir = _ROOT . DS . $appName . DS;
         $newHtaccess = $appDir . ".htaccess";
         $htaccessContents = file_get_contents($htaccess);
+        if (is_readable($newHtaccess)) {
+            unlink($newHtaccess);
+        }
         touch($newHtaccess);
         $return = file_put_contents($newHtaccess, $htaccessContents);
 
@@ -765,12 +790,6 @@ class corecmd
                 $ip = $resp2;
             }
         }
-
-//        if (!isset($domain) && !isset(self::$appName)) {
-//            $domain = self::$appName = self::$IOStream->ask("Please enter app name ", 'green');
-//        } elseif (isset(self::$appName) && !isset($domain)) {
-//            $domain = self::$appName;
-//        }
 
         //Adding vhost
         self::addVhost($domain, $ip);
