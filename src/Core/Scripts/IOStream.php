@@ -11,13 +11,33 @@
 namespace Core\Scripts;
 
 
+/**
+ * @author Shalom Sam <shalom.s@coreframework.in>
+ * Class IOStream
+ * @package Core\Scripts
+ */
 class IOStream extends cmdcolors
 {
+    /**
+     * @var resource
+     */
     protected $input;
+    /**
+     * @var resource
+     */
     protected $output;
+    /**
+     * @var resource
+     */
     protected $error;
+    /**
+     * @var
+     */
     private $repeat;
 
+    /**
+     * Constructor for IOStream
+     */
     public function __construct()
     {
         parent::__construct();
@@ -26,6 +46,9 @@ class IOStream extends cmdcolors
         $this->error = fopen('php://stderr', 'w');
     }
 
+    /**
+     * Destructor for IOStream
+     */
     public function __destruct()
     {
         fclose($this->input);
@@ -33,6 +56,16 @@ class IOStream extends cmdcolors
         fclose($this->error);
     }
 
+    /**
+     * Takes msg as a parameter and validates and returns the input. Returns false if input is not valid
+     *
+     * @param $msg - The question or message
+     * @param $callback - anonymous function to validate input. It should returns true if valid or false if not valid
+     * @param $format - To prompt the user of the valid format.
+     * @param null $default - default accepted value. if set and input is null then this value will be returned (qn or msg will not be repeated in this case)
+     * @param int $repeat - The no. of times to ask the again, if input is invalid, before throwing an error
+     * @return mixed - returns the input
+     */
     public function askAndValidate($msg, $callback, $format, $default = null, $repeat = 2)
     {
         for ($i = $repeat; $i >= 0; $i--) {
@@ -58,6 +91,14 @@ class IOStream extends cmdcolors
         }
     }
 
+    /**
+     * Outputs the given message and returns the value. If options ($opt) are set then its will return false if input value does not match one of the given options. Typically used for simple yes | no questions
+     *
+     * @param $msg - The message to output or question to ask
+     * @param null $default - The default value to return if input is null
+     * @param null $opt - The set of input options (input must match one of the options)
+     * @return bool|string - returns the input value
+     */
     public function ask($msg, $default = null, $opt = null)
     {
         $coloredMsg = $this->getColoredString($msg, 'green');
@@ -85,12 +126,25 @@ class IOStream extends cmdcolors
         }
     }
 
+    /**
+     * Prints error message with specific formatting
+     *
+     * @param $msg - error message to display
+     */
     public function showErr($msg)
     {
         $coloredMsg = $this->getColoredString($msg, 'white', 'red');
         fprintf($this->output, PHP_EOL."%20.40s".PHP_EOL, $coloredMsg);
     }
 
+    /**
+     * Outputs a single line
+     *
+     * @param $msg - message to output
+     * @param null $foreColor - the text color
+     * @param null $backColor - the background color
+     * @param null $format - text output format
+     */
     public function writeln($msg, $foreColor = null, $backColor = null, $format = null)
     {
         $coloredMsg = $msg;
@@ -106,6 +160,13 @@ class IOStream extends cmdcolors
         }
     }
 
+    /**
+     * For multiple choice based questions or messages
+     *
+     * @param $introMsg - the question or message to output
+     * @param array $list - the list of choices to display
+     * @param null $repeat - the no. of times to repeat the question
+     */
     public function choice($introMsg, array $list, $repeat = null)
     {
         $opt = [];
@@ -130,6 +191,12 @@ class IOStream extends cmdcolors
 
     }
 
+    /**
+     * To output a multi-colored line. Each string to be colored must be a separate word (spaced string) and the color is determined buy the color specified by :color after string. Ex: 'some:green random:yellow string:red'
+     *
+     * @param $line - the message (with color specification) to output
+     * @param null $format - the output format
+     */
     public function writeColoredLn($line, $format = null)
     {
         $decoratedLine = "";

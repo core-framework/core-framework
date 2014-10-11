@@ -1,18 +1,28 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: shalom.s
- * Date: 04/10/14
- * Time: 5:01 PM
+ * This file is part of the Core Framework package.
+ *
+ * (c) Shalom Sam <shalom.s@coreframework.in>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Core\CacheSystem;
 
 
+/**
+ * @author Shalom Sam <shalom.s@coreframework.in>
+ * Class cache
+ * @package Core\CacheSystem
+ */
 class cache
 {
     protected $cacheDir = "";
 
+    /**
+     * Cache Constructor
+     */
     public function __contruct(){
         $this->cacheDir = _ROOT . DS . "src" . DS . "Core" . DS . "cache" . DS;
         if(!is_dir($this->cacheDir)){
@@ -22,6 +32,12 @@ class cache
         }
     }
 
+    /**
+     * Caches the given content
+     *
+     * @param array $payload - An array of the content to cache
+     * @param $key - Hash string to identify cached vars
+     */
     public function cacheContent(array $payload, $key)
     {
         $file = $this->cacheDir . $key . ".php";
@@ -30,6 +46,12 @@ class cache
         file_put_contents($file, '<?php return ' . var_export($payload, true) . ";\n");
     }
 
+    /**
+     * Checks if the cache with given $key exists
+     *
+     * @param $key - Hash string to identify cached vars
+     * @return bool|mixed
+     */
     public function getCache($key){
         if(is_file($this->cacheDir . $key . ".php")){
             $cache = include_once $this->cacheDir . $key . ".php";

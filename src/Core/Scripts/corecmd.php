@@ -14,6 +14,7 @@ use Core\CacheSystem\cache;
 use Core\Helper\helper;
 
 /**
+ * @author Shalom Sam <shalom.s@coreframework.in>
  * Class corecmd
  * @package Core\Scripts
  */
@@ -55,6 +56,8 @@ class corecmd
     private $cache;
 
     /**
+     * corecmd Constructor
+     *
      * @param $args
      * @param $count
      */
@@ -108,7 +111,7 @@ class corecmd
     }
 
     /**
-     *
+     * Prints the help section
      */
     private function showHelp()
     {
@@ -175,7 +178,7 @@ class corecmd
     }
 
     /**
-     *
+     * Prints core framework signature
      */
     private function printSign()
     {
@@ -228,6 +231,8 @@ class corecmd
     }
 
     /**
+     * Runs commands to install the coreFramework for use by your web app
+     *
      * @param bool $dev
      */
     public static function install($dev = false)
@@ -265,7 +270,7 @@ class corecmd
     }
 
     /**
-     *
+     * creates an alias for access to the Console cli script/commands
      */
     private function createAlias()
     {
@@ -277,6 +282,8 @@ class corecmd
     }
 
     /**
+     * Creates symlinks for front-end resources
+     *
      * @param $appName
      */
     public static function symResources($appName)
@@ -403,6 +410,8 @@ class corecmd
     }
 
     /**
+     * Creates Conf files, index file, htaccess, and sumlinks to front-end resources
+     *
      * @throws \Exception
      */
     public static function setupApp()
@@ -464,6 +473,8 @@ class corecmd
     }
 
     /**
+     * Creates Conf files
+     *
      * @throws \Exception
      */
     public static function createConf()
@@ -520,6 +531,8 @@ class corecmd
     }
 
     /**
+     * Creates app Index file
+     *
      * @param $appName
      * @return bool
      */
@@ -545,6 +558,8 @@ class corecmd
     }
 
     /**
+     * Creates the .htaccess file for the app
+     *
      * @param $appName
      * @return bool
      */
@@ -570,6 +585,8 @@ class corecmd
     }
 
     /**
+     * Adds an entry to hosts files for the app
+     *
      * @param $ip
      * @param $domain
      */
@@ -591,7 +608,9 @@ class corecmd
     }
 
     /**
-     * @return bool|string
+     * Gets the host file location.
+     *
+     * @return string
      */
     private function getHostsFile()
     {
@@ -621,6 +640,8 @@ class corecmd
     }
 
     /**
+     * Removes (previously added) virtual host entry from vhost.conf/httpd.conf file
+     *
      * @param $appName
      * @param bool $removeVhost
      * @param bool $removeHostEntry
@@ -691,6 +712,8 @@ class corecmd
     }
 
     /**
+     * Finds the coorect file to add virtual host to.
+     *
      * @return bool|string
      */
     private function findHttpdConf()
@@ -723,6 +746,13 @@ class corecmd
         }
     }
 
+
+    /**
+     * Given the httpd.conf file, gets the httpd-vhosts.conf file path
+     *
+     * @param $httpdConf
+     * @return bool|string
+     */
     private function getVhostPath($httpdConf)
     {
         $arr = file($httpdConf);
@@ -741,6 +771,8 @@ class corecmd
     }
 
     /**
+     * setup virtual host for app (includes updating hosts and httpd.conf || httpd-vhosts.conf file )
+     *
      * @param null $domain
      * @param string $ip
      */
@@ -800,6 +832,8 @@ class corecmd
     }
 
     /**
+     * Add virtual host entery to httpd-vhosts.conf if found else httpd.conf
+     *
      * @param $domain
      * @param $ip
      */
