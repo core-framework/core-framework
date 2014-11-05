@@ -1,24 +1,60 @@
 html, body {
     height: 100%;
 }
-
+ol {
+    padding: 0;
+}
 body {
     padding: 52px 0px 0px;
 }
-
+p, body p {
+    font-size: 15px;
+}
+body.api p{
+    font-size: inherit;
+}
 .mainWrp {
     min-height: 100%;
     position: relative;
     padding-bottom: 40px;
 }
+.logo {
+    opacity: 0;
+}
 .navbar-brand {
-    font-size: 30px;
+    background: url('/images/CoreFramework-white-Logo.png') no-repeat scroll 0 0 transparent;
+    background-size: cover;
+    text-indent: -999999px;
+    padding: 25px 158px;
 }
 .navbar-brand .small{
     font-size: 10px;
 }
 .navbar .nav {
     float: right;
+}
+.documentation .navbar-inverse .navbar-nav li.documentation a,
+.tutorials .navbar-inverse .navbar-nav li.tutorials a,
+.about .navbar-inverse .navbar-nav li.about a,
+.get-started .navbar-inverse .navbar-nav li.get-started a
+{
+    color: white;
+}
+.documentation .navbar-inverse .navbar-nav li.documentation,
+.tutorials .navbar-inverse .navbar-nav li.tutorials,
+.about .navbar-inverse .navbar-nav li.about,
+.get-started .navbar-inverse .navbar-nav li.get-started
+{
+    background: #000;
+}
+.navbar-inverse .navbar-nav .dropdown .dropdown-menu li a {
+    color: inherit !important;
+}
+.navbar-inverse .navbar-nav .dropdown .dropdown-menu li a:hover {
+    color: inherit !important;
+}
+.navbar-nav .dropdown:hover .dropdown-menu {
+    display: block;
 }
 .hero-unit {
     padding: 33px 60px;
@@ -33,29 +69,53 @@ body {
     background: white;
     color: #27ae60;
 }
-
 .footerWrp {
     position: absolute;
     bottom: 0px;
     width: 100%;
 }
-
 .footerWrp footer {
     margin: 0px auto;
 }
-
 .productInfo .odd{
     margin: 0px 30px;
 }
-
 .navbar-inverse .navbar-brand{
     color: white;
 }
-
-.home .nav.navbar-nav li.about a{
-    color: white;
+.hero-unit h1 {
+    margin-bottom: 0;
+}
+.hero-unit p.introPara, .hero-unit p.whatNextTitle, .hero-unit p.whatNextOptions {
+    font-size: 18px;
+}
+.hero-unit p.whatNextTitle {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+.hero-unit p.whatNextOptions a {
+    text-decoration: underline;
+}
+.permalink {
+    font-size: 12px;
+    color: #e1e1e1;
+    vertical-align: super;
+}
+h1:hover .permalink, h2:hover .permalink, h3:hover .permalink, h4:hover .permalink, h5:hover .permalink, h6:hover .permalink {
+    color: #4169e1;
+}
+.customServeWrp {
+    padding: 51px 0 0;
 }
 
+.api .footerWrp {
+    border-top: 1px solid #ccc;
+    background: #ffffff;
+}
+
+.api #navigation {
+    height: 36px;
+}
 
 @media (min-width: 768px){
 

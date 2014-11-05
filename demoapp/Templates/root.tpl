@@ -10,13 +10,19 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Documentation for Core Framework">
+        <{if isset($metaKeywords)}>
+            <meta name="keywords" content="<{$metaKeywords}>">
+        <{/if}>
+        <{if isset($metaDescription)}>
+            <meta name="description" content="<{$metaDescription}>">
+        <{/if}>
         <meta name="author" content="Shalom Sam">
     <{/block}>
     <!-- END: Metas -->
     <!-- Styles -->
     <{block name="styles"}>
         <link href="/styles/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet" />
+        <link href="/styles/prettify.css" type="text/css" rel="stylesheet" />
     <{/block}>
     <!-- END: Styles -->
     <{block name="IECondn"}>
@@ -48,8 +54,14 @@
 
     <!-- Scripts -->
     <{block name="scripts"}>
+        <script type="text/javascript" src="/scripts/prettify.js"></script>
         <script type="text/javascript" src="/scripts/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="/scripts/bootstrap/bootstrap.js"></script>
+        <script type="text/javascript">
+            $(document).ready( function() {
+                prettyPrint();
+            });
+        </script>
     <{/block}>
     <!-- END: Scripts -->
 

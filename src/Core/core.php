@@ -14,9 +14,9 @@ use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
 /**
- * @author Shalom Sam <shalom.s@coreframework.in>
  * Class core
  * @package Core
+ * @author Shalom Sam <shalom.s@coreframework.in>
  */
 class core
 {
@@ -26,6 +26,8 @@ class core
     public $path;
     public $forceApc = false;
     private $templateDir;
+    private $defaultTpl = "root.tpl";
+    private $defaultController;
     private $route;
     private $controller;
     private $modelName;
@@ -55,7 +57,7 @@ class core
     private $imagesDir;
     private $resourcesDir;
     private $hasAPC;
-    private $confFile;
+    private $globalConf;
     private $cacheTtl = 900; //15m
 
     /**
@@ -67,7 +69,7 @@ class core
 
         $this->controllerDir[0] = DS . "src" . DS . "Core" . DS . "Controllers" . DS;
         $this->modelDir[0] = DS . "src" . DS . "Core" . DS . "Models" . DS;
-        $this->confFile = DS . "config" . DS . "config.php";
+        $globalConf = DS . "config" . DS . "global.conf.php";
 
         $apcisloaded = extension_loaded("apc");
         $apcisEnabled = ini_get('apc.enabled');
@@ -77,6 +79,7 @@ class core
         $this->path = $req->getPath();
         $this->route = new Routes\routes($req);
         $this->view = new Views\view();
+        $this->globalConf = require_once _ROOT . $globalConf;
 
         spl_autoload_register([$this, 'autoloadController']);
         spl_autoload_register([$this, 'autoloadModel']);
@@ -153,11 +156,13 @@ class core
         $this->postVars = $this->route->getPostVars();
         $this->cookies = $this->route->getCookies();
         $isFEComponent = $this->route->getIsFEComponent();
+        $isCustomServe = $this->route->getIsCustomServe();
         $isRootFile = $this->route->getIsRootFile();
         $controller = $this->route->getController();
         $definedMethod = $this->route->getDefinedMethod();
         $reqstMethod = $this->route->getReqstMethod();
         $this->modelName = $this->route->getModel();
+        $this->view->setDebugMode($this->devMode);
 
         //var_dump($controller);
 
@@ -168,72 +173,42 @@ class core
         }
 
         if ($isRootFile) {
-            $this->handleFEComponents(true);
-
-        } elseif ($isFEComponent) {
-            $this->handleFEComponents();
-
-        } else {
-            $this->view->debugMode($this->devMode);
-            $controller = $this->route->getController();
-            $namespace = $this->route->getNamespace();
-            $namespace = empty($namespace) ? 'Controllers' : $namespace;
-            $method = $this->route->getMethod();
-            $method = empty($method) ? 'indexAction' : $method;
-            $model = $this->modelName;
-            $model = !empty($model) ? $model : null;
-            $modelDir = $this->modelDir;
-            $args = $this->route->getArgs();
-            $args = !empty($args) ? $args : null;
-            $required = $this->route->getRequired();
-            $pageParams = $this->route->getRouteVars();
-            $view = $this->view;
-
-            $class = $namespace . "\\" . $controller;
-
-
-            if (class_exists($class)) {
-                $this->controller = new $class($controller, $method, $pageParams, $view, $this->postVars, $this->getVars, $modelDir, $model, $args, $required);
-                if (method_exists($this->controller, $method) && $args != null) {
-                    $this->templateInfo = $this->controller->$method($args);
-                } else {
-                    $this->templateInfo = $this->controller->$method();
-                }
+            $r = $this->handleFEComponents(true);
+            if ($r === false) {
+                $this->route->header = '404';
+                $this->route->setController('errorController');
+                $this->route->setMethod('pageNotFound');
             } else {
-                throw new \ErrorException("Class or Method not found", 11);
-            }
-
-            if ($this->view->disabled === false) {
-
-                if (!empty($this->templateInfo['header'])) {
-                    $this->setHeaders($this->templateInfo['header']);
-                } else {
-                    $header = $this->route->header;
-                    $this->setHeaders($header);
-                }
-
-                $this->view->set('tplInfo', $this->templateInfo);
-
-                $path = $this->path;
-                $pathVar = $path . "_view";
-                $pathKey = md5($pathVar);
-                if ($this->hasAPC && ($this->devMode || $this->forceApc)) {
-                    $hasKey = apc_exists($pathKey);
-                    if ($hasKey) {
-                        $this->view = apc_fetch($pathKey);
-                    } else {
-                        apc_store($pathKey, $this->view, $ttl);
-                    }
-                }
-
-                $this->view->render();
+                exit;
             }
         }
+
+        if ($isFEComponent) {
+            $r = $this->handleFEComponents();
+            if ($r === false) {
+                $this->route->header = '404';
+                $this->route->setController('errorController');
+                $this->route->setMethod('pageNotFound');
+            } else {
+                exit;
+            }
+        }
+
+        if ($isCustomServe === true) {
+            $this->handleCustomServe();
+            exit;
+        }
+
+        if ($this->view->disabled === false) {
+            $this->render();
+        }
+
     }
 
     /**
      * function to handle the Front End Components
      * @param bool $isRoot
+     * @return bool
      */
     private function handleFEComponents($isRoot = false)
     {
@@ -293,9 +268,15 @@ class core
 
         }
 
-        $this->setHeaders($fileExt);
+        if (is_readable($pathTpl)) {
+            $this->setHeaders($fileExt);
+            include_once $pathTpl;
+            return true;
 
-        include_once $pathTpl;
+        } else {
+            return false;
+        }
+
     }
 
     /**
@@ -353,6 +334,132 @@ class core
                 //exit();
                 break;
         }
+    }
+
+    /**
+     * Serve Custom content. This is to handle
+     * @throws \ErrorException
+     */
+    private function handleCustomServe()
+    {
+        $args = $this->route->getArgs();
+        $routeVars = $this->route->getGetVars();
+        $showHeader = empty($routeVars['showHeader']) ? true : $routeVars['showHeader'];
+        $showFooter = empty($routeVars['showFooter']) ? false : $routeVars['showFooter'];
+        $fileName = $this->route->getFileName();
+        $fileName = !empty($fileName) ? $fileName : 'index';
+        $fileExt = $this->route->getFileExt();
+        $fileExt = !empty($fileExt) ? $fileExt : 'html';
+
+        $referencePath = $this->route->getReferencePath();
+
+        $rPathArr = explode('/', $referencePath);
+
+        $realPath = _APPDIR . DS;
+
+        foreach ($rPathArr as $part) {
+            $realPath .= $part . DS;
+        }
+
+        if (!empty($args)) {
+            $key = key($args);
+            $realPath .= $args[$key];
+        } else {
+            $realPath .= $fileName . "." . $fileExt;
+        }
+
+        if ($showHeader === true && $fileExt === 'html') {
+
+            $this->route->addRouteVars(['customServePath' => $realPath]);
+            $this->view->setDebugMode(false);
+            $this->render();
+
+        } else {
+            $this->setHeaders($fileExt);
+            include_once $realPath;
+        }
+
+    }
+
+    /**
+     * Calls the associated controller and view to render final output
+     * @throws \ErrorException
+     */
+    private function render()
+    {
+        $controller = $this->route->getController();
+        $namespace = $this->route->getNamespace();
+        $namespace = empty($namespace) ? 'Controllers' : $namespace;
+        $method = $this->route->getMethod();
+        $method = empty($method) ? 'indexAction' : $method;
+        $model = $this->modelName;
+        $model = !empty($model) ? $model : null;
+        $modelDir = $this->modelDir;
+        $args = $this->route->getArgs();
+        $args = !empty($args) ? $args : null;
+        $required = $this->route->getRequired();
+        $routeParams = $this->route->getRouteVars();
+        $view = $this->view;
+
+        $class = $namespace . "\\" . $controller;
+
+
+        if (class_exists($class)) {
+            $this->controller = new $class(
+                $controller,
+                $method,
+                $routeParams,
+                $view,
+                $this->postVars,
+                $this->getVars,
+                $modelDir,
+                $model,
+                $args,
+                $required
+            );
+            if (method_exists($this->controller, $method) && $args != null) {
+                $this->templateInfo = $this->controller->$method($args);
+            } else {
+                $this->templateInfo = $this->controller->$method();
+            }
+        } else {
+            throw new \ErrorException("Class or Method not found", 11);
+        }
+
+
+        $ttl = $this->cacheTtl;
+        if (!empty($this->templateInfo['header'])) {
+            $this->setHeaders($this->templateInfo['header']);
+        } else {
+            $header = $this->route->header;
+            $this->setHeaders($header);
+        }
+
+        $this->view->set('tplInfo', $this->templateInfo);
+
+        $path = $this->path;
+        $pathVar = $path . "_view";
+        $pathKey = md5($pathVar);
+        if ($this->hasAPC && ($this->devMode || $this->forceApc)) {
+            $hasKey = apc_exists($pathKey);
+            if ($hasKey) {
+                $this->view = apc_fetch($pathKey);
+            } else {
+                apc_store($pathKey, $this->view, $ttl);
+            }
+        }
+
+        $this->view->render();
+
+    }
+
+    /**
+     * Set the default tpl file. By default this is root.tpl
+     * @param $tpl
+     */
+    public function setDefaultTpl($tpl)
+    {
+        $this->defaultTpl = $tpl;
     }
 
     /**

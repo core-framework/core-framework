@@ -1,18 +1,50 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: shalom.s
- * Date: 25/09/14
- * Time: 8:44 PM
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This file is part of the Core Framework package.
+ *
+ * (c) Shalom Sam <shalom.s@coreframework.in>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Core\Scripts;
 
+/**
+ * Class to handle color formatting of outputs on a console or command line
+ *
+ * @package Core\Scripts
+ * @version $Revision$
+ * @license http://creativecommons.org/licenses/by-sa/4.0/
+ * @link http://coreframework.in
+ * @author Shalom Sam <shalom.s@coreframework.in>
+ */
 class cmdcolors
 {
+    /**
+     * @var array An array of possible(pre defined) foreground colors
+     */
     private $foreground_colors = array();
+    /**
+     * @var array An array of possibles(pre defined) background colors
+     */
     private $background_colors = array();
 
+    /**
+     * Class constructor
+     */
     public function __construct()
     {
         // Set up shell colors
@@ -43,7 +75,14 @@ class cmdcolors
         $this->background_colors['light_gray'] = '47';
     }
 
-    // Returns colored string
+    /**
+     * Returns the colored string
+     *
+     * @param $string
+     * @param null $foreground_color
+     * @param null $background_color
+     * @return string
+     */
     public function getColoredString($string, $foreground_color = null, $background_color = null)
     {
         $colored_string = "";
@@ -63,13 +102,21 @@ class cmdcolors
         return $colored_string;
     }
 
-    // Returns all foreground color names
+    /**
+     * Returns all foreground color names
+     *
+     * @return array
+     */
     public function getForegroundColors()
     {
         return array_keys($this->foreground_colors);
     }
 
-    // Returns all background color names
+    /**
+     * Returns all background color names
+     *
+     * @return array
+     */
     public function getBackgroundColors()
     {
         return array_keys($this->background_colors);

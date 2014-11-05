@@ -1,5 +1,17 @@
 <?php
 /**
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
  * This file is part of the Core Framework package.
  *
  * (c) Shalom Sam <shalom.s@coreframework.in>
@@ -11,18 +23,43 @@
 namespace Core\Request;
 
 /**
- * @author Shalom Sam <shalom.s@coreframework.in>
- * Class request
+ * The class that handles the incoming request to server
+ *
  * @package Core\Request
+ * @version $Revision$
+ * @license http://creativecommons.org/licenses/by-sa/4.0/
+ * @link http://coreframework.in
+ * @author Shalom Sam <shalom.s@coreframework.in>
  */
 class request
 {
+    /**
+     * @var string The URL/query string (relative path)
+     */
     private $path;
+    /**
+     * @var string The request method .i.e. GET, POST, PUT and DELETE
+     */
     private $method;
+    /**
+     * @var array Contains the sanitized array of the global $_GET variable
+     */
     private $getVars;
+    /**
+     * @var array Contains the sanitized array of the global $_POST variable
+     */
     private $postVars;
+    /**
+     * @var array Contains the $_SERVER data from the request
+     */
     private $server;
+    /**
+     * @var array Contains the cookie data from the request
+     */
     private $cookies;
+    /**
+     * @var array An array of illegal characters
+     */
     private $illegal = [
         '$',
         '*',
@@ -48,15 +85,25 @@ class request
         '-',
         '?php'
     ];
+    /**
+     * @var bool Defines if operating in development mode
+     */
     private $devMode = false;
 
-
+    /**
+     * Request Constructor
+     *
+     * @param bool $devMode
+     */
     public function __construct($devMode = false)
     {
         $this->devMode = $devMode;
         $this->getServerRequest();
     }
 
+    /**
+     * Builds the $_GET, $_POST, $_SERVER and $_COOKIE object properties
+     */
     private function getServerRequest()
     {
         //get method
@@ -121,34 +168,64 @@ class request
     }
 
 
+    /**
+     * Returns an array of server info
+     *
+     * @return array
+     */
     public function getServer()
     {
         return $this->server;
     }
 
+    /**
+     * Returns an array of Cookies set
+     *
+     * @return array
+     */
     public function getCookies()
     {
         return $this->cookies;
     }
 
+    /**
+     * Returns the method used for the current request
+     *
+     * @return string
+     */
     public function getRqstMethod()
     {
         return $this->method;
     }
 
+    /**
+     * Returns the url path/query string
+     *
+     * @return string
+     */
     public function getPath()
     {
         return $this->path;
     }
 
+    /**
+     * Returns an array of sanitized $_GET variables
+     *
+     * @return array
+     */
     public function getGetVars()
     {
         return $this->getVars;
     }
 
+    /**
+     * Returns an array of sanitized $_POST variables
+     *
+     * @return array
+     */
     public function getPostVars()
     {
         return $this->postVars;
     }
 
-} 
+}

@@ -1,5 +1,17 @@
 <?php
 /**
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
  * This file is part of the Core Framework package.
  *
  * (c) Shalom Sam <shalom.s@coreframework.in>
@@ -14,26 +26,30 @@ use Core\CacheSystem\cache;
 use Core\Helper\helper;
 
 /**
- * @author Shalom Sam <shalom.s@coreframework.in>
- * Class corecmd
+ * Class that runs the console commands
+ *
  * @package Core\Scripts
+ * @version $Revision$
+ * @license http://creativecommons.org/licenses/by-sa/4.0/
+ * @link http://coreframework.in
+ * @author Shalom Sam <shalom.s@coreframework.in>
  */
 class corecmd
 {
     /**
-     * @var string
+     * @var string Contains the current defined application name
      */
     public static $appName;
     /**
-     * @var bool
+     * @var bool Defines if running in development mode
      */
     public static $dev = false;
     /**
-     * @var IOStream
+     * @var IOStream Contains the IOStream object
      */
     private static $IOStream;
     /**
-     * @var array
+     * @var array Contains an array of pdo drivers
      */
     private static $pdoDrivers = [
         'cubrid',
@@ -51,7 +67,7 @@ class corecmd
         '4D'
     ];
     /**
-     * @var cache
+     * @var cache Contains the cache object
      */
     private $cache;
 
@@ -155,7 +171,7 @@ class corecmd
                 'args' => ["ip", "domain"],
                 'reqArgs' => true,
             ]
-            //TODO: `addpage` feature to add in next iterations
+            //TODO: `addpage` feature to be added in next iterations
             //'addpage' => [
             //  'info' => "To add page to App [or] Project [or] site",
             //  'ex' => "console:cyan addpage:cyan [pagename]:white",
@@ -266,6 +282,10 @@ class corecmd
 //
 //            }
 //        }
+
+    }
+
+    public static function update(){
 
     }
 
@@ -538,6 +558,10 @@ class corecmd
      */
     private function createIndex($appName)
     {
+        if(empty($appName)){
+            self::$IOStream->showErr("appName cannot be empty!");
+            exit;
+        }
         $index = __DIR__ . DS . "pak" . DS . "index.pak";
         $appDir = _ROOT . DS . $appName . DS;
         $newIndex = $appDir . "index.php";
@@ -565,6 +589,10 @@ class corecmd
      */
     private function createHtaccess($appName)
     {
+        if(empty($appName)){
+            self::$IOStream->showErr("appName cannot be empty!");
+            exit;
+        }
         $htaccess = __DIR__ . DS . "pak" . DS . ".htaccess.pak";
         $appDir = _ROOT . DS . $appName . DS;
         $newHtaccess = $appDir . ".htaccess";
@@ -592,6 +620,10 @@ class corecmd
      */
     public static function addHosts($domain, $ip)
     {
+        if(empty($domain) || empty($ip)){
+            self::$IOStream->showErr("Domain and ip must be provided");
+            exit;
+        }
         $hostFile = self::getHostsFile();
         $hostTpl = "{ip}\tdev.{userDomain}\n";
         $hostNewContent = str_replace('{userDomain}', $domain, $hostTpl);
@@ -649,6 +681,10 @@ class corecmd
      */
     public static function removeVhost($appName, $removeVhost = true, $removeHostEntry = true)
     {
+        if(empty($appName)){
+            self::$IOStream->showErr("appName cannot be empty!");
+            exit;
+        }
         $appName = strtolower($appName);
         $hostFile = self::getHostsFile();
         $httpdConfFile = self::findHttpdConf();

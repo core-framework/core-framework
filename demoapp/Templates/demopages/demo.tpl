@@ -2,14 +2,13 @@
 
 <{block name="styles"}>
     <link href="/styles/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet" />
-    <{*<link href="/styles/bootstrap-responsive.css" type="text/css" rel="stylesheet" />*}>
     <link href="/styles/prettify.css" type="text/css" rel="stylesheet" />
     <link href="/styles/demo/demo.css" type="text/css" rel="stylesheet" />
 <{/block}>
 
 
 <{block name="bodyBlock"}>
-    <body id="top" class="<{$pagename}>">
+    <body id="top" class="<{$pageName}> <{if isset($mainPage)}><{$mainPage}><{/if}> <{if isset($subPage) && $subPage === true  }>subpage<{/if}> ">
 
     <div class="mainWrp clearfix">
         <{block name="header"}>
@@ -20,20 +19,25 @@
 
 
         <!--  MAIN CONTAINER START  -->
-        <div class="container midWrp">
+        <{if isset($customServePath) }>
+            <div class="customServeWrp">
+                <{fetch file=$customServePath }>
+            </div>
+        <{else}>
+            <div class="container midWrp">
 
-            <{block name="maincontentWrp" }>
-                <{if $pagename eq 'home'}>
-                    <!-- SECTION: OVERVIEW START -->
-                    <{include file="demopages/introSection.tpl"}>
-                    <!-- SECTION: OVERVIEW END -->
-                <{elseif not isset($page) && isset($error)}>
-                    <{include file="errors/404.tpl"}>
-                <{/if}>
-            <{/block}>
+                <{block name="maincontentWrp" }>
+                    <{if isset($includeTpl) }>
+                        <{include file=$includeTpl }>
+                    <{elseif not isset($includeTpl) && not isset($customServePath) && isset($error)}>
+                        <{include file="errors/404.tpl"}>
+                    <{/if}>
+                <{/block}>
 
-        </div>
+            </div>
+        <{/if}>
         <!--  MAIN CONTAINER END  -->
+
         <{block name="footer"}>
             <{include file="demopages/footer.tpl"}>
         <{/block}>

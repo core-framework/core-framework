@@ -20,27 +20,75 @@ use Core\Controllers\controller;
 class demoController extends controller
 {
 
-    public function indexAction($payload = null)
+    public function indexAction()
     {
-        $this->response['tpl'] = 'demopages/demo.tpl';
-        if ($payload !== null && !empty($payload['pagename'])) {
-            $pagename = $payload['pagename'];
-        } else {
-            $pagename = 'home';
-        }
-
-        $this->response['vars']['pagename'] = $pagename;
-        $this->response['vars']['docVarsCom'] = include_once _ROOT . "/demoapp/Templates/demopages/rawfiles/common.php";
-
-        $pageFile = _ROOT . "/demoapp/Templates/demopages/rawfiles/" . $pagename . ".php";
-        if (is_readable($pageFile)) {
-            $this->response['vars'][$pagename] = include_once _ROOT . "/demoapp/Templates/demopages/rawfiles/" . $pagename . ".php";
-        } else {
-            $this->response['vars']['error'] = "Page Data not found";
-        }
-
-
-        return $this->responseSend();
+        return $this->commonFunction('home');
     }
 
+    public function commonFunction($pageName)
+    {
+        $lang = $this->config->current_lang;
+        if (empty($lang)) {
+            $lang = 'en_us';
+        }
+
+        $commonLangFile = _ROOT . DS . "demoapp" . DS . "Templates" . DS . "demopages" . DS . "lang" . DS . $lang . DS . "common.php";
+        $pageLangFile = _ROOT . DS . "demoapp" . DS . "Templates" . DS . "demopages" . DS . "lang" . DS . $lang . DS . $pageName . ".php";
+        $pageTpl = "demopages/" . $pageName . ".tpl";
+
+
+        $this->response['tpl'] = 'demopages/demo.tpl';
+        $this->response['vars']['includeTpl'] = $pageTpl;
+        $this->response['vars']['pageName'] = $pageName;
+        $this->response['vars']['docVarsCom'] = include_once $commonLangFile;
+
+        if (is_readable($pageLangFile)) {
+            $this->response['vars'][$pageName] = include_once $pageLangFile;
+        } else {
+            $this->response['vars']['error'] = "Page not found";
+        }
+
+        return $this->getResponse();
+    }
+
+    public function aboutAction()
+    {
+        return $this->commonFunction('about');
+    }
+
+    public function getstartedAction()
+    {
+        return $this->commonFunction('get_started');
+    }
+
+    public function customServeAction()
+    {
+        $lang = $this->config->current_lang;
+        if (empty($lang)) {
+            $lang = 'en_us';
+        }
+        $this->response['tpl'] = 'demopages/demo.tpl';
+        $commonLangFile = _ROOT . DS . "demoapp" . DS . "Templates" . DS . "demopages" . DS . "lang" . DS . $lang . DS . "common.php";
+        $this->response['vars']['docVarsCom'] = include_once $commonLangFile;
+
+        return $this->getResponse();
+    }
+
+    public function apiAction()
+    {
+        $routeParams = $this->getRouteParams();
+        $lang = $this->config->current_lang;
+        if (empty($lang)) {
+            $lang = 'en_us';
+        }
+
+        $commonLangFile = _ROOT . DS . "demoapp" . DS . "Templates" . DS . "demopages" . DS . "lang" . DS . $lang . DS . "common.php";
+
+        $this->response['tpl'] = 'demopages/demo.tpl';
+        $this->response['vars']['docVarsCom'] = include_once $commonLangFile;
+        $this->response['vars']['customServePath'] = $routeParams['customServePath'];
+
+        return $this->getResponse();
+
+    }
 } 

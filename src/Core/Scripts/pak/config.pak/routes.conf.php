@@ -54,11 +54,57 @@ return $routes = [
         'controller' => '\\demoapp\\Controllers:demoController:indexAction'
     ],
 
-    '/demo/{pagename}' => [
+    '/about' => [
         'pageName' => 'demo',
-        'pageTitle' => 'Demo Pages',
-        'argReq' => ['pagename' => '[\w]'],
-        'controller' => '\\demoapp\\Controllers:demoController:indexAction'
+        'pageTitle' => 'Demo about Page',
+        'controller' => '\\demoapp\\Controllers:demoController:aboutAction'
+    ],
+
+    '/get_started' => [
+        'pageName' => 'demo',
+        'pageTitle' => 'Demo about Page',
+        'controller' => '\\demoapp\\Controllers:demoController:getstartedAction'
+    ],
+
+    '/documentation' => [
+        'pageName' => 'demo',
+        'pageTitle' => 'Demo about Page',
+        'controller' => '\\demoapp\\Controllers:documentationController:indexAction'
+    ],
+
+    '/documentation/api/{page}' => [
+        'pageName' => 'api',
+        'pageTitle' => 'Core Framework API',
+        'argReq' => ['page' => '[\S]'],
+        'argDefault' => 'index.html',
+        'method' => 'GET',
+        'serveAsIs' => true,
+        'referencePath' => 'Templates/api',
+        'controller' => '\\demoapp\\Controllers:demoController:apiAction'
+    ],
+
+    '/documentation/{page}' => [
+        'pageName' => 'demo',
+        'pageTitle' => 'Demo about Page',
+        'argReq' => ['page' => '[\w]'],
+        'argDefault' => '',
+        'method' => 'GET',
+        'controller' => '\\demoapp\\Controllers:documentationController:documentationAction'
+    ],
+
+    '/tutorial' => [
+        'pageName' => 'demo',
+        'pageTitle' => 'Demo about Page',
+        'controller' => '\\demoapp\\Controllers:tutorialController:indexAction'
+    ],
+
+    '/tutorial/{page}' => [
+        'pageName' => 'demo',
+        'pageTitle' => 'Demo about Page',
+        'argReq' => ['page' => '[\w]'],
+        'argDefault' => '',
+        'method' => 'GET',
+        'controller' => '\\demoapp\\Controllers:tutorialController:tutorialAction'
     ],
 
     '/test/hello/{name}' => [
@@ -87,6 +133,4 @@ return $routes = [
         'method' => 'post',
         'controller' => '\\Core\\Controllers:testController:someMethod'
     ]
-
-
 ];

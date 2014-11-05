@@ -1,23 +1,50 @@
-# Created by .gitignore support plugin (hsz.mobi)
-
 .idea/
 .htaccess
-vendor/
 bower_components/
 logs/
 composer.lock
 src/Core/smarty_cache
-config/
-index.php
-.DS_Store
-*/.DS_Store
+.DS_Store/
+*/.DS_Store/
 cache/*
-demoapp/styles
-demoapp/.DS_Store
+*/styles/
+*/styles/fonts/glyphicons*.*
+*/scripts/
+*/scripts/jquery
+*/scripts/bootstrap
+*/scripts/angular
+*/scripts/angular-route
+*/index.php
+
+### Windows template
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+### Composer template
+composer.phar
+vendor/
+
+# Commit your application's lock file http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file
+# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
+# composer.lock
+
+config
+
+### NOTs
+!src/Core/Config/
 !demoapp/styles/*.*
-demoapp/styles/fonts/glyphicons*.*
-demoapp/scripts/jquery
-demoapp/scripts/bootstrap
-demoapp/scripts/angular
-demoapp/scripts/angular-route
-demoapp/index.php
+!demoapp/styles/demo/
+!demoapp/scripts/*.*

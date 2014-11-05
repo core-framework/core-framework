@@ -1,5 +1,17 @@
 <?php
 /**
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
  * This file is part of the Core Framework package.
  *
  * (c) Shalom Sam <shalom.s@coreframework.in>
@@ -10,25 +22,31 @@
 
 namespace Core\Controllers;
 
+use Core\Config\config;
 use Core\Models;
 use Core\Views\view;
 
 /**
- * @author Shalom Sam <shalom.s@coreframework.in>
- * Class controller
+ * The base controller for Core Framework
+ *
  * @package Core\Controllers
+ * @version $Revision$
+ * @license http://creativecommons.org/licenses/by-sa/4.0/
+ * @link http://coreframework.in
+ * @author Shalom Sam <shalom.s@coreframework.in>
  */
 class controller
 {
     public $view;
     public $response;
     public $err404Tpl = "errors/404.tpl";
+    public $config;
     private $controller;
     private $method;
     private $args;
     private $modelName;
     private $model;
-    private $pageParams;
+    private $routeParams;
     private $req;
     private $getVars;
     private $postVars;
@@ -62,7 +80,7 @@ class controller
      *
      * @param string $controller
      * @param string $method
-     * @param array $pageParams
+     * @param array $routeParams
      * @param view $view
      * @param array $getVars
      * @param array $postVars
@@ -74,7 +92,7 @@ class controller
     public function __construct(
         $controller,
         $method,
-        $pageParams,
+        $routeParams,
         view $view,
         $postVars,
         $getVars,
@@ -87,27 +105,25 @@ class controller
         $this->controller = $controller;
         $this->$method = $method;
         $this->args = $args;
-        $this->pageParams = $pageParams;
+        $this->routeParams = $routeParams;
         $this->view = $view;
         $this->getVars = $getVars;
         $this->postVars = $postVars;
+        $this->config = new config();
         $this->checkForInput();
         $this->initResponse();
         if (!empty($modelName)) {
             $this->modelName = $modelName;
-            //$this->__autoLoad($modelName);
-            //$modelStr = "\\Models\\" . $modelName;
             $this->model = new $modelName();
-
         }
         if (!empty($req)) {
             $this->req = $req;
         }
-
     }
 
     /**
      * check for input (support for angular POST)
+     *
      */
     private function checkForInput()
     {
@@ -144,18 +160,22 @@ class controller
 
     /**
      * Init view response
+     *
      */
     private function initResponse()
     {
-        $params = $this->pageParams;
+        $params = $this->routeParams;
         $this->generateCSRFKey();
         $this->response['vars']['title'] = $params['pageTitle'];
         $this->response['vars']['pageName'] = $params['pageName'];
+        $this->response['vars']['metaKeywords'] = $params['metaKeywords'];
+        $this->response['vars']['metaDescription'] = $params['metaDescription'];
         $this->response['vars']['csrf'] = $_SESSION['csrf'];
     }
 
     /**
-     * Generate CSRF key
+     * Generates CSRF key
+     *
      */
     private function generateCSRFKey()
     {
@@ -164,23 +184,29 @@ class controller
     }
 
     /**
+     * Default method for template rendering
+     *
      * @return array
      */
     public function indexAction()
     {
         $this->response['tpl'] = 'homepage/home.tpl';
-        return $this->responseSend();
+        return $this->getResponse();
     }
 
     /**
+     * To get(build) the response array
+     *
      * @return mixed
      */
-    public function responseSend()
+    public function getResponse()
     {
         return $this->response;
     }
 
     /**
+     * Returns the set Controller
+     *
      * @return mixed
      */
     public function getController()
@@ -189,6 +215,8 @@ class controller
     }
 
     /**
+     * Returns the model name set in route.conf
+     *
      * @return null if null or mixed
      */
     public function getModelName()
@@ -197,6 +225,8 @@ class controller
     }
 
     /**
+     * Returns the model object, that is auto loaded if set in route.conf
+     *
      * @return object model
      */
     public function getModel()
@@ -205,6 +235,8 @@ class controller
     }
 
     /**
+     * Returns the method name set in route.conf
+     *
      * @return mixed
      */
     public function getMethod()
@@ -213,6 +245,8 @@ class controller
     }
 
     /**
+     * Returns the parameters(as arguments) from the URL path in dynamic URLs set in route.conf
+     *
      * @return null if null or mixed
      */
     public function getArgs()
@@ -221,6 +255,8 @@ class controller
     }
 
     /**
+     * Returns required classes to load
+     *
      * @return null if null or mixed
      */
     public function getReq()
@@ -228,14 +264,34 @@ class controller
         return $this->req;
     }
 
+    /**
+     * returns sanitized $_GET
+     *
+     * @return array
+     */
     public function getGetVars()
     {
         return $this->getVars;
     }
 
+    /**
+     * returns sanitized $_POST
+     *
+     * @return array
+     */
     public function getPostVars()
     {
         return $this->postVars;
+    }
+
+    /**
+     * returns route parameters
+     *
+     * @return array
+     */
+    public function getRouteParams()
+    {
+        return $this->routeParams;
     }
 
     /**
@@ -252,6 +308,8 @@ class controller
     }
 
     /**
+     * Loads the file into Core Framework
+     *
      * @param $file
      * @return bool
      */
@@ -265,6 +323,8 @@ class controller
     }
 
     /**
+     * auto loader for required classes
+     *
      * @param $model
      * @return bool false if file does not exist;
      */

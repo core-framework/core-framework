@@ -9,9 +9,11 @@
     },
     "prefer-stable": true,
     "require": {
-        "smarty/smarty": ">=3.1.19",
-        "filp/whoops": "1.*",
+        "smarty/smarty": "3.1.19",
         "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "filp/whoops": "1.*"
     },
     "suggest": {
         "ext-apc": "Allows for faster performance of Core Framework through APC caching",
@@ -29,8 +31,7 @@
             "src/Core/Scripts/Console install --dev"
         ],
         "post-update-cmd": [
-            "bower install",
-            "src/Core/Scripts/Console install --dev"
+            "bower install"
         ]
     }
 }

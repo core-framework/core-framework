@@ -1,0 +1,8 @@
+source:
+	- src/Core
+	
+destination: demoapp/templates/api
+exclude:
+	- src/Core/Tests
+	- src/Core/smarty_cache
+	

@@ -1,5 +1,17 @@
 <?php
 /**
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
  * This file is part of the Core Framework package.
  *
  * (c) Shalom Sam <shalom.s@coreframework.in>
@@ -13,38 +25,131 @@ namespace Core\Routes;
 use Core\Request\request;
 
 /**
- * @author Shalom Sam <shalom.s@coreframework.in>
- * Class routes
+ * Handles the routing for the incoming request
+ *
  * @package Core\Routes
+ * @version $Revision$
+ * @license http://creativecommons.org/licenses/by-sa/4.0/
+ * @link http://coreframework.in
+ * @author Shalom Sam <shalom.s@coreframework.in>
  */
 class routes
 {
+    /**
+     * @var string The path/query string of the request
+     */
     public $path = "";
+    /**
+     * @var array The path represented as an array split at '/', .i.e. /some/path would be ['some','path']
+     */
     public $urlPathArr = [];
+    /**
+     * @var string The string that defines the Controller and Method associated with a given URL path, extracted from the route.conf
+     */
     public $controllerVerb;
+    /**
+     * @var string Contains the header info
+     */
     public $header;
+    /**
+     * @var array Contains server info
+     */
     private $server;
+    /**
+     * @var array Contains an array of cookies set
+     */
     private $cookies;
+    /**
+     * @var array Contains the sanitized $_GET
+     */
     private $getVars = [];
+    /**
+     * @var array Contains the sanitized $_POST
+     */
     private $postVars = [];
+    /**
+     * @var string Contains the method of the request
+     */
     private $reqstMethod;
+    /**
+     * @var string Contains the relative(to root) path to the routes.conf file
+     */
     private $pathConfFile;
+    /**
+     * @var array Contains the array of the parameters set for a given path in the routes.conf file
+     */
     private $routeVars;
+    /**
+     * @var string Contains the requested file name if present in the URL path
+     */
     private $fileName = "";
+    /**
+     * @var string Contains the requested file extension if the request was for a file
+     */
     private $fileExt = "";
-    private $frontController;
+    /**
+     * @var Contains the default controller, for if no controller is present
+     */
+    private $defaultController;
+    /**
+     * @var array Contains a collection of the defined routes in route.conf
+     */
     private $collection;
+    /**
+     * @var array Contains an array of required classes defined in the routes.conf file
+     */
     private $require;
+    /**
+     * @var string Contains the namespace of the controller class file
+     */
     private $namespace;
+    /**
+     * @var string Contains the name of the controller class
+     */
     private $controller;
+    /**
+     * @var string Contains the method/function name
+     */
     private $method;
+    /**
+     * @var string Contains the name of the model to be autoloaded in the controller
+     */
     private $model;
+    /**
+     * @var array Is an array of folder names used to serve front end content
+     */
     private $FEComponents = ['scripts', 'images', 'js', 'styles'];
+    /**
+     * @var bool Defines whether to serve url path as a micro-site devoid of templating(controller may or may not be defined). This is defined in the routes.conf
+     */
+    private $customServe;
+    /**
+     * @var string Contains the real path to folder to be served as a micro-site (html/css/js only)
+     */
+    private $referencePath;
+    /**
+     * @var array Contains the arguments to be passed to the controller method from the dynamic URL path variable
+     */
     private $args;
+    /**
+     * @var string Defines the path to the folder containing the .tpl files
+     */
     private $templatePath;
+    /**
+     * @var bool Defines if the current request is for a root file .i.e domain.com/somefile.txt
+     */
     private $isRootFile;
+    /**
+     * @var bool Defines if the current request is for a front-end component (.i.e. CSS/JS)
+     */
     private $isFEComponent;
+    /**
+     * @var bool Defines if a match was found for the current URL path (in the request) in the routes.conf
+     */
     private $foundMatch = false;
+    /**
+     * @var string The method filter/constraint defined for the current path in routes.conf
+     */
     private $definedMethod = 'get';
 
     /**
@@ -134,33 +239,36 @@ class routes
     public function findMatch()
     {
         if (empty($this->path)) {
+
             $this->pathVarsAssign($this->collection['/']);
+
         } elseif (in_array($this->urlPathArr[0], $this->FEComponents)) {
-            //var_dump('asdasd');
+
             $this->isFEComponent = true;
-            //include_once _ROOT.$this->templatePath.ltrim($this->path, "/");
+
         } elseif (!empty($this->fileExt) && !empty($this->fileName) && sizeof($this->urlPathArr) === 1) {
+
             $file = $this->fileName . "." . $this->fileExt;
             $filePath = _ROOT . $this->templatePath . "root" . DS . $file;
             $is_readable = is_readable($filePath);
             if (($this->urlPathArr[0] === $file)) {
                 $this->isRootFile = true;
                 if (!$is_readable) {
-                    //add warning
+
                 }
             }
+
         } else {
+
             $this->checkIfPatternMatch();
             if ($this->foundMatch === false) {
+
                 $this->header = '404';
                 $this->controller = 'errorController';
                 $this->method = 'indexAction';
-//                $this->routeVars = [
-//                    'pageName' => 'error',
-//                    'pageTitle' => 'Oops something went wrong',
-//                    'controller' => '\\Core\\Controllers:errorController:indexAction'
-//                ];
+
             }
+
         }
     }
 
@@ -173,26 +281,39 @@ class routes
      */
     private function pathVarsAssign($val)
     {
+        $this->setDefaultController();
         $this->routeVars = $val;
-        $this->definedMethod = !empty($val['method']) ? strtolower($val['method']) : 'get';
-        $controllerStr = $this->controllerVerb = $val['controller'];
-        $strArr = explode(':', $controllerStr);
-        if (!empty($strArr) && sizeof($strArr) >= 2) {
-            $this->namespace = $strArr[0];
-            $this->controller = $strArr[1];
-            //$this->method = empty($strArr[2]) ? 'indexAction' ? ;
-            if (!empty($strArr[2])) {
-                $this->method = strpos($strArr[2], 'Action') < 0 ? $strArr[2] . "Action" : $strArr[2];
-            } elseif (empty($strArr[2]) && !empty($this->urlPathArr[1]) && !is_numeric(
-                    $this->urlPathArr[1]
-                ) && !in_array($this->urlPathArr[1], $this->args)
-            ) {
-                $this->method = $this->urlPathArr[1] . "Action";
-            } else {
-                $this->method = "indexAction";
+        if (!empty($val['serveAsIs']) && $val['serveAsIs'] === true) {
+            $this->customServe = true;
+            $this->referencePath = $val['referencePath'];
+        }
+
+        if (!empty($val['controller'])) {
+            $this->definedMethod = !empty($val['method']) ? strtolower($val['method']) : 'get';
+            $controllerStr = $this->controllerVerb = $val['controller'];
+            $strArr = explode(':', $controllerStr);
+            if (!empty($strArr) && sizeof($strArr) >= 2) {
+                $this->namespace = $strArr[0];
+                $this->controller = $strArr[1];
+                //$this->method = empty($strArr[2]) ? 'indexAction' ? ;
+                if (!empty($strArr[2])) {
+                    $this->method = strpos($strArr[2], 'Action') < 0 ? $strArr[2] . "Action" : $strArr[2];
+                } elseif (empty($strArr[2]) && !empty($this->urlPathArr[1]) && !is_numeric(
+                        $this->urlPathArr[1]
+                    ) && !in_array($this->urlPathArr[1], $this->args)
+                ) {
+                    $this->method = $this->urlPathArr[1] . "Action";
+                } else {
+                    $this->method = "indexAction";
+                }
+            } elseif (empty($strArr) && $val['serveAsIs'] === false) {
+
+                throw new \ErrorException(
+                    "Controller not defined OR definition broken. Must be of pattern `{namespace}:{controller}:{method}` ",
+                    5,
+                    1
+                );
             }
-        } else {
-            throw new \ErrorException("Controller not defined OR definition broken. Must be of pattern `{namespace}:{controller}:{method}` ", 5, 1);
         }
         if (!empty($this->routeVars['model'])) {
             $this->model = $this->routeVars['model'];
@@ -200,6 +321,16 @@ class routes
         if (!empty($this->routeVars['require'])) {
             $this->require = $this->routeVars['require'];
         }
+    }
+
+    /**
+     * Extracts the default Controller from root path ('/')
+     */
+    private function setDefaultController()
+    {
+        $controllerVerb = $this->collection['/']['controller'];
+        $arr = explode(':', $controllerVerb);
+        $this->defaultController = $arr[0] . "\\" . $arr[1];
     }
 
     /**
@@ -318,7 +449,18 @@ class routes
     }
 
     /**
+     * Returns the default Controller
+     *
+     * @return mixed
+     */
+    public function getDefaultController()
+    {
+        return $this->defaultController;
+    }
+
+    /**
      * Set Template Directory
+     *
      * @param $dir
      */
     public function setTemplateDir($dir)
@@ -328,6 +470,7 @@ class routes
 
     /**
      * Returns the current fileName
+     *
      * @return string
      */
     public function getFileName()
@@ -337,6 +480,7 @@ class routes
 
     /**
      * Returns the file extension
+     *
      * @return string
      */
     public function getFileExt()
@@ -346,6 +490,7 @@ class routes
 
     /**
      * Returns the namespace
+     *
      * @return mixed
      */
     public function getNamespace()
@@ -355,6 +500,7 @@ class routes
 
     /**
      * sets the namespace
+     *
      * @param $str
      */
     public function setNamespace($str)
@@ -364,6 +510,7 @@ class routes
 
     /**
      * Returns the controller
+     *
      * @return mixed
      */
     public function getController()
@@ -373,6 +520,7 @@ class routes
 
     /**
      * sets the controller
+     *
      * @param $str
      */
     public function setController($str)
@@ -382,6 +530,7 @@ class routes
 
     /**
      * returns the method
+     *
      * @return mixed
      */
     public function getMethod()
@@ -391,6 +540,7 @@ class routes
 
     /**
      * sets the method
+     *
      * @param $str
      */
     public function setMethod($str)
@@ -400,6 +550,7 @@ class routes
 
     /**
      * Returns the arguments [array]
+     *
      * @return mixed
      */
     public function getArgs()
@@ -409,6 +560,7 @@ class routes
 
     /**
      * Returns the model
+     *
      * @return mixed
      */
     public function getModel()
@@ -418,6 +570,7 @@ class routes
 
     /**
      * Returns the required files
+     *
      * @return mixed
      */
     public function getRequired()
@@ -427,6 +580,7 @@ class routes
 
     /**
      * Returns true if the file is a root file
+     *
      * @return bool
      */
     public function getIsRootFile()
@@ -436,6 +590,7 @@ class routes
 
     /**
      * Returns true if the file Front End Component
+     *
      * @return bool
      */
     public function getIsFEComponent()
@@ -444,7 +599,28 @@ class routes
     }
 
     /**
+     * Returns true if the file is set as Custom serve (serveAsIs)
+     *
+     * @return mixed
+     */
+    public function getIsCustomServe()
+    {
+        return $this->customServe;
+    }
+
+    /**
+     * returns reference path set in routes.conf
+     *
+     * @return mixed
+     */
+    public function getReferencePath()
+    {
+        return $this->referencePath;
+    }
+
+    /**
      * Returns the properties of the path
+     *
      * @return array
      */
     public function getRouteVars()
@@ -453,7 +629,19 @@ class routes
     }
 
     /**
+     * Add route vars
+     *
+     * @param array $arr
+     */
+    public function addRouteVars(array $arr)
+    {
+        $key = key($arr);
+        $this->routeVars[$key] = $arr[$key];
+    }
+
+    /**
      * returns the sanitized $_GET
+     *
      * @return array
      */
     public function getGetVars()
@@ -463,6 +651,7 @@ class routes
 
     /**
      * returns the sanitized $_POST
+     *
      * @return array
      */
     public function getPostVars()
@@ -472,6 +661,7 @@ class routes
 
     /**
      * returns sanitized $_COOKIE
+     *
      * @return array
      */
     public function getCookies()
@@ -481,6 +671,7 @@ class routes
 
     /**
      * returns the current request method
+     *
      * @return string
      */
     public function getReqstMethod()
@@ -490,6 +681,7 @@ class routes
 
     /**
      * returns the defined request method for the path
+     *
      * @return string
      */
     public function getDefinedMethod()

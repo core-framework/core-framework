@@ -1,5 +1,17 @@
 <?php
 /**
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
  * This file is part of the Core Framework package.
  *
  * (c) Shalom Sam <shalom.s@coreframework.in>
@@ -10,9 +22,23 @@
 
 namespace Core\Helper;
 
-
+/**
+ * Helper class for some common handy methods
+ *
+ * @package Core\Helper
+ * @version $Revision$
+ * @license http://creativecommons.org/licenses/by-sa/4.0/
+ * @link http://coreframework.in
+ * @author Shalom Sam <shalom.s@coreframework.in>
+ */
 class helper
 {
+    /**
+     * Method to serialize array (comma separated values as single string)
+     *
+     * @param array $arr
+     * @return string
+     */
     public static function serialize(array $arr)
     {
         $serialized = "";
@@ -31,6 +57,14 @@ class helper
         }
     }
 
+    /**
+     * Method to copy files and directories recursively
+     *
+     * @param $source
+     * @param $dest
+     * @param bool $override
+     * @throws \Exception
+     */
     public static function copyr($source, $dest, $override = false)
     {
         $dir = opendir($source);
@@ -57,6 +91,13 @@ class helper
         closedir($dir);
     }
 
+    /**
+     * Method to change the permission for files recursively
+     *
+     * @param $dir
+     * @param null $mod
+     * @param bool $recursive
+     */
     public static function chmodDirFiles($dir, $mod = null, $recursive = true)
     {
         chmod($dir, 0755);
@@ -71,6 +112,12 @@ class helper
         }
     }
 
+    /**
+     * Method to change the permission of a single file
+     *
+     * @param $obj
+     * @param null $mod
+     */
     public static function change_perms($obj, $mod = null)
     {
         chmod($obj, empty($mod) ? 0755 : $mod);

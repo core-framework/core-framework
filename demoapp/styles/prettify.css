@@ -1,30 +1,72 @@
-.com { color: #93a1a1; }
-.lit { color: #195f91; }
-.pun, .opn, .clo { color: #93a1a1; }
-.fun { color: #dc322f; }
-.str, .atv { color: #D14; }
-.kwd, .linenums .tag { color: #1e347b; }
-.typ, .atn, .dec, .var { color: teal; }
-.pln { color: #48484c; }
+/* Pretty printing styles. Used with prettify.js.
+ *
+ * Name:	Stanley Ng
+ * Email: 	stanleyhlng@googlegroups.com
+ *
+ * Credits:
+ * https://github.com/chriskempson/tomorrow-theme
+ */
+.pln {
+    color: #cccccc; }
 
-.prettyprint {
-  padding: 8px;
-  background-color: #f7f7f9;
-  border: 1px solid #e1e1e8;
-}
-.prettyprint.linenums {
-  -webkit-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
-     -moz-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
-          box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
-}
+.str {
+    color: #99cc99; }
 
+.kwd {
+    color: #cc99cc; }
+
+.com {
+    color: #999999;
+    font-style: italic; }
+
+.typ {
+    color: #f99157; }
+
+.lit {
+    color: #f99157; }
+
+.pun {
+    color: #cccccc; }
+
+.opn {
+    color: #cccccc; }
+
+.clo {
+    color: #cccccc; }
+
+.tag {
+    color: #f2777a; }
+
+.atn {
+    color: #f99157; }
+
+.atv {
+    color: #66cccc; }
+
+.dec {
+    color: #f99157; }
+
+.var {
+    color: #f2777a; }
+
+.fun {
+    color: #6699cc; }
+
+/* Put a border around prettyprinted code snippets. */
+pre.prettyprint {
+    background-color: #2d2d2d;
+    padding: 10px;
+    border: 1px solid #E1E1E8; }
+
+code.prettyprint {
+    background-color: #2d2d2d;
+    border: 1px solid #E1E1E8;
+}
 /* Specify class=linenums on a pre to get line numbering */
 ol.linenums {
-  margin: 0 0 0 33px; /* IE indents via margin-left */
-} 
+    color: #999999;
+    margin: 0 0 0 40px; }
+
 ol.linenums li {
-  padding-left: 12px;
-  color: #bebec5;
-  line-height: 18px;
-  text-shadow: 0 1px 0 #fff;
-}
+    line-height: 18px;
+    padding-left: 12px; }
