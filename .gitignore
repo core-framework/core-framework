@@ -5,7 +5,7 @@ logs/
 composer.lock
 src/Core/smarty_cache
 .DS_Store/
-*/.DS_Store/
+*/.DS_Store
 cache/*
 */styles/
 */styles/fonts/glyphicons*.*

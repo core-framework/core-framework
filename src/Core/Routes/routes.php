@@ -295,7 +295,6 @@ class routes
             if (!empty($strArr) && sizeof($strArr) >= 2) {
                 $this->namespace = $strArr[0];
                 $this->controller = $strArr[1];
-                //$this->method = empty($strArr[2]) ? 'indexAction' ? ;
                 if (!empty($strArr[2])) {
                     $this->method = strpos($strArr[2], 'Action') < 0 ? $strArr[2] . "Action" : $strArr[2];
                 } elseif (empty($strArr[2]) && !empty($this->urlPathArr[1]) && !is_numeric(

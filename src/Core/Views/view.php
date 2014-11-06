@@ -66,7 +66,6 @@ class view
         $smarty->right_delimiter = '}>';
 
         $smarty->setTemplateDir(_ROOT . $this->templateDir);
-        $smarty->addTemplateDir(_ROOT . $this->baseTemplateDir);
         $smarty->setCompileDir(_ROOT . DS . "src" . DS . "Core" . DS . 'smarty_cache' . DS . 'templates_c' . DS);
         $smarty->setConfigDir(_ROOT . DS . "src" . DS . "Core" . DS . 'smarty_cache' . DS . 'configs' . DS);
         $smarty->setCacheDir(_ROOT . DS . "src" . DS . "Core" . DS . 'smarty_cache' . DS . 'cache' . DS);
@@ -82,9 +81,6 @@ class view
     public function setDebugMode($bool = true)
     {
         $this->debugMode = $bool;
-        if ($this->debugMode) {
-            $this->smarty->addTemplateDir(_ROOT . $this->httpTestsDir);
-        }
     }
 
     /**
@@ -105,7 +101,8 @@ class view
      */
     public function render()
     {
-
+        $this->smarty->addTemplateDir(_ROOT . $this->baseTemplateDir);
+        $this->smarty->addTemplateDir(_ROOT . $this->httpTestsDir);
         if ($this->disabled === false) {
             $tplInfo = $this->tplInfo;
             $tpl = $this->tpl = $tplInfo['tpl'];
@@ -118,7 +115,7 @@ class view
             }
 
             if (!$tpl_exists) {
-                $tpl = "BaseTemplates/errors/error404.tpl";
+                $tpl = "errors/error404.tpl";
             }
 
             if (!empty($tplVars) || sizeof($tplVars) !== 0) {

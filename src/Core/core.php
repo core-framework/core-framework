@@ -108,7 +108,7 @@ class core
     }
 
     /**
-     * run all Core components to produce output. Throws Exception if class or method is not found
+     * Run all Core components to produce output. Throws Exception if class or method is not found
      *
      * @throws \ErrorException
      */
@@ -117,7 +117,7 @@ class core
         $path = $this->path;
         $pathVar = $path . "_view";
         $pathKey = md5($pathVar);
-        if ($this->hasAPC && ($this->devMode || $this->forceApc)) {
+        if ($this->hasAPC && (!$this->devMode || $this->forceApc)) {
             $hasKey = apc_exists($pathKey);
             if ($hasKey) {
                 $this->view = apc_fetch($pathKey);
@@ -131,7 +131,8 @@ class core
     }
 
     /**
-     * extended function
+     * Loads all components
+     *
      * @throws \ErrorException
      */
     private function loadAll()
@@ -140,7 +141,7 @@ class core
         $pathVar = $path . "_route";
         $pathKey = md5($pathVar);
         $ttl = $this->cacheTtl;
-        if ($this->hasAPC && ($this->devMode || $this->forceApc)) {
+        if ($this->hasAPC && (!$this->devMode || $this->forceApc)) {
             $hasKey = apc_exists($pathKey);
             if ($hasKey) {
                 $this->route = apc_fetch($pathKey);
@@ -163,8 +164,6 @@ class core
         $reqstMethod = $this->route->getReqstMethod();
         $this->modelName = $this->route->getModel();
         $this->view->setDebugMode($this->devMode);
-
-        //var_dump($controller);
 
         if ((empty($controller) && !$isFEComponent && !$isRootFile) || $definedMethod !== $reqstMethod) {
             $this->route->header = '404';
@@ -223,7 +222,7 @@ class core
         $pathTpl = "";
 
         if ($isRoot) {
-            $folder = DS . "root" . DS;
+            $folder = "root" . DS;
             $pathTpl = _ROOT . $templateDir . $folder . $fileName . "." . $fileExt;
 
         } elseif ($this->route->urlPathArr[0] === 'scripts') {
@@ -389,7 +388,7 @@ class core
     {
         $controller = $this->route->getController();
         $namespace = $this->route->getNamespace();
-        $namespace = empty($namespace) ? 'Controllers' : $namespace;
+        $namespace = empty($namespace) ? 'Core\\Controllers' : $namespace;
         $method = $this->route->getMethod();
         $method = empty($method) ? 'indexAction' : $method;
         $model = $this->modelName;
@@ -440,7 +439,7 @@ class core
         $path = $this->path;
         $pathVar = $path . "_view";
         $pathKey = md5($pathVar);
-        if ($this->hasAPC && ($this->devMode || $this->forceApc)) {
+        if ($this->hasAPC && (!$this->devMode || $this->forceApc)) {
             $hasKey = apc_exists($pathKey);
             if ($hasKey) {
                 $this->view = apc_fetch($pathKey);

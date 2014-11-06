@@ -87,6 +87,8 @@ class demoController extends controller
         $this->response['tpl'] = 'demopages/demo.tpl';
         $this->response['vars']['docVarsCom'] = include_once $commonLangFile;
         $this->response['vars']['customServePath'] = $routeParams['customServePath'];
+        $this->response['vars']['mainPage'] = 'documentation';
+        $this->response['vars']['subPage'] = true;
 
         return $this->getResponse();
 
