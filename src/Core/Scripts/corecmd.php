@@ -41,6 +41,10 @@ class corecmd
      */
     public static $appName;
     /**
+     * @var string Path to application directory
+     */
+    public static $appDir;
+    /**
      * @var bool Defines if running in development mode
      */
     public static $dev = false;
@@ -67,9 +71,25 @@ class corecmd
         '4D'
     ];
     /**
+     * @var string httpd.conf file path
+     */
+    private static $httpdConfPath;
+    /**
+     * @var string Path to the vhost conf file
+     */
+    private static $vhostConfPath;
+    /**
+     * @var string Apache user
+     */
+    private static $apacheUser;
+    /**
+     * @var string Apache user group
+     */
+    private static $apacheUserGroup;
+    /**
      * @var cache Contains the cache object
      */
-    private $cache;
+    private static $cache;
 
     /**
      * corecmd Constructor
@@ -85,9 +105,8 @@ class corecmd
         $longopts = ["dev", "help"];
         $options = getopt($shortopts, $longopts);
 
-        $this->cache = new cache();
-
         $this::$IOStream = new IOStream();
+        $this::$cache = new cache();
 
         if (sizeof($args) === 0 || (isset($options['h']) || isset($options['help']))) {
 
@@ -264,6 +283,8 @@ class corecmd
             self::setupApp();
         }
 
+        self::createCacheFolder();
+
         self::$IOStream->writeln("Application setup successfully!", 'green');
         self::$IOStream->writeln("You can setup virtual hosts using the following command -", 'yellow');
         self::$IOStream->writeColoredLn(
@@ -282,10 +303,6 @@ class corecmd
 //
 //            }
 //        }
-
-    }
-
-    public static function update(){
 
     }
 
@@ -449,8 +466,8 @@ class corecmd
             $callback,
             "Input must be a valid appname and contain only characters [a-Z]"
         );
-
-        $appDir = _ROOT . DS . $appName;
+        self::$appName = $appName;
+        self::$appDir = $appDir = _ROOT . DS . $appName;
         if (!is_readable($appDir)) {
             mkdir($appDir, 0755);
             mkdir($appDir . DS . "Templates", 0755);
@@ -479,8 +496,6 @@ class corecmd
             self::createIndex($appName);
             self::createHtaccess($appName);
             self::symResources($appName);
-
-            //self::
 
         } else {
             self::$IOStream->writeln("App Directory by $appName already exists", "yellow");
@@ -558,7 +573,7 @@ class corecmd
      */
     private function createIndex($appName)
     {
-        if(empty($appName)){
+        if (empty($appName)) {
             self::$IOStream->showErr("appName cannot be empty!");
             exit;
         }
@@ -589,7 +604,7 @@ class corecmd
      */
     private function createHtaccess($appName)
     {
-        if(empty($appName)){
+        if (empty($appName)) {
             self::$IOStream->showErr("appName cannot be empty!");
             exit;
         }
@@ -613,6 +628,74 @@ class corecmd
     }
 
     /**
+     * Create cache folder, if exist changes the owner of the folder to right apache user
+     */
+    private function createCacheFolder()
+    {
+        $httpdConfPath = self::findHttpdConf();
+
+        if (gettype($httpdConfPath) === 'string') {
+
+            exec('egrep "^User|^Group|^SuexecUserGroup" ' . $httpdConfPath, $output);
+
+            $tmp = explode(" ", $output[0]);
+            $apacheUser = $tmp[1];
+            self::$apacheUser = $apacheUser;
+
+            $tmp = explode(" ", $output[1]);
+            $apacheGroup = $tmp[1];
+            self::$apacheUserGroup = $apacheGroup;
+
+            $cacheDir = _ROOT . DS . "src" . DS . "Core" . DS . "cache" . DS;
+
+            self::$IOStream->writeln("creating cache folder", 'green');
+            if (!is_dir($cacheDir)) {
+                mkdir($cacheDir, 0755);
+            } else {
+                self::$IOStream->writeln("chown: user - $apacheUser", 'green');
+                chown($cacheDir, $apacheUser . ":" . $apacheGroup);
+                chmod($cacheDir, 0755);
+            }
+        }
+    }
+
+    /**
+     * Finds the coorect file to add virtual host to.
+     *
+     * @return bool|string
+     */
+    private function findHttpdConf()
+    {
+
+        if (!empty(self::$httpdConfPath)) {
+            return self::$httpdConfPath;
+        }
+
+        exec('httpd -V', $respArr);
+        foreach ($respArr as $item) {
+            if (strpos($item, "SERVER_CONFIG_FILE") !== false) {
+                $arr = explode("=", $item);
+                $httpdConfPath = trim($arr[1], '"');
+            }
+        }
+
+        if (empty($httpdConfPath)) {
+            self::$IOStream->writeln("Cannot find httpd.conf!", "yellow");
+            $rep = self::$IOStream->ask("Please enter full path to httpd.conf ", 'green');
+            if (is_file($rep)) {
+                $this->httpdConfPath = $rep;
+                return $rep;
+            } else {
+                self::$IOStream->showErr("Valid File not provided!");
+                return false;
+            }
+        } else {
+            self::$httpdConfPath = $httpdConfPath;
+            return $httpdConfPath;
+        }
+    }
+
+    /**
      * Adds an entry to hosts files for the app
      *
      * @param $ip
@@ -620,7 +703,7 @@ class corecmd
      */
     public static function addHosts($domain, $ip)
     {
-        if(empty($domain) || empty($ip)){
+        if (empty($domain) || empty($ip)) {
             self::$IOStream->showErr("Domain and ip must be provided");
             exit;
         }
@@ -681,7 +764,7 @@ class corecmd
      */
     public static function removeVhost($appName, $removeVhost = true, $removeHostEntry = true)
     {
-        if(empty($appName)){
+        if (empty($appName)) {
             self::$IOStream->showErr("appName cannot be empty!");
             exit;
         }
@@ -744,66 +827,11 @@ class corecmd
 
         }
 
-
     }
 
-    /**
-     * Finds the coorect file to add virtual host to.
-     *
-     * @return bool|string
-     */
-    private function findHttpdConf()
+    public static function update()
     {
-        //$httpdConfPath = "";
-        exec('httpd -V', $respArr);
-        foreach ($respArr as $item) {
-            if (strpos($item, "SERVER_CONFIG_FILE") !== false) {
-                $arr = explode("=", $item);
-                $httpdConfPath = trim($arr[1], '"');
-            }
-        }
 
-        if (empty($httpdConfPath)) {
-            self::$IOStream->writeln("Cannot find httpd.conf!", "yellow");
-            $rep = self::$IOStream->ask("Please enter full path to httpd.conf ", 'green');
-            if (is_file($rep)) {
-                $return = self::getVhostPath($rep);
-                return $return;
-            } else {
-                self::$IOStream->showErr("Valid File not provided!");
-            }
-        } else {
-            $return = self::getVhostPath($httpdConfPath);
-            if ($return !== false) {
-                return $return;
-            } else {
-                return $httpdConfPath;
-            }
-        }
-    }
-
-
-    /**
-     * Given the httpd.conf file, gets the httpd-vhosts.conf file path
-     *
-     * @param $httpdConf
-     * @return bool|string
-     */
-    private function getVhostPath($httpdConf)
-    {
-        $arr = file($httpdConf);
-        foreach ($arr as $line) {
-            if (strpos($line, 'httpd-vhosts.conf') !== false) {
-                $arr = explode(" ", $line);
-
-                $vhostPath = trim($arr[1], "\n");
-            }
-        }
-        if (!empty($vhostPath)) {
-            return $vhostPath;
-        } else {
-            return false;
-        }
     }
 
     /**
@@ -895,8 +923,9 @@ class corecmd
         $newContent = str_replace('{errorLog}', $errLog, $newContent);
         $newContent = str_replace('{accessLog}', $accessLog, $newContent);
         $httpdConfPath = self::findHttpdConf();
-        $oldContent = file_get_contents($httpdConfPath);
-        $handle = fopen($httpdConfPath, 'a');
+        $vhostConfFile = self::getVhostPath($httpdConfPath);
+        $oldContent = file_get_contents($vhostConfFile);
+        $handle = fopen($vhostConfFile, 'a');
         $return = fwrite($handle, ($oldContent != "" ? "\n" . $newContent : $newContent));
         fclose($handle);
         if ($return !== false) {
@@ -905,4 +934,72 @@ class corecmd
             self::$IOStream->writeln("Warning: failed to write vhost/httpd.conf file", 'yellow');
         }
     }
+
+    /**
+     * Gets the httpd-vhosts.conf file path
+     *
+     * @param null $httpdConf
+     * @return bool|string
+     * @throws \ErrorException
+     */
+    private function getVhostPath($httpdConf = null)
+    {
+        if (!empty(self::$vhostConfPath)) {
+            return self::$vhostConfPath;
+        }
+
+        if (empty($httpdConf)) {
+            if (!empty($this->httpdConfPath)) {
+                $httpdConf = $this->httpdConfPath;
+            } else {
+                $httpdConf = self::findHttpdConf();
+                if (gettype($httpdConf) !== 'string') {
+                    throw new \ErrorException("HttpdConf file not provided");
+                }
+            }
+        }
+        $arr = file($httpdConf);
+        foreach ($arr as $line) {
+            if (strpos($line, 'httpd-vhosts.conf') !== false) {
+                $arr = explode(" ", $line);
+
+                $vhostPath = trim($arr[1], "\n");
+            }
+        }
+        if (!empty($vhostPath)) {
+            self::$vhostConfPath = $vhostPath;
+            return $vhostPath;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Sleep magic method
+     *
+     * @return array
+     */
+    public function __sleep()
+    {
+        return ['appName', 'appDir', 'dev', 'pdoDrivers', 'httpdConfPath', 'vhostConfPath', 'apacheUser', 'apacheUserGroup'];
+    }
+
+    /**
+     * Wakeup magic method
+     */
+    public function __wakeup()
+    {
+        $this::$IOStream = new IOStream();
+        $this::$cache = new cache();
+    }
+
+    /**
+     * Clear all cache
+     */
+    public static function clearCache()
+    {
+        self::$cache->clearCache();
+        self::$IOStream->writeln("Cache successfully cleared!");
+    }
+
 }

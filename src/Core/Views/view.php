@@ -149,5 +149,21 @@ class view
         $this->smarty->addTemplateDir(_ROOT . $this->templateDir);
     }
 
+    /**
+     * Sleep method
+     *
+     * @return array
+     */
+    public function __sleep()
+    {
+        return ['tpl', 'tplInfo', 'tplVars', 'debugfile', 'templateDir', 'baseTemplateDir'];
+    }
 
+    /**
+     * Wakeup magic method
+     */
+    public function __wakeup()
+    {
+        $this->smarty_init();
+    }
 }

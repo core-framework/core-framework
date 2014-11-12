@@ -88,7 +88,7 @@ class routes
      */
     private $fileExt = "";
     /**
-     * @var Contains the default controller, for if no controller is present
+     * @var string Contains the default controller, for if no controller is present
      */
     private $defaultController;
     /**
@@ -688,5 +688,13 @@ class routes
         return $this->definedMethod;
     }
 
-
+    /**
+     * Sleep magic method
+     *
+     * @return array
+     */
+    public function __sleep()
+    {
+        return ['path', 'urlPathArr', 'controllerVerb', 'header', 'server', 'cookies', 'getVars', 'postVars', 'reqstMethod', 'pathConfFile', 'routeVars', 'fileName', 'fileExt', 'defaultController', 'collection', 'require', 'namespace', 'controller', 'method', 'model', 'FEComponents', 'customServe', 'referencePath', 'args', 'templatePath', 'isRootFile', 'isFEComponents', 'foundMatch', 'definedMatch', 'definedMethod'];
+    }
 } 

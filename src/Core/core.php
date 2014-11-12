@@ -1,5 +1,17 @@
 <?php
 /**
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
  * This file is part of the Core Framework package.
  *
  * (c) Shalom Sam <shalom.s@coreframework.in>
@@ -10,32 +22,95 @@
 
 namespace Core;
 
+use Core\CacheSystem\cache;
+use Core\Request\request;
+use Core\Routes\routes;
+use Core\Views\view;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
 /**
- * Class core
+ * Core Kernel
+ *
  * @package Core
+ * @version $Revision$
+ * @license http://creativecommons.org/licenses/by-sa/4.0/
+ * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
 class core
 {
+    /**
+     * @var array Controller directories
+     */
     public $controllerDir = [];
+    /**
+     * @var array Model Directories
+     */
     public $modelDir = [];
+    /**
+     * @var bool Development mode ( if set to true, disables APC and relies on internal caching )
+     */
     public $devMode = false;
+    /**
+     * @var string Current URL path
+     */
     public $path;
+    /**
+     * @var bool To force APC even if devMode is true ( considering that APC is available )
+     */
     public $forceApc = false;
+    /**
+     * @var string Template directory
+     */
     private $templateDir;
+    /**
+     * @var string Default/root template file
+     */
     private $defaultTpl = "root.tpl";
+    /**
+     * @var string Default Controller
+     */
     private $defaultController;
+    /**
+     * @var request Request object
+     */
+    private $request;
+    /**
+     * @var routes Routes object
+     */
     private $route;
+    /**
+     * @var Controllers\controller
+     */
     private $controller;
+    /**
+     * @var string Model ( class ) name
+     */
     private $modelName;
+    /**
+     * @var view View object
+     */
     private $view;
+    /**
+     * @var array Template information
+     */
     private $templateInfo;
+    /**
+     * @var array Sanitized $_GET
+     */
     private $getVars;
+    /**
+     * @var array Sanitized $_POST
+     */
     private $postVars;
+    /**
+     * @var array Set Cookies
+     */
     private $cookies;
+    /**
+     * @var array Valid Extensions
+     */
     private $validExtensions = [
         'js',
         'css',
@@ -52,50 +127,126 @@ class core
         'php',
         'map'
     ];
+    /**
+     * @var string Styles(css) directory
+     */
     private $stylesDir;
+    /**
+     * @var string Scripts(js) directory
+     */
     private $scriptsDir;
+    /**
+     * @var string Images directory
+     */
     private $imagesDir;
+    /**
+     * @var string Resources directory ( if set then styles/scripts/images do not need to be set )
+     */
     private $resourcesDir;
+    /**
+     * @var bool If APC is installed and enabled
+     */
     private $hasAPC;
+    /**
+     * @var string Global conf file path
+     */
     private $globalConf;
-    private $cacheTtl = 900; //15m
+    /**
+     * @var cache Cache object
+     */
+    private $cache;
+    /**
+     * @var int Time To Live (ttl) for cache
+     */
+    private $cachettl = 900; //15m
 
     /**
      * Initiates the core components
      */
     public function __construct($devMode = false)
     {
+        $pathKey = "";
+        $hasKeyAPC = false;
+        $hasKeyCache = false;
         $this->devMode = $devMode;
+        $this->cache = new cache();
 
         $this->controllerDir[0] = DS . "src" . DS . "Core" . DS . "Controllers" . DS;
         $this->modelDir[0] = DS . "src" . DS . "Core" . DS . "Models" . DS;
-        $globalConf = DS . "config" . DS . "global.conf.php";
+        $this->globalConf = $globalConf = DS . "config" . DS . "global.conf.php";
 
         $apcisloaded = extension_loaded("apc");
         $apcisEnabled = ini_get('apc.enabled');
         $this->hasAPC = $apcisEnabled && $apcisloaded ? true : false;
 
-        $req = new Request\request();
+        $this->request = $req = new request();
         $this->path = $req->getPath();
-        $this->route = new Routes\routes($req);
-        $this->view = new Views\view();
-        $this->globalConf = require_once _ROOT . $globalConf;
+
+        $clear = htmlentities(filter_var($_GET['action']), FILTER_SANITIZE_STRING);
+        if ($clear === 'clear_cache') {
+            $this->clearCache();
+        }
+
+        if($this->hasAPC && !$this->devMode) {
+            $path = $this->path;
+            $pathKey = md5($path . "_view");
+            $hasKeyAPC = apc_exists($pathKey);
+            $hasKeyCache = $this->cache->cacheExists($pathKey);
+        }
+
+        if($hasKeyAPC) {
+            $this->APCinit($pathKey);
+        } elseif($hasKeyCache) {
+            $this->cachedinit($pathKey);
+        } else {
+            $this->defaultinit();
+        }
 
         spl_autoload_register([$this, 'autoloadController']);
         spl_autoload_register([$this, 'autoloadModel']);
 
-        $getVars = $this->route->getGetVars();
-        if ($getVars['action'] === 'clear_cache') {
-            $this->clearCache();
-        }
+    }
+
+    /**
+     * Default initialization when no cache is available
+     */
+    private function defaultinit()
+    {
+        $this->route = new routes($this->request);
+        $this->view = new view();
+        $this->globalConf = require_once _ROOT . $this->globalConf;
+    }
+
+    /**
+     * Cached execution if Core Framework's cache is available
+     *
+     * @param $key
+     */
+    private function cachedinit($key){
+        $this->view = $this->cache->getCache($key);
+        $this->view->render();
+    }
+
+    /**
+     * Cached execution if APC's cache is available
+     *
+     * @param $apcKey
+     */
+    private function APCinit($apcKey)
+    {
+        $this->view = apc_fetch($apcKey);
+        $this->view->render();
     }
 
     /**
      * Clear / reset APC Cache
      */
-    public static function clearCache()
+    public function clearCache()
     {
-        apc_clear_cache();
+        if($this->hasAPC) {
+            apc_clear_cache();
+        }
+        $this->cache->clearCache();
     }
 
     /**
@@ -114,20 +265,7 @@ class core
      */
     public function Load()
     {
-        $path = $this->path;
-        $pathVar = $path . "_view";
-        $pathKey = md5($pathVar);
-        if ($this->hasAPC && (!$this->devMode || $this->forceApc)) {
-            $hasKey = apc_exists($pathKey);
-            if ($hasKey) {
-                $this->view = apc_fetch($pathKey);
-                $this->view->render();
-            } else {
-                $this->loadAll();
-            }
-        } else {
-            $this->loadAll();
-        }
+        $this->loadAll();
     }
 
     /**
@@ -137,22 +275,7 @@ class core
      */
     private function loadAll()
     {
-        $path = $this->path;
-        $pathVar = $path . "_route";
-        $pathKey = md5($pathVar);
-        $ttl = $this->cacheTtl;
-        if ($this->hasAPC && (!$this->devMode || $this->forceApc)) {
-            $hasKey = apc_exists($pathKey);
-            if ($hasKey) {
-                $this->route = apc_fetch($pathKey);
-            } else {
-                $this->route->findMatch();
-                apc_store($pathKey, $this->route, 2 * $ttl);
-            }
-        } else {
-            $this->route->findMatch();
-        }
-
+        $this->route->findMatch();
         $this->getVars = $this->route->getGetVars();
         $this->postVars = $this->route->getPostVars();
         $this->cookies = $this->route->getCookies();
@@ -426,7 +549,7 @@ class core
         }
 
 
-        $ttl = $this->cacheTtl;
+        $ttl = $this->cachettl;
         if (!empty($this->templateInfo['header'])) {
             $this->setHeaders($this->templateInfo['header']);
         } else {
@@ -440,13 +563,10 @@ class core
         $pathVar = $path . "_view";
         $pathKey = md5($pathVar);
         if ($this->hasAPC && (!$this->devMode || $this->forceApc)) {
-            $hasKey = apc_exists($pathKey);
-            if ($hasKey) {
-                $this->view = apc_fetch($pathKey);
-            } else {
-                apc_store($pathKey, $this->view, $ttl);
-            }
+            apc_store($pathKey, $this->view, $ttl);
         }
+
+        $this->cache->cacheContent($pathKey, $this->view, $ttl);
 
         $this->view->render();
 
@@ -465,9 +585,9 @@ class core
      * Set the cache TTL defaults
      * @param $sec
      */
-    public function setCacheTtl($sec)
+    public function setCachettl($sec)
     {
-        $this->cacheTtl = $sec;
+        $this->cachettl = $sec;
     }
 
     /**
@@ -638,4 +758,26 @@ class core
             return false;
         }
     }
+
+    /**
+     * Sleep magic method
+     *
+     * @return array
+     */
+    public function __sleep()
+    {
+        return ['controllerDir', 'modelDir', 'devMode', 'path', 'forceApc', 'templateDir', 'defaultTpl', 'defaultController', 'modelName', 'templateInfo', 'getVars', 'postVars', 'cookies', 'validExtensions', 'styleDir', 'scriptsDir', 'imageDir', 'resourcesDir', 'hasAPC', 'globalConf', 'cachettl'];
+    }
+
+
+    /**
+     * Wakeup magic method
+     */
+    public function __wakeup()
+    {
+        $this->route = null;
+        $this->request = null;
+        $this->view = new Views\view();
+    }
+
 }

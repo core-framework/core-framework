@@ -228,4 +228,14 @@ class request
         return $this->postVars;
     }
 
+    /**
+     * Sleep magic method
+     *
+     * @return array
+     */
+    public function __sleep()
+    {
+        return ['path', 'method', 'getVars', 'postVars', 'server', 'cookies', 'illegal', 'devMode'];
+    }
+
 }

@@ -3,6 +3,8 @@
 
 namespace Core\Scripts;
 
+use Core\CacheSystem\cache;
+
 define('DS', DIRECTORY_SEPARATOR);
 chdir(__DIR__ . DS . ".." . DS . ".." . DS . ".." . DS);
 $vendor = getcwd() . DS . "vendor";
@@ -25,7 +27,18 @@ if (is_dir($vendor)) {
 
 $loader = require_once _ROOT . DS . "vendor" . DS . "autoload.php";
 
-/** @var TYPE_NAME $argv */
-/** @var TYPE_NAME $argc */
-$cmd = new corecmd($argv, $argc);
+$cache = new cache();
+$corecmd = $cache->getCache('corecmd_cache');
+
+if (!empty($corecmd) && $corecmd !== false) {
+    /** @var TYPE_NAME $argv */
+    /** @var TYPE_NAME $argc */
+    $cmd = $corecmd->__construct($argv, $argc);
+} else {
+    /** @var TYPE_NAME $argv */
+    /** @var TYPE_NAME $argc */
+    $cmd = new corecmd($argv, $argc);
+    $cache->cacheContent("corecmd_cache", $cmd, 0);
+}
+
 

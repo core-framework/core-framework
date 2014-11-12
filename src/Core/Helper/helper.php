@@ -37,24 +37,35 @@ class helper
      * Method to serialize array (comma separated values as single string)
      *
      * @param array $arr
+     * @param string $delimiter
      * @return string
      */
-    public static function serialize(array $arr)
+    public static function serialize(array $arr, $delimiter = ", ")
     {
         $serialized = "";
         if (!key($arr)) {
             foreach ($arr as $item) {
-                $serialized .= $item . ", ";
+                $serialized .= $item . $delimiter;
             }
-            $serialized = rtrim($serialized, ", ");
+            $serialized = rtrim($serialized, $delimiter);
             return $serialized;
         } elseif (sizeof(key($arr)) > 0) {
             foreach ($arr as $key => $val) {
                 $serialized .= $val . ", ";
             }
-            $serialized = rtrim($serialized, ", ");
+            $serialized = rtrim($serialized, $delimiter);
             return $serialized;
         }
+    }
+
+    /**
+     * @param $serialized
+     * @param string $delimiter
+     * @return array
+     */
+    public static function unserialize($serialized, $delimiter = ", ")
+    {
+        return explode($delimiter, $serialized);
     }
 
     /**
