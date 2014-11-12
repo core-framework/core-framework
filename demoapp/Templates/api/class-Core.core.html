@@ -28,7 +28,7 @@
 						</li>
 				<li><a href="namespace-Core.Database.html">Database</a>
 						</li>
-				<li><a href="namespace-Core.Error.html">Error</a>
+				<li><a href="namespace-Core.ErrorHandler.html">ErrorHandler</a>
 						</li>
 				<li><a href="namespace-Core.Helper.html">Helper</a>
 						</li>
@@ -100,7 +100,7 @@
 
 
 	<div class="description">
-	<p>Class core</p>
+	<p>Core Kernel</p>
 
 	</div>
 
@@ -118,10 +118,17 @@
 		<b>Namespace:</b> Core<br>
 		<b>Package:</b> Core<br>
 
+				<b>License:</b>
+				<a href="http://creativecommons.org/licenses/by-sa/4.0/">http://creativecommons.org/licenses/by-sa/4.0/</a><br>
 				<b>Author:</b>
 				Shalom Sam <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;">&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;</a>
 <br>
-		<b>Located at</b> <a href="source-class-Core.core.html#16-642" title="Go to source code">core.php</a><br>
+				<b>Version:</b>
+				$Revision$
+<br>
+				<b>Link:</b>
+				<a href="http://coreframework.in">http://coreframework.in</a><br>
+		<b>Located at</b> <a href="source-class-Core.core.html#32-783" title="Go to source code">core.php</a><br>
 	</div>
 
 
@@ -140,7 +147,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Core.core.html#63-91" title="Go to source code">__construct</a>( <span>mixed <var>$devMode</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Core.core.html#163-208" title="Go to source code">__construct</a>( <span>mixed <var>$devMode</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Initiates the core components</p>
@@ -163,7 +170,7 @@
 	<tr data-order="clearCache" id="_clearCache">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 
 			
 			
@@ -172,7 +179,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clearCache">#</a>
-		<code><a href="source-class-Core.core.html#93-99" title="Go to source code">clearCache</a>( )</code>
+		<code><a href="source-class-Core.core.html#241-250" title="Go to source code">clearCache</a>( )</code>
 
 		<div class="description short">
 			<p>Clear / reset APC Cache</p>
@@ -204,7 +211,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setPathConfFile">#</a>
-		<code><a href="source-class-Core.core.html#101-108" title="Go to source code">setPathConfFile</a>( <span>mixed <var>$file</var></span> )</code>
+		<code><a href="source-class-Core.core.html#252-259" title="Go to source code">setPathConfFile</a>( <span>mixed <var>$file</var></span> )</code>
 
 		<div class="description short">
 			<p>set the pathConf file (override defaults or previously set)</p>
@@ -242,15 +249,15 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Load">#</a>
-		<code><a href="source-class-Core.core.html#110-131" title="Go to source code">Load</a>( )</code>
+		<code><a href="source-class-Core.core.html#261-269" title="Go to source code">Load</a>( )</code>
 
 		<div class="description short">
-			<p>run all Core components to produce output. Throws Exception if class or method is not found</p>
+			<p>Run all Core components to produce output. Throws Exception if class or method is not found</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			<p>run all Core components to produce output. Throws Exception if class or method is not found</p>
+			<p>Run all Core components to produce output. Throws Exception if class or method is not found</p>
 
 
 
@@ -278,7 +285,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setDefaultTpl">#</a>
-		<code><a href="source-class-Core.core.html#456-463" title="Go to source code">setDefaultTpl</a>( <span>mixed <var>$tpl</var></span> )</code>
+		<code><a href="source-class-Core.core.html#575-582" title="Go to source code">setDefaultTpl</a>( <span>mixed <var>$tpl</var></span> )</code>
 
 		<div class="description short">
 			<p>Set the default tpl file. By default this is root.tpl</p>
@@ -304,7 +311,7 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="setCachettl" id="_setCacheTtl">
+	<tr data-order="setCachettl" id="_setCachettl">
 
 		<td class="attributes"><code>
 			 public 
@@ -315,8 +322,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_setCacheTtl">#</a>
-		<code><a href="source-class-Core.core.html#465-472" title="Go to source code">setCachettl</a>( <span>mixed <var>$sec</var></span> )</code>
+		<a class="anchor" href="#_setCachettl">#</a>
+		<code><a href="source-class-Core.core.html#584-591" title="Go to source code">setCachettl</a>( <span>mixed <var>$sec</var></span> )</code>
 
 		<div class="description short">
 			<p>Set the cache TTL defaults</p>
@@ -354,7 +361,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_add">#</a>
-		<code><a href="source-class-Core.core.html#474-482" title="Go to source code">add</a>( <span>mixed <var>$var</var></span>, <span>mixed <var>$val</var></span> )</code>
+		<code><a href="source-class-Core.core.html#593-601" title="Go to source code">add</a>( <span>mixed <var>$var</var></span>, <span>mixed <var>$val</var></span> )</code>
 
 		<div class="description short">
 			<p>add public properties</p>
@@ -395,7 +402,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_registerApp">#</a>
-		<code><a href="source-class-Core.core.html#484-501" title="Go to source code">registerApp</a>( <span>mixed <var>$namespace</var></span>, <span>mixed <var>$appDir</var></span> )</code>
+		<code><a href="source-class-Core.core.html#603-620" title="Go to source code">registerApp</a>( <span>mixed <var>$namespace</var></span>, <span>mixed <var>$appDir</var></span> )</code>
 
 		<div class="description short">
 			<p>register application directories</p>
@@ -436,7 +443,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addControllerDir">#</a>
-		<code><a href="source-class-Core.core.html#503-510" title="Go to source code">addControllerDir</a>( <span>mixed <var>$path</var></span> )</code>
+		<code><a href="source-class-Core.core.html#622-629" title="Go to source code">addControllerDir</a>( <span>mixed <var>$path</var></span> )</code>
 
 		<div class="description short">
 			<p>Add controllerDir to list</p>
@@ -474,7 +481,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addModelDir">#</a>
-		<code><a href="source-class-Core.core.html#512-519" title="Go to source code">addModelDir</a>( <span>mixed <var>$path</var></span> )</code>
+		<code><a href="source-class-Core.core.html#631-638" title="Go to source code">addModelDir</a>( <span>mixed <var>$path</var></span> )</code>
 
 		<div class="description short">
 			<p>Add Model Dirs to list</p>
@@ -512,7 +519,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setResourcesDir">#</a>
-		<code><a href="source-class-Core.core.html#521-534" title="Go to source code">setResourcesDir</a>( <span>mixed <var>$path</var></span> )</code>
+		<code><a href="source-class-Core.core.html#640-653" title="Go to source code">setResourcesDir</a>( <span>mixed <var>$path</var></span> )</code>
 
 		<div class="description short">
 			<p>set the resource directory. No need to set the images, scripts or styles directories individually if this
@@ -552,7 +559,7 @@ is set.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setTemplateDir">#</a>
-		<code><a href="source-class-Core.core.html#536-545" title="Go to source code">setTemplateDir</a>( <span>mixed <var>$dir</var></span> )</code>
+		<code><a href="source-class-Core.core.html#655-664" title="Go to source code">setTemplateDir</a>( <span>mixed <var>$dir</var></span> )</code>
 
 		<div class="description short">
 			<p>set template directory (override defaults or previously set)</p>
@@ -590,7 +597,7 @@ is set.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setImagesDir">#</a>
-		<code><a href="source-class-Core.core.html#547-554" title="Go to source code">setImagesDir</a>( <span>mixed <var>$path</var></span> )</code>
+		<code><a href="source-class-Core.core.html#666-673" title="Go to source code">setImagesDir</a>( <span>mixed <var>$path</var></span> )</code>
 
 		<div class="description short">
 			<p>set the images directory</p>
@@ -628,7 +635,7 @@ is set.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setScriptsDir">#</a>
-		<code><a href="source-class-Core.core.html#556-563" title="Go to source code">setScriptsDir</a>( <span>mixed <var>$path</var></span> )</code>
+		<code><a href="source-class-Core.core.html#675-682" title="Go to source code">setScriptsDir</a>( <span>mixed <var>$path</var></span> )</code>
 
 		<div class="description short">
 			<p>set the scripts directory</p>
@@ -666,7 +673,7 @@ is set.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setStylesDir">#</a>
-		<code><a href="source-class-Core.core.html#565-572" title="Go to source code">setStylesDir</a>( <span>mixed <var>$path</var></span> )</code>
+		<code><a href="source-class-Core.core.html#684-691" title="Go to source code">setStylesDir</a>( <span>mixed <var>$path</var></span> )</code>
 
 		<div class="description short">
 			<p>set the styles directory</p>
@@ -704,7 +711,7 @@ is set.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setControllerDir">#</a>
-		<code><a href="source-class-Core.core.html#574-581" title="Go to source code">setControllerDir</a>( <span>mixed <var>$path</var></span> )</code>
+		<code><a href="source-class-Core.core.html#693-700" title="Go to source code">setControllerDir</a>( <span>mixed <var>$path</var></span> )</code>
 
 		<div class="description short">
 			<p>set controller directory</p>
@@ -742,7 +749,7 @@ is set.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setModelDir">#</a>
-		<code><a href="source-class-Core.core.html#583-590" title="Go to source code">setModelDir</a>( <span>mixed <var>$path</var></span> )</code>
+		<code><a href="source-class-Core.core.html#702-709" title="Go to source code">setModelDir</a>( <span>mixed <var>$path</var></span> )</code>
 
 		<div class="description short">
 			<p>set the Model directory</p>
@@ -760,6 +767,74 @@ is set.</p>
 					<dd>
 </dd>
 				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__sleep" id="___sleep">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___sleep">#</a>
+		<code><a href="source-class-Core.core.html#762-770" title="Go to source code">__sleep</a>( )</code>
+
+		<div class="description short">
+			<p>Sleep magic method</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sleep magic method</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__wakeup" id="___wakeup">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___wakeup">#</a>
+		<code><a href="source-class-Core.core.html#773-781" title="Go to source code">__wakeup</a>( )</code>
+
+		<div class="description short">
+			<p>Wakeup magic method</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Wakeup magic method</p>
+
+
+
 
 
 
@@ -790,15 +865,15 @@ is set.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.core.html#23" title="Go to source code"><var>$controllerDir</var></a>
+				<a href="source-class-Core.core.html#43-46" title="Go to source code"><var>$controllerDir</var></a>
 
 			<div class="description short">
-				
+				<p>Controller directories</p>
 
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Controller directories</p>
 
 
 			</div>
@@ -817,15 +892,15 @@ is set.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.core.html#24" title="Go to source code"><var>$modelDir</var></a>
+				<a href="source-class-Core.core.html#47-50" title="Go to source code"><var>$modelDir</var></a>
 
 			<div class="description short">
-				
+				<p>Model Directories</p>
 
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Model Directories</p>
 
 
 			</div>
@@ -844,15 +919,15 @@ is set.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.core.html#25" title="Go to source code"><var>$devMode</var></a>
+				<a href="source-class-Core.core.html#51-54" title="Go to source code"><var>$devMode</var></a>
 
 			<div class="description short">
-				
+				<p>Development mode ( if set to true, disables APC and relies on internal caching )</p>
 
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Development mode ( if set to true, disables APC and relies on internal caching )</p>
 
 
 			</div>
@@ -867,19 +942,19 @@ is set.</p>
 	<tr data-order="path" id="$path">
 		<td class="attributes"><code>
 			public  
-			mixed
+			string
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.core.html#26" title="Go to source code"><var>$path</var></a>
+				<a href="source-class-Core.core.html#55-58" title="Go to source code"><var>$path</var></a>
 
 			<div class="description short">
-				
+				<p>Current URL path</p>
 
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Current URL path</p>
 
 
 			</div>
@@ -898,15 +973,15 @@ is set.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.core.html#27" title="Go to source code"><var>$forceApc</var></a>
+				<a href="source-class-Core.core.html#59-62" title="Go to source code"><var>$forceApc</var></a>
 
 			<div class="description short">
-				
+				<p>To force APC even if devMode is true ( considering that APC is available )</p>
 
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>To force APC even if devMode is true ( considering that APC is available )</p>
 
 
 			</div>
@@ -933,6 +1008,6 @@ is set.</p>
 </div>
 </div>
 <script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?614614412"></script>
+<script src="elementlist.js?3370987451"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Core\Error\errHandler</title>
+	<title>Class Core\ErrorHandler\errHandler</title>
 
 	<link rel="stylesheet" href="resources/style.css?1648332946">
 
@@ -28,7 +28,7 @@
 						</li>
 				<li><a href="namespace-Core.Database.html">Database</a>
 						</li>
-				<li class="active"><a href="namespace-Core.Error.html">Error</a>
+				<li class="active"><a href="namespace-Core.ErrorHandler.html">ErrorHandler</a>
 						</li>
 				<li><a href="namespace-Core.Helper.html">Helper</a>
 						</li>
@@ -54,7 +54,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-Core.Error.errHandler.html">errHandler</a></li>
+				<li class="active"><a href="class-Core.ErrorHandler.errHandler.html">errHandler</a></li>
 			</ul>
 
 
@@ -81,7 +81,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-Core.Error.html" title="Summary of Core\Error"><span>Namespace</span></a>
+				<a href="namespace-Core.ErrorHandler.html" title="Summary of Core\ErrorHandler"><span>Namespace</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -100,7 +100,7 @@
 
 
 	<div class="description">
-	<p>Class to handle error</p>
+	<p>Class to handle errors</p>
 
 	</div>
 
@@ -115,8 +115,8 @@
 	<div class="info">
 		
 		
-		<b>Namespace:</b> Core\Error<br>
-		<b>Package:</b> Core\Error<br>
+		<b>Namespace:</b> Core\ErrorHandler<br>
+		<b>Package:</b> Core\ErrorHandler<br>
 
 				<b>License:</b>
 				<a href="http://creativecommons.org/licenses/by-sa/4.0/">http://creativecommons.org/licenses/by-sa/4.0/</a><br>
@@ -128,7 +128,7 @@
 <br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-		<b>Located at</b> <a href="source-class-Core.Error.errHandler.html#25-126" title="Go to source code">Error/errorHandler.php</a><br>
+		<b>Located at</b> <a href="source-class-Core.ErrorHandler.errHandler.html#25-167" title="Go to source code">ErrorHandler/errorHandler.php</a><br>
 	</div>
 
 
@@ -147,18 +147,27 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_debugtrace">#</a>
-		<code><a href="source-class-Core.Error.errHandler.html#37-41" title="Go to source code">debugtrace</a>( <span>mixed <var>$functToCall</var></span>, <span>mixed <var>$msg</var> = <span class="php-quote">&quot;Error&quot;</span></span> )</code>
+		<code><a href="source-class-Core.ErrorHandler.errHandler.html#41-51" title="Go to source code">debugtrace</a>( <span>mixed <var>$functToCall</var></span>, <span>string <var>$msg</var> = <span class="php-quote">&quot;Error&quot;</span></span> )</code>
 
 		<div class="description short">
-			
+			<p>Debug trace to the error line</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Debug trace to the error line</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$functToCall</var></dt>
+					<dd>
+</dd>
+					<dt><var>$msg</var></dt>
+					<dd>
+</dd>
+				</dl></div>
 
 
 
@@ -179,18 +188,33 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_html_wrapped">#</a>
-		<code><a href="source-class-Core.Error.errHandler.html#43-53" title="Go to source code">html_wrapped</a>( <span>mixed <var>$errLine</var></span>, <span>mixed <var>$errFile</var></span>, <span>mixed <var>$errMsg</var></span>, <span>mixed <var>$class</var> = <span class="php-quote">'global'</span></span> )</code>
+		<code><a href="source-class-Core.ErrorHandler.errHandler.html#53-71" title="Go to source code">html_wrapped</a>( <span>mixed <var>$errLine</var></span>, <span>mixed <var>$errFile</var></span>, <span>mixed <var>$errMsg</var></span>, <span>string <var>$class</var> = <span class="php-quote">'global'</span></span> )</code>
 
 		<div class="description short">
-			
+			<p>To show html errors or error responses by server on a ajax call</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>To show html errors or error responses by server on a ajax call</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$errLine</var></dt>
+					<dd>
+</dd>
+					<dt><var>$errFile</var></dt>
+					<dd>
+</dd>
+					<dt><var>$errMsg</var></dt>
+					<dd>
+</dd>
+					<dt><var>$class</var></dt>
+					<dd>
+</dd>
+				</dl></div>
 
 
 
@@ -204,26 +228,54 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_html_wrapped_pos">#</a>
-		<code><a href="source-class-Core.Error.errHandler.html#55-94" title="Go to source code">html_wrapped_pos</a>( <span>mixed <var>$errLine</var> = <span class="php-keyword1">null</span></span>, <span>mixed <var>$errFile</var> = <span class="php-keyword1">null</span></span>, <span>mixed <var>$errMsg</var> = <span class="php-keyword1">null</span></span>, <span>mixed <var>$class</var> = <span class="php-quote">''</span></span>, <span>mixed <var>$pos</var> = <span class="php-keyword1">null</span></span>, <span>mixed <var>$fadeout</var> = <span class="php-keyword1">false</span></span>, <span>mixed <var>$return</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Core.ErrorHandler.errHandler.html#73-122" title="Go to source code">html_wrapped_pos</a>( <span>null <var>$errLine</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$errFile</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$errMsg</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$class</var> = <span class="php-quote">''</span></span>, <span>null <var>$pos</var> = <span class="php-keyword1">null</span></span>, <span>boolean <var>$fadeout</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$return</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
-			
+			<p>Same as the html_wrapped() function but with animation and positioning flexibility</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Same as the html_wrapped() function but with animation and positioning flexibility</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$errLine</var></dt>
+					<dd>
+</dd>
+					<dt><var>$errFile</var></dt>
+					<dd>
+</dd>
+					<dt><var>$errMsg</var></dt>
+					<dd>
+</dd>
+					<dt><var>$class</var></dt>
+					<dd>
+</dd>
+					<dt><var>$pos</var></dt>
+					<dd>
+</dd>
+					<dt><var>$fadeout</var></dt>
+					<dd>
+</dd>
+					<dt><var>$return</var></dt>
+					<dd>
+</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code>
+				</div>
 
 
 
@@ -243,18 +295,33 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_log_to_file">#</a>
-		<code><a href="source-class-Core.Error.errHandler.html#96-109" title="Go to source code">log_to_file</a>( <span>mixed <var>$errLine</var></span>, <span>mixed <var>$errFile</var></span>, <span>mixed <var>$errMsg</var></span>, <span>mixed <var>$filePath</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Core.ErrorHandler.errHandler.html#124-145" title="Go to source code">log_to_file</a>( <span>mixed <var>$errLine</var></span>, <span>mixed <var>$errFile</var></span>, <span>mixed <var>$errMsg</var></span>, <span>null <var>$filePath</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
-			
+			<p>Log error to file</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Log error to file</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$errLine</var></dt>
+					<dd>
+</dd>
+					<dt><var>$errFile</var></dt>
+					<dd>
+</dd>
+					<dt><var>$errMsg</var></dt>
+					<dd>
+</dd>
+					<dt><var>$filePath</var></dt>
+					<dd>
+</dd>
+				</dl></div>
 
 
 
@@ -275,18 +342,27 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_log_to_file_msg">#</a>
-		<code><a href="source-class-Core.Error.errHandler.html#111-124" title="Go to source code">log_to_file_msg</a>( <span>mixed <var>$msg</var></span>, <span>mixed <var>$filePath</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Core.ErrorHandler.errHandler.html#147-165" title="Go to source code">log_to_file_msg</a>( <span>mixed <var>$msg</var></span>, <span>null <var>$filePath</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
-			
+			<p>log msg to file</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>log msg to file</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$msg</var></dt>
+					<dd>
+</dd>
+					<dt><var>$filePath</var></dt>
+					<dd>
+</dd>
+				</dl></div>
 
 
 
@@ -322,6 +398,6 @@
 </div>
 </div>
 <script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?614614412"></script>
+<script src="elementlist.js?3370987451"></script>
 </body>
 </html>

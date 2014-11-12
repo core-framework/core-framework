@@ -28,7 +28,7 @@
 						</li>
 				<li><a href="namespace-Core.Database.html">Database</a>
 						</li>
-				<li><a href="namespace-Core.Error.html">Error</a>
+				<li><a href="namespace-Core.ErrorHandler.html">ErrorHandler</a>
 						</li>
 				<li class="active"><a href="namespace-Core.Helper.html">Helper</a>
 						</li>
@@ -128,7 +128,7 @@
 <br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-		<b>Located at</b> <a href="source-class-Core.Helper.helper.html#25-126" title="Go to source code">Helper/helper.php</a><br>
+		<b>Located at</b> <a href="source-class-Core.Helper.helper.html#25-137" title="Go to source code">Helper/helper.php</a><br>
 	</div>
 
 
@@ -147,7 +147,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_serialize">#</a>
-		<code><a href="source-class-Core.Helper.helper.html#36-58" title="Go to source code">serialize</a>( <span>array <var>$arr</var></span> )</code>
+		<code><a href="source-class-Core.Helper.helper.html#36-59" title="Go to source code">serialize</a>( <span>array <var>$arr</var></span>, <span>string <var>$delimiter</var> = <span class="php-quote">&quot;, &quot;</span></span> )</code>
 
 		<div class="description short">
 			<p>Method to serialize array (comma separated values as single string)</p>
@@ -164,11 +164,59 @@
 					<dt><var>$arr</var></dt>
 					<dd>
 </dd>
+					<dt><var>$delimiter</var></dt>
+					<dd>
+</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
 					<code>string</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="unserialize" id="_unserialize">
+
+		<td class="attributes"><code>
+			 public static
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_unserialize">#</a>
+		<code><a href="source-class-Core.Helper.helper.html#61-69" title="Go to source code">unserialize</a>( <span>mixed <var>$serialized</var></span>, <span>string <var>$delimiter</var> = <span class="php-quote">&quot;, &quot;</span></span> )</code>
+
+		<div class="description short">
+			
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$serialized</var></dt>
+					<dd>
+</dd>
+					<dt><var>$delimiter</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code>
 				</div>
 
 
@@ -189,7 +237,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_copyr">#</a>
-		<code><a href="source-class-Core.Helper.helper.html#60-92" title="Go to source code">copyr</a>( <span>mixed <var>$source</var></span>, <span>mixed <var>$dest</var></span>, <span>boolean <var>$override</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Core.Helper.helper.html#71-103" title="Go to source code">copyr</a>( <span>mixed <var>$source</var></span>, <span>mixed <var>$dest</var></span>, <span>boolean <var>$override</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Method to copy files and directories recursively</p>
@@ -237,7 +285,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_chmodDirFiles">#</a>
-		<code><a href="source-class-Core.Helper.helper.html#94-113" title="Go to source code">chmodDirFiles</a>( <span>mixed <var>$dir</var></span>, <span>null <var>$mod</var> = <span class="php-keyword1">null</span></span>, <span>boolean <var>$recursive</var> = <span class="php-keyword1">true</span></span> )</code>
+		<code><a href="source-class-Core.Helper.helper.html#105-124" title="Go to source code">chmodDirFiles</a>( <span>mixed <var>$dir</var></span>, <span>null <var>$mod</var> = <span class="php-keyword1">null</span></span>, <span>boolean <var>$recursive</var> = <span class="php-keyword1">true</span></span> )</code>
 
 		<div class="description short">
 			<p>Method to change the permission for files recursively</p>
@@ -281,7 +329,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_change_perms">#</a>
-		<code><a href="source-class-Core.Helper.helper.html#115-124" title="Go to source code">change_perms</a>( <span>mixed <var>$obj</var></span>, <span>null <var>$mod</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Core.Helper.helper.html#126-135" title="Go to source code">change_perms</a>( <span>mixed <var>$obj</var></span>, <span>null <var>$mod</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Method to change the permission of a single file</p>
@@ -337,6 +385,6 @@
 </div>
 </div>
 <script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?614614412"></script>
+<script src="elementlist.js?3370987451"></script>
 </body>
 </html>

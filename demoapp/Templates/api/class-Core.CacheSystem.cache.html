@@ -28,7 +28,7 @@
 						</li>
 				<li><a href="namespace-Core.Database.html">Database</a>
 						</li>
-				<li><a href="namespace-Core.Error.html">Error</a>
+				<li><a href="namespace-Core.ErrorHandler.html">ErrorHandler</a>
 						</li>
 				<li><a href="namespace-Core.Helper.html">Helper</a>
 						</li>
@@ -128,14 +128,14 @@
 <br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-		<b>Located at</b> <a href="source-class-Core.CacheSystem.cache.html#26-89" title="Go to source code">Cachesystem/cache.php</a><br>
+		<b>Located at</b> <a href="source-class-Core.CacheSystem.cache.html#26-222" title="Go to source code">Cachesystem/cache.php</a><br>
 	</div>
 
 
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="__contruct" id="___contruct">
+	<tr data-order="__construct" id="___construct">
 
 		<td class="attributes"><code>
 			 public 
@@ -146,8 +146,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#___contruct">#</a>
-		<code><a href="source-class-Core.CacheSystem.cache.html#42-52" title="Go to source code">__contruct</a>( )</code>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Core.CacheSystem.cache.html#42-53" title="Go to source code">__construct</a>( )</code>
 
 		<div class="description short">
 			<p>Cache Constructor</p>
@@ -167,7 +167,7 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="cacheContent" id="_cacheContent">
+	<tr data-order="getCacheDir" id="_getCacheDir">
 
 		<td class="attributes"><code>
 			 public 
@@ -178,8 +178,40 @@
 		</td>
 
 		<td class="name"><div>
+		<a class="anchor" href="#_getCacheDir">#</a>
+		<code><a href="source-class-Core.CacheSystem.cache.html#55-58" title="Go to source code">getCacheDir</a>( )</code>
+
+		<div class="description short">
+			
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="cacheContent" id="_cacheContent">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
 		<a class="anchor" href="#_cacheContent">#</a>
-		<code><a href="source-class-Core.CacheSystem.cache.html#54-66" title="Go to source code">cacheContent</a>( <span>array <var>$payload</var></span>, <span>mixed <var>$key</var></span> )</code>
+		<code><a href="source-class-Core.CacheSystem.cache.html#60-114" title="Go to source code">cacheContent</a>( <span>mixed <var>$key</var></span>, <span>mixed <var>$payload</var></span>, <span>mixed <var>$ttl</var></span> )</code>
 
 		<div class="description short">
 			<p>Caches the given content</p>
@@ -193,16 +225,21 @@
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$payload</var></dt>
-					<dd>&lt;ul&gt;
-&lt;li&gt;An array of the content to cache&lt;/li&gt;
-&lt;/ul&gt;
-</dd>
 					<dt><var>$key</var></dt>
-					<dd>Hash string to identify cached vars
+					<dd>
+</dd>
+					<dt><var>$payload</var></dt>
+					<dd>
+</dd>
+					<dt><var>$ttl</var></dt>
+					<dd>
 </dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code>
+				</div>
 
 
 
@@ -222,15 +259,15 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCache">#</a>
-		<code><a href="source-class-Core.CacheSystem.cache.html#68-88" title="Go to source code">getCache</a>( <span>mixed <var>$key</var></span> )</code>
+		<code><a href="source-class-Core.CacheSystem.cache.html#127-158" title="Go to source code">getCache</a>( <span>mixed <var>$key</var></span> )</code>
 
 		<div class="description short">
-			<p>Checks if the cache with given $key exists</p>
+			<p>returns cache of given key||string if exists else returns false</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Checks if the cache with given $key exists</p>
+			<p>returns cache of given key||string if exists else returns false</p>
 
 
 
@@ -252,49 +289,135 @@
 		</div>
 		</div></td>
 	</tr>
-	</table>
+	<tr data-order="cacheExists" id="_cacheExists">
 
-
-
-
-
-
-
-
-
-
-
-
-	<table class="summary properties" id="properties">
-	<caption>Properties summary</caption>
-	<tr data-order="cacheDir" id="$cacheDir">
 		<td class="attributes"><code>
-			protected  
-			string
-		</code></td>
+			 public 
 
-		<td class="name">
-				<a href="source-class-Core.CacheSystem.cache.html#37-40" title="Go to source code"><var>$cacheDir</var></a>
-
-			<div class="description short">
-				<p>The directory path where cache files should be stored</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				<p>The directory path where cache files should be stored</p>
-
-
-			</div>
+			boolean
+			
+			</code>
 		</td>
-		<td class="value">
-			<div>
-				<a href="#$cacheDir" class="anchor">#</a>
-				<code><span class="php-quote">&quot;&quot;</span></code>
-			</div>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_cacheExists">#</a>
+		<code><a href="source-class-Core.CacheSystem.cache.html#160-186" title="Go to source code">cacheExists</a>( <span>mixed <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Checks if the cache with given $key exists</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Checks if the cache with given $key exists</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="deleteCache" id="_deleteCache">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
 		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_deleteCache">#</a>
+		<code><a href="source-class-Core.CacheSystem.cache.html#188-207" title="Go to source code">deleteCache</a>( <span>mixed <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Deletes the cache of given $key if exists else returns false</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Deletes the cache of given $key if exists else returns false</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clearCache" id="_clearCache">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clearCache">#</a>
+		<code><a href="source-class-Core.CacheSystem.cache.html#209-221" title="Go to source code">clearCache</a>( )</code>
+
+		<div class="description short">
+			<p>Clear all cache</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Clear all cache</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
 	</tr>
 	</table>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -309,6 +432,6 @@
 </div>
 </div>
 <script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?614614412"></script>
+<script src="elementlist.js?3370987451"></script>
 </body>
 </html>
