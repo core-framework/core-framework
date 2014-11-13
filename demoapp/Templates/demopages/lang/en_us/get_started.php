@@ -8,6 +8,6 @@
 
 return $page = [
     'sectionHeader' => 'Getting started guide',
-    'subtitle1' => 'Installation and setup',
-
+    'subTitle1' => 'Prerequisites',
+    'subTitle1_pLink' => 'prerequisites'
 ];
