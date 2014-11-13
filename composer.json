@@ -27,11 +27,11 @@
     ],
     "scripts": {
         "post-install-cmd": [
-            "bower install",
+            "bower --allow-root install",
             "src/Core/Scripts/Console install --dev"
         ],
         "post-update-cmd": [
-            "bower update"
+            "bower --allow-root update"
         ]
     }
 }
