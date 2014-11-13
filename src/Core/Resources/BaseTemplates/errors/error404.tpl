@@ -1,4 +1,4 @@
-<{extends file="BaseTemplates/root.tpl"}>
+<{extends file="base-root.tpl"}>
 
 <{block name="contentWrp"}>
     <div class="contentWrap">

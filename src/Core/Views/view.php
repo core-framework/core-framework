@@ -50,9 +50,6 @@ class view
     public function __construct()
     {
         $this->smarty_init();
-        $this->debugfile = DS . "src" . DS . "Core" . DS . 'Views' . DS . "debug.php";
-        $this->httpTestsDir = DS . "src" . DS . "Core" . DS . "Tests" . DS . "HttpTests" . DS;
-        $this->baseTemplateDir = DS . "src" . DS . "Core" . DS . "Resources" . DS . "BaseTemplates" . DS;
     }
 
     /**
@@ -60,6 +57,9 @@ class view
      */
     private function smarty_init()
     {
+        $this->debugfile = DS . "src" . DS . "Core" . DS . 'Views' . DS . "debug.php";
+        $this->httpTestsDir = DS . "src" . DS . "Core" . DS . "Tests" . DS . "HttpTests" . DS;
+        $this->baseTemplateDir = DS . "src" . DS . "Core" . DS . "Resources" . DS . "BaseTemplates" . DS;
         $this->smarty = $smarty = new \Smarty();
 
         $smarty->left_delimiter = '<{';

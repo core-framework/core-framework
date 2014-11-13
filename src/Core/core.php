@@ -196,10 +196,13 @@ class core
 
         if($hasKeyAPC) {
             $this->APCinit($pathKey);
+            $this->cacheMethod = "APC";
         } elseif($hasKeyCache) {
             $this->cachedinit($pathKey);
+            $this->cacheMethod = "internal_cache";
         } else {
             $this->defaultinit();
+            $this->cacheMethod = 'none';
         }
 
         spl_autoload_register([$this, 'autoloadController']);
@@ -224,7 +227,6 @@ class core
      */
     private function cachedinit($key){
         $this->view = $this->cache->getCache($key);
-        $this->view->render();
     }
 
     /**
@@ -235,7 +237,6 @@ class core
     private function APCinit($apcKey)
     {
         $this->view = apc_fetch($apcKey);
-        $this->view->render();
     }
 
     /**
@@ -265,7 +266,11 @@ class core
      */
     public function Load()
     {
-        $this->loadAll();
+        if($this->cacheMethod !== 'none') {
+            $this->view->render();
+        }else{
+            $this->loadAll();
+        }
     }
 
     /**
@@ -660,7 +665,7 @@ class core
     {
         $this->templateDir = $dir;
         $this->view->setTemplateDir($dir);
-        $this->route->setTemplateDir($dir);
+        //$this->route->setTemplateDir($dir);
     }
 
     /**
