@@ -34,23 +34,27 @@
 <{/block}>
 <{block name="bodyBlock"}>
 <body>
-    <{block name="header"}>
-        <a id="top"></a>
-        <div class="header">
-            <{include file="common/header.tpl"}>
-        </div>
-    <{/block}>
+    <{if $showHeader === true }>
+        <{block name="header"}>
+            <a id="top"></a>
+            <div class="header">
+                <{include file="common/header.tpl"}>
+            </div>
+        <{/block}>
+    <{/if}>
     <{block name="maincontentWrp"}>
         <div class="midContent">
             <{block name="maincontent"}> <{/block}>
         </div>
     <{/block}>
-    <{block name="footer"}>
-        <div class="footer">
-            <{include file="common/footer.tpl"}>
-        </div>
-        <a id="bottom"></a>
-    <{/block}>
+    <{if $showFooter === true }>
+        <{block name="footer"}>
+            <div class="footer">
+                <{include file="common/footer.tpl"}>
+            </div>
+            <a id="bottom"></a>
+        <{/block}>
+    <{/if}>
 
     <!-- Scripts -->
     <{block name="scripts"}>

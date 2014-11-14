@@ -43,7 +43,8 @@ body.api p{
 .documentation .navbar-inverse .navbar-nav li.documentation,
 .tutorials .navbar-inverse .navbar-nav li.tutorials,
 .about .navbar-inverse .navbar-nav li.about,
-.get-started .navbar-inverse .navbar-nav li.get-started
+.get_started .navbar-inverse .navbar-nav li.get_started,
+.download .navbar-inverse .navbar-nav li.download
 {
     background: #000;
 }
@@ -101,6 +102,9 @@ body.api p{
     color: #e1e1e1;
     vertical-align: super;
 }
+.permalink:hover{
+    text-decoration: none;
+}
 h1:hover .permalink, h2:hover .permalink, h3:hover .permalink, h4:hover .permalink, h5:hover .permalink, h6:hover .permalink {
     color: #4169e1;
 }
@@ -115,6 +119,10 @@ h1:hover .permalink, h2:hover .permalink, h3:hover .permalink, h4:hover .permali
 
 .api #navigation {
     height: 36px;
+}
+
+.subTitle {
+    margin-top: 54px;
 }
 
 @media (min-width: 768px){

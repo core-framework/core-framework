@@ -41,6 +41,10 @@ class corecmd
      */
     public static $appName;
     /**
+     * @var string The Domain Name of the Web App.
+     */
+    public static $domainName;
+    /**
      * @var string Path to application directory
      */
     public static $appDir;
@@ -287,22 +291,11 @@ class corecmd
 
         self::$IOStream->writeln("Application setup successfully!", 'green');
         self::$IOStream->writeln("You can setup virtual hosts using the following command -", 'yellow');
+        $consolePath = _ROOT . "src" . DS . "Core" . DS . "Scripts" . DS . "Console";
         self::$IOStream->writeColoredLn(
-            "sudo:yellow " . _ROOT . "src" . DS . "Core" . DS . "Scripts" . DS . "Console:cyan setupHost:cyan " . self::$appName . ":white",
+            "sudo:yellow $consolePath:cyan setupHost:cyan " . self::$appName . ":white",
             'green'
         );
-
-//        if ($dev) {
-//            $resp = self::$IOStream->ask("Do you want to setup vhost ", "yes", ['yes', 'no']);
-//            if ($resp === "yes") {
-//                self::$IOStream->writeln(
-//                    "host setup needs to run with sudo please enter your password if/when prompted.",
-//                    'yellow'
-//                );
-//                exec('sudo '.__DIR__.DS.'setupHost.sh ' . self::$appName);
-//
-//            }
-//        }
 
     }
 
@@ -311,10 +304,11 @@ class corecmd
      */
     private function createAlias()
     {
-        $aliases = '
+        $console = __DIR__ . DS . "Console";
+        $aliases = "
             shopt -s expand_aliases
-            alias corecon=' . __DIR__ . DS . "Console" . '
-        ';
+            alias corecon=$console
+        ";
         exec($aliases);
     }
 
@@ -365,22 +359,22 @@ class corecmd
                 $appStyles = $appDir . "styles" . DS . $packName;
                 $appScripts = $appDir . "scripts" . DS . $packName;
 
+                if (is_dir($appScripts)) {
+                    rmdir($appScripts);
+                } elseif (is_file($appScripts) || is_readable($appScripts)) {
+                    unlink($appScripts);
+                }
+                if (is_dir($appStyles)) {
+                    rmdir($appStyles);
+                } elseif (is_file($appStyles) || is_readable($appStyles)) {
+                    unlink($appStyles);
+                }
+
                 if (is_dir($bowerDir . $packName . DS . "dist") &&
                     is_dir($bowerDir . $packName . DS . "dist" . DS . "css") &&
                     is_dir($bowerDir . $packName . DS . "dist" . DS . "js") &&
                     is_dir($bowerDir . $packName . DS . "dist" . DS . "fonts")
                 ) {
-
-                    if (is_dir($appScripts)) {
-                        rmdir($appScripts);
-                    } elseif (is_file($appScripts) || is_readable($appScripts)) {
-                        unlink($appScripts);
-                    }
-                    if (is_dir($appStyles)) {
-                        rmdir($appStyles);
-                    } elseif (is_file($appStyles) || is_readable($appStyles)) {
-                        unlink($appStyles);
-                    }
 
                     $return = symlink($bowerDir . $packName . DS . "dist" . DS . "js" . DS, $appScripts);
                     $return2 = symlink($bowerDir . $packName . DS . "dist" . DS . "css" . DS, $appStyles);
@@ -397,7 +391,7 @@ class corecmd
 
                     $fonts = new \DirectoryIterator($bowerDir . $packName . DS . "dist" . DS . "fonts" . DS);
                     foreach ($fonts as $font) {
-                        if (!$font->isDir()) {
+                        if (!$font->isDir() && !$font->isDot()) {
                             $fontFilename = $font->getFilename();
                             $fontFile = $appDir . "styles" . DS . "fonts" . DS . $fontFilename;
                             $return = symlink(
@@ -454,18 +448,19 @@ class corecmd
     public static function setupApp()
     {
         $callback = (function ($input) {
-            if (preg_match('/[a-zA-Z]/', $input, $matches)) {
+            if (preg_match('^([a-zA-Z0-9]{1,}\.)?([a-zA-Z0-9][a-zA-Z0-9-_]{0,61}[a-zA-Z0-9]{0,1}\.?)([a-zA-Z]{1,6}|[a-zA-Z0-9-]{1,30}\.[a-zA-Z]{2,3})?$', $input, $matches)) {
                 return true;
             } else {
                 return false;
             }
         });
-
-        self::$appName = $appName = self::$IOStream->askAndvalidate(
-            "Enter the name of your web app ",
+        self::$domainName = $domainName = self::$IOStream->askAndvalidate(
+            "Enter the Domain name of your web application (sub domains are allowed)",
             $callback,
-            "Input must be a valid appname and contain only characters [a-Z]"
+            "Input must be a valid Domain name (sub domains are allowed)"
         );
+
+        $appName = str_replace('.','-',$domainName);
         self::$appName = $appName;
         self::$appDir = $appDir = _ROOT . DS . $appName;
         if (!is_readable($appDir)) {
@@ -652,7 +647,7 @@ class corecmd
             if (!is_dir($cacheDir)) {
                 mkdir($cacheDir, 0755);
             } else {
-                self::$IOStream->writeln("chown: user - $apacheUser", 'green');
+                self::$IOStream->writeln("Setting up cache folder", 'green');
                 chown($cacheDir, $apacheUser . ":" . $apacheGroup);
                 chmod($cacheDir, 0755);
             }

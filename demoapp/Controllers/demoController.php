@@ -61,6 +61,11 @@ class demoController extends controller
         return $this->commonFunction('get_started');
     }
 
+    public function downloadAction()
+    {
+        return $this->commonFunction('download');
+    }
+
     public function customServeAction()
     {
         $lang = $this->config->current_lang;

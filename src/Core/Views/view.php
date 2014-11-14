@@ -43,6 +43,8 @@ class view
     private $debugMode;
     private $templateDir;
     private $baseTemplateDir;
+    public  $showHeader = true;
+    public  $showFooter = true;
 
     /**
      * View constructor
@@ -107,7 +109,10 @@ class view
             $tplInfo = $this->tplInfo;
             $tpl = $this->tpl = $tplInfo['tpl'];
             $tpl_exists = $this->smarty->templateExists($tpl);
+            $this->tplInfo['vars']['showHeader'] = $this->showHeader;
+            $this->tplInfo['vars']['showFooter'] = $this->showFooter;
             $tplVars = $this->tplVars = $this->tplInfo['vars'];
+
 
             if ($this->debugMode) {
                 $this->debugDfltHtml = include_once _ROOT . $this->debugfile;
