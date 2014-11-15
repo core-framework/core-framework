@@ -503,8 +503,7 @@ class corecmd
         $consolePath = _ROOT . "src" . DS . "Core" . DS . "Scripts" . DS . "Console";
         $name = empty(self::$appName) ? '{appDirName}' : self::$appName;
         self::$IOStream->writeColoredLn(
-            "sudo:yellow $consolePath:cyan setupHost:cyan $name:white",
-            'green'
+            "sudo:yellow $consolePath:cyan setupHost:cyan $name:white"
         );
     }
 
@@ -638,16 +637,16 @@ class corecmd
         $smarty_sub_config = $smartyCacheDir . DS . "config";
         $smarty_sub_template = $smartyCacheDir . DS . "templates_c";
         if (!is_dir($smartyCacheDir)) {
-            mkdir($smartyCacheDir, 0755);
+            mkdir($smartyCacheDir, 0777);
         }
         if (!is_dir($smarty_sub_cache)) {
-            mkdir($smarty_sub_cache, 0755);
+            mkdir($smarty_sub_cache, 0777);
         }
         if (!is_dir($smarty_sub_config)) {
-            mkdir($smarty_sub_config, 0755);
+            mkdir($smarty_sub_config, 0777);
         }
         if (!is_dir($smarty_sub_template)) {
-            mkdir($smarty_sub_template, 0755);
+            mkdir($smarty_sub_template, 0777);
         }
     }
 
