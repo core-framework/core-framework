@@ -633,7 +633,7 @@ class corecmd
      */
     private function createSmartyCache(){
         self::$IOStream->writeln('Creating smarty cache..');
-        $smartyCacheDir = _ROOT . DS . "smarty_cache";
+        $smartyCacheDir = _ROOT . DS . "src" . DS . "Core" . DS . "smarty_cache";
         $smarty_sub_cache = $smartyCacheDir . DS . "cache";
         $smarty_sub_config = $smartyCacheDir . DS . "config";
         $smarty_sub_template = $smartyCacheDir . DS . "templates_c";
