@@ -290,8 +290,6 @@ class corecmd
         self::createCacheFolder();
 
         self::$IOStream->writeln("Application setup successfully!", 'green');
-        self::$IOStream->writeln("You can setup virtual hosts using the following command -", 'yellow');
-
     }
 
     /**
@@ -493,6 +491,7 @@ class corecmd
             exit;
         }
 
+        self::$IOStream->writeln("You can setup virtual hosts using the following command -", 'yellow');
         $consolePath = _ROOT . "src" . DS . "Core" . DS . "Scripts" . DS . "Console";
         $name = empty(self::$appName) ? '{appDirName}' : self::$appName;
         self::$IOStream->writeColoredLn(
