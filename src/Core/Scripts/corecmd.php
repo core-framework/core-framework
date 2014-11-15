@@ -282,6 +282,7 @@ class corecmd
         self::$IOStream->writeln("Installing Core in " . $devTxt . " mode ...", 'green');
         self::createAlias();
         self::symResources('demoapp');
+        self::setupApp('demoapp');
         $resp = self::$IOStream->ask("Do you want to setup your app now", 'yes', ['yes', 'no']);
         if ($resp === 'yes') {
             self::setupApp();
@@ -435,20 +436,25 @@ class corecmd
      *
      * @throws \Exception
      */
-    public static function setupApp()
+    public static function setupApp($appName = 'demoapp')
     {
-        $callback = (function ($input) {
-            if (preg_match('^([a-zA-Z0-9]{1,}\.)?([a-zA-Z0-9][a-zA-Z0-9-_]{0,61}[a-zA-Z0-9]{0,1}\.?)([a-zA-Z]{1,6}|[a-zA-Z0-9-]{1,30}\.[a-zA-Z]{2,3})?$', $input, $matches)) {
-                return true;
-            } else {
-                return false;
-            }
-        });
-        self::$domainName = $domainName = self::$IOStream->askAndvalidate(
-            "Enter the Domain name of your web application (sub domains are allowed)",
-            $callback,
-            "Input must be a valid Domain name (sub domains are allowed)"
-        );
+
+        if(empty($appName) || $appName !== 'demoapp'){
+
+            $callback = (function ($input) {
+                if (preg_match('^([a-zA-Z0-9]{1,}\.)?([a-zA-Z0-9][a-zA-Z0-9-_]{0,61}[a-zA-Z0-9]{0,1}\.?)([a-zA-Z]{1,6}|[a-zA-Z0-9-]{1,30}\.[a-zA-Z]{2,3})?$', $input)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            self::$domainName = $domainName = self::$IOStream->askAndvalidate(
+                "Enter the Domain name of your web application (sub domains are allowed)",
+                $callback,
+                "Input must be a valid Domain name (sub domains are allowed)"
+            );
+
+        }
 
         $appName = str_replace('.','-',$domainName);
         self::$appName = $appName;
