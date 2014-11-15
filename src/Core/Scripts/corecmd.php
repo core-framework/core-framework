@@ -283,7 +283,7 @@ class corecmd
         self::createAlias();
         self::symResources('demoapp');
         $resp = self::$IOStream->ask("Do you want to setup your app now", 'yes', ['yes', 'no']);
-        if ($resp == 'yes') {
+        if ($resp === 'yes') {
             self::setupApp();
         }
 
@@ -291,11 +291,6 @@ class corecmd
 
         self::$IOStream->writeln("Application setup successfully!", 'green');
         self::$IOStream->writeln("You can setup virtual hosts using the following command -", 'yellow');
-        $consolePath = _ROOT . "src" . DS . "Core" . DS . "Scripts" . DS . "Console";
-        self::$IOStream->writeColoredLn(
-            "sudo:yellow $consolePath:cyan setupHost:cyan " . self::$appName . ":white",
-            'green'
-        );
 
     }
 
@@ -305,10 +300,7 @@ class corecmd
     private function createAlias()
     {
         $console = __DIR__ . DS . "Console";
-        $aliases = "
-            shopt -s expand_aliases
-            alias corecon=$console
-        ";
+        $aliases = "alias corecon=$console";
         exec($aliases);
     }
 
@@ -500,6 +492,13 @@ class corecmd
             self::createHtaccess($appName);
             exit;
         }
+
+        $consolePath = _ROOT . "src" . DS . "Core" . DS . "Scripts" . DS . "Console";
+        $name = empty(self::$appName) ? '{appDirName}' : self::$appName;
+        self::$IOStream->writeColoredLn(
+            "sudo:yellow $consolePath:cyan setupHost:cyan $name:white",
+            'green'
+        );
     }
 
     /**
@@ -666,7 +665,7 @@ class corecmd
             return self::$httpdConfPath;
         }
 
-        exec('httpd -V', $respArr);
+        exec('apachectl -V', $respArr);
         foreach ($respArr as $item) {
             if (strpos($item, "SERVER_CONFIG_FILE") !== false) {
                 $arr = explode("=", $item);
@@ -676,7 +675,7 @@ class corecmd
 
         if (empty($httpdConfPath)) {
             self::$IOStream->writeln("Cannot find httpd.conf!", "yellow");
-            $rep = self::$IOStream->ask("Please enter full path to httpd.conf ", 'green');
+            $rep = self::$IOStream->ask("Please enter full path to httpd.conf ");
             if (is_file($rep)) {
                 $this->httpdConfPath = $rep;
                 return $rep;
