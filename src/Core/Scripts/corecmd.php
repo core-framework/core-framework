@@ -497,7 +497,6 @@ class corecmd
             self::createHtaccess($appName);
             self::$IOStream->writeln("Recreating app's conf files...", "yellow");
             self::createConf();
-            exit;
         }
 
         self::$IOStream->writeln("You can setup virtual hosts using the following command -", 'yellow');
