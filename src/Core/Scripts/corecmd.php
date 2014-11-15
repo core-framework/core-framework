@@ -673,7 +673,7 @@ class corecmd
             }
         }
 
-        if (empty($httpdConfPath)) {
+        if (empty($httpdConfPath) || !is_dir($httpdConfPath)) {
             self::$IOStream->writeln("Cannot find httpd.conf!", "yellow");
             $rep = self::$IOStream->ask("Please enter full path to httpd.conf ");
             if (is_file($rep)) {
