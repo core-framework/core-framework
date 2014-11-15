@@ -648,11 +648,33 @@ class corecmd
             $apacheGroup = $tmp[1];
             self::$apacheUserGroup = $apacheGroup;
 
+            if($apacheUser === '${APACHE_RUN_USER}' && $apacheGroup === '${APACHE_RUN_GROUP}') {
+                $httpdPathArr = explode(DS, $httpdConfPath);
+                array_pop($httpdPathArr);
+                $httpdDir = implode(DS, $httpdPathArr) ;
+                $envvars = $httpdDir . DS . "envvars";
+                if(is_readable($envvars)) {
+                    exec('egrep "^export APACHE_RUN_USER|export APACHE_RUN_GROUP" ' . $envvars, $output);
+
+                    $tmp = explode("=", $output[0]);
+                    $apacheUser = $tmp[1];
+                    self::$apacheUser = $apacheUser;
+
+                    $tmp = explode("=", $output[1]);
+                    $apacheGroup = $tmp[1];
+                    self::$apacheUserGroup = $apacheGroup;
+                } else {
+                    self::$apacheUser = self::$IOStream->ask("Please enter the Apache User name");
+                    self::$apacheUserGroup = self::$IOStream->ask("Please enter the Apache User Group", self::$apacheUser);
+                }
+            }
+
             $cacheDir = _ROOT . DS . "src" . DS . "Core" . DS . "cache" . DS;
 
             self::$IOStream->writeln("creating cache folder", 'green');
             if (!is_dir($cacheDir)) {
                 mkdir($cacheDir, 0755);
+                chown($cacheDir, $apacheUser . ":" . $apacheGroup);
             } else {
                 self::$IOStream->writeln("Setting up cache folder", 'green');
                 chown($cacheDir, $apacheUser . ":" . $apacheGroup);
