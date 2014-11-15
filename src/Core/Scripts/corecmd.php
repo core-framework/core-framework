@@ -289,7 +289,7 @@ class corecmd
         }
 
         self::createCacheFolder();
-
+        self::createSmartyCache();
         self::$IOStream->writeln("Application setup successfully!", 'green');
     }
 
@@ -626,6 +626,32 @@ class corecmd
         } else {
             self::$IOStream->showErr("Failed to create .htaccess file!!");
             return false;
+        }
+    }
+
+    /**
+     * Creates smarty cache directories
+     */
+    private function createSmartyCache(){
+        $smartyCacheDir = _ROOT . DS . "smarty_cache";
+        $smarty_sub_cache = $smartyCacheDir . DS . "cache";
+        $smarty_sub_config = $smartyCacheDir . DS . "config";
+        $smarty_sub_template = $smartyCacheDir . DS . "templates_c";
+        if (!is_dir($smartyCacheDir)) {
+            mkdir($smartyCacheDir, 0755);
+            chown($smartyCacheDir, self::$apacheUser . ":" . self::$apacheUserGroup);
+        }
+        if (!is_dir($smarty_sub_cache)) {
+            mkdir($smarty_sub_cache, 0755);
+            chown($smarty_sub_cache, self::$apacheUser . ":" . self::$apacheUserGroup);
+        }
+        if (!is_dir($smarty_sub_config)) {
+            mkdir($smarty_sub_config, 0755);
+            chown($smarty_sub_config, self::$apacheUser . ":" . self::$apacheUserGroup);
+        }
+        if (!is_dir($smarty_sub_template)) {
+            mkdir($smarty_sub_template, 0755);
+            chown($smarty_sub_template, self::$apacheUser . ":" . self::$apacheUserGroup);
         }
     }
 
