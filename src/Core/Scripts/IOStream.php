@@ -126,10 +126,10 @@ class IOStream extends cmdcolors
 
         $input = trim(fgets($this->input), "\n");
 
-        if (!empty($opt) || !empty($default)) {
-            if (empty($input) && !empty($default)) {
-                return $default;
-            } elseif (in_array($input, $opt) && is_array($opt)) {
+        if (empty($input) && !empty($default)) {
+            return $default;
+        }elseif (!empty($opt) && !empty($default) && !empty($input)) {
+            if (in_array($input, $opt) && is_array($opt)) {
                 return $input;
             } elseif (!is_array($opt)) {
                 $this->showErr("Option must be of type array");

@@ -166,10 +166,10 @@ class controller
     {
         $params = $this->routeParams;
         $this->generateCSRFKey();
-        $this->response['vars']['title'] = $params['pageTitle'];
-        $this->response['vars']['pageName'] = $params['pageName'];
-        $this->response['vars']['metaKeywords'] = $params['metaKeywords'];
-        $this->response['vars']['metaDescription'] = $params['metaDescription'];
+        $this->response['vars']['title'] = isset($params['pageTitle']) ? $params['pageTitle'] : '';
+        $this->response['vars']['pageName'] = isset($params['pageName']) ? $params['pageName'] : '';
+        $this->response['vars']['metaKeywords'] = isset($params['metaKeywords']) ? $params['metaKeywords'] : '';
+        $this->response['vars']['metaDescription'] = isset($params['metaDescription']) ? $params['metaDescription'] : '';
         $this->response['vars']['csrf'] = $_SESSION['csrf'];
     }
 
