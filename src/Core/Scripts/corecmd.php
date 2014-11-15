@@ -495,6 +495,8 @@ class corecmd
             self::createIndex($appName);
             self::$IOStream->writeln("Recreating app's .htaccess file...", "yellow");
             self::createHtaccess($appName);
+            self::$IOStream->writeln("Recreating app's conf files...", "yellow");
+            self::createConf();
             exit;
         }
 
@@ -560,7 +562,7 @@ class corecmd
                 self::$IOStream->showErr("Error writing configuration file - " . $confFile);
             }
         } else {
-            self::$IOStream->writeln("Conf file exists! Continuing setup..");
+            self::$IOStream->writeln("Conf files exists! Continuing setup..");
         }
 
     }
