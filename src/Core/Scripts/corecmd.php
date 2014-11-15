@@ -454,9 +454,10 @@ class corecmd
                 "Input must be a valid Domain name (sub domains are allowed)"
             );
 
+            $appName = str_replace('.','-',$domainName);
         }
 
-        $appName = str_replace('.','-',$domainName);
+
         self::$appName = $appName;
         self::$appDir = $appDir = _ROOT . DS . $appName;
         if (!is_readable($appDir)) {
