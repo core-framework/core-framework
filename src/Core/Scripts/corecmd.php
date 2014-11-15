@@ -1044,7 +1044,7 @@ class corecmd
     public static function clearCache()
     {
         self::$cache->clearCache();
-        self::$IOStream->writeln("Cache successfully cleared!");
+        self::$IOStream->writeln("Cache successfully cleared!", 'green');
     }
 
 }

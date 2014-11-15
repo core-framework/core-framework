@@ -53,13 +53,13 @@
     <{/block}>
 
     <{block name="injected"}>
-        <{if $script}>
+        <{if isset($script)}>
             <{$script}>
         <{/if}>
     <{/block}>
 
     <{block name="devMode"}>
-        <{if $debugDfltHtml}>
+        <{if isset($debugDfltHtml)}>
             <{$debugDfltHtml}>
         <{/if}>
     <{/block}>
