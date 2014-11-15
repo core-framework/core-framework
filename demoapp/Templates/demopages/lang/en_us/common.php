@@ -17,6 +17,7 @@ return $common = [
     ],
 
     'navs' => [
+        'Home' => '/',
         'About' => '/about',
         'Get Started' => '/get_started',
         //'Tutorials' => '/tutorials',

@@ -677,7 +677,7 @@ class corecmd
             self::$IOStream->writeln("Cannot find httpd.conf!", "yellow");
             $rep = self::$IOStream->ask("Please enter full path to httpd.conf ");
             if (is_file($rep)) {
-                $this->httpdConfPath = $rep;
+                self::$httpdConfPath = $rep;
                 return $rep;
             } else {
                 self::$IOStream->showErr("Valid File not provided!");

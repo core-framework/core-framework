@@ -21,7 +21,7 @@ return $page = [
                 <a href="http://bower.io/">Bower</a>: Core Framework uses bower for front-end package management.
             </li>
             <li>
-                <a href="https://getcomposer.org/">Composer</a>: Core Framework uses Composer for backend package management and for its auto loading (class) capabilities.
+                <a href="https://getcomposer.org/">Composer</a>: Core Framework uses Composer for PHP package management and for its auto loading (class) capabilities.
             </li>
             <li>
                 <a href="http://apigen.org/">Apigen</a>: Core Framework used apigen for generating the API docs.
