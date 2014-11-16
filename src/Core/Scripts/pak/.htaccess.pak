@@ -27,10 +27,5 @@
     </FilesMatch>
 </IfModule>
 
-#### HEADERS
-<IfModule mod_headers.c>
-    Header set X-Content-Type-Options "nosniff"
-</IfModule>
-
 
 #### ENV VARS ####
