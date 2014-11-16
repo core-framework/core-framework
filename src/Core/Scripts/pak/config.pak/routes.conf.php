@@ -92,7 +92,7 @@ return $routes = [
         'controller' => '\\demoapp\\Controllers:documentationController:documentationAction'
     ],
 
-    'download' => [
+    '/download' => [
         'pageName' => 'demo',
         'pageTitle' => 'Demo about Page',
         'controller' => '\\demoapp\\Controllers:demoController:downloadAction'
