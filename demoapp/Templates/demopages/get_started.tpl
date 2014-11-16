@@ -1,4 +1,4 @@
-<section id="overview" class="row">
+<section id="overview">
     <h1 class="sectionHeader"><{$get_started.sectionHeader}></h1>
     <h3 class="subTitle">
         <{$get_started.subTitle1}>

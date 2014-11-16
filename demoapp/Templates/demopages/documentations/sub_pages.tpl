@@ -1,4 +1,4 @@
-<section id="overview" class="row">
+<section id="overview">
     <h1 class="sectionHeader"><{$documentation.mainHeading}></h1>
     <p class="intro">
         <{$documentation.introPara}>

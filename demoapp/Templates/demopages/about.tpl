@@ -1,4 +1,4 @@
-<section id="overview" class="row">
+<section id="overview">
     <h1 class="sectionHeader"><{$about.mainHeader}></h1>
     <p class="intro">
         <{$about.introBlock}>

@@ -1,4 +1,4 @@
-<section id="overview" class="row">
+<section id="overview">
     <h2 class="sectionHeader"><{$documentation.sectionHeader}></h2>
     <ul class="tutorialList">
         <{*<{foreach from=$documentation.docList key=k item=i }>*}>

@@ -1,4 +1,4 @@
-<section id="overview" class="row">
+<section id="overview">
     <h1 class="sectionHeader">Download</h1>
     <p class="introBlock">
         You can go about install Core Framework either using Git or Composer. Though we strongly recommend that you use Composer to install Core Framework. With composer you can use the following command to download Core Framework -

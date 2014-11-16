@@ -1,4 +1,4 @@
-<section id="overview" class="row">
+<section id="overview">
 
     <div class="hero-unit">
         <h1>Welcome to <{$docVarsCom.product.name}></h1>

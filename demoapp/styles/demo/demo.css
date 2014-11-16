@@ -30,9 +30,6 @@ body.api p{
 .navbar-brand .small{
     font-size: 10px;
 }
-.navbar .nav {
-    float: right;
-}
 .home .navbar-inverse .navbar-nav li.home a,
 .documentation .navbar-inverse .navbar-nav li.documentation a,
 .tutorials .navbar-inverse .navbar-nav li.tutorials a,
@@ -55,9 +52,6 @@ body.api p{
 }
 .navbar-inverse .navbar-nav .dropdown .dropdown-menu li a:hover {
     color: inherit !important;
-}
-.navbar-nav .dropdown:hover .dropdown-menu {
-    display: block;
 }
 .hero-unit {
     padding: 33px 60px;
@@ -127,6 +121,20 @@ h1:hover .permalink, h2:hover .permalink, h3:hover .permalink, h4:hover .permali
     margin-top: 54px;
 }
 
-@media (min-width: 768px){
+@media (max-width: 480px){
+    .navbar-brand {
+        padding: 25px 75px;
+        background-size: contain;
+        background-position: 0 11px;
+    }
+    .hero-unit {
+        padding: 15px 5px;
+    }
+}
 
+@media (max-width: 767px) {
+    .navbar-inverse .navbar-nav .dropdown .dropdown-menu li a {
+        color: #777 !important;
+        padding: 10px 0 10px 25px;
+    }
 }

@@ -14,7 +14,7 @@
                 <{foreach from=$docVarsCom.navs key=k item=i }>
                     <{if $i|is_array}>
                         <li class="dropdown <{$k|replace:" ":"_"|lower}>">
-                            <a href="<{$i.link}>"><{$k}> <span class="caret"></span></a>
+                            <a href="<{$i.link}>" class="dropdown-toggle" data-toggle="dropdown"><{$k}> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <{foreach from=$i key=key item=item }>
                                     <{if $key !== "link" }>
