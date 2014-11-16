@@ -346,7 +346,7 @@ class routes
                 $keyArr = explode('/', $key);
                 $newkey = implode('\/', $keyArr);
                 $argReq = !empty($val['argReq']) ? $val['argReq'] : '[\w]';
-                $argDflt = $val['argDefault'];
+                $argDflt = empty($val['argDefault']) ? null : $val['argDefault'];
 
                 if ($path === $key) {
                     $this->foundMatch = true;
