@@ -45,7 +45,7 @@
 
     <!-- loading javascripts -->
     <{block name="scripts" }>
-        <script src="/scripts/jquery/jquery.js"></script>
+        <script src="/scripts/jquery/jquery.min.js"></script>
         <script src="/scripts/bootstrap/bootstrap.min.js"></script>
         <script src="/scripts/prettify.js"></script>
         <!-- init javascripts -->

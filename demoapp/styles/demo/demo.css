@@ -33,6 +33,7 @@ body.api p{
 .navbar .nav {
     float: right;
 }
+.home .navbar-inverse .navbar-nav li.home a,
 .documentation .navbar-inverse .navbar-nav li.documentation a,
 .tutorials .navbar-inverse .navbar-nav li.tutorials a,
 .about .navbar-inverse .navbar-nav li.about a,
@@ -40,6 +41,7 @@ body.api p{
 {
     color: white;
 }
+.home .navbar-inverse .navbar-nav li.home,
 .documentation .navbar-inverse .navbar-nav li.documentation,
 .tutorials .navbar-inverse .navbar-nav li.tutorials,
 .about .navbar-inverse .navbar-nav li.about,
