@@ -43,7 +43,6 @@ class demoController extends controller
         $pageTpl = "demopages/" . $pageName . ".tpl";
 
 
-
         $this->response['tpl'] = 'demopages/demo.tpl';
         $this->response['vars']['includeTpl'] = $pageTpl;
         $this->response['vars']['pageName'] = $pageName;
@@ -60,6 +59,10 @@ class demoController extends controller
 
     public function aboutAction()
     {
+        $license = _ROOT . DS . "LICENSE";
+        $licenseTxt = file_get_contents($license);
+        $licenseTxt = preg_replace('/\n/', '<br/>', $licenseTxt);
+        $this->response['vars']['licensetxt'] = $licenseTxt;
         return $this->commonFunction('about');
     }
 

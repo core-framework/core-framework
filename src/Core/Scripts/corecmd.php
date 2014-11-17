@@ -439,10 +439,13 @@ class corecmd
     public static function setupApp($appName = 'demoapp')
     {
 
-        if(empty($appName) || $appName !== 'demoapp'){
+        if (empty($appName) || $appName !== 'demoapp') {
 
             $callback = (function ($input) {
-                if (preg_match('^([a-zA-Z0-9]{1,}\.)?([a-zA-Z0-9][a-zA-Z0-9-_]{0,61}[a-zA-Z0-9]{0,1}\.?)([a-zA-Z]{1,6}|[a-zA-Z0-9-]{1,30}\.[a-zA-Z]{2,3})?$', $input)) {
+                if (preg_match(
+                    '^([a-zA-Z0-9]{1,}\.)?([a-zA-Z0-9][a-zA-Z0-9-_]{0,61}[a-zA-Z0-9]{0,1}\.?)([a-zA-Z]{1,6}|[a-zA-Z0-9-]{1,30}\.[a-zA-Z]{2,3})?$',
+                    $input
+                )) {
                     return true;
                 } else {
                     return false;
@@ -454,7 +457,7 @@ class corecmd
                 "Input must be a valid Domain name (sub domains are allowed)"
             );
 
-            $appName = str_replace('.','-',$domainName);
+            $appName = str_replace('.', '-', $domainName);
         }
 
 
@@ -628,29 +631,6 @@ class corecmd
     }
 
     /**
-     * Creates smarty cache directories
-     */
-    private function createSmartyCache(){
-        self::$IOStream->writeln('Creating smarty cache..');
-        $smartyCacheDir = _ROOT . DS . "src" . DS . "Core" . DS . "smarty_cache";
-        $smarty_sub_cache = $smartyCacheDir . DS . "cache";
-        $smarty_sub_config = $smartyCacheDir . DS . "config";
-        $smarty_sub_template = $smartyCacheDir . DS . "templates_c";
-        if (!is_dir($smartyCacheDir)) {
-            mkdir($smartyCacheDir, 0777);
-        }
-        if (!is_dir($smarty_sub_cache)) {
-            mkdir($smarty_sub_cache, 0777);
-        }
-        if (!is_dir($smarty_sub_config)) {
-            mkdir($smarty_sub_config, 0777);
-        }
-        if (!is_dir($smarty_sub_template)) {
-            mkdir($smarty_sub_template, 0777);
-        }
-    }
-
-    /**
      * Create cache folder, if exist changes the owner of the folder to right apache user
      */
     private function createCacheFolder()
@@ -669,12 +649,12 @@ class corecmd
             $apacheGroup = $tmp[1];
             self::$apacheUserGroup = $apacheGroup;
 
-            if($apacheUser === '${APACHE_RUN_USER}' && $apacheGroup === '${APACHE_RUN_GROUP}') {
+            if ($apacheUser === '${APACHE_RUN_USER}' && $apacheGroup === '${APACHE_RUN_GROUP}') {
                 $httpdPathArr = explode(DS, $httpdConfPath);
                 array_pop($httpdPathArr);
-                $httpdDir = implode(DS, $httpdPathArr) ;
+                $httpdDir = implode(DS, $httpdPathArr);
                 $envvars = $httpdDir . DS . "envvars";
-                if(is_readable($envvars)) {
+                if (is_readable($envvars)) {
                     exec('egrep "^export APACHE_RUN_USER|export APACHE_RUN_GROUP" ' . $envvars, $output);
 
                     $tmp = explode("=", $output[0]);
@@ -686,7 +666,10 @@ class corecmd
                     self::$apacheUserGroup = $apacheGroup;
                 } else {
                     self::$apacheUser = self::$IOStream->ask("Please enter the Apache User name");
-                    self::$apacheUserGroup = self::$IOStream->ask("Please enter the Apache User Group", self::$apacheUser);
+                    self::$apacheUserGroup = self::$IOStream->ask(
+                        "Please enter the Apache User Group",
+                        self::$apacheUser
+                    );
                 }
             }
 
@@ -737,6 +720,30 @@ class corecmd
         } else {
             self::$httpdConfPath = $httpdConfPath;
             return $httpdConfPath;
+        }
+    }
+
+    /**
+     * Creates smarty cache directories
+     */
+    private function createSmartyCache()
+    {
+        self::$IOStream->writeln('Creating smarty cache..');
+        $smartyCacheDir = _ROOT . DS . "src" . DS . "Core" . DS . "smarty_cache";
+        $smarty_sub_cache = $smartyCacheDir . DS . "cache";
+        $smarty_sub_config = $smartyCacheDir . DS . "config";
+        $smarty_sub_template = $smartyCacheDir . DS . "templates_c";
+        if (!is_dir($smartyCacheDir)) {
+            mkdir($smartyCacheDir, 0777);
+        }
+        if (!is_dir($smarty_sub_cache)) {
+            mkdir($smarty_sub_cache, 0777);
+        }
+        if (!is_dir($smarty_sub_config)) {
+            mkdir($smarty_sub_config, 0777);
+        }
+        if (!is_dir($smarty_sub_template)) {
+            mkdir($smarty_sub_template, 0777);
         }
     }
 
@@ -1020,13 +1027,31 @@ class corecmd
     }
 
     /**
+     * Clear all cache
+     */
+    public static function clearCache()
+    {
+        self::$cache->clearCache();
+        self::$IOStream->writeln("Cache successfully cleared!", 'green');
+    }
+
+    /**
      * Sleep magic method
      *
      * @return array
      */
     public function __sleep()
     {
-        return ['appName', 'appDir', 'dev', 'pdoDrivers', 'httpdConfPath', 'vhostConfPath', 'apacheUser', 'apacheUserGroup'];
+        return [
+            'appName',
+            'appDir',
+            'dev',
+            'pdoDrivers',
+            'httpdConfPath',
+            'vhostConfPath',
+            'apacheUser',
+            'apacheUserGroup'
+        ];
     }
 
     /**
@@ -1036,15 +1061,6 @@ class corecmd
     {
         $this::$IOStream = new IOStream();
         $this::$cache = new cache();
-    }
-
-    /**
-     * Clear all cache
-     */
-    public static function clearCache()
-    {
-        self::$cache->clearCache();
-        self::$IOStream->writeln("Cache successfully cleared!", 'green');
     }
 
 }

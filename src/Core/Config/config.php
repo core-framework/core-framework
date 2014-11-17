@@ -33,8 +33,13 @@ namespace Core\Config;
  */
 class config
 {
-
+    /**
+     * @var array Global configurations
+     */
     private $globalConfig;
+    /**
+     * @var array Routes Configurations
+     */
     private $routesConfig;
 
     /**

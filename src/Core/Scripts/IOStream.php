@@ -128,7 +128,7 @@ class IOStream extends cmdcolors
 
         if (empty($input) && !empty($default)) {
             return $default;
-        }elseif (!empty($opt) && !empty($default) && !empty($input)) {
+        } elseif (!empty($opt) && !empty($default) && !empty($input)) {
             if (in_array($input, $opt) && is_array($opt)) {
                 return $input;
             } elseif (!is_array($opt)) {
@@ -150,7 +150,7 @@ class IOStream extends cmdcolors
     public function showErr($msg)
     {
         $coloredMsg = $this->getColoredString($msg, 'white', 'red');
-        fprintf($this->output, PHP_EOL."%20.40s".PHP_EOL, $coloredMsg);
+        fprintf($this->output, PHP_EOL . "%20.40s" . PHP_EOL, $coloredMsg);
     }
 
     /**
@@ -172,7 +172,7 @@ class IOStream extends cmdcolors
         if (!empty($format)) {
             fprintf($this->output, $format, $coloredMsg);
         } else {
-            fprintf($this->output, "%s".PHP_EOL, $coloredMsg);
+            fprintf($this->output, "%s" . PHP_EOL, $coloredMsg);
         }
     }
 
@@ -188,17 +188,17 @@ class IOStream extends cmdcolors
         $opt = [];
         self::writeln($introMsg, 'yellow');
         foreach ($list as $i => $v) {
-            array_push($opt,$i);
+            array_push($opt, $i);
             self::writeColoredLn("[" . $i . "]:yellow " . $v . ":green");
         }
-        if(empty($repeat)){
+        if (empty($repeat)) {
             self::ask("Your Choice ", '1', $opt);
-        }else{
-            $callback = (function($input){
-                $i = (int) $input;
-                if(isset($opt[$i])){
+        } else {
+            $callback = (function ($input) {
+                $i = (int)$input;
+                if (isset($opt[$i])) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
             });
@@ -221,7 +221,7 @@ class IOStream extends cmdcolors
             $split = explode(':', $txt);
             $decoratedLine .= " " . $this->getColoredString($split[0], $split[1]);
         }
-        $format = empty($format) ? "%s".PHP_EOL : $format;
+        $format = empty($format) ? "%s" . PHP_EOL : $format;
         $decoratedLine = rtrim($decoratedLine, " ");
         $this->writeln($decoratedLine, null, null, $format);
     }

@@ -21,6 +21,7 @@
  */
 
 namespace Core\Database;
+
 use Core\Config\config;
 use PDO;
 
@@ -33,7 +34,16 @@ use PDO;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class database extends PDO {
+class database extends PDO
+{
+    /**
+     * @var object Database instance
+     */
+    protected static $instance;
+    /**
+     * @var array Database cache reference
+     */
+    protected $cache = [];
     /**
      * @var string Database connections sting
      */
@@ -46,34 +56,26 @@ class database extends PDO {
      * @var mixed Database password
      */
     private $p;
-    /**
-     * @var object Database instance
-     */
-    protected static $instance;
-    /**
-     * @var array Database cache reference
-     */
-    protected $cache = [];
-
 
     /**
      * Creates an instance of the pdo class
      *
      * @param null $db
      */
-    public function __construct($db = null){
+    public function __construct($db = null)
+    {
 
         $configObj = new config();
 
 
-        if($db == "ADD_NEW" || $db == ""){
+        if ($db == "ADD_NEW" || $db == "") {
             $rdb = "";
-        }elseif($db != null && $db != "ADD_NEW"){
-            $rdb = "dbname=".$db;
-        }else{
-            $rdb = "dbname=".$configObj->db;
+        } elseif ($db != null && $db != "ADD_NEW") {
+            $rdb = "dbname=" . $db;
+        } else {
+            $rdb = "dbname=" . $configObj->db;
         }
-        $dsn = $configObj->pdoDriver.':host='.$configObj->host.';'.$rdb;
+        $dsn = $configObj->pdoDriver . ':host=' . $configObj->host . ';' . $rdb;
 
         $u = $configObj->user;
         $p = $configObj->pass;
@@ -91,8 +93,9 @@ class database extends PDO {
      * @param null $db
      * @return database
      */
-    public static function getInstance($db = null){
-        if(!self::$instance){
+    public static function getInstance($db = null)
+    {
+        if (!self::$instance) {
             self::$instance = new database($db);
         }
         return self::$instance;
@@ -104,9 +107,10 @@ class database extends PDO {
      * @param $query
      * @return mixed
      */
-    public function getPrepared($query){
+    public function getPrepared($query)
+    {
         $hash = md5($query);
-        if(!isset($this->cache[$hash])){
+        if (!isset($this->cache[$hash])) {
             $this->cache[$hash] = $this->prepare($query);
         }
         return $this->cache[$hash];
@@ -116,7 +120,8 @@ class database extends PDO {
      * Reset database cache
      *
      */
-    public function __destruct(){
+    public function __destruct()
+    {
         $this->cache = null;
     }
 

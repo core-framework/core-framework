@@ -1,14 +1,15 @@
 <{extends file="root.tpl"}>
 
 <{block name="styles"}>
-    <link href="/styles/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet" />
-    <link href="/styles/prettify.css" type="text/css" rel="stylesheet" />
-    <link href="/styles/demo/demo.css" type="text/css" rel="stylesheet" />
+    <link href="/styles/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link href="/styles/prettify.css" type="text/css" rel="stylesheet"/>
+    <link href="/styles/demo/demo.css" type="text/css" rel="stylesheet"/>
 <{/block}>
 
 
 <{block name="bodyBlock"}>
-    <body id="top" class="<{$pageName}> <{if isset($mainPage)}><{$mainPage}><{/if}> <{if isset($subPage) && $subPage === true  }>subpage<{/if}> ">
+    <body id="top"
+          class="<{$pageName}> <{if isset($mainPage)}><{$mainPage}><{/if}> <{if isset($subPage) && $subPage === true  }>subpage<{/if}>">
 
     <div class="mainWrp clearfix">
         <{block name="header"}>

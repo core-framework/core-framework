@@ -52,6 +52,11 @@ class cache
         }
     }
 
+    /**
+     * Returns the Cache directory
+     *
+     * @return string
+     */
     public function getCacheDir()
     {
         return $this->cacheDir;
@@ -212,7 +217,9 @@ class cache
     public function clearCache()
     {
         foreach (new \DirectoryIterator($this->cacheDir) as $fileInfo) {
-            if($fileInfo->isDot()) continue;
+            if ($fileInfo->isDot()) {
+                continue;
+            }
             $filename = $fileInfo->getFilename();
             $filePath = $this->cacheDir . $filename;
             chmod($filePath, 0777);

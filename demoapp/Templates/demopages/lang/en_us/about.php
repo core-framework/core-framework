@@ -32,5 +32,7 @@ return $page = [
             <li>
                 <a href="http://www.smarty.net/">Smarty</a>: Core Framework relies on the Smarty Template Engine for its flexible templating capabilities.
             </li>
-        </ul>'
+        </ul>',
+    'subTitle2' => 'License',
+    'subTitle2_pLink' => 'license'
 ];

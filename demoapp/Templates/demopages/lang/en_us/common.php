@@ -7,7 +7,6 @@ return $common = [
         'email' => 'shalom.s [at] coreframework.in',
         'url' => 'https://github.com/shalomsam'
     ],
-
     'product' => [
         'name' => 'Core Framework',
         'current_ver' => 'v1.2.5-alpha',
@@ -15,7 +14,6 @@ return $common = [
         'created_on' => '2014-09-12',
         'url' => 'http://www.coreframework.in'
     ],
-
     'navs' => [
         'Home' => '/',
         'About' => '/about',

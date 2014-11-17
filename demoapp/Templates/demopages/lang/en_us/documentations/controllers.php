@@ -5,7 +5,6 @@ return $page = [
     'mainHeading' => 'Controllers',
     'introPara' => '<strong>Controllers</strong> are used to determine what to do next with the available ( pre-defined ) data from the URL path ( or query string ).
         Conttroller class files must be present in <code>{YOUR_APP}/Controllers/</code> directory. If for some reason you want the controllers to reside in the directory of your choosing, you can do so by adding the following line, <code class="prettyprint">$core->setControllerDir({YOUR_DIR_NAME});</code>, in your applications index.php file, just before the <code class="prettyprint">$core->Load();</code> line.',
-
     'subTitle1' => 'Controller Example',
     'subTitle1_pLink' => 'controller-example',
     'subPara1' => '<p class="para">
@@ -28,7 +27,6 @@ class testController extends controller
             <br/>
             The controller file name and class name should follow <code>{name}Controller</code> pattern. And both class name and file name should be identical ( not considering the file extension, ofcourse ).
         </p>',
-
     'subTitle2' => 'Advanced Controllers',
     'subTitle2_pLink' => 'advanced-controllers',
     'subPara2' => '<p class="para">

@@ -6,7 +6,6 @@ return $page = [
     'introPara' => '<strong class="initialism">Routing</strong> is used to determine what URL path (or query string) results in what output (or view) in a larger sense of things.
         But essentially every URL path is associated with a Controller which in turn determines the output.
         This association is typically defined in a config file. In case of Core Framework all routing configuration are defined in <code>{PROJECT_DIR}/config/routes.conf.php</code>',
-
     'subTitle1' => 'Routing Example',
     'subTitle1_pLink' => 'routing-example',
     'subPara1' => '<p class="para">
@@ -53,7 +52,6 @@ return $page = [
         <br/>
         And finally the third part, <code class="prettyprint">&#39;indexAction&#39;</code>, is the method to call in the controller class. This part if not specified defaults to <code class="prettyprint">&#39;indexAction&#39;</code>. The method or action name ( must ) always follow the <code>{action-name}Action</code> pattern.
     </p>',
-
     'subTitle2' => 'Advanced Routing',
     'subTitle2_pLink' => 'advanced-routing',
     'subPara2' => '<p class="para">
@@ -78,7 +76,6 @@ return $page = [
         <br/><br/>
         The <code class="prettyprint">&#39;method&#39;</code> defines the method of access to the URL. The supported methods are the GET, POST, PUT and DELETE. Access to the URL with the only the defined method will be allowed, i.e. in this case as GET is the defined method access will be allowed only using the GET method.
     </p>',
-
     'subTitle3' => 'Additional support',
     'subTitle3_pLink' => 'additional_support',
     'subPara3' => '

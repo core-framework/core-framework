@@ -31,7 +31,8 @@ namespace Core\ErrorHandler;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class errHandler {
+class errHandler
+{
 
     /**
      * @var string Path(relative) to error log file
@@ -44,7 +45,8 @@ class errHandler {
      * @param $functToCall
      * @param string $msg
      */
-    public function debugtrace($functToCall, $msg = "Error"){
+    public function debugtrace($functToCall, $msg = "Error")
+    {
         $bt = debug_backtrace();
         $caller = array_shift($bt);
         $this->$functToCall($caller['line'], $caller['file'], $msg);
@@ -58,9 +60,10 @@ class errHandler {
      * @param $errMsg
      * @param string $class
      */
-    public function html_wrapped($errLine, $errFile, $errMsg, $class='global'){
+    public function html_wrapped($errLine, $errFile, $errMsg, $class = 'global')
+    {
 
-        $html = '<div class="'.$class.' error-msg">' .
+        $html = '<div class="' . $class . ' error-msg">' .
             '<span class="errLine">Line : ' . $errLine . '</span><br/>' .
             '<span class="errFile">File : ' . $errFile . '</span><br/>' .
             '<span class="errMsg">Message : ' . $errMsg . '</span><br/>' .
@@ -82,41 +85,49 @@ class errHandler {
      * @param bool $return
      * @return string
      */
-    public function html_wrapped_pos($errLine=null, $errFile=null, $errMsg=null, $class = '', $pos=null, $fadeout=false, $return=false){
+    public function html_wrapped_pos(
+        $errLine = null,
+        $errFile = null,
+        $errMsg = null,
+        $class = '',
+        $pos = null,
+        $fadeout = false,
+        $return = false
+    ) {
 
-        $html = '<div class="global injected'.$class.' error-msg" style="display: none;">';
-        if(!empty($errLine)){
+        $html = '<div class="global injected' . $class . ' error-msg" style="display: none;">';
+        if (!empty($errLine)) {
             $html .= '<span class="errLine">Line : ' . $errLine . '</span><br/>';
         }
-        if(!empty($errFile)){
+        if (!empty($errFile)) {
             $html .= '<span class="errFile">File : ' . $errFile . '</span><br/>';
         }
-        if(empty($errMsg)){
+        if (empty($errMsg)) {
             $errMsg = "Unknown Error has Occurred";
         }
         $html .= '<span class="errMsg">Error : ' . $errMsg . '</span><br/>' . '</div>';
 
         $pos = $pos || ['top' => '30px'];
 
-        $script = '<script type="text/javascript">'.
+        $script = '<script type="text/javascript">' .
             //'(function(){' .
-            'var html =  \''.$html.'\'; '.
-            '$(html).css("top", "'.$pos['top'].'");';
+            'var html =  \'' . $html . '\'; ' .
+            '$(html).css("top", "' . $pos['top'] . '");';
 
-        $script .= isset($pos['left']) ? '$(html).css("left",'.$pos['left'].');' : '';
+        $script .= isset($pos['left']) ? '$(html).css("left",' . $pos['left'] . ');' : '';
 
-        $script .= '$(".error-msg").hide();'.
-            '$(".midContent").css("position","relative");'.
+        $script .= '$(".error-msg").hide();' .
+            '$(".midContent").css("position","relative");' .
             '$(".midContent").prepend(html);';
 
         $script .= $fadeout == true ? '$(".error-msg").fadeIn().delay(1000).fadeOut();' : '$(".error-msg").fadeIn();';
 
         $script .= '</script>'; //'});'
 
-        if($return){
+        if ($return) {
             //var_dump($script);
             return $script;
-        }else{
+        } else {
             print $script;
         }
     }
@@ -129,9 +140,10 @@ class errHandler {
      * @param $errMsg
      * @param null $filePath
      */
-    public function log_to_file($errLine, $errFile, $errMsg, $filePath=null){
-        try{
-            if($filePath == null){
+    public function log_to_file($errLine, $errFile, $errMsg, $filePath = null)
+    {
+        try {
+            if ($filePath == null) {
                 $filePath = _ROOT . $this->file;
             }
             $file = fopen($filePath, "a");
@@ -139,7 +151,7 @@ class errHandler {
 
             fputs($file, $string);
             fclose($file);
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             //$this->html_wrapped($e->getLine(), $e->getFile(), $e->getMessage());
         }
     }
@@ -149,17 +161,18 @@ class errHandler {
      * @param $msg
      * @param null $filePath
      */
-    public function log_to_file_msg($msg, $filePath=null){
-        try{
-            if($filePath == null){
+    public function log_to_file_msg($msg, $filePath = null)
+    {
+        try {
+            if ($filePath == null) {
                 $filePath = _ROOT . $this->file;
             }
             $file = fopen($filePath, "a");
-            if($file !== false){
-                fputs($file, $msg."\n");
+            if ($file !== false) {
+                fputs($file, $msg . "\n");
                 fclose($file);
             }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
 
         }
     }

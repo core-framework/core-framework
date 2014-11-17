@@ -21,6 +21,7 @@
  */
 
 namespace Core\Controllers;
+
 /**
  * Controller class to handle (html header) errors
  *
@@ -30,21 +31,8 @@ namespace Core\Controllers;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class errorController extends controller {
-
-
-    /**
-     * Default method for this class
-     *
-     * @return array|mixed
-     */
-    public function indexAction(){
-        $this->response['header'] = '404';
-        $this->response['tpl'] = 'errors/404.tpl';
-        $this->response['vars']['pageName'] = "PageNotFound";
-        $this->response['vars']['title'] = "Page Not Found";
-        return $this->getResponse();
-    }
+class errorController extends controller
+{
 
 
     /**
@@ -52,8 +40,23 @@ class errorController extends controller {
      *
      * @return array|mixed
      */
-    public function pageNotFound(){
+    public function pageNotFound()
+    {
         return $this->indexAction();
+    }
+
+    /**
+     * Default method for this class
+     *
+     * @return array|mixed
+     */
+    public function indexAction()
+    {
+        $this->response['header'] = '404';
+        $this->response['tpl'] = 'errors/404.tpl';
+        $this->response['vars']['pageName'] = "PageNotFound";
+        $this->response['vars']['title'] = "Page Not Found";
+        return $this->getResponse();
     }
 
 }

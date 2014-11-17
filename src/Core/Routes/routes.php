@@ -693,7 +693,8 @@ class routes
      *
      * @return array
      */
-    public function getServer() {
+    public function getServer()
+    {
         return $this->server;
     }
 
@@ -704,6 +705,37 @@ class routes
      */
     public function __sleep()
     {
-        return ['path', 'urlPathArr', 'controllerVerb', 'header', 'server', 'cookies', 'getVars', 'postVars', 'reqstMethod', 'pathConfFile', 'routeVars', 'fileName', 'fileExt', 'defaultController', 'collection', 'require', 'namespace', 'controller', 'method', 'model', 'FEComponents', 'customServe', 'referencePath', 'args', 'templatePath', 'isRootFile', 'isFEComponents', 'foundMatch', 'definedMatch', 'definedMethod'];
+        return [
+            'path',
+            'urlPathArr',
+            'controllerVerb',
+            'header',
+            'server',
+            'cookies',
+            'getVars',
+            'postVars',
+            'reqstMethod',
+            'pathConfFile',
+            'routeVars',
+            'fileName',
+            'fileExt',
+            'defaultController',
+            'collection',
+            'require',
+            'namespace',
+            'controller',
+            'method',
+            'model',
+            'FEComponents',
+            'customServe',
+            'referencePath',
+            'args',
+            'templatePath',
+            'isRootFile',
+            'isFEComponents',
+            'foundMatch',
+            'definedMatch',
+            'definedMethod'
+        ];
     }
 } 

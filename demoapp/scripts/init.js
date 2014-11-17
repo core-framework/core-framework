@@ -17,12 +17,12 @@ function hashScrollInit() {
         var x = "a[href=" + hash + "]";
         if ($(x).length) {
             $('html, body').animate({
-                scrollTop: $('a[href='+hash+']').position().top
+                scrollTop: $('a[href=' + hash + ']').position().top
             }, 500);
         }
     }
 
-    $('.permalink').click(function(){
+    $('.permalink').click(function () {
         var self = $(this);
         $('html, body').animate({
             scrollTop: self.position().top
