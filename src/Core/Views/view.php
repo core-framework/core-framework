@@ -33,18 +33,54 @@ namespace Core\Views;
  */
 class view
 {
+    /**
+     * @var bool Defines if View class is disabled from rendering
+     */
     public $disabled = false;
+    /**
+     * @var bool Defines whether to include the header html
+     */
+    public $showHeader = true;
+    /**
+     * @var bool Defines whether to include the footer html
+     */
+    public $showFooter = true;
+    /**
+     * @var object Smarty instance
+     */
     private $smarty;
+    /**
+     * @var string The template to render
+     */
     private $tpl;
+    /**
+     * @var array Template info
+     */
     private $tplInfo;
+    /**
+     * @var array Route parameters associated with the template
+     */
     private $tplVars;
+    /**
+     * @var string Path to debug file, that contains load and memory info
+     */
     private $debugfile;
+    /**
+     * @var string Debug file contents
+     */
     private $debugDfltHtml;
+    /**
+     * @var bool Defines if current view is in Debug mode
+     */
     private $debugMode;
+    /**
+     * @var string Path to Web App's template directory
+     */
     private $templateDir;
+    /**
+     * @var string Path to base template files directory
+     */
     private $baseTemplateDir;
-    public  $showHeader = true;
-    public  $showFooter = true;
 
     /**
      * View constructor

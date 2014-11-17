@@ -4,10 +4,9 @@ return $common = [
 
     'author' => [
         'name' => 'Shalom Sam',
-        'email' => 'shalom.k.sam [at] gmail.com',
-        'url' => 'http://facebook.com/shalom.sam'
+        'email' => 'shalom.s [at] coreframework.in',
+        'url' => 'https://github.com/shalomsam'
     ],
-
     'product' => [
         'name' => 'Core Framework',
         'current_ver' => 'v1.2.5-alpha',
@@ -15,8 +14,8 @@ return $common = [
         'created_on' => '2014-09-12',
         'url' => 'http://www.coreframework.in'
     ],
-
     'navs' => [
+        'Home' => '/',
         'About' => '/about',
         'Get Started' => '/get_started',
         //'Tutorials' => '/tutorials',

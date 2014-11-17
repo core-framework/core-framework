@@ -3,10 +3,34 @@ Core Framework Change Log
 
 Version 1.2.0
 ---------------
-* Added new Console cli interface/commands for application setup.
-
+* Added new Console cli commands for application setup.
 
 Version 1.2.1
 ---------------
 * Created this change log
 * Minor bug fixes and code formatting
+
+Version 1.2.2
+---------------
+* Minor bug fixes and code formatting
+* Revised internal caching and update all classes (CacheSystem)
+* Regenerated API docs
+
+Version 1.2.3
+---------------
+* Minor bug fixes and code formatting
+* Updated License info in all files
+* Updates to internal Caching
+* Updates to API docs
+* New customServe (microsite) feature
+
+Version 1.2.4
+---------------
+* Minor bug fixes
+
+Version 1.2.5
+---------------
+* Minor bug fixes
+* HTML/CSS/JS changes to demoapp
+* Added scroll to hash js for demoapp/livesite
+* Exposed server info to base controller

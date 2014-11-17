@@ -50,6 +50,7 @@ class controller
     private $req;
     private $getVars;
     private $postVars;
+    private $server;
     private $modelDir;
     private $defaultTpl = 'homepage/home.tpl';
     private $illegal = [
@@ -84,6 +85,7 @@ class controller
      * @param view $view
      * @param array $getVars
      * @param array $postVars
+     * @param array $server
      * @param string $modelDir
      * @param null || string $modelName
      * @param null || array $args
@@ -96,6 +98,7 @@ class controller
         view $view,
         $postVars,
         $getVars,
+        $server,
         $modelDir,
         $modelName = null,
         $args = null,
@@ -110,6 +113,7 @@ class controller
         $this->getVars = $getVars;
         $this->postVars = $postVars;
         $this->config = new config();
+        $this->server = $server;
         $this->checkForInput();
         $this->initResponse();
         if (!empty($modelName)) {
@@ -134,6 +138,12 @@ class controller
         }
     }
 
+    /**
+     * Sanitize inputs
+     *
+     * @param $data
+     * @return array
+     */
     private function inputSanitize($data)
     {
         $sanitizedData = [];
@@ -166,10 +176,10 @@ class controller
     {
         $params = $this->routeParams;
         $this->generateCSRFKey();
-        $this->response['vars']['title'] = $params['pageTitle'];
-        $this->response['vars']['pageName'] = $params['pageName'];
-        $this->response['vars']['metaKeywords'] = $params['metaKeywords'];
-        $this->response['vars']['metaDescription'] = $params['metaDescription'];
+        $this->response['vars']['title'] = isset($params['pageTitle']) ? $params['pageTitle'] : '';
+        $this->response['vars']['pageName'] = isset($params['pageName']) ? $params['pageName'] : '';
+        $this->response['vars']['metaKeywords'] = isset($params['metaKeywords']) ? $params['metaKeywords'] : '';
+        $this->response['vars']['metaDescription'] = isset($params['metaDescription']) ? $params['metaDescription'] : '';
         $this->response['vars']['csrf'] = $_SESSION['csrf'];
     }
 
@@ -282,6 +292,16 @@ class controller
     public function getPostVars()
     {
         return $this->postVars;
+    }
+
+    /**
+     * Returns Server details
+     *
+     * @return array
+     */
+    public function getServer()
+    {
+        return $this->server;
     }
 
     /**

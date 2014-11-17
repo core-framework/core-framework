@@ -9,17 +9,20 @@
 namespace demoapp\Controllers;
 
 
-class documentationController extends demoController {
+class documentationController extends demoController
+{
 
-    public function indexAction(){
+    public function indexAction()
+    {
         return $this->commonFunction('documentation');
     }
 
-    public function documentationAction($payload){
+    public function documentationAction($payload)
+    {
 
         $pageName = $payload['page'];
         $lang = $this->config->current_lang;
-        if(empty($lang)){
+        if (empty($lang)) {
             $lang = 'en_us';
         }
 
@@ -44,7 +47,8 @@ class documentationController extends demoController {
 
     }
 
-    public function apiAction(){
+    public function apiAction()
+    {
         include _ROOT . DS . "demoapp" . DS . "Templates" . DS . "api" . DS . "index.html";
         exit;
     }

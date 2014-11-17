@@ -1,113 +1,144 @@
 html, body {
     height: 100%;
 }
+
 ol {
     padding: 0;
 }
+
 body {
     padding: 52px 0px 0px;
 }
+
 p, body p {
     font-size: 15px;
 }
-body.api p{
+
+body.api p {
     font-size: inherit;
 }
+
 .mainWrp {
     min-height: 100%;
     position: relative;
     padding-bottom: 40px;
 }
+
 .logo {
     opacity: 0;
 }
+
 .navbar-brand {
     background: url('/images/CoreFramework-white-Logo.png') no-repeat scroll 0 0 transparent;
-    background-size: cover;
+    background-size: contain;
     text-indent: -999999px;
-    padding: 25px 158px;
+    padding: 25px 200px;
 }
-.navbar-brand .small{
+
+.navbar-brand .small {
     font-size: 10px;
 }
-.navbar .nav {
-    float: right;
-}
+
+.home .navbar-inverse .navbar-nav li.home a,
 .documentation .navbar-inverse .navbar-nav li.documentation a,
 .tutorials .navbar-inverse .navbar-nav li.tutorials a,
 .about .navbar-inverse .navbar-nav li.about a,
-.get-started .navbar-inverse .navbar-nav li.get-started a
-{
+.get-started .navbar-inverse .navbar-nav li.get-started a {
     color: white;
 }
+
+.home .navbar-inverse .navbar-nav li.home,
 .documentation .navbar-inverse .navbar-nav li.documentation,
 .tutorials .navbar-inverse .navbar-nav li.tutorials,
 .about .navbar-inverse .navbar-nav li.about,
 .get_started .navbar-inverse .navbar-nav li.get_started,
-.download .navbar-inverse .navbar-nav li.download
-{
+.download .navbar-inverse .navbar-nav li.download {
     background: #000;
 }
+
 .navbar-inverse .navbar-nav .dropdown .dropdown-menu li a {
     color: inherit !important;
 }
+
 .navbar-inverse .navbar-nav .dropdown .dropdown-menu li a:hover {
     color: inherit !important;
 }
-.navbar-nav .dropdown:hover .dropdown-menu {
-    display: block;
-}
+
 .hero-unit {
     padding: 33px 60px;
 }
+
 .bg-green {
     background: #27ae60;
     color: white;
     padding: 2px 6px;
     border-radius: 5px;
 }
-.text-green{
+
+.text-green {
     background: white;
     color: #27ae60;
 }
+
+.midWrp{
+    padding-bottom: 30px;
+}
+
 .footerWrp {
     position: absolute;
     bottom: 0px;
     width: 100%;
+    padding-top: 5px;
+    border-top: 1px solid #cccccc;
 }
+
 .footerWrp footer {
     margin: 0px auto;
 }
-.productInfo .odd{
+
+.productInfo .odd {
     margin: 0px 30px;
 }
-.navbar-inverse .navbar-brand{
+
+.navbar-inverse .navbar-brand {
     color: white;
 }
+
 .hero-unit h1 {
     margin-bottom: 0;
 }
+
 .hero-unit p.introPara, .hero-unit p.whatNextTitle, .hero-unit p.whatNextOptions {
     font-size: 18px;
 }
+
 .hero-unit p.whatNextTitle {
     font-weight: bold;
     margin-bottom: 0;
 }
+
 .hero-unit p.whatNextOptions a {
     text-decoration: underline;
 }
+
+.addLinks .btn-lg {
+    width: 24.7%;
+}
+
 .permalink {
     font-size: 12px;
     color: #e1e1e1;
     vertical-align: super;
 }
-.permalink:hover{
+
+.permalink:hover {
     text-decoration: none;
 }
+
 h1:hover .permalink, h2:hover .permalink, h3:hover .permalink, h4:hover .permalink, h5:hover .permalink, h6:hover .permalink {
     color: #4169e1;
 }
+
 .customServeWrp {
     padding: 51px 0 0;
 }
@@ -125,6 +156,20 @@ h1:hover .permalink, h2:hover .permalink, h3:hover .permalink, h4:hover .permali
     margin-top: 54px;
 }
 
-@media (min-width: 768px){
+@media (max-width: 480px) {
+    .navbar-brand {
+        padding: 25px 75px;
+        background-position: 0 11px;
+    }
 
+    .hero-unit {
+        padding: 15px 5px;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar-inverse .navbar-nav .dropdown .dropdown-menu li a {
+        color: #777 !important;
+        padding: 10px 0 10px 25px;
+    }
 }

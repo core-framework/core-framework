@@ -9,16 +9,19 @@
 namespace demoapp\Controllers;
 
 
-class tutorialController extends demoController {
+class tutorialController extends demoController
+{
 
-    public function indexAction(){
+    public function indexAction()
+    {
         return $this->commonFunction('tutorial');
     }
 
-    public function tutorialAction($pageName){
+    public function tutorialAction($pageName)
+    {
 
         $lang = $this->config->current_lang;
-        if(empty($lang)){
+        if (empty($lang)) {
             $lang = 'en_us';
         }
 

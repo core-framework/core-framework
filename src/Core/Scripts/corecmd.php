@@ -282,16 +282,15 @@ class corecmd
         self::$IOStream->writeln("Installing Core in " . $devTxt . " mode ...", 'green');
         self::createAlias();
         self::symResources('demoapp');
+        self::setupApp('demoapp');
         $resp = self::$IOStream->ask("Do you want to setup your app now", 'yes', ['yes', 'no']);
         if ($resp === 'yes') {
             self::setupApp();
         }
 
         self::createCacheFolder();
-
+        self::createSmartyCache();
         self::$IOStream->writeln("Application setup successfully!", 'green');
-        self::$IOStream->writeln("You can setup virtual hosts using the following command -", 'yellow');
-
     }
 
     /**
@@ -437,22 +436,31 @@ class corecmd
      *
      * @throws \Exception
      */
-    public static function setupApp()
+    public static function setupApp($appName = 'demoapp')
     {
-        $callback = (function ($input) {
-            if (preg_match('^([a-zA-Z0-9]{1,}\.)?([a-zA-Z0-9][a-zA-Z0-9-_]{0,61}[a-zA-Z0-9]{0,1}\.?)([a-zA-Z]{1,6}|[a-zA-Z0-9-]{1,30}\.[a-zA-Z]{2,3})?$', $input, $matches)) {
-                return true;
-            } else {
-                return false;
-            }
-        });
-        self::$domainName = $domainName = self::$IOStream->askAndvalidate(
-            "Enter the Domain name of your web application (sub domains are allowed)",
-            $callback,
-            "Input must be a valid Domain name (sub domains are allowed)"
-        );
 
-        $appName = str_replace('.','-',$domainName);
+        if (empty($appName) || $appName !== 'demoapp') {
+
+            $callback = (function ($input) {
+                if (preg_match(
+                    '^([a-zA-Z0-9]{1,}\.)?([a-zA-Z0-9][a-zA-Z0-9-_]{0,61}[a-zA-Z0-9]{0,1}\.?)([a-zA-Z]{1,6}|[a-zA-Z0-9-]{1,30}\.[a-zA-Z]{2,3})?$',
+                    $input
+                )) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            self::$domainName = $domainName = self::$IOStream->askAndvalidate(
+                "Enter the Domain name of your web application (sub domains are allowed)",
+                $callback,
+                "Input must be a valid Domain name (sub domains are allowed)"
+            );
+
+            $appName = str_replace('.', '-', $domainName);
+        }
+
+
         self::$appName = $appName;
         self::$appDir = $appDir = _ROOT . DS . $appName;
         if (!is_readable($appDir)) {
@@ -490,14 +498,15 @@ class corecmd
             self::createIndex($appName);
             self::$IOStream->writeln("Recreating app's .htaccess file...", "yellow");
             self::createHtaccess($appName);
-            exit;
+            self::$IOStream->writeln("Recreating app's conf files...", "yellow");
+            self::createConf();
         }
 
+        self::$IOStream->writeln("You can setup virtual hosts using the following command -", 'yellow');
         $consolePath = _ROOT . "src" . DS . "Core" . DS . "Scripts" . DS . "Console";
         $name = empty(self::$appName) ? '{appDirName}' : self::$appName;
         self::$IOStream->writeColoredLn(
-            "sudo:yellow $consolePath:cyan setupHost:cyan $name:white",
-            'green'
+            "sudo:yellow $consolePath:cyan setupHost:cyan $name:white"
         );
     }
 
@@ -554,7 +563,7 @@ class corecmd
                 self::$IOStream->showErr("Error writing configuration file - " . $confFile);
             }
         } else {
-            self::$IOStream->writeln("Conf file exists! Continuing setup..");
+            self::$IOStream->writeln("Conf files exists! Continuing setup..");
         }
 
     }
@@ -640,11 +649,36 @@ class corecmd
             $apacheGroup = $tmp[1];
             self::$apacheUserGroup = $apacheGroup;
 
+            if ($apacheUser === '${APACHE_RUN_USER}' && $apacheGroup === '${APACHE_RUN_GROUP}') {
+                $httpdPathArr = explode(DS, $httpdConfPath);
+                array_pop($httpdPathArr);
+                $httpdDir = implode(DS, $httpdPathArr);
+                $envvars = $httpdDir . DS . "envvars";
+                if (is_readable($envvars)) {
+                    exec('egrep "^export APACHE_RUN_USER|export APACHE_RUN_GROUP" ' . $envvars, $output);
+
+                    $tmp = explode("=", $output[0]);
+                    $apacheUser = $tmp[1];
+                    self::$apacheUser = $apacheUser;
+
+                    $tmp = explode("=", $output[1]);
+                    $apacheGroup = $tmp[1];
+                    self::$apacheUserGroup = $apacheGroup;
+                } else {
+                    self::$apacheUser = self::$IOStream->ask("Please enter the Apache User name");
+                    self::$apacheUserGroup = self::$IOStream->ask(
+                        "Please enter the Apache User Group",
+                        self::$apacheUser
+                    );
+                }
+            }
+
             $cacheDir = _ROOT . DS . "src" . DS . "Core" . DS . "cache" . DS;
 
             self::$IOStream->writeln("creating cache folder", 'green');
             if (!is_dir($cacheDir)) {
                 mkdir($cacheDir, 0755);
+                chown($cacheDir, $apacheUser . ":" . $apacheGroup);
             } else {
                 self::$IOStream->writeln("Setting up cache folder", 'green');
                 chown($cacheDir, $apacheUser . ":" . $apacheGroup);
@@ -673,11 +707,11 @@ class corecmd
             }
         }
 
-        if (empty($httpdConfPath)) {
+        if (empty($httpdConfPath) || !is_dir($httpdConfPath)) {
             self::$IOStream->writeln("Cannot find httpd.conf!", "yellow");
             $rep = self::$IOStream->ask("Please enter full path to httpd.conf ");
             if (is_file($rep)) {
-                $this->httpdConfPath = $rep;
+                self::$httpdConfPath = $rep;
                 return $rep;
             } else {
                 self::$IOStream->showErr("Valid File not provided!");
@@ -686,6 +720,30 @@ class corecmd
         } else {
             self::$httpdConfPath = $httpdConfPath;
             return $httpdConfPath;
+        }
+    }
+
+    /**
+     * Creates smarty cache directories
+     */
+    private function createSmartyCache()
+    {
+        self::$IOStream->writeln('Creating smarty cache..');
+        $smartyCacheDir = _ROOT . DS . "src" . DS . "Core" . DS . "smarty_cache";
+        $smarty_sub_cache = $smartyCacheDir . DS . "cache";
+        $smarty_sub_config = $smartyCacheDir . DS . "config";
+        $smarty_sub_template = $smartyCacheDir . DS . "templates_c";
+        if (!is_dir($smartyCacheDir)) {
+            mkdir($smartyCacheDir, 0777);
+        }
+        if (!is_dir($smarty_sub_cache)) {
+            mkdir($smarty_sub_cache, 0777);
+        }
+        if (!is_dir($smarty_sub_config)) {
+            mkdir($smarty_sub_config, 0777);
+        }
+        if (!is_dir($smarty_sub_template)) {
+            mkdir($smarty_sub_template, 0777);
         }
     }
 
@@ -969,13 +1027,31 @@ class corecmd
     }
 
     /**
+     * Clear all cache
+     */
+    public static function clearCache()
+    {
+        self::$cache->clearCache();
+        self::$IOStream->writeln("Cache successfully cleared!", 'green');
+    }
+
+    /**
      * Sleep magic method
      *
      * @return array
      */
     public function __sleep()
     {
-        return ['appName', 'appDir', 'dev', 'pdoDrivers', 'httpdConfPath', 'vhostConfPath', 'apacheUser', 'apacheUserGroup'];
+        return [
+            'appName',
+            'appDir',
+            'dev',
+            'pdoDrivers',
+            'httpdConfPath',
+            'vhostConfPath',
+            'apacheUser',
+            'apacheUserGroup'
+        ];
     }
 
     /**
@@ -985,15 +1061,6 @@ class corecmd
     {
         $this::$IOStream = new IOStream();
         $this::$cache = new cache();
-    }
-
-    /**
-     * Clear all cache
-     */
-    public static function clearCache()
-    {
-        self::$cache->clearCache();
-        self::$IOStream->writeln("Cache successfully cleared!");
     }
 
 }

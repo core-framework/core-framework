@@ -346,7 +346,7 @@ class routes
                 $keyArr = explode('/', $key);
                 $newkey = implode('\/', $keyArr);
                 $argReq = !empty($val['argReq']) ? $val['argReq'] : '[\w]';
-                $argDflt = $val['argDefault'];
+                $argDflt = empty($val['argDefault']) ? null : $val['argDefault'];
 
                 if ($path === $key) {
                     $this->foundMatch = true;
@@ -689,12 +689,53 @@ class routes
     }
 
     /**
+     * Returns the Server details
+     *
+     * @return array
+     */
+    public function getServer()
+    {
+        return $this->server;
+    }
+
+    /**
      * Sleep magic method
      *
      * @return array
      */
     public function __sleep()
     {
-        return ['path', 'urlPathArr', 'controllerVerb', 'header', 'server', 'cookies', 'getVars', 'postVars', 'reqstMethod', 'pathConfFile', 'routeVars', 'fileName', 'fileExt', 'defaultController', 'collection', 'require', 'namespace', 'controller', 'method', 'model', 'FEComponents', 'customServe', 'referencePath', 'args', 'templatePath', 'isRootFile', 'isFEComponents', 'foundMatch', 'definedMatch', 'definedMethod'];
+        return [
+            'path',
+            'urlPathArr',
+            'controllerVerb',
+            'header',
+            'server',
+            'cookies',
+            'getVars',
+            'postVars',
+            'reqstMethod',
+            'pathConfFile',
+            'routeVars',
+            'fileName',
+            'fileExt',
+            'defaultController',
+            'collection',
+            'require',
+            'namespace',
+            'controller',
+            'method',
+            'model',
+            'FEComponents',
+            'customServe',
+            'referencePath',
+            'args',
+            'templatePath',
+            'isRootFile',
+            'isFEComponents',
+            'foundMatch',
+            'definedMatch',
+            'definedMethod'
+        ];
     }
 } 

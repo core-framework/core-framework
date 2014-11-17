@@ -21,7 +21,7 @@ return $page = [
                 <a href="http://bower.io/">Bower</a>: Core Framework uses bower for front-end package management.
             </li>
             <li>
-                <a href="https://getcomposer.org/">Composer</a>: Core Framework uses Composer for backend package management and for its auto loading (class) capabilities.
+                <a href="https://getcomposer.org/">Composer</a>: Core Framework uses Composer for PHP package management and for its auto loading (class) capabilities.
             </li>
             <li>
                 <a href="http://apigen.org/">Apigen</a>: Core Framework used apigen for generating the API docs.
@@ -32,5 +32,7 @@ return $page = [
             <li>
                 <a href="http://www.smarty.net/">Smarty</a>: Core Framework relies on the Smarty Template Engine for its flexible templating capabilities.
             </li>
-        </ul>'
+        </ul>',
+    'subTitle2' => 'License',
+    'subTitle2_pLink' => 'license'
 ];

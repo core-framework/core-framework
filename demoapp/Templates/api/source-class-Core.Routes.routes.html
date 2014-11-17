@@ -445,7 +445,7 @@
 </span><span id="346" class="l"><a class="l" href="#346">346: </a>                <span class="php-var">$keyArr</span> = <span class="php-keyword2">explode</span>(<span class="php-quote">'/'</span>, <span class="php-var">$key</span>);
 </span><span id="347" class="l"><a class="l" href="#347">347: </a>                <span class="php-var">$newkey</span> = <span class="php-keyword2">implode</span>(<span class="php-quote">'\/'</span>, <span class="php-var">$keyArr</span>);
 </span><span id="348" class="l"><a class="l" href="#348">348: </a>                <span class="php-var">$argReq</span> = !<span class="php-keyword1">empty</span>(<span class="php-var">$val</span>[<span class="php-quote">'argReq'</span>]) ? <span class="php-var">$val</span>[<span class="php-quote">'argReq'</span>] : <span class="php-quote">'[\w]'</span>;
-</span><span id="349" class="l"><a class="l" href="#349">349: </a>                <span class="php-var">$argDflt</span> = <span class="php-var">$val</span>[<span class="php-quote">'argDefault'</span>];
+</span><span id="349" class="l"><a class="l" href="#349">349: </a>                <span class="php-var">$argDflt</span> = <span class="php-keyword1">empty</span>(<span class="php-var">$val</span>[<span class="php-quote">'argDefault'</span>]) ? <span class="php-keyword1">null</span> : <span class="php-var">$val</span>[<span class="php-quote">'argDefault'</span>];
 </span><span id="350" class="l"><a class="l" href="#350">350: </a>
 </span><span id="351" class="l"><a class="l" href="#351">351: </a>                <span class="php-keyword1">if</span> (<span class="php-var">$path</span> === <span class="php-var">$key</span>) {
 </span><span id="352" class="l"><a class="l" href="#352">352: </a>                    <span class="php-var">$this</span>-&gt;foundMatch = <span class="php-keyword1">true</span>;
@@ -788,15 +788,57 @@
 </span><span id="689" class="l"><a class="l" href="#689">689: </a>    }
 </span><span id="690" class="l"><a class="l" href="#690">690: </a>
 </span><span id="691" class="l"><a class="l" href="#691">691: </a>    <span class="php-comment">/**
-</span></span><span id="692" class="l"><a class="l" href="#692">692: </a><span class="php-comment">     * Sleep magic method
+</span></span><span id="692" class="l"><a class="l" href="#692">692: </a><span class="php-comment">     * Returns the Server details
 </span></span><span id="693" class="l"><a class="l" href="#693">693: </a><span class="php-comment">     *
 </span></span><span id="694" class="l"><a class="l" href="#694">694: </a><span class="php-comment">     * @return array
 </span></span><span id="695" class="l"><a class="l" href="#695">695: </a><span class="php-comment">     */</span>
-</span><span id="696" class="l"><a class="l" href="#696">696: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="___sleep" href="#___sleep">__sleep</a>()
+</span><span id="696" class="l"><a class="l" href="#696">696: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getServer" href="#_getServer">getServer</a>()
 </span><span id="697" class="l"><a class="l" href="#697">697: </a>    {
-</span><span id="698" class="l"><a class="l" href="#698">698: </a>        <span class="php-keyword1">return</span> [<span class="php-quote">'path'</span>, <span class="php-quote">'urlPathArr'</span>, <span class="php-quote">'controllerVerb'</span>, <span class="php-quote">'header'</span>, <span class="php-quote">'server'</span>, <span class="php-quote">'cookies'</span>, <span class="php-quote">'getVars'</span>, <span class="php-quote">'postVars'</span>, <span class="php-quote">'reqstMethod'</span>, <span class="php-quote">'pathConfFile'</span>, <span class="php-quote">'routeVars'</span>, <span class="php-quote">'fileName'</span>, <span class="php-quote">'fileExt'</span>, <span class="php-quote">'defaultController'</span>, <span class="php-quote">'collection'</span>, <span class="php-quote">'require'</span>, <span class="php-quote">'namespace'</span>, <span class="php-quote">'controller'</span>, <span class="php-quote">'method'</span>, <span class="php-quote">'model'</span>, <span class="php-quote">'FEComponents'</span>, <span class="php-quote">'customServe'</span>, <span class="php-quote">'referencePath'</span>, <span class="php-quote">'args'</span>, <span class="php-quote">'templatePath'</span>, <span class="php-quote">'isRootFile'</span>, <span class="php-quote">'isFEComponents'</span>, <span class="php-quote">'foundMatch'</span>, <span class="php-quote">'definedMatch'</span>, <span class="php-quote">'definedMethod'</span>];
+</span><span id="698" class="l"><a class="l" href="#698">698: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;server;
 </span><span id="699" class="l"><a class="l" href="#699">699: </a>    }
-</span><span id="700" class="l"><a class="l" href="#700">700: </a>} </span></code></pre>
+</span><span id="700" class="l"><a class="l" href="#700">700: </a>
+</span><span id="701" class="l"><a class="l" href="#701">701: </a>    <span class="php-comment">/**
+</span></span><span id="702" class="l"><a class="l" href="#702">702: </a><span class="php-comment">     * Sleep magic method
+</span></span><span id="703" class="l"><a class="l" href="#703">703: </a><span class="php-comment">     *
+</span></span><span id="704" class="l"><a class="l" href="#704">704: </a><span class="php-comment">     * @return array
+</span></span><span id="705" class="l"><a class="l" href="#705">705: </a><span class="php-comment">     */</span>
+</span><span id="706" class="l"><a class="l" href="#706">706: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="___sleep" href="#___sleep">__sleep</a>()
+</span><span id="707" class="l"><a class="l" href="#707">707: </a>    {
+</span><span id="708" class="l"><a class="l" href="#708">708: </a>        <span class="php-keyword1">return</span> [
+</span><span id="709" class="l"><a class="l" href="#709">709: </a>            <span class="php-quote">'path'</span>,
+</span><span id="710" class="l"><a class="l" href="#710">710: </a>            <span class="php-quote">'urlPathArr'</span>,
+</span><span id="711" class="l"><a class="l" href="#711">711: </a>            <span class="php-quote">'controllerVerb'</span>,
+</span><span id="712" class="l"><a class="l" href="#712">712: </a>            <span class="php-quote">'header'</span>,
+</span><span id="713" class="l"><a class="l" href="#713">713: </a>            <span class="php-quote">'server'</span>,
+</span><span id="714" class="l"><a class="l" href="#714">714: </a>            <span class="php-quote">'cookies'</span>,
+</span><span id="715" class="l"><a class="l" href="#715">715: </a>            <span class="php-quote">'getVars'</span>,
+</span><span id="716" class="l"><a class="l" href="#716">716: </a>            <span class="php-quote">'postVars'</span>,
+</span><span id="717" class="l"><a class="l" href="#717">717: </a>            <span class="php-quote">'reqstMethod'</span>,
+</span><span id="718" class="l"><a class="l" href="#718">718: </a>            <span class="php-quote">'pathConfFile'</span>,
+</span><span id="719" class="l"><a class="l" href="#719">719: </a>            <span class="php-quote">'routeVars'</span>,
+</span><span id="720" class="l"><a class="l" href="#720">720: </a>            <span class="php-quote">'fileName'</span>,
+</span><span id="721" class="l"><a class="l" href="#721">721: </a>            <span class="php-quote">'fileExt'</span>,
+</span><span id="722" class="l"><a class="l" href="#722">722: </a>            <span class="php-quote">'defaultController'</span>,
+</span><span id="723" class="l"><a class="l" href="#723">723: </a>            <span class="php-quote">'collection'</span>,
+</span><span id="724" class="l"><a class="l" href="#724">724: </a>            <span class="php-quote">'require'</span>,
+</span><span id="725" class="l"><a class="l" href="#725">725: </a>            <span class="php-quote">'namespace'</span>,
+</span><span id="726" class="l"><a class="l" href="#726">726: </a>            <span class="php-quote">'controller'</span>,
+</span><span id="727" class="l"><a class="l" href="#727">727: </a>            <span class="php-quote">'method'</span>,
+</span><span id="728" class="l"><a class="l" href="#728">728: </a>            <span class="php-quote">'model'</span>,
+</span><span id="729" class="l"><a class="l" href="#729">729: </a>            <span class="php-quote">'FEComponents'</span>,
+</span><span id="730" class="l"><a class="l" href="#730">730: </a>            <span class="php-quote">'customServe'</span>,
+</span><span id="731" class="l"><a class="l" href="#731">731: </a>            <span class="php-quote">'referencePath'</span>,
+</span><span id="732" class="l"><a class="l" href="#732">732: </a>            <span class="php-quote">'args'</span>,
+</span><span id="733" class="l"><a class="l" href="#733">733: </a>            <span class="php-quote">'templatePath'</span>,
+</span><span id="734" class="l"><a class="l" href="#734">734: </a>            <span class="php-quote">'isRootFile'</span>,
+</span><span id="735" class="l"><a class="l" href="#735">735: </a>            <span class="php-quote">'isFEComponents'</span>,
+</span><span id="736" class="l"><a class="l" href="#736">736: </a>            <span class="php-quote">'foundMatch'</span>,
+</span><span id="737" class="l"><a class="l" href="#737">737: </a>            <span class="php-quote">'definedMatch'</span>,
+</span><span id="738" class="l"><a class="l" href="#738">738: </a>            <span class="php-quote">'definedMethod'</span>
+</span><span id="739" class="l"><a class="l" href="#739">739: </a>        ];
+</span><span id="740" class="l"><a class="l" href="#740">740: </a>    }
+</span><span id="741" class="l"><a class="l" href="#741">741: </a>} 
+</span><span id="742" class="l"><a class="l" href="#742">742: </a></span></code></pre>
 
 	<div id="footer">
 		 API documentation generated by <a href="http://apigen.org">ApiGen</a>

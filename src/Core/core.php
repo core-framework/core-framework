@@ -187,17 +187,17 @@ class core
             $this->clearCache();
         }
 
-        if($this->hasAPC && !$this->devMode) {
+        if ($this->hasAPC && !$this->devMode) {
             $path = $this->path;
             $pathKey = md5($path . "_view");
             $hasKeyAPC = apc_exists($pathKey);
             $hasKeyCache = $this->cache->cacheExists($pathKey);
         }
 
-        if($hasKeyAPC) {
+        if ($hasKeyAPC) {
             $this->APCinit($pathKey);
             $this->cacheMethod = "APC";
-        } elseif($hasKeyCache) {
+        } elseif ($hasKeyCache) {
             $this->cachedinit($pathKey);
             $this->cacheMethod = "internal_cache";
         } else {
@@ -211,22 +211,14 @@ class core
     }
 
     /**
-     * Default initialization when no cache is available
+     * Clear / reset APC Cache
      */
-    private function defaultinit()
+    public function clearCache()
     {
-        $this->route = new routes($this->request);
-        $this->view = new view();
-        $this->globalConf = require_once _ROOT . $this->globalConf;
-    }
-
-    /**
-     * Cached execution if Core Framework's cache is available
-     *
-     * @param $key
-     */
-    private function cachedinit($key){
-        $this->view = $this->cache->getCache($key);
+        if ($this->hasAPC) {
+            apc_clear_cache();
+        }
+        $this->cache->clearCache();
     }
 
     /**
@@ -240,14 +232,23 @@ class core
     }
 
     /**
-     * Clear / reset APC Cache
+     * Cached execution if Core Framework's cache is available
+     *
+     * @param $key
      */
-    public function clearCache()
+    private function cachedinit($key)
     {
-        if($this->hasAPC) {
-            apc_clear_cache();
-        }
-        $this->cache->clearCache();
+        $this->view = $this->cache->getCache($key);
+    }
+
+    /**
+     * Default initialization when no cache is available
+     */
+    private function defaultinit()
+    {
+        $this->route = new routes($this->request);
+        $this->view = new view();
+        $this->globalConf = require_once _ROOT . $this->globalConf;
     }
 
     /**
@@ -266,9 +267,9 @@ class core
      */
     public function Load()
     {
-        if($this->cacheMethod !== 'none') {
+        if ($this->cacheMethod !== 'none') {
             $this->view->render();
-        }else{
+        } else {
             $this->loadAll();
         }
     }
@@ -526,6 +527,7 @@ class core
         $args = !empty($args) ? $args : null;
         $required = $this->route->getRequired();
         $routeParams = $this->route->getRouteVars();
+        $server = $this->route->getServer();
         $view = $this->view;
 
         $class = $namespace . "\\" . $controller;
@@ -539,6 +541,7 @@ class core
                 $view,
                 $this->postVars,
                 $this->getVars,
+                $server,
                 $modelDir,
                 $model,
                 $args,
@@ -714,6 +717,48 @@ class core
     }
 
     /**
+     * Sleep magic method
+     *
+     * @return array
+     */
+    public function __sleep()
+    {
+        return [
+            'controllerDir',
+            'modelDir',
+            'devMode',
+            'path',
+            'forceApc',
+            'templateDir',
+            'defaultTpl',
+            'defaultController',
+            'modelName',
+            'templateInfo',
+            'getVars',
+            'postVars',
+            'cookies',
+            'validExtensions',
+            'styleDir',
+            'scriptsDir',
+            'imageDir',
+            'resourcesDir',
+            'hasAPC',
+            'globalConf',
+            'cachettl'
+        ];
+    }
+
+    /**
+     * Wakeup magic method
+     */
+    public function __wakeup()
+    {
+        $this->route = null;
+        $this->request = null;
+        $this->view = new Views\view();
+    }
+
+    /**
      * autoloader to load controller files
      * @param $namespacedClass
      * @return bool
@@ -762,27 +807,6 @@ class core
         } else {
             return false;
         }
-    }
-
-    /**
-     * Sleep magic method
-     *
-     * @return array
-     */
-    public function __sleep()
-    {
-        return ['controllerDir', 'modelDir', 'devMode', 'path', 'forceApc', 'templateDir', 'defaultTpl', 'defaultController', 'modelName', 'templateInfo', 'getVars', 'postVars', 'cookies', 'validExtensions', 'styleDir', 'scriptsDir', 'imageDir', 'resourcesDir', 'hasAPC', 'globalConf', 'cachettl'];
-    }
-
-
-    /**
-     * Wakeup magic method
-     */
-    public function __wakeup()
-    {
-        $this->route = null;
-        $this->request = null;
-        $this->view = new Views\view();
     }
 
 }

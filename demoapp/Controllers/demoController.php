@@ -22,6 +22,12 @@ class demoController extends controller
 
     public function indexAction()
     {
+        $serverName = $this->getServer()['HTTP_HOST'];
+        if (preg_match('/^(www\.|dev\.)?coreframework\.in$/', $serverName)) {
+            $this->response['vars']['showProd'] = true;
+        } else {
+            $this->response['vars']['showProd'] = false;
+        }
         return $this->commonFunction('home');
     }
 
@@ -53,6 +59,10 @@ class demoController extends controller
 
     public function aboutAction()
     {
+        $license = _ROOT . DS . "LICENSE";
+        $licenseTxt = file_get_contents($license);
+        $licenseTxt = preg_replace('/\n/', '<br/>', $licenseTxt);
+        $this->response['vars']['licensetxt'] = $licenseTxt;
         return $this->commonFunction('about');
     }
 
