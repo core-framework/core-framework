@@ -4,8 +4,8 @@ return $common = [
 
     'author' => [
         'name' => 'Shalom Sam',
-        'email' => 'shalom.k.sam [at] gmail.com',
-        'url' => 'http://facebook.com/shalom.sam'
+        'email' => 'shalom.s [at] coreframework.in',
+        'url' => 'https://github.com/shalomsam'
     ],
 
     'product' => [

@@ -526,6 +526,7 @@ class core
         $args = !empty($args) ? $args : null;
         $required = $this->route->getRequired();
         $routeParams = $this->route->getRouteVars();
+        $server = $this->route->getServer();
         $view = $this->view;
 
         $class = $namespace . "\\" . $controller;
@@ -539,6 +540,7 @@ class core
                 $view,
                 $this->postVars,
                 $this->getVars,
+                $server,
                 $modelDir,
                 $model,
                 $args,

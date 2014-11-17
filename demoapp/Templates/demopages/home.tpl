@@ -2,18 +2,22 @@
 
     <div class="hero-unit">
         <h1>Welcome to <{$docVarsCom.product.name}></h1>
-        <p class="introPara" ><{$home.intro_para}></p>
+        <{if $showProd === true}>
+            <p class="introPara" ><{$home.intro_para_prod}></p>
+        <{else}>
+            <p class="introPara" ><{$home.intro_para}></p>
+        <{/if}>
         <br/>
         <p class="whatNextTitle"><{$home.what_next_title}></p>
         <p class="whatNextOptions"><{$home.what_next_options}></p>
         <br/>
         <p class="well well-small"><{$home.intro_note}></p>
-        <{*<div class="row-fluid">*}>
-            <{*<div class="span3"><a href="#nowhere" class="btn btn-primary btn-large btn-block">Item Support</a></div>*}>
-            <{*<div class="span3"><a href="#nowhere" class="btn btn-inverse btn-large btn-block">Support Forum</a></div>*}>
-            <{*<div class="span3"><a href="#changelog" role="button" class="btn btn-success btn-large btn-block" data-toggle="modal">Changelog</a></div>*}>
-            <{*<div class="span3"><a href="#credits" role="button" class="btn btn-info btn-large btn-block" data-toggle="modal">Credits</a></div>*}>
-        <{*</div>*}>
+        <div class="row-fluid addLinks">
+            <a href="https://github.com/shalomsam/Core/issues" class="btn btn-danger btn-lg"><{$home.track_issues}></a>
+            <a href="https://github.com/shalomsam/Core/fork" class="btn btn-success btn-lg"><{$home.contribute}></a>
+            <a href="https://github.com/shalomsam/Core/blob/master/changelog" role="button" class="btn btn-primary btn-lg" data-toggle="modal"><{$home.change_logs}></a>
+            <a href="/about#credits" role="button" class="btn btn-info btn-lg"><{$home.credits}></a>
+        </div>
     </div>
     <hr>
     <div class="container center-block productInfo">

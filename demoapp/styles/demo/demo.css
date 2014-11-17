@@ -93,6 +93,11 @@ body.api p{
 .hero-unit p.whatNextOptions a {
     text-decoration: underline;
 }
+
+.addLinks .btn-lg {
+    width: 24.7%;
+}
+
 .permalink {
     font-size: 12px;
     color: #e1e1e1;

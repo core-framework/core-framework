@@ -689,6 +689,15 @@ class routes
     }
 
     /**
+     * Returns the Server details
+     *
+     * @return array
+     */
+    public function getServer() {
+        return $this->server;
+    }
+
+    /**
      * Sleep magic method
      *
      * @return array

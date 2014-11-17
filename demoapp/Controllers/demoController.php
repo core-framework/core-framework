@@ -22,6 +22,12 @@ class demoController extends controller
 
     public function indexAction()
     {
+        $serverName = $this->getServer()['HTTP_HOST'];
+        if (preg_match('/^(www\.|dev\.)?coreframework\.in$/', $serverName)) {
+            $this->response['var']['showProd'] = true;
+        } else {
+            $this->response['var']['showProd'] = false;
+        }
         return $this->commonFunction('home');
     }
 
@@ -35,6 +41,7 @@ class demoController extends controller
         $commonLangFile = _ROOT . DS . "demoapp" . DS . "Templates" . DS . "demopages" . DS . "lang" . DS . $lang . DS . "common.php";
         $pageLangFile = _ROOT . DS . "demoapp" . DS . "Templates" . DS . "demopages" . DS . "lang" . DS . $lang . DS . $pageName . ".php";
         $pageTpl = "demopages/" . $pageName . ".tpl";
+
 
 
         $this->response['tpl'] = 'demopages/demo.tpl';
