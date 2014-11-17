@@ -24,9 +24,9 @@ class demoController extends controller
     {
         $serverName = $this->getServer()['HTTP_HOST'];
         if (preg_match('/^(www\.|dev\.)?coreframework\.in$/', $serverName)) {
-            $this->response['var']['showProd'] = true;
+            $this->response['vars']['showProd'] = true;
         } else {
-            $this->response['var']['showProd'] = false;
+            $this->response['vars']['showProd'] = false;
         }
         return $this->commonFunction('home');
     }
