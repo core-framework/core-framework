@@ -2,7 +2,7 @@
 
     <div class="hero-unit">
         <h1>Welcome to <{$docVarsCom.product.name}></h1>
-        <{if $showProd === true}>
+        <{if isset($showProd) && $showProd === true}>
             <p class="introPara" ><{$home.intro_para_prod}></p>
         <{else}>
             <p class="introPara" ><{$home.intro_para}></p>
