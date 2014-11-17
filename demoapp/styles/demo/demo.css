@@ -23,9 +23,9 @@ body.api p{
 }
 .navbar-brand {
     background: url('/images/CoreFramework-white-Logo.png') no-repeat scroll 0 0 transparent;
-    background-size: cover;
+    background-size: contain;
     text-indent: -999999px;
-    padding: 25px 158px;
+    padding: 25px 200px;
 }
 .navbar-brand .small{
     font-size: 10px;
@@ -129,7 +129,6 @@ h1:hover .permalink, h2:hover .permalink, h3:hover .permalink, h4:hover .permali
 @media (max-width: 480px){
     .navbar-brand {
         padding: 25px 75px;
-        background-size: contain;
         background-position: 0 11px;
     }
     .hero-unit {
