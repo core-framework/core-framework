@@ -15,6 +15,7 @@ src/Core/cache
 */scripts/angular
 */scripts/angular-route
 */index.php
+*/robots.txt
 
 ### Windows template
 # Windows image file caches
