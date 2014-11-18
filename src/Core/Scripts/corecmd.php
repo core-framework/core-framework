@@ -656,15 +656,21 @@ class corecmd
                 $envvars = $httpdDir . DS . "envvars";
                 if (is_readable($envvars)) {
                     exec('egrep "^export APACHE_RUN_USER|export APACHE_RUN_GROUP" ' . $envvars, $output);
+			
+		    foreach($output as $line) {
+                        if(strpos($line, 'export APACHE_RUN_USE') > -1) {
+                            $tmp1 = explode("=", $line);
+                            self::$apacheUser = $apacheUser = $tmp1[1];
 
-                    $tmp = explode("=", $output[0]);
-                    $apacheUser = $tmp[1];
-                    self::$apacheUser = $apacheUser;
+                        } elseif (strpos($line, 'export APACHE_RUN_GROUP') > -1) {
+                            $tmp2 = explode("=", $line);
+                            self::$apacheUserGroup = $apacheGroup = $tmp2[1];
+                        }
+                    }
 
-                    $tmp = explode("=", $output[1]);
-                    $apacheGroup = $tmp[1];
-                    self::$apacheUserGroup = $apacheGroup;
-                } else {
+                } 
+
+		if (empty(self::$apacheUser) && empty(self::$apacheUserGroup)) {
                     self::$apacheUser = self::$IOStream->ask("Please enter the Apache User name");
                     self::$apacheUserGroup = self::$IOStream->ask(
                         "Please enter the Apache User Group",
@@ -728,23 +734,31 @@ class corecmd
      */
     private function createSmartyCache()
     {
-        self::$IOStream->writeln('Creating smarty cache..');
+        self::$IOStream->writeln('Creating smarty cache..', 'green');
         $smartyCacheDir = _ROOT . DS . "src" . DS . "Core" . DS . "smarty_cache";
         $smarty_sub_cache = $smartyCacheDir . DS . "cache";
         $smarty_sub_config = $smartyCacheDir . DS . "config";
         $smarty_sub_template = $smartyCacheDir . DS . "templates_c";
         if (!is_dir($smartyCacheDir)) {
             mkdir($smartyCacheDir, 0777);
-        }
+        } else {
+	    chmod($smartyCacheDir, 0777);
+	}
         if (!is_dir($smarty_sub_cache)) {
             mkdir($smarty_sub_cache, 0777);
-        }
+        } else {
+	    chmod($smarty_sub_cache, 0777);
+	}
         if (!is_dir($smarty_sub_config)) {
             mkdir($smarty_sub_config, 0777);
-        }
+        } else {
+	    chmod($smarty_sub_config, 0777);
+	}
         if (!is_dir($smarty_sub_template)) {
             mkdir($smarty_sub_template, 0777);
-        }
+        } else {
+	    chmod($smarty_sub_template, 0777);
+	}
     }
 
     /**
