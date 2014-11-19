@@ -9,10 +9,14 @@
         <{/if}>
         <br/>
 
-        <p class="whatNextTitle"><{$home.what_next_title}></p>
+        <p class="queryTitle"><{$home.why_core_title}></p>
 
-        <p class="whatNextOptions"><{$home.what_next_options}></p>
-        <br/>
+        <p class="queryAns"><{$home.why_core_options}></p>
+
+        <p class="queryTitle"><{$home.what_next_title}></p>
+
+        <p class="queryAns"><{$home.what_next_options}></p>
+        <br/><br/>
 
         <p class="well well-small"><{$home.intro_note}></p>
 

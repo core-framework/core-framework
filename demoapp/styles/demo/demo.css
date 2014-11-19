@@ -108,16 +108,16 @@ body.api p {
     margin-bottom: 0;
 }
 
-.hero-unit p.introPara, .hero-unit p.whatNextTitle, .hero-unit p.whatNextOptions {
+.hero-unit p.introPara, .hero-unit p.queryTitle, .hero-unit p.queryAns {
     font-size: 18px;
 }
 
-.hero-unit p.whatNextTitle {
+.hero-unit p.queryTitle {
     font-weight: bold;
     margin-bottom: 0;
 }
 
-.hero-unit p.whatNextOptions a {
+.hero-unit p.queryAns a {
     text-decoration: underline;
 }
 
