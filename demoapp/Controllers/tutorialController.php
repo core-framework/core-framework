@@ -14,7 +14,7 @@ class tutorialController extends demoController
 
     public function indexAction()
     {
-        return $this->commonFunction('tutorial');
+        $this->commonFunction('tutorial');
     }
 
     public function tutorialAction($pageName)
@@ -29,20 +29,16 @@ class tutorialController extends demoController
         $pageLangFile = _ROOT . DS . "demoapp" . DS . "Templates" . DS . "demopages" . DS . "lang" . DS . $lang . DS . $pageName . ".php";
         $pageTpl = "demopages/tutorials/tutorials.tpl";
 
-        $this->response['tpl'] = 'demopages/demo.tpl';
-        $this->response['vars']['includeTpl'] = $pageTpl;
-        //$this->response['vars']['pageKey'] = 'tutorial';
-        $this->response['vars']['pageName'] = $pageName;
-        $this->response['vars']['docVarsCom'] = include_once $commonLangFile;
+        $this->view->setTemplate('demopages/demo.tpl');
+        $this->view->setTemplateVars('includeTpl', $pageTpl);
+        $this->view->setTemplateVars('pageName', $pageName);
+        $this->view->setTemplateVars('docVarsCom', include_once $commonLangFile);
 
         if (is_readable($pageLangFile)) {
-            $this->response['vars']['tutorials'] = include_once $pageLangFile;
+            $this->view->setTemplateVars('tutorials', include_once $pageLangFile);
         } else {
-            $this->response['vars']['error'] = "Page not found";
+            $this->view->setTemplateVars('error', "Page not found");
         }
-
-        return $this->getResponse();
-
     }
 
 } 

@@ -31,7 +31,7 @@ namespace Core\ErrorHandler;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class errHandler
+class ErrorHandler
 {
 
     /**

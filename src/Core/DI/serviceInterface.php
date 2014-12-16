@@ -20,30 +20,43 @@
  * file that was distributed with this source code.
  */
 
-namespace Core\Controllers;
+namespace Core\DI;
 
 /**
- * Controller for simple http and URL match test
- *
- * @package Core\Controllers
- * @version $Revision$
- * @license http://creativecommons.org/licenses/by-sa/4.0/
- * @link http://coreframework.in
- * @author Shalom Sam <shalom.s@coreframework.in>
+ * Interface serviceInterface
+ * @package Core\DI
  */
-class testController extends controller
+interface serviceInterface
 {
+    /**
+     * Creates a service instance with the given params
+     *
+     * @param string $name
+     * @param \Closure|string $definition
+     * @param bool $shared
+     * @throws \ErrorException
+     */
+    public function __construct($name, $definition, $shared = false);
 
     /**
-     * Method to print hello {name}. Where {name} is the dynamic route variable in the URL
+     * Sets the definition of the service
      *
-     * @param $payload
-     * @return mixed
+     * @param mixed $definition
      */
-    public function helloAction($payload)
-    {
-        $this->view->setTemplate('tpl', "simple.tpl");
-        $this->view->setTemplateVars('name', $payload['name']);
-    }
+    public function setDefinition($definition);
 
-} 
+    /**
+     * Sets whether service instances are shared
+     *
+     * @param bool $bool
+     * @throws \ErrorException
+     */
+    public function setShared($bool);
+
+    /**
+     * Sets arguments to be passed to service constructor
+     *
+     * @param array $args
+     */
+    public function setArguments(array $args);
+}

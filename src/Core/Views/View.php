@@ -22,6 +22,8 @@
 
 namespace Core\Views;
 
+use Core\CacheSystem\Cachable;
+
 /**
  * This is the base view class in Core Framework
  *
@@ -31,7 +33,7 @@ namespace Core\Views;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class view
+class View implements viewInterface, Cachable
 {
     /**
      * @var bool Defines if View class is disabled from rendering
@@ -46,17 +48,17 @@ class view
      */
     public $showFooter = true;
     /**
+     * @var array Template info
+     */
+    public $tplInfo;
+    /**
      * @var object Smarty instance
      */
-    private $smarty;
+    private $tplEngine;
     /**
      * @var string The template to render
      */
     private $tpl;
-    /**
-     * @var array Template info
-     */
-    private $tplInfo;
     /**
      * @var array Route parameters associated with the template
      */
@@ -83,38 +85,39 @@ class view
     private $baseTemplateDir;
 
     /**
-     * View constructor
+     * @param \Smarty $tplEngine
      */
-    public function __construct()
+    public function __construct(\Smarty $tplEngine)
     {
-        $this->smarty_init();
+        $this->tplEngine = $tplEngine;
+        $this->init();
     }
 
     /**
-     * Initiates smarty
+     * Initiates tplEngine
      */
-    private function smarty_init()
+    public function init()
     {
         $this->debugfile = DS . "src" . DS . "Core" . DS . 'Views' . DS . "debug.php";
         $this->httpTestsDir = DS . "src" . DS . "Core" . DS . "Tests" . DS . "HttpTests" . DS;
         $this->baseTemplateDir = DS . "src" . DS . "Core" . DS . "Resources" . DS . "BaseTemplates" . DS;
-        $this->smarty = $smarty = new \Smarty();
 
-        $smarty->left_delimiter = '<{';
-        $smarty->right_delimiter = '}>';
+        $this->tplEngine->left_delimiter = '<{';
+        $this->tplEngine->right_delimiter = '}>';
 
-        $smarty->setTemplateDir(_ROOT . $this->templateDir);
-        $smarty->setCompileDir(_ROOT . DS . "src" . DS . "Core" . DS . 'smarty_cache' . DS . 'templates_c' . DS);
-        $smarty->setConfigDir(_ROOT . DS . "src" . DS . "Core" . DS . 'smarty_cache' . DS . 'configs' . DS);
-        $smarty->setCacheDir(_ROOT . DS . "src" . DS . "Core" . DS . 'smarty_cache' . DS . 'cache' . DS);
-        $smarty->inheritance_merge_compiled_includes = false;
-        //$smarty->testInstall();exit;
+        $this->tplEngine->setTemplateDir(_ROOT . $this->templateDir);
+        $this->tplEngine->setCompileDir(_ROOT . DS . "src" . DS . "Core" . DS . 'smarty_cache' . DS . 'templates_c' . DS);
+        $this->tplEngine->setConfigDir(_ROOT . DS . "src" . DS . "Core" . DS . 'smarty_cache' . DS . 'configs' . DS);
+        $this->tplEngine->setCacheDir(_ROOT . DS . "src" . DS . "Core" . DS . 'smarty_cache' . DS . 'cache' . DS);
+        $this->tplEngine->inheritance_merge_compiled_includes = false;
+        //$this->testInstall();exit;
     }
 
     /**
      * Loads the debug html with data to be displayed
      *
      * @param bool $bool
+     * @return mixed|void
      */
     public function setDebugMode($bool = true)
     {
@@ -126,6 +129,7 @@ class view
      *
      * @param $var
      * @param $val
+     * @return mixed|void
      */
     public function set($var, $val)
     {
@@ -139,12 +143,12 @@ class view
      */
     public function render()
     {
-        $this->smarty->addTemplateDir(_ROOT . $this->baseTemplateDir);
-        $this->smarty->addTemplateDir(_ROOT . $this->httpTestsDir);
+        $this->tplEngine->addTemplateDir(_ROOT . $this->baseTemplateDir);
+        $this->tplEngine->addTemplateDir(_ROOT . $this->httpTestsDir);
         if ($this->disabled === false) {
             $tplInfo = $this->tplInfo;
             $tpl = $this->tpl = $tplInfo['tpl'];
-            $tpl_exists = $this->smarty->templateExists($tpl);
+            $tpl_exists = $this->tplEngine->templateExists($tpl);
             $this->tplInfo['vars']['showHeader'] = $this->showHeader;
             $this->tplInfo['vars']['showFooter'] = $this->showFooter;
             $tplVars = $this->tplVars = $this->tplInfo['vars'];
@@ -152,7 +156,7 @@ class view
 
             if ($this->debugMode) {
                 $this->debugDfltHtml = include_once _ROOT . $this->debugfile;
-                $this->smarty->assign('debugDfltHtml', $this->debugDfltHtml);
+                $this->tplEngine->assign('debugDfltHtml', $this->debugDfltHtml);
             }
 
             if (!$tpl_exists) {
@@ -161,11 +165,11 @@ class view
 
             if (!empty($tplVars) || sizeof($tplVars) !== 0) {
                 foreach ($tplVars as $key => $val) {
-                    $this->smarty->assign($key, $val);
+                    $this->tplEngine->assign($key, $val);
                 }
             }
-            //$this->smarty->testInstall();
-            $this->smarty->display($tpl);
+            //$this->tplEngine->testInstall();
+            $this->tplEngine->display($tpl);
         } else {
             return false;
         }
@@ -180,18 +184,66 @@ class view
     }
 
     /**
-     * The directory where the .tpl files are located
+     * Set Template directory
      *
-     * @param $path
+     * @param array|string $path
+     * @return \Smarty|void
      */
     public function setTemplateDir($path)
     {
         $this->templateDir = $path;
-        $this->smarty->addTemplateDir(_ROOT . $this->templateDir);
+        $this->tplEngine->addTemplateDir(_ROOT . $this->templateDir);
     }
 
     /**
-     * Sleep method
+     * Set public properties
+     *
+     * @param $key
+     * @return mixed
+     */
+    public function get($key)
+    {
+        return $this->$key;
+    }
+
+    /**
+     * Set template variables
+     *
+     * @param $var
+     * @param $val
+     */
+    public function setTemplateVars($var, $val)
+    {
+        $this->tplInfo['vars'][$var] = $val;
+    }
+
+    /**
+     * Set template file to render
+     *
+     * @param $tpl
+     */
+    public function setTemplate($tpl)
+    {
+        $this->tplInfo['tpl'] = $tpl;
+    }
+
+    /**
+     * Set header of http response
+     *
+     * @param $val
+     */
+    public function setHeader($val)
+    {
+        $this->tplInfo['header'] = $val;
+    }
+
+    public function getHeader()
+    {
+        return $this->tplInfo['header'];
+    }
+
+    /**
+     * Magic sleep method to define properties to cache (serialize)
      *
      * @return array
      */
@@ -201,10 +253,15 @@ class view
     }
 
     /**
-     * Wakeup magic method
+     * Custom wakeup method called by the Cache object on retrieval (unserialized)
+     *
+     * @param $di
+     * @return mixed|void
      */
-    public function __wakeup()
+    public function wakeUp($di)
     {
-        $this->smarty_init();
+        $this->tplEngine = $di->get('Smarty');
+        $this->init();
     }
+
 }

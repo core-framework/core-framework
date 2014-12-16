@@ -22,7 +22,8 @@
 
 namespace Core\Routes;
 
-use Core\Request\request;
+use Core\Config\Config;
+use Core\Request\Request;
 
 /**
  * Handles the routing for the incoming request
@@ -33,7 +34,7 @@ use Core\Request\request;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class routes
+class Routes
 {
     /**
      * @var string The path/query string of the request
@@ -48,33 +49,13 @@ class routes
      */
     public $controllerVerb;
     /**
-     * @var string Contains the header info
+     * @var Request Request object
      */
-    public $header;
+    protected $request;
     /**
-     * @var array Contains server info
+     * @var Config Config object
      */
-    private $server;
-    /**
-     * @var array Contains an array of cookies set
-     */
-    private $cookies;
-    /**
-     * @var array Contains the sanitized $_GET
-     */
-    private $getVars = [];
-    /**
-     * @var array Contains the sanitized $_POST
-     */
-    private $postVars = [];
-    /**
-     * @var string Contains the method of the request
-     */
-    private $reqstMethod;
-    /**
-     * @var string Contains the relative(to root) path to the routes.conf file
-     */
-    private $pathConfFile;
+    protected $config;
     /**
      * @var array Contains the array of the parameters set for a given path in the routes.conf file
      */
@@ -87,10 +68,6 @@ class routes
      * @var string Contains the requested file extension if the request was for a file
      */
     private $fileExt = "";
-    /**
-     * @var string Contains the default controller, for if no controller is present
-     */
-    private $defaultController;
     /**
      * @var array Contains a collection of the defined routes in route.conf
      */
@@ -132,10 +109,6 @@ class routes
      */
     private $args;
     /**
-     * @var string Defines the path to the folder containing the .tpl files
-     */
-    private $templatePath;
-    /**
      * @var bool Defines if the current request is for a root file .i.e domain.com/somefile.txt
      */
     private $isRootFile;
@@ -155,21 +128,16 @@ class routes
     /**
      * Sets $this properties
      *
-     * @param request $request
+     * @param Request $request
      */
-    public function __construct(request $request)
+    public function __construct(Request $request)
     {
-        $this->pathConfFile = DS . "config" . DS . "routes.conf.php";
         $this->templatePath = DS . "Templates" . DS;
-        $this->path = $path = $request->getPath();
-        $this->getVars = $request->getGetVars();
-        $this->postVars = $request->getPostVars();
-        $this->reqstMethod = $request->getRqstMethod();
-        $this->server = $request->getServer();
-        $this->cookies = $request->getCookies();
+        $this->request = $request;
+        $this->path = $request->getPath();
         $this->checkforTrailingSlashes();
         $this->pathBurst();
-        $this->loadConfFile();
+        $this->loadRoutesConf();
     }
 
 
@@ -212,25 +180,9 @@ class routes
      *
      * @throws \ErrorException
      */
-    private function loadConfFile()
+    private function loadRoutesConf()
     {
-        $routes = include _ROOT . $this->pathConfFile;
-        if (!empty($routes)) {
-            $this->collection = $routes;
-        } else {
-            throw new \ErrorException("Routes conf file empty or broken", 0, 1, 'routes.php');
-        }
-    }
-
-    /**
-     * set the pathconf file dynamically
-     *
-     * @param $filepath
-     */
-    public function setConfFile($filepath)
-    {
-        $this->pathConfFile = $filepath;
-        $this->loadConfFile();
+        $this->collection = Config::getRoutesConfig();
     }
 
     /**
@@ -448,23 +400,13 @@ class routes
     }
 
     /**
-     * Returns the default Controller
+     * Returns the relative URL requested
      *
-     * @return mixed
+     * @return string
      */
-    public function getDefaultController()
+    public function getPath()
     {
-        return $this->defaultController;
-    }
-
-    /**
-     * Set Template Directory
-     *
-     * @param $dir
-     */
-    public function setTemplateDir($dir)
-    {
-        $this->templatePath = $dir;
+        return $this->request->getPath();
     }
 
     /**
@@ -528,9 +470,19 @@ class routes
     }
 
     /**
-     * returns the method
+     * set class method
      *
-     * @return mixed
+     * @param $method
+     */
+    public function setMethod($method)
+    {
+        $this->method = $method;
+    }
+
+    /**
+     * get class method
+     *
+     * @return string
      */
     public function getMethod()
     {
@@ -538,11 +490,21 @@ class routes
     }
 
     /**
+     * returns the method
+     *
+     * @return mixed
+     */
+    public function getRqstMethod()
+    {
+        return $this->request->getRqstMethod();
+    }
+
+    /**
      * sets the method
      *
      * @param $str
      */
-    public function setMethod($str)
+    public function setRqstMethod($str)
     {
         $this->method = $str;
     }
@@ -645,7 +607,7 @@ class routes
      */
     public function getGetVars()
     {
-        return $this->getVars;
+        return $this->request->getGetVars();
     }
 
     /**
@@ -655,7 +617,7 @@ class routes
      */
     public function getPostVars()
     {
-        return $this->postVars;
+        return $this->request->getPostVars();
     }
 
     /**
@@ -665,7 +627,7 @@ class routes
      */
     public function getCookies()
     {
-        return $this->cookies;
+        return $this->request->getCookies();
     }
 
     /**
@@ -675,7 +637,7 @@ class routes
      */
     public function getReqstMethod()
     {
-        return $this->reqstMethod;
+        return $this->request->getRqstMethod();
     }
 
     /**
@@ -695,7 +657,7 @@ class routes
      */
     public function getServer()
     {
-        return $this->server;
+        return $this->request->getServer();
     }
 
     /**
@@ -709,17 +671,10 @@ class routes
             'path',
             'urlPathArr',
             'controllerVerb',
-            'header',
-            'server',
-            'cookies',
-            'getVars',
-            'postVars',
             'reqstMethod',
-            'pathConfFile',
             'routeVars',
             'fileName',
             'fileExt',
-            'defaultController',
             'collection',
             'require',
             'namespace',
@@ -730,7 +685,6 @@ class routes
             'customServe',
             'referencePath',
             'args',
-            'templatePath',
             'isRootFile',
             'isFEComponents',
             'foundMatch',
@@ -738,4 +692,5 @@ class routes
             'definedMethod'
         ];
     }
+
 } 

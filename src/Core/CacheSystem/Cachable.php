@@ -20,30 +20,27 @@
  * file that was distributed with this source code.
  */
 
-namespace Core\Controllers;
+namespace Core\CacheSystem;
 
 /**
- * Controller for simple http and URL match test
- *
- * @package Core\Controllers
- * @version $Revision$
- * @license http://creativecommons.org/licenses/by-sa/4.0/
- * @link http://coreframework.in
- * @author Shalom Sam <shalom.s@coreframework.in>
+ * Interface Cachable
+ * @package Core\CacheSystem
  */
-class testController extends controller
-{
+interface Cachable {
 
     /**
-     * Method to print hello {name}. Where {name} is the dynamic route variable in the URL
+     * Magic sleep method to define properties to cache (serialize)
      *
-     * @param $payload
-     * @return mixed
+     * @return array
      */
-    public function helloAction($payload)
-    {
-        $this->view->setTemplate('tpl', "simple.tpl");
-        $this->view->setTemplateVars('name', $payload['name']);
-    }
+    public function __sleep();
+
+    /**
+     * Custom wakeup method called by the Cache object on retrieval (unserialized)
+     *
+     * @param $di
+     * @return mixed|void
+     */
+    public function wakeUp($di);
 
 } 

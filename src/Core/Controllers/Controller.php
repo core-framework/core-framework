@@ -24,6 +24,7 @@ namespace Core\Controllers;
 
 use Core\Config\config;
 use Core\Models;
+use Core\Routes\Routes;
 use Core\Views\view;
 
 /**
@@ -35,12 +36,13 @@ use Core\Views\view;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class controller
+class Controller
 {
     public $view;
+    public $config;
+    protected $route;
     public $response;
     public $err404Tpl = "errors/404.tpl";
-    public $config;
     private $controller;
     private $method;
     private $args;
@@ -48,9 +50,9 @@ class controller
     private $model;
     private $routeParams;
     private $req;
-    private $getVars;
-    private $postVars;
-    private $server;
+    public  $getVars;
+    public  $postVars;
+    public  $server;
     private $modelDir;
     private $defaultTpl = 'homepage/home.tpl';
     private $illegal = [
@@ -79,49 +81,32 @@ class controller
     /**
      * instantiates Controller object from route vars
      *
-     * @param string $controller
-     * @param string $method
-     * @param array $routeParams
+     * @param Routes $route
      * @param view $view
-     * @param array $getVars
-     * @param array $postVars
-     * @param array $server
-     * @param string $modelDir
-     * @param null || string $modelName
-     * @param null || array $args
-     * @param null || array $req
+     * @param config $config
      */
-    public function __construct(
-        $controller,
-        $method,
-        $routeParams,
-        view $view,
-        $postVars,
-        $getVars,
-        $server,
-        $modelDir,
-        $modelName = null,
-        $args = null,
-        $req = null
-    ) {
+    public function __construct(Routes $route, View $view, Config $config) {
 
-        $this->controller = $controller;
-        $this->$method = $method;
-        $this->args = $args;
-        $this->routeParams = $routeParams;
+        $this->route = $route;
         $this->view = $view;
-        $this->getVars = $getVars;
-        $this->postVars = $postVars;
-        $this->config = new config();
-        $this->server = $server;
+        $this->config = $config;
+
+        $this->controller = $this->route->getController();
+        $this->method = $this->route->getRqstMethod();
+        $this->args = $this->route->getArgs();
+        $this->routeParams = $this->route->getRouteVars();
+        $this->getVars = $this->route->getGetVars();
+        $this->postVars = $this->route->getPostVars();
+        $this->server = $this->route->getServer();
         $this->checkForInput();
         $this->initResponse();
-        if (!empty($modelName)) {
-            $this->modelName = $modelName;
+        $model = $this->route->getModel();
+        if (!empty($model)) {
+            $this->modelName = $modelName = $this->route->getModel();
             $this->model = new $modelName();
         }
         if (!empty($req)) {
-            $this->req = $req;
+            $this->req = $this->route->getRequired();
         }
     }
 
@@ -176,11 +161,11 @@ class controller
     {
         $params = $this->routeParams;
         $this->generateCSRFKey();
-        $this->response['vars']['title'] = isset($params['pageTitle']) ? $params['pageTitle'] : '';
-        $this->response['vars']['pageName'] = isset($params['pageName']) ? $params['pageName'] : '';
-        $this->response['vars']['metaKeywords'] = isset($params['metaKeywords']) ? $params['metaKeywords'] : '';
-        $this->response['vars']['metaDescription'] = isset($params['metaDescription']) ? $params['metaDescription'] : '';
-        $this->response['vars']['csrf'] = $_SESSION['csrf'];
+        $this->view->tplInfo['vars']['title'] = isset($params['pageTitle']) ? $params['pageTitle'] : '';
+        $this->view->tplInfo['vars']['pageName'] = isset($params['pageName']) ? $params['pageName'] : '';
+        $this->view->tplInfo['vars']['metaKeywords'] = isset($params['metaKeywords']) ? $params['metaKeywords'] : '';
+        $this->view->tplInfo['vars']['metaDescription'] = isset($params['metaDescription']) ? $params['metaDescription'] : '';
+        $this->view->tplInfo['vars']['csrf'] = $_SESSION['csrf'];
     }
 
     /**
@@ -200,18 +185,7 @@ class controller
      */
     public function indexAction()
     {
-        $this->response['tpl'] = 'homepage/home.tpl';
-        return $this->getResponse();
-    }
-
-    /**
-     * To get(build) the response array
-     *
-     * @return mixed
-     */
-    public function getResponse()
-    {
-        return $this->response;
+        $this->view->tplInfo['tpl'] = 'homepage/home.tpl';
     }
 
     /**

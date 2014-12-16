@@ -22,7 +22,7 @@
 
 namespace Core\Models;
 
-use Core\Database\database;
+use Core\Database\Database;
 
 /**
  * This is the base model class for Core Framework
@@ -33,7 +33,7 @@ use Core\Database\database;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class model
+class Model
 {
     /**
      * @var string Database table name

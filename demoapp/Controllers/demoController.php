@@ -24,16 +24,16 @@ class demoController extends controller
     {
         $serverName = $this->getServer()['HTTP_HOST'];
         if (preg_match('/^(www\.|dev\.)?coreframework\.in$/', $serverName)) {
-            $this->response['vars']['showProd'] = true;
+            $this->view->setTemplateVars('showProd', true);
         } else {
-            $this->response['vars']['showProd'] = false;
+            $this->view->setTemplateVars('showProd', false);
         }
-        return $this->commonFunction('home');
+        $this->commonFunction('home');
     }
 
     public function commonFunction($pageName)
     {
-        $lang = $this->config->current_lang;
+        $lang = $this->config->current_language;
         if (empty($lang)) {
             $lang = 'en_us';
         }
@@ -42,19 +42,16 @@ class demoController extends controller
         $pageLangFile = _ROOT . DS . "demoapp" . DS . "Templates" . DS . "demopages" . DS . "lang" . DS . $lang . DS . $pageName . ".php";
         $pageTpl = "demopages/" . $pageName . ".tpl";
 
-
-        $this->response['tpl'] = 'demopages/demo.tpl';
-        $this->response['vars']['includeTpl'] = $pageTpl;
-        $this->response['vars']['pageName'] = $pageName;
-        $this->response['vars']['docVarsCom'] = include_once $commonLangFile;
+        $this->view->setTemplate('demopages/demo.tpl');
+        $this->view->setTemplateVars('includeTpl', $pageTpl);
+        $this->view->setTemplateVars('pageName', $pageName);
+        $this->view->setTemplateVars('docVarsCom', include_once $commonLangFile);
 
         if (is_readable($pageLangFile)) {
-            $this->response['vars'][$pageName] = include_once $pageLangFile;
+            $this->view->setTemplateVars($pageName, include_once $pageLangFile);
         } else {
-            $this->response['vars']['error'] = "Page not found";
+            $this->view->setTemplateVars('error', "Page not found");
         }
-
-        return $this->getResponse();
     }
 
     public function aboutAction()
@@ -62,31 +59,29 @@ class demoController extends controller
         $license = _ROOT . DS . "LICENSE";
         $licenseTxt = file_get_contents($license);
         $licenseTxt = preg_replace('/\n/', '<br/>', $licenseTxt);
-        $this->response['vars']['licensetxt'] = $licenseTxt;
-        return $this->commonFunction('about');
+        $this->view->setTemplateVars('licensetxt', $licenseTxt);
+        $this->commonFunction('about');
     }
 
     public function getstartedAction()
     {
-        return $this->commonFunction('get_started');
+        $this->commonFunction('get_started');
     }
 
     public function downloadAction()
     {
-        return $this->commonFunction('download');
+        $this->commonFunction('download');
     }
 
     public function customServeAction()
     {
-        $lang = $this->config->current_lang;
+        $lang = $this->config->current_language;
         if (empty($lang)) {
             $lang = 'en_us';
         }
-        $this->response['tpl'] = 'demopages/demo.tpl';
+        $this->view->setTemplate('demopages/demo.tpl');
         $commonLangFile = _ROOT . DS . "demoapp" . DS . "Templates" . DS . "demopages" . DS . "lang" . DS . $lang . DS . "common.php";
-        $this->response['vars']['docVarsCom'] = include_once $commonLangFile;
-
-        return $this->getResponse();
+        $this->view->setTemplateVars('docVarsCom', include_once $commonLangFile);
     }
 
     public function apiAction()
@@ -99,13 +94,10 @@ class demoController extends controller
 
         $commonLangFile = _ROOT . DS . "demoapp" . DS . "Templates" . DS . "demopages" . DS . "lang" . DS . $lang . DS . "common.php";
 
-        $this->response['tpl'] = 'demopages/demo.tpl';
-        $this->response['vars']['docVarsCom'] = include_once $commonLangFile;
-        $this->response['vars']['customServePath'] = $routeParams['customServePath'];
-        $this->response['vars']['mainPage'] = 'documentation';
-        $this->response['vars']['subPage'] = true;
-
-        return $this->getResponse();
-
+        $this->view->setTemplate('demopages/demo.tpl');
+        $this->view->setTemplateVars('docVarsCom', include_once $commonLangFile);
+        $this->view->setTemplateVars('customServePath', $routeParams['customServePath']);
+        $this->view->setTemplateVars('mainPage', 'documentation');
+        $this->view->setTemplateVars('subPage', true);
     }
 } 

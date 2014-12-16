@@ -31,27 +31,41 @@ namespace Core\Config;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class config
+class Config
 {
     /**
      * @var array Global configurations
      */
-    private $globalConfig;
+    private static $globalConfig;
     /**
      * @var array Routes Configurations
      */
-    private $routesConfig;
+    private static $routesConfig;
+    /**
+     * @var Config Instance of the Config Class
+     */
+    private static $instance;
 
     /**
      * Constructor to load configurations
      */
-    public function __construct()
+    protected function __construct()
     {
         $globalConf = _ROOT . DS . "config" . DS . "global.conf.php";
         $routeConf = _ROOT . DS . "config" . DS . "routes.conf.php";
 
-        $this->globalConfig = include $globalConf;
-        $this->routesConfig = include $routeConf;
+        self::$globalConfig = include $globalConf;
+        self::$routesConfig = include $routeConf;
+    }
+
+
+    public static function getInstance()
+    {
+        if (null === self::$instance) {
+           self::$instance = new Config();
+        }
+
+        return self::$instance;
     }
 
     /**
@@ -59,26 +73,37 @@ class config
      *
      * @return mixed
      */
-    public function getGlobalConfig()
+    public static function getGlobalConfig()
     {
-        return $this->globalConfig;
+        return self::$globalConfig;
     }
 
     /**
      * Searches for the given parameter and returns its value if found else returns null
      *
-     * @param $name
+     * @param string $name
      * @return mixed
      */
     public function __get($name)
     {
-        if (array_key_exists($name, $this->globalConfig)) {
-            return $this->globalConfig[$name];
-        } elseif (array_key_exists($name, $this->routesConfig)) {
-            return $this->routesConfig[$name];
+        if (array_key_exists($name, self::$globalConfig)) {
+            return self::$globalConfig[$name];
+        } elseif (array_key_exists($name, self::$routesConfig)) {
+            return self::$routesConfig[$name];
         } else {
             return null;
         }
+    }
+
+    /**
+     * Set/add config data
+     *
+     * @param string $name
+     * @param mixed $arr
+     */
+    public function __set($name, $arr)
+    {
+        self::$globalConfig->$name = $arr;
     }
 
     /**
@@ -86,9 +111,9 @@ class config
      *
      * @return mixed
      */
-    public function getRoutesConfig()
+    public static function getRoutesConfig()
     {
-        return $this->routesConfig;
+        return self::$routesConfig;
     }
 
 }

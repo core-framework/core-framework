@@ -22,7 +22,6 @@
 
 namespace Core\Database;
 
-use Core\Config\config;
 use PDO;
 
 /**
@@ -34,71 +33,80 @@ use PDO;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class database extends PDO
+class Database extends PDO
 {
     /**
-     * @var object Database instance
+     * @var array Internal Caching
      */
-    protected static $instance;
-    /**
-     * @var array Database cache reference
-     */
-    protected $cache = [];
-    /**
-     * @var string Database connections sting
-     */
-    private $dsn;
-    /**
-     * @var mixed Database user
-     */
-    private $u;
-    /**
-     * @var mixed Database password
-     */
-    private $p;
+    private $cache = [];
 
     /**
      * Creates an instance of the pdo class
      *
-     * @param null $db
+     * @param array $array
+     * @throws \ErrorException
+     * @throws \Exception
      */
-    public function __construct($db = null)
+    public function __construct(array $array = [])
     {
 
-        $configObj = new config();
+        if(empty($array)) {
+            throw new \ErrorException("Connection parameters cannot be empty.");
+        }
 
+        if ($array['db'] == "") {
+            $db = "";
+        } elseif ($array['db'] != null) {
+            $db = "dbname=" . $array['db'];
+        }
 
-        if ($db == "ADD_NEW" || $db == "") {
-            $rdb = "";
-        } elseif ($db != null && $db != "ADD_NEW") {
-            $rdb = "dbname=" . $db;
+        if (!empty($array['type'])) {
+            $type = $array['type'];
         } else {
-            $rdb = "dbname=" . $configObj->db;
+            $type = "mysql";
         }
-        $dsn = $configObj->pdoDriver . ':host=' . $configObj->host . ';' . $rdb;
 
-        $u = $configObj->user;
-        $p = $configObj->pass;
-
-        $this->u = $u;
-        $this->dsn = $dsn;
-        $this->p = $p;
-        parent::__construct($dsn, $u, $p);
-        $this->cache = [];
-    }
-
-    /**
-     * Returns the object reference or the instance of the class
-     *
-     * @param null $db
-     * @return database
-     */
-    public static function getInstance($db = null)
-    {
-        if (!self::$instance) {
-            self::$instance = new database($db);
+        if (!empty($array['host'])) {
+            $host = $array['host'];
+        } else {
+            throw new \Exception("Database Host not provided.");
         }
-        return self::$instance;
+
+        if (!empty($array['username'])) {
+            $user = $array['username'];
+        } else {
+            $user = null;
+        }
+
+        if (!empty($array['password'])) {
+            $pass = $array['password'];
+        } else {
+            $pass = null;
+        }
+
+        if (!empty($array['port'])) {
+            $port = "port=" . $array['port'];
+        } else {
+            $port = "";
+        }
+
+        $dsn = $type . ':' . $db . ';' . 'host=' . $host . ';' . $port;
+
+        $dsnString = $dsn;
+
+        if (isset($array['dsn'])) {
+            $dsn = $array['type'] . ":";
+            $dsnAttrArr = [];
+            foreach($array['dsn'] as $key => $val) {
+                $dsnAttrArr[] = $key . "=" . $val;
+            }
+
+            $dsnAttr = implode(";", $dsnAttrArr);
+
+            $dsnString = $dsn . $dsnAttr;
+        }
+
+        return parent::__construct($dsnString, $user, $pass);
     }
 
     /**
@@ -118,12 +126,10 @@ class database extends PDO
 
     /**
      * Reset database cache
-     *
      */
     public function __destruct()
     {
         $this->cache = null;
     }
 
-
-} 
+}

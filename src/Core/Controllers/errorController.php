@@ -33,8 +33,6 @@ namespace Core\Controllers;
  */
 class errorController extends controller
 {
-
-
     /**
      * Method for 404 page not found error
      *
@@ -52,11 +50,10 @@ class errorController extends controller
      */
     public function indexAction()
     {
-        $this->response['header'] = '404';
-        $this->response['tpl'] = 'errors/404.tpl';
-        $this->response['vars']['pageName'] = "PageNotFound";
-        $this->response['vars']['title'] = "Page Not Found";
-        return $this->getResponse();
+        $this->view->setHeader('header', '404');
+        $this->view->setTemplate('errors/404.tpl');
+        $this->view->setTemplateVars('pageName', "PageNotFound");
+        $this->view->setTemplateVars('title', "Page Not Found");
     }
 
 }

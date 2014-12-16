@@ -23,7 +23,7 @@
 namespace Core\Scripts;
 
 use Core\CacheSystem\cache;
-use Core\Helper\helper;
+use Core\Helper\Helper;
 
 /**
  * Class that runs the console commands
@@ -139,7 +139,7 @@ class corecmd
             $method = $args[1];
             if ($size > 2) {
                 unset($args[1]);
-                $sArgs = helper::serialize($args);
+                $sArgs = Helper::serialize($args);
                 self::$method($sArgs);
             } else {
                 self::$method($args[2]);
@@ -472,17 +472,17 @@ class corecmd
             );
             chmod($appDir . DS . "Templates" . DS . "root.tpl", 0755);
             mkdir($appDir . DS . "Templates" . DS . "common", 0755);
-            helper::copyr(
+            Helper::copyr(
                 _ROOT . DS . "demoapp" . DS . "Templates" . DS . "common",
                 $appDir . DS . "Templates" . DS . "common"
             );
             mkdir($appDir . DS . "Templates" . DS . "errors", 0755);
-            helper::copyr(
+            Helper::copyr(
                 _ROOT . DS . "demoapp" . DS . "Templates" . DS . "errors",
                 $appDir . DS . "Templates" . DS . "errors"
             );
             mkdir($appDir . DS . "Templates" . DS . "root", 0755);
-            helper::copyr(
+            Helper::copyr(
                 _ROOT . DS . "demoapp" . DS . "Templates" . DS . "root",
                 $appDir . DS . "Templates" . DS . "root"
             );
@@ -532,7 +532,7 @@ class corecmd
                         return false;
                     }
                 },
-                "of type " . helper::serialize(self::$pdoDrivers),
+                "of type " . Helper::serialize(self::$pdoDrivers),
                 'mysql'
             );
 
@@ -546,8 +546,8 @@ class corecmd
                 mkdir($confDest, 0755, true);
             }
 
-            helper::copyr($confSource, $confDest);
-            helper::chmodDirFiles($confDest, 0644);
+            Helper::copyr($confSource, $confDest);
+            Helper::chmodDirFiles($confDest, 0644);
 
             $conf = require_once $confFile;
 

@@ -22,6 +22,8 @@
 
 namespace Core\CacheSystem;
 
+use Core\DI\DI;
+
 
 /**
  * Class to handle key based caching of data
@@ -32,7 +34,7 @@ namespace Core\CacheSystem;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class cache
+class Cache
 {
     /**
      * @var string The directory path where cache files should be stored
@@ -95,7 +97,6 @@ class cache
             }
         }
 
-
         if ($type === 'array') {
             $cache['content'] = $payload;
         } elseif ($type === 'object') {
@@ -110,6 +111,26 @@ class cache
         $cache['type'] = $type;
         $cache['cTime'] = time();
         $cache['ttl'] = $ttl;
+        $data = '<?php return ' . var_export($cache, true) . ";\n ?>";
+
+        $y = touch($file);
+        $x = file_put_contents($file, $data);
+
+        return true;
+    }
+
+    public function cacheDI($key,DI $di)
+    {
+        if (!$this->isValidMd5($key)) {
+            $key = md5($key);
+        }
+
+        $file = $this->cacheDir . $key . ".php";
+        $content = serialize($di);
+        $cache['content'] = $content;
+        $cache['type'] = 'object';
+        $cache['cTime'] = time();
+        $cache['ttl'] = 0;
         $data = '<?php return ' . var_export($cache, true) . ";\n ?>";
 
         $y = touch($file);
@@ -154,9 +175,25 @@ class cache
                 $content = $cache['content'];
                 if ($cache['type'] === 'object') {
                     $content = unserialize($content);
+                    $di = $this->getDI();
+                    $content->wakeUp($di);
                 }
                 return $content;
             }
+        } else {
+            return false;
+        }
+    }
+
+
+    public function getDI()
+    {
+        $key = md5('_di');
+        $cacheDir = $this->cacheDir;
+
+        if (is_file($cacheDir . $key . ".php")) {
+            $cache = include_once $cacheDir . $key . ".php";
+            return $cache['content'];
         } else {
             return false;
         }

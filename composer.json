@@ -18,7 +18,9 @@
         "php": ">=5.4.0"
     },
     "require-dev": {
-        "filp/whoops": "1.*"
+        "filp/whoops": "1.*",
+        "phpunit/phpunit": "4.3",
+        "phpunit/DbUnit": "1.3.1"
     },
     "suggest": {
         "ext-apc": "Allows for faster performance of Core Framework through APC caching",

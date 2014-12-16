@@ -14,7 +14,7 @@ class documentationController extends demoController
 
     public function indexAction()
     {
-        return $this->commonFunction('documentation');
+        $this->commonFunction('documentation');
     }
 
     public function documentationAction($payload)
@@ -30,20 +30,19 @@ class documentationController extends demoController
         $pageLangFile = _ROOT . DS . "demoapp" . DS . "Templates" . DS . "demopages" . DS . "lang" . DS . $lang . DS . "documentations" . DS . $pageName . ".php";
         $pageTpl = "demopages/documentations/sub_pages.tpl";
 
-        $this->response['tpl'] = 'demopages/demo.tpl';
-        $this->response['vars']['includeTpl'] = $pageTpl;
-        $this->response['vars']['mainPage'] = 'documentation';
-        $this->response['vars']['subPage'] = true;
-        $this->response['vars']['pageName'] = $pageName;
-        $this->response['vars']['docVarsCom'] = include_once $commonLangFile;
+        $this->view->setTemplate('demopages/demo.tpl');
+        $this->view->setTemplateVars('includeTpl', $pageTpl);
+        $this->view->setTemplateVars('mainPage', 'documentation');
+        $this->view->setTemplateVars('subPage', true);
+        $this->view->setTemplateVars('pageName', $pageName);
+        $this->view->setTemplateVars('docVarsCom', include_once $commonLangFile);
 
         if (is_readable($pageLangFile)) {
-            $this->response['vars']['documentation'] = include_once $pageLangFile;
+            $this->view->setTemplateVars('documentation', include_once $pageLangFile);
         } else {
             $this->response['vars']['error'] = "Page not found";
+            $this->view->setTemplateVars('error', "Page not found");
         }
-
-        return $this->getResponse();
 
     }
 

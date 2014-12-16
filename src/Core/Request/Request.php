@@ -31,7 +31,7 @@ namespace Core\Request;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class request
+class Request
 {
     /**
      * @var string The URL/query string (relative path)

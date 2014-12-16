@@ -23,9 +23,7 @@
 namespace Core;
 
 use Core\CacheSystem\cache;
-use Core\Request\request;
-use Core\Routes\routes;
-use Core\Views\view;
+use Core\DI\DI;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
@@ -61,6 +59,10 @@ class core
      */
     public $forceApc = false;
     /**
+     * @var DI Service Container
+     */
+    protected $_di;
+    /**
      * @var string Template directory
      */
     private $templateDir;
@@ -69,45 +71,27 @@ class core
      */
     private $defaultTpl = "root.tpl";
     /**
-     * @var string Default Controller
-     */
-    private $defaultController;
-    /**
-     * @var request Request object
+     * @var \Core\Request\Request Request object
      */
     private $request;
     /**
-     * @var routes Routes object
+     * @var \Core\Routes\Routes Routes object
      */
     private $route;
     /**
-     * @var Controllers\controller
+     * @var \Core\Controllers\Controller
      */
     private $controller;
-    /**
-     * @var string Model ( class ) name
-     */
-    private $modelName;
     /**
      * @var view View object
      */
     private $view;
+
+    private $config;
     /**
      * @var array Template information
      */
     private $templateInfo;
-    /**
-     * @var array Sanitized $_GET
-     */
-    private $getVars;
-    /**
-     * @var array Sanitized $_POST
-     */
-    private $postVars;
-    /**
-     * @var array Set Cookies
-     */
-    private $cookies;
     /**
      * @var array Valid Extensions
      */
@@ -161,15 +145,21 @@ class core
     private $cachettl = 900; //15m
 
     /**
-     * Initiates the core components
+     * Initialize the Core Class
+     *
+     * @param DI $di
+     * @param bool $devMode
+     * @throws \ErrorException
      */
-    public function __construct($devMode = false)
+    public function __construct(DI $di, $devMode = false)
     {
         $pathKey = "";
         $hasKeyAPC = false;
         $hasKeyCache = false;
         $this->devMode = $devMode;
-        $this->cache = new cache();
+        $this->cache = $di->get('Cache');
+        $this->config = $di->get('Config');
+        $this->_di = $di;
 
         $this->controllerDir[0] = DS . "src" . DS . "Core" . DS . "Controllers" . DS;
         $this->modelDir[0] = DS . "src" . DS . "Core" . DS . "Models" . DS;
@@ -179,8 +169,8 @@ class core
         $apcisEnabled = ini_get('apc.enabled');
         $this->hasAPC = $apcisEnabled && $apcisloaded ? true : false;
 
-        $this->request = $req = new request();
-        $this->path = $req->getPath();
+        $this->request = $di->get('Request');
+        $this->path = $this->request->getPath();
 
         $clear = htmlentities(filter_var($_GET['action']), FILTER_SANITIZE_STRING);
         if ($clear === 'clear_cache') {
@@ -246,18 +236,10 @@ class core
      */
     private function defaultinit()
     {
-        $this->route = new routes($this->request);
-        $this->view = new view();
+        $this->route = $this->_di->get('Route');
+        $this->view = $this->_di->get('View');
+        $this->cache->cacheDI('_di', $this->_di);
         $this->globalConf = require_once _ROOT . $this->globalConf;
-    }
-
-    /**
-     * set the pathConf file (override defaults or previously set)
-     * @param $file
-     */
-    public function setPathConfFile($file)
-    {
-        $this->route->setConfFile($file);
     }
 
     /**
@@ -282,16 +264,12 @@ class core
     private function loadAll()
     {
         $this->route->findMatch();
-        $this->getVars = $this->route->getGetVars();
-        $this->postVars = $this->route->getPostVars();
-        $this->cookies = $this->route->getCookies();
         $isFEComponent = $this->route->getIsFEComponent();
         $isCustomServe = $this->route->getIsCustomServe();
         $isRootFile = $this->route->getIsRootFile();
         $controller = $this->route->getController();
         $definedMethod = $this->route->getDefinedMethod();
         $reqstMethod = $this->route->getReqstMethod();
-        $this->modelName = $this->route->getModel();
         $this->view->setDebugMode($this->devMode);
 
         if ((empty($controller) && !$isFEComponent && !$isRootFile) || $definedMethod !== $reqstMethod) {
@@ -398,7 +376,7 @@ class core
 
         if (is_readable($pathTpl)) {
             $this->setHeaders($fileExt);
-            include_once $pathTpl;
+            include $pathTpl;
             return true;
 
         } else {
@@ -520,52 +498,31 @@ class core
         $namespace = empty($namespace) ? 'Core\\Controllers' : $namespace;
         $method = $this->route->getMethod();
         $method = empty($method) ? 'indexAction' : $method;
-        $model = $this->modelName;
-        $model = !empty($model) ? $model : null;
-        $modelDir = $this->modelDir;
         $args = $this->route->getArgs();
         $args = !empty($args) ? $args : null;
-        $required = $this->route->getRequired();
-        $routeParams = $this->route->getRouteVars();
-        $server = $this->route->getServer();
-        $view = $this->view;
 
         $class = $namespace . "\\" . $controller;
 
-
         if (class_exists($class)) {
-            $this->controller = new $class(
-                $controller,
-                $method,
-                $routeParams,
-                $view,
-                $this->postVars,
-                $this->getVars,
-                $server,
-                $modelDir,
-                $model,
-                $args,
-                $required
-            );
+            $this->controller = new $class($this->route, $this->view, $this->config);
             if (method_exists($this->controller, $method) && $args != null) {
-                $this->templateInfo = $this->controller->$method($args);
+
+                $this->controller->$method($args);
+
             } else {
-                $this->templateInfo = $this->controller->$method();
+
+                $this->controller->$method();
+
             }
         } else {
             throw new \ErrorException("Class or Method not found", 11);
         }
 
-
         $ttl = $this->cachettl;
-        if (!empty($this->templateInfo['header'])) {
-            $this->setHeaders($this->templateInfo['header']);
-        } else {
-            $header = $this->route->header;
+        $header = $this->view->getHeader();
+        if(!empty($header)){
             $this->setHeaders($header);
         }
-
-        $this->view->set('tplInfo', $this->templateInfo);
 
         $path = $this->path;
         $pathVar = $path . "_view";
@@ -751,11 +708,9 @@ class core
     /**
      * Wakeup magic method
      */
-    public function __wakeup()
+    public function wakeUp($di)
     {
-        $this->route = null;
-        $this->request = null;
-        $this->view = new Views\view();
+        
     }
 
     /**

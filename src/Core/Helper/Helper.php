@@ -31,7 +31,7 @@ namespace Core\Helper;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class helper
+class Helper
 {
     /**
      * Method to serialize array (comma separated values as single string)
@@ -134,4 +134,4 @@ class helper
         chmod($obj, empty($mod) ? 0755 : $mod);
     }
 
-} 
+}
