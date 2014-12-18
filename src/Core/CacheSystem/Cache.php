@@ -46,6 +46,10 @@ class Cache
      */
     public function __construct()
     {
+        if (!defined(DS) && !defined(_ROOT)) {
+            define('DS', DIRECTORY_SEPARATOR);
+            define('_ROOT', __DIR__ . DS . ".." . DS . ".." . DS . "..");
+        }
         $this->cacheDir = _ROOT . DS . "src" . DS . "Core" . DS . "cache" . DS;
         if (!is_dir($this->cacheDir)) {
             mkdir($this->cacheDir, 0755);
@@ -71,6 +75,7 @@ class Cache
      * @param $payload
      * @param $ttl
      * @return bool
+     * @throws \ErrorException
      */
     public function cacheContent($key, $payload, $ttl)
     {
@@ -87,7 +92,7 @@ class Cache
             $ttlTime = $cache['cTime'] + $cache['ttl'];
             if (($currentTime >> $ttlTime) && $cache['ttl'] !== 0) {
                 $content = $payload;
-                if ($type === 'object') {
+                if ($type === 'object' && $payload instanceof Cachable) {
                     $content = serialize($payload);
                 }
 
@@ -100,7 +105,11 @@ class Cache
         if ($type === 'array') {
             $cache['content'] = $payload;
         } elseif ($type === 'object') {
-            $cache['content'] = serialize($payload);
+            if ($payload instanceof Cachable) {
+                $cache['content'] = serialize($payload);
+            } else {
+                throw new \ErrorException("Object must implement Cachable interface");
+            }
         } elseif ($type === 'string' || $type === 'integer' || $type === 'double') {
             $cache['content'] = $payload;
         } elseif ($type === 'resource') {
@@ -111,26 +120,6 @@ class Cache
         $cache['type'] = $type;
         $cache['cTime'] = time();
         $cache['ttl'] = $ttl;
-        $data = '<?php return ' . var_export($cache, true) . ";\n ?>";
-
-        $y = touch($file);
-        $x = file_put_contents($file, $data);
-
-        return true;
-    }
-
-    public function cacheDI($key,DI $di)
-    {
-        if (!$this->isValidMd5($key)) {
-            $key = md5($key);
-        }
-
-        $file = $this->cacheDir . $key . ".php";
-        $content = serialize($di);
-        $cache['content'] = $content;
-        $cache['type'] = 'object';
-        $cache['cTime'] = time();
-        $cache['ttl'] = 0;
         $data = '<?php return ' . var_export($cache, true) . ";\n ?>";
 
         $y = touch($file);
@@ -151,6 +140,33 @@ class Cache
     }
 
     /**
+     * Cache Dependency Injection container
+     *
+     * @param $key
+     * @param DI $di
+     * @return bool
+     */
+    public function cacheDI($key, DI $di)
+    {
+        if (!$this->isValidMd5($key)) {
+            $key = md5($key);
+        }
+
+        $file = $this->cacheDir . $key . ".php";
+        $content = serialize($di);
+        $cache['content'] = $content;
+        $cache['type'] = 'object';
+        $cache['cTime'] = time();
+        $cache['ttl'] = 0;
+        $data = '<?php return ' . var_export($cache, true) . ";\n ?>";
+
+        $y = touch($file);
+        $x = file_put_contents($file, $data);
+
+        return true;
+    }
+
+    /**
      * returns cache of given key||string if exists else returns false
      *
      * @param $key - Hash string to identify cached vars
@@ -163,10 +179,10 @@ class Cache
         }
         $cacheDir = $this->cacheDir;
         if (is_file($cacheDir . $key . ".php")) {
-            $cache = include_once $cacheDir . $key . ".php";
+            $cache = include $cacheDir . $key . ".php";
             $currentTime = time();
             $ttlTime = $cache['cTime'] + $cache['ttl'];
-            if (($currentTime >> $ttlTime) && $cache['ttl'] !== 0) {
+            if (($currentTime > $ttlTime) && $cache['ttl'] !== 0) {
                 $cacheFile = $cacheDir . $key . ".php";
                 chmod($cacheFile, 0777);
                 unlink($cacheFile);
@@ -185,7 +201,11 @@ class Cache
         }
     }
 
-
+    /**
+     * Gets the Dependency Container object
+     *
+     * @return bool
+     */
     public function getDI()
     {
         $key = md5('_di');
@@ -221,7 +241,6 @@ class Cache
             } else {
                 return true;
             }
-            return true;
         } else {
             return false;
         }
