@@ -31,7 +31,7 @@ namespace Core\Controllers;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class testController extends controller
+class testController extends Controller
 {
 
     /**
@@ -42,7 +42,7 @@ class testController extends controller
      */
     public function helloAction($payload)
     {
-        $this->view->setTemplate('tpl', "simple.tpl");
+        $this->view->setTemplate('simple.tpl');
         $this->view->setTemplateVars('name', $payload['name']);
     }
 

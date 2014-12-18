@@ -31,7 +31,7 @@ namespace Core\Controllers;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class errorController extends controller
+class errorController extends Controller
 {
     /**
      * Method for 404 page not found error
@@ -50,7 +50,7 @@ class errorController extends controller
      */
     public function indexAction()
     {
-        $this->view->setHeader('header', '404');
+        $this->view->setHeader('404');
         $this->view->setTemplate('errors/404.tpl');
         $this->view->setTemplateVars('pageName', "PageNotFound");
         $this->view->setTemplateVars('title', "Page Not Found");
