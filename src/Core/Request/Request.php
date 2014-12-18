@@ -22,6 +22,8 @@
 
 namespace Core\Request;
 
+use Core\CacheSystem\Cachable;
+
 /**
  * The class that handles the incoming request to server
  *
@@ -31,7 +33,7 @@ namespace Core\Request;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class Request
+class Request implements Cachable
 {
     /**
      * @var string The URL/query string (relative path)
@@ -236,6 +238,11 @@ class Request
     public function __sleep()
     {
         return ['path', 'method', 'getVars', 'postVars', 'server', 'cookies', 'illegal', 'devMode'];
+    }
+
+    public function wakeUp($di)
+    {
+
     }
 
 }

@@ -22,6 +22,7 @@
 
 namespace Core\Routes;
 
+use Core\CacheSystem\Cachable;
 use Core\Config\Config;
 use Core\Request\Request;
 
@@ -34,7 +35,7 @@ use Core\Request\Request;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class Routes
+class Routes implements Cachable
 {
     /**
      * @var string The path/query string of the request
@@ -470,16 +471,6 @@ class Routes
     }
 
     /**
-     * set class method
-     *
-     * @param $method
-     */
-    public function setMethod($method)
-    {
-        $this->method = $method;
-    }
-
-    /**
      * get class method
      *
      * @return string
@@ -487,6 +478,16 @@ class Routes
     public function getMethod()
     {
         return $this->method;
+    }
+
+    /**
+     * set class method
+     *
+     * @param $method
+     */
+    public function setMethod($method)
+    {
+        $this->method = $method;
     }
 
     /**
@@ -691,6 +692,11 @@ class Routes
             'definedMatch',
             'definedMethod'
         ];
+    }
+
+    public function wakeUp($di)
+    {
+
     }
 
 } 
