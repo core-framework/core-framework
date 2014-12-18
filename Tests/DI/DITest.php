@@ -8,7 +8,6 @@
 
 namespace Core\Tests\DI;
 
-
 use Core\DI\DI;
 
 class DITest extends \PHPUnit_Framework_TestCase {
@@ -43,7 +42,5 @@ class DITest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($a, $c);
         $this->assertEquals($b, $c);
     }
-
-
 
 } 
