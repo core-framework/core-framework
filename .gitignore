@@ -5,13 +5,9 @@ logs/
 composer.lock
 src/Core/smarty_cache
 .DS_Store/
-*/.DS_Store
 src/Core/cache
 */styles/
-*/styles/fonts/glyphicons*.*
 */scripts/
-*/scripts/jquery
-*/scripts/bootstrap
 */scripts/angular
 */scripts/angular-route
 */index.php
@@ -42,7 +38,8 @@ vendor/
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
 # composer.lock
 
-config/
+/config/global.conf.php
+/config/routes.conf.php
 
 ### NOTs
 !src/Core/Config/
