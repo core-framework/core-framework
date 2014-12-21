@@ -21,6 +21,8 @@
  * file that was distributed with this source code.
  */
 
+use Core\Core;
+
 // Change as required
 ini_set('session.save_path', '/tmp');
 ini_set('session.use_cookies', 1);
@@ -38,15 +40,12 @@ define('_ROOT', getcwd());
 define('_APPDIR', __DIR__);
 
 $bootstrapPath = _ROOT . DS . "src" . DS . "Core" . DS . "inc" . DS . "bootstrap.php";
-
 require_once $bootstrapPath;
 
-use Core\Core;
-
-$core = new Core(true);
+$core = new Core($di, true);
 $core->forceApc = false;
 $core->registerApp('demoapp\\', DS . 'demoapp' . DS);                   // Comment this when you have setup your own app
-//$core->registerApp('{appName}\\', DS . '{appName}' . DS);             // unComment this when you have setup your own app
+//$core->registerApp('demoapp\\', DS . 'demoapp' . DS);             // unComment this when you have setup your own app
 $core->Load();
 
 session_write_close();
