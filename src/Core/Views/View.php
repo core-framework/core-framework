@@ -258,9 +258,17 @@ class View implements viewInterface, Cachable
         $this->tplInfo['header'] = $val;
     }
 
+    /**
+     * Returns the header
+     *
+     * @return mixed
+     */
     public function getHeader()
     {
-        return $this->tplInfo['header'];
+        if(isset($this->tplInfo['header'])){
+            return $this->tplInfo['header'];
+        }
+        return false;
     }
 
     /**

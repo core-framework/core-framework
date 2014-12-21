@@ -46,18 +46,20 @@ class Model
     /**
      * @var database database object instance
      */
-    protected $db;
+    protected static $db;
     /**
      * @var array Model properties array
      */
     protected $props = [];
 
     /**
-     *  Model constructor
+     * Model Constructor
+     *
+     * @param Database $db
      */
-    public function __construct()
+    public function __construct(Database $db)
     {
-
+        self::$db = $db;
     }
 
     /**
@@ -103,8 +105,8 @@ class Model
      */
     public static function get($query, array $params)
     {
-        $db = database::getInstance();
-        $prep = $db->getPrepared($query);
+        //$db = database::getInstance();
+        $prep = self::$db->getPrepared($query);
         $prep->execute($params);
         $result = $prep->fetchAll(\PDO::FETCH_ASSOC);
         $collection = [];
@@ -160,8 +162,7 @@ class Model
      */
     private function getFromDbandBuildObj($query, array $params)
     {
-        $db = database::getInstance();
-        $prep = $db->getPrepared($query);
+        $prep = self::$db->getPrepared($query);
         $prep->execute($params);
         $row = $prep->fetch(\PDO::FETCH_ASSOC);
         $className = get_called_class();
@@ -200,7 +201,7 @@ class Model
      */
     private function getFromDb($query, array $params)
     {
-        $db = database::getInstance();
+        $db = self::$db;
         $prep = $db->getPrepared($query);
         $prep->execute($params);
         $arr = $prep->fetch();
@@ -240,7 +241,7 @@ class Model
             $keys[":" . $key] = $value;
         }
         $query .= implode(",", array_keys($keys)) . ")";
-        $db = database::getInstance();
+        $db = self::$db;
         $prep = $db->getPrepared($query);
         $prep->execute($keys);
     }
@@ -251,7 +252,7 @@ class Model
     public function delete()
     {
         $query = "DELETE FROM " . static::$tableName . " WHERE " . static::$primaryKey . "=:id LIMIT 1";
-        $db = database::getInstance();
+        $db = self::$db;
         $prep = $db->getPrepared($query);
         $prep->execute(array(':id' => $this->props[static::$primaryKey]));
     }

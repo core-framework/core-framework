@@ -240,6 +240,12 @@ class Request implements Cachable
         return ['path', 'method', 'getVars', 'postVars', 'server', 'cookies', 'illegal', 'devMode'];
     }
 
+    /**
+     * custom wakeup method
+     *
+     * @param $di
+     * @return null
+     */
     public function wakeUp($di)
     {
 

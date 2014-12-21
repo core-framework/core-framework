@@ -130,6 +130,7 @@ class Routes implements Cachable
      * Sets $this properties
      *
      * @param Request $request
+     * @param Config $config
      */
     public function __construct(Request $request, Config $config)
     {
