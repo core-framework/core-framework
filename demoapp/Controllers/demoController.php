@@ -10,14 +10,14 @@
 
 namespace demoapp\Controllers;
 
-use Core\Controllers\controller;
+use Core\Controllers\Controller;
 
 /**
  * @author Shalom Sam <shalom.s@coreframework.in>
  * Class demoController
  * @package demoapp\Controllers
  */
-class demoController extends controller
+class demoController extends Controller
 {
 
     public function indexAction()

@@ -751,6 +751,9 @@ class core
      */
     private function autoloadModel($modelName)
     {
+        if(strpos($modelName, "\\") > 0){
+            return false;
+        }
         $file = _ROOT . $this->modelDir . $modelName . ".php";
         //else check in Core
         $elsefile = _ROOT . DS . "src" . DS . "Core" . DS . "Models" . DS . $modelName . ".php";
