@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Core\Controllers\controller</title>
+	<title>Class Core\Controllers\Controller</title>
 
 	<link rel="stylesheet" href="resources/style.css?1648332946">
 
@@ -27,6 +27,8 @@
 				<li class="active"><a href="namespace-Core.Controllers.html">Controllers</a>
 						</li>
 				<li><a href="namespace-Core.Database.html">Database</a>
+						</li>
+				<li><a href="namespace-Core.DI.html">DI</a>
 						</li>
 				<li><a href="namespace-Core.ErrorHandler.html">ErrorHandler</a>
 						</li>
@@ -54,7 +56,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-Core.Controllers.controller.html">controller</a></li>
+				<li class="active"><a href="class-Core.Controllers.Controller.html">Controller</a></li>
 				<li><a href="class-Core.Controllers.errorController.html">errorController</a></li>
 				<li><a href="class-Core.Controllers.testController.html">testController</a></li>
 			</ul>
@@ -98,7 +100,7 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class controller</h1>
+	<h1>Class Controller</h1>
 
 
 	<div class="description">
@@ -135,7 +137,7 @@
 <br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-		<b>Located at</b> <a href="source-class-Core.Controllers.controller.html#29-391" title="Go to source code">Controllers/controller.php</a><br>
+		<b>Located at</b> <a href="source-class-Core.Controllers.Controller.html#30-366" title="Go to source code">Controllers/Controller.php</a><br>
 	</div>
 
 
@@ -154,7 +156,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Core.Controllers.controller.html#79-126" title="Go to source code">__construct</a>( <span>string <var>$controller</var></span>, <span>string <var>$method</var></span>, <span>array <var>$routeParams</var></span>, <span><code><a href="class-Core.Views.view.html">Core\Views\view</a></code> <var>$view</var></span>, <span>array <var>$postVars</var></span>, <span>array <var>$getVars</var></span>, <span>array <var>$server</var></span>, <span>string <var>$modelDir</var></span>, <span>null <var>$modelName</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$args</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$req</var> = <span class="php-keyword1">null</span> </span> )</code>
+		<code><a href="source-class-Core.Controllers.Controller.html#81-111" title="Go to source code">__construct</a>( <span><code><a href="class-Core.Routes.Routes.html">Core\Routes\Routes</a></code> <var>$route</var></span>, <span>Core\Controllers\View <var>$view</var></span>, <span><code><a href="class-Core.Config.Config.html">Core\Config\Config</a></code> <var>$config</var></span> )</code>
 
 		<div class="description short">
 			<p>instantiates Controller object from route vars</p>
@@ -168,38 +170,14 @@
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$controller</var></dt>
-					<dd>
-</dd>
-					<dt><var>$method</var></dt>
-					<dd>
-</dd>
-					<dt><var>$routeParams</var></dt>
+					<dt><var>$route</var></dt>
 					<dd>
 </dd>
 					<dt><var>$view</var></dt>
 					<dd>
 </dd>
-					<dt><var>$postVars</var></dt>
-					<dd>$getVars
-</dd>
-					<dt><var>$getVars</var></dt>
-					<dd>$postVars
-</dd>
-					<dt><var>$server</var></dt>
+					<dt><var>$config</var></dt>
 					<dd>
-</dd>
-					<dt><var>$modelDir</var></dt>
-					<dd>
-</dd>
-					<dt><var>$modelName</var></dt>
-					<dd>string $modelName
-</dd>
-					<dt><var>$args</var></dt>
-					<dd>array $args
-</dd>
-					<dt><var>$req</var></dt>
-					<dd>array $req
 </dd>
 				</dl></div>
 
@@ -222,7 +200,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_indexAction">#</a>
-		<code><a href="source-class-Core.Controllers.controller.html#196-205" title="Go to source code">indexAction</a>( )</code>
+		<code><a href="source-class-Core.Controllers.Controller.html#182-190" title="Go to source code">indexAction</a>( )</code>
 
 		<div class="description short">
 			<p>Default method for template rendering</p>
@@ -246,42 +224,6 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getResponse" id="_getResponse">
-
-		<td class="attributes"><code>
-			 public 
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getResponse">#</a>
-		<code><a href="source-class-Core.Controllers.controller.html#207-215" title="Go to source code">getResponse</a>( )</code>
-
-		<div class="description short">
-			<p>To get(build) the response array</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>To get(build) the response array</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="getController" id="_getController">
 
 		<td class="attributes"><code>
@@ -294,7 +236,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getController">#</a>
-		<code><a href="source-class-Core.Controllers.controller.html#217-225" title="Go to source code">getController</a>( )</code>
+		<code><a href="source-class-Core.Controllers.Controller.html#192-200" title="Go to source code">getController</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the set Controller</p>
@@ -330,7 +272,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getModelName">#</a>
-		<code><a href="source-class-Core.Controllers.controller.html#227-235" title="Go to source code">getModelName</a>( )</code>
+		<code><a href="source-class-Core.Controllers.Controller.html#202-210" title="Go to source code">getModelName</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the model name set in route.conf</p>
@@ -367,7 +309,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getModel">#</a>
-		<code><a href="source-class-Core.Controllers.controller.html#237-245" title="Go to source code">getModel</a>( )</code>
+		<code><a href="source-class-Core.Controllers.Controller.html#212-220" title="Go to source code">getModel</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the model object, that is auto loaded if set in route.conf</p>
@@ -404,7 +346,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMethod">#</a>
-		<code><a href="source-class-Core.Controllers.controller.html#247-255" title="Go to source code">getMethod</a>( )</code>
+		<code><a href="source-class-Core.Controllers.Controller.html#222-230" title="Go to source code">getMethod</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the method name set in route.conf</p>
@@ -440,7 +382,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getArgs">#</a>
-		<code><a href="source-class-Core.Controllers.controller.html#257-265" title="Go to source code">getArgs</a>( )</code>
+		<code><a href="source-class-Core.Controllers.Controller.html#232-240" title="Go to source code">getArgs</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the parameters(as arguments) from the URL path in dynamic URLs set in route.conf</p>
@@ -477,7 +419,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getReq">#</a>
-		<code><a href="source-class-Core.Controllers.controller.html#267-275" title="Go to source code">getReq</a>( )</code>
+		<code><a href="source-class-Core.Controllers.Controller.html#242-250" title="Go to source code">getReq</a>( )</code>
 
 		<div class="description short">
 			<p>Returns required classes to load</p>
@@ -514,7 +456,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getGetVars">#</a>
-		<code><a href="source-class-Core.Controllers.controller.html#277-285" title="Go to source code">getGetVars</a>( )</code>
+		<code><a href="source-class-Core.Controllers.Controller.html#252-260" title="Go to source code">getGetVars</a>( )</code>
 
 		<div class="description short">
 			<p>returns sanitized $_GET</p>
@@ -550,7 +492,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPostVars">#</a>
-		<code><a href="source-class-Core.Controllers.controller.html#287-295" title="Go to source code">getPostVars</a>( )</code>
+		<code><a href="source-class-Core.Controllers.Controller.html#262-270" title="Go to source code">getPostVars</a>( )</code>
 
 		<div class="description short">
 			<p>returns sanitized $_POST</p>
@@ -586,7 +528,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getServer">#</a>
-		<code><a href="source-class-Core.Controllers.controller.html#297-305" title="Go to source code">getServer</a>( )</code>
+		<code><a href="source-class-Core.Controllers.Controller.html#272-280" title="Go to source code">getServer</a>( )</code>
 
 		<div class="description short">
 			<p>Returns Server details</p>
@@ -622,7 +564,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRouteParams">#</a>
-		<code><a href="source-class-Core.Controllers.controller.html#307-315" title="Go to source code">getRouteParams</a>( )</code>
+		<code><a href="source-class-Core.Controllers.Controller.html#282-290" title="Go to source code">getRouteParams</a>( )</code>
 
 		<div class="description short">
 			<p>returns route parameters</p>
@@ -658,7 +600,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_loadReq">#</a>
-		<code><a href="source-class-Core.Controllers.controller.html#317-328" title="Go to source code">loadReq</a>( )</code>
+		<code><a href="source-class-Core.Controllers.Controller.html#292-303" title="Go to source code">loadReq</a>( )</code>
 
 		<div class="description short">
 			<p>loads required files</p>
@@ -700,7 +642,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.Controllers.controller.html#40" title="Go to source code"><var>$view</var></a>
+				<a href="source-class-Core.Controllers.Controller.html#41" title="Go to source code"><var>$view</var></a>
 
 			<div class="description short">
 				
@@ -720,6 +662,60 @@
 			</div>
 		</td>
 	</tr>
+	<tr data-order="config" id="$config">
+		<td class="attributes"><code>
+			public  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Core.Controllers.Controller.html#42" title="Go to source code"><var>$config</var></a>
+
+			<div class="description short">
+				
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$config" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="route" id="$route">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Core.Controllers.Controller.html#43" title="Go to source code"><var>$route</var></a>
+
+			<div class="description short">
+				
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$route" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
 	<tr data-order="response" id="$response">
 		<td class="attributes"><code>
 			public  
@@ -727,7 +723,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.Controllers.controller.html#41" title="Go to source code"><var>$response</var></a>
+				<a href="source-class-Core.Controllers.Controller.html#44" title="Go to source code"><var>$response</var></a>
 
 			<div class="description short">
 				
@@ -754,7 +750,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.Controllers.controller.html#42" title="Go to source code"><var>$err404Tpl</var></a>
+				<a href="source-class-Core.Controllers.Controller.html#45" title="Go to source code"><var>$err404Tpl</var></a>
 
 			<div class="description short">
 				
@@ -774,14 +770,14 @@
 			</div>
 		</td>
 	</tr>
-	<tr data-order="config" id="$config">
+	<tr data-order="getVars" id="$getVars">
 		<td class="attributes"><code>
 			public  
 			mixed
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.Controllers.controller.html#43" title="Go to source code"><var>$config</var></a>
+				<a href="source-class-Core.Controllers.Controller.html#53" title="Go to source code"><var>$getVars</var></a>
 
 			<div class="description short">
 				
@@ -796,7 +792,61 @@
 		</td>
 		<td class="value">
 			<div>
-				<a href="#$config" class="anchor">#</a>
+				<a href="#$getVars" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="postVars" id="$postVars">
+		<td class="attributes"><code>
+			public  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Core.Controllers.Controller.html#54" title="Go to source code"><var>$postVars</var></a>
+
+			<div class="description short">
+				
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$postVars" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="server" id="$server">
+		<td class="attributes"><code>
+			public  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Core.Controllers.Controller.html#55" title="Go to source code"><var>$server</var></a>
+
+			<div class="description short">
+				
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$server" class="anchor">#</a>
 				<code></code>
 			</div>
 		</td>
@@ -816,6 +866,6 @@
 </div>
 </div>
 <script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?3370987451"></script>
+<script src="elementlist.js?4147873919"></script>
 </body>
 </html>

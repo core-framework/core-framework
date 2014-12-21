@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Core\Request\request</title>
+	<title>Class Core\Request\Request</title>
 
 	<link rel="stylesheet" href="resources/style.css?1648332946">
 
@@ -27,6 +27,8 @@
 				<li><a href="namespace-Core.Controllers.html">Controllers</a>
 						</li>
 				<li><a href="namespace-Core.Database.html">Database</a>
+						</li>
+				<li><a href="namespace-Core.DI.html">DI</a>
 						</li>
 				<li><a href="namespace-Core.ErrorHandler.html">ErrorHandler</a>
 						</li>
@@ -54,7 +56,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-Core.Request.request.html">request</a></li>
+				<li class="active"><a href="class-Core.Request.Request.html">Request</a></li>
 			</ul>
 
 
@@ -96,7 +98,7 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class request</h1>
+	<h1>Class Request</h1>
 
 
 	<div class="description">
@@ -104,6 +106,15 @@
 
 	</div>
 
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>Core\Request\Request</span></b>			
+			 implements 
+				<a href="class-Core.CacheSystem.Cachable.html"><span>Core\CacheSystem\Cachable</span></a>
+			
+			
+		</dd>
+	</dl>
 
 
 
@@ -128,7 +139,7 @@
 <br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-		<b>Located at</b> <a href="source-class-Core.Request.request.html#25-241" title="Go to source code">Request/request.php</a><br>
+		<b>Located at</b> <a href="source-class-Core.Request.Request.html#27-254" title="Go to source code">Request/Request.php</a><br>
 	</div>
 
 
@@ -147,7 +158,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Core.Request.request.html#93-102" title="Go to source code">__construct</a>( <span>boolean <var>$devMode</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Core.Request.Request.html#95-104" title="Go to source code">__construct</a>( <span>boolean <var>$devMode</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Request Constructor</p>
@@ -185,7 +196,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getServer">#</a>
-		<code><a href="source-class-Core.Request.request.html#171-179" title="Go to source code">getServer</a>( )</code>
+		<code><a href="source-class-Core.Request.Request.html#173-181" title="Go to source code">getServer</a>( )</code>
 
 		<div class="description short">
 			<p>Returns an array of server info</p>
@@ -221,7 +232,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCookies">#</a>
-		<code><a href="source-class-Core.Request.request.html#181-189" title="Go to source code">getCookies</a>( )</code>
+		<code><a href="source-class-Core.Request.Request.html#183-191" title="Go to source code">getCookies</a>( )</code>
 
 		<div class="description short">
 			<p>Returns an array of Cookies set</p>
@@ -257,7 +268,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRqstMethod">#</a>
-		<code><a href="source-class-Core.Request.request.html#191-199" title="Go to source code">getRqstMethod</a>( )</code>
+		<code><a href="source-class-Core.Request.Request.html#193-201" title="Go to source code">getRqstMethod</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the method used for the current request</p>
@@ -293,7 +304,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPath">#</a>
-		<code><a href="source-class-Core.Request.request.html#201-209" title="Go to source code">getPath</a>( )</code>
+		<code><a href="source-class-Core.Request.Request.html#203-211" title="Go to source code">getPath</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the url path/query string</p>
@@ -329,7 +340,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getGetVars">#</a>
-		<code><a href="source-class-Core.Request.request.html#211-219" title="Go to source code">getGetVars</a>( )</code>
+		<code><a href="source-class-Core.Request.Request.html#213-221" title="Go to source code">getGetVars</a>( )</code>
 
 		<div class="description short">
 			<p>Returns an array of sanitized $_GET variables</p>
@@ -365,7 +376,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPostVars">#</a>
-		<code><a href="source-class-Core.Request.request.html#221-229" title="Go to source code">getPostVars</a>( )</code>
+		<code><a href="source-class-Core.Request.Request.html#223-231" title="Go to source code">getPostVars</a>( )</code>
 
 		<div class="description short">
 			<p>Returns an array of sanitized $_POST variables</p>
@@ -401,7 +412,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___sleep">#</a>
-		<code><a href="source-class-Core.Request.request.html#231-239" title="Go to source code">__sleep</a>( )</code>
+		<code><a href="source-class-Core.Request.Request.html#233-241" title="Go to source code">__sleep</a>( )</code>
 
 		<div class="description short">
 			<p>Sleep magic method</p>
@@ -422,6 +433,52 @@
 
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Core.CacheSystem.Cachable.html#___sleep">Core\CacheSystem\Cachable::__sleep()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="wakeUp" id="_wakeUp">
+
+		<td class="attributes"><code>
+			 public 
+
+			null
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_wakeUp">#</a>
+		<code><a href="source-class-Core.Request.Request.html#243-252" title="Go to source code">wakeUp</a>( <span>mixed <var>$di</var></span> )</code>
+
+		<div class="description short">
+			<p>custom wakeup method</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>custom wakeup method</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$di</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>null</code>
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Core.CacheSystem.Cachable.html#_wakeUp">Core\CacheSystem\Cachable::wakeUp()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -452,6 +509,6 @@
 </div>
 </div>
 <script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?3370987451"></script>
+<script src="elementlist.js?4147873919"></script>
 </body>
 </html>

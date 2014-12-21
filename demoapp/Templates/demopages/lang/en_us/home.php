@@ -13,7 +13,7 @@ return $page = [
     'contribute' => 'Contribute',
     'change_logs' => 'Change Logs',
     'credits' => 'Credits',
-    'intro_note' => '<strong>NOTE:</strong> This is currently in <em class="bg-green">alpha</em> and while it is stable in its current form(only tested in linux) it needs further testing.',
+    'intro_note' => '<strong>NOTE:</strong> This is currently in <em class="bg-green">BETA</em> and while it is stable in its current form(only tested in linux platforms) it may undergo several changes from time to time.',
 
 ];
 

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Interface Core\CacheSystem\Cachable</title>
+
+	<link rel="stylesheet" href="resources/style.css?1648332946">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-Core.html">Core<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-Core.CacheSystem.html">CacheSystem</a>
+						</li>
+				<li><a href="namespace-Core.Config.html">Config</a>
+						</li>
+				<li><a href="namespace-Core.Controllers.html">Controllers</a>
+						</li>
+				<li><a href="namespace-Core.Database.html">Database</a>
+						</li>
+				<li><a href="namespace-Core.DI.html">DI</a>
+						</li>
+				<li><a href="namespace-Core.ErrorHandler.html">ErrorHandler</a>
+						</li>
+				<li><a href="namespace-Core.Helper.html">Helper</a>
+						</li>
+				<li><a href="namespace-Core.Models.html">Models</a>
+						</li>
+				<li><a href="namespace-Core.Request.html">Request</a>
+						</li>
+				<li><a href="namespace-Core.Routes.html">Routes</a>
+						</li>
+				<li><a href="namespace-Core.Scripts.html">Scripts</a>
+						</li>
+				<li><a href="namespace-Core.Views.html">Views</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Core.CacheSystem.Cache.html">Cache</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li class="active"><a href="class-Core.CacheSystem.Cachable.html">Cachable</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Core.CacheSystem.html" title="Summary of Core\CacheSystem"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Interface Cachable</h1>
+
+
+	<div class="description">
+	<p>Interface Cachable</p>
+
+	</div>
+
+
+
+
+
+	<div>
+		<h4>Direct known implementers</h4>
+			<a href="class-Core.Request.Request.html">Core\Request\Request</a>, 
+			<a href="class-Core.Routes.Routes.html">Core\Routes\Routes</a>, 
+			<a href="class-Core.Scripts.corecmd.html">Core\Scripts\corecmd</a>, 
+			<a href="class-Core.Views.View.html">Core\Views\View</a>
+	</div>
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> Core\CacheSystem<br>
+		<b>Package:</b> Core\CacheSystem<br>
+
+		<b>Located at</b> <a href="source-class-Core.CacheSystem.Cachable.html#25-46" title="Go to source code">CacheSystem/Cachable.php</a><br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__sleep" id="___sleep">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___sleep">#</a>
+		<code><a href="source-class-Core.CacheSystem.Cachable.html#31-36" title="Go to source code">__sleep</a>( )</code>
+
+		<div class="description short">
+			<p>Magic sleep method to define properties to cache (serialize)</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Magic sleep method to define properties to cache (serialize)</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="wakeUp" id="_wakeUp">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed|
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_wakeUp">#</a>
+		<code><a href="source-class-Core.CacheSystem.Cachable.html#38-44" title="Go to source code">wakeUp</a>( <span>mixed <var>$di</var></span> )</code>
+
+		<div class="description short">
+			<p>Custom wakeup method called by the Cache object on retrieval (unserialized)</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Custom wakeup method called by the Cache object on retrieval (unserialized)</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$di</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed|</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js?721046668"></script>
+<script src="elementlist.js?4147873919"></script>
+</body>
+</html>

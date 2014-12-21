@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Core\Database\database</title>
+	<title>Class Core\Database\Database</title>
 
 	<link rel="stylesheet" href="resources/style.css?1648332946">
 
@@ -27,6 +27,8 @@
 				<li><a href="namespace-Core.Controllers.html">Controllers</a>
 						</li>
 				<li class="active"><a href="namespace-Core.Database.html">Database</a>
+						</li>
+				<li><a href="namespace-Core.DI.html">DI</a>
 						</li>
 				<li><a href="namespace-Core.ErrorHandler.html">ErrorHandler</a>
 						</li>
@@ -54,7 +56,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-Core.Database.database.html">database</a></li>
+				<li class="active"><a href="class-Core.Database.Database.html">Database</a></li>
 			</ul>
 
 
@@ -96,7 +98,7 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class database</h1>
+	<h1>Class Database</h1>
 
 
 	<div class="description">
@@ -113,7 +115,7 @@
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>Core\Database\database</span></b>			
+<b><span>Core\Database\Database</span></b>			
 			
 			
 		</dd>
@@ -142,7 +144,7 @@
 <br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-		<b>Located at</b> <a href="source-class-Core.Database.database.html#28-129" title="Go to source code">Databases/database.php</a><br>
+		<b>Located at</b> <a href="source-class-Core.Database.Database.html#27-135" title="Go to source code">Databases/Database.php</a><br>
 	</div>
 
 
@@ -161,7 +163,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Core.Database.database.html#60-88" title="Go to source code">__construct</a>( <span>null <var>$db</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Core.Database.Database.html#43-110" title="Go to source code">__construct</a>( <span>array <var>$array</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Creates an instance of the pdo class</p>
@@ -175,58 +177,21 @@
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$db</var></dt>
+					<dt><var>$array</var></dt>
 					<dd>
 </dd>
 				</dl></div>
 
 
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-ErrorException.html">ErrorException</a></code><br>
+					<code><a href="class-Exception.html">Exception</a></code>
+				</div>
 
 
 				<h4>Overrides</h4>
 				<div class="list"><code><a href="class-PDO.html#___construct">PDO::__construct()</a></code></div>
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getInstance" id="_getInstance">
-
-		<td class="attributes"><code>
-			 public static
-
-			<code><a href="class-Core.Database.database.html">Core\Database\database</a></code>
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getInstance">#</a>
-		<code><a href="source-class-Core.Database.database.html#90-102" title="Go to source code">getInstance</a>( <span>null <var>$db</var> = <span class="php-keyword1">null</span></span> )</code>
-
-		<div class="description short">
-			<p>Returns the object reference or the instance of the class</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Returns the object reference or the instance of the class</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$db</var></dt>
-					<dd>
-</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code><code><a href="class-Core.Database.database.html">Core\Database\database</a></code></code>
-				</div>
-
-
-
 
 		</div>
 		</div></td>
@@ -243,7 +208,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPrepared">#</a>
-		<code><a href="source-class-Core.Database.database.html#104-117" title="Go to source code">getPrepared</a>( <span>mixed <var>$query</var></span> )</code>
+		<code><a href="source-class-Core.Database.Database.html#112-125" title="Go to source code">getPrepared</a>( <span>mixed <var>$query</var></span> )</code>
 
 		<div class="description short">
 			<p>Gets the prepared statement</p>
@@ -285,7 +250,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___destruct">#</a>
-		<code><a href="source-class-Core.Database.database.html#119-126" title="Go to source code">__destruct</a>( )</code>
+		<code><a href="source-class-Core.Database.Database.html#127-133" title="Go to source code">__destruct</a>( )</code>
 
 		<div class="description short">
 			<p>Reset database cache</p>
@@ -436,63 +401,6 @@
 
 
 
-	<table class="summary properties" id="properties">
-	<caption>Properties summary</caption>
-	<tr data-order="instance" id="$instance">
-		<td class="attributes"><code>
-			protected static 
-			object
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-Core.Database.database.html#39-42" title="Go to source code"><var>$instance</var></a>
-
-			<div class="description short">
-				<p>Database instance</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Database instance</p>
-
-
-			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#$instance" class="anchor">#</a>
-				<code></code>
-			</div>
-		</td>
-	</tr>
-	<tr data-order="cache" id="$cache">
-		<td class="attributes"><code>
-			protected  
-			array
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-Core.Database.database.html#43-46" title="Go to source code"><var>$cache</var></a>
-
-			<div class="description short">
-				<p>Database cache reference</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Database cache reference</p>
-
-
-			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#$cache" class="anchor">#</a>
-				<code>[]</code>
-			</div>
-		</td>
-	</tr>
-	</table>
 
 
 
@@ -507,6 +415,6 @@
 </div>
 </div>
 <script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?3370987451"></script>
+<script src="elementlist.js?4147873919"></script>
 </body>
 </html>

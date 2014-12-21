@@ -28,6 +28,8 @@
 						</li>
 				<li><a href="namespace-Core.Database.html">Database</a>
 						</li>
+				<li><a href="namespace-Core.DI.html">DI</a>
+						</li>
 				<li><a href="namespace-Core.ErrorHandler.html">ErrorHandler</a>
 						</li>
 				<li><a href="namespace-Core.Helper.html">Helper</a>
@@ -54,7 +56,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-Core.Controllers.controller.html">controller</a></li>
+				<li><a href="class-Core.Controllers.Controller.html">Controller</a></li>
 				<li><a href="class-Core.Controllers.errorController.html">errorController</a></li>
 				<li class="active"><a href="class-Core.Controllers.testController.html">testController</a></li>
 			</ul>
@@ -108,7 +110,7 @@
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-			<a href="class-Core.Controllers.controller.html"><span>Core\Controllers\controller</span></a>
+			<a href="class-Core.Controllers.Controller.html"><span>Core\Controllers\Controller</span></a>
 			
 			
 			
@@ -144,7 +146,7 @@
 <br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-		<b>Located at</b> <a href="source-class-Core.Controllers.testController.html#25-50" title="Go to source code">Controllers/testController.php</a><br>
+		<b>Located at</b> <a href="source-class-Core.Controllers.testController.html#25-49" title="Go to source code">Controllers/testController.php</a><br>
 	</div>
 
 
@@ -163,7 +165,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_helloAction">#</a>
-		<code><a href="source-class-Core.Controllers.testController.html#37-48" title="Go to source code">helloAction</a>( <span>mixed <var>$payload</var></span> )</code>
+		<code><a href="source-class-Core.Controllers.testController.html#37-47" title="Go to source code">helloAction</a>( <span>mixed <var>$payload</var></span> )</code>
 
 		<div class="description short">
 			<p>Method to print hello {name}. Where {name} is the dynamic route variable in the URL</p>
@@ -196,23 +198,22 @@
 	</table>
 
 	<table class="summary inherited">
-	<caption>Methods inherited from <a href="class-Core.Controllers.controller.html#methods">Core\Controllers\controller</a></caption>
+	<caption>Methods inherited from <a href="class-Core.Controllers.Controller.html#methods">Core\Controllers\Controller</a></caption>
 	<tr>
 		<td><code>
-			<a href="class-Core.Controllers.controller.html#___construct">__construct()</a>, 
-			<a href="class-Core.Controllers.controller.html#_getArgs">getArgs()</a>, 
-			<a href="class-Core.Controllers.controller.html#_getController">getController()</a>, 
-			<a href="class-Core.Controllers.controller.html#_getGetVars">getGetVars()</a>, 
-			<a href="class-Core.Controllers.controller.html#_getMethod">getMethod()</a>, 
-			<a href="class-Core.Controllers.controller.html#_getModel">getModel()</a>, 
-			<a href="class-Core.Controllers.controller.html#_getModelName">getModelName()</a>, 
-			<a href="class-Core.Controllers.controller.html#_getPostVars">getPostVars()</a>, 
-			<a href="class-Core.Controllers.controller.html#_getReq">getReq()</a>, 
-			<a href="class-Core.Controllers.controller.html#_getResponse">getResponse()</a>, 
-			<a href="class-Core.Controllers.controller.html#_getRouteParams">getRouteParams()</a>, 
-			<a href="class-Core.Controllers.controller.html#_getServer">getServer()</a>, 
-			<a href="class-Core.Controllers.controller.html#_indexAction">indexAction()</a>, 
-			<a href="class-Core.Controllers.controller.html#_loadReq">loadReq()</a>
+			<a href="class-Core.Controllers.Controller.html#___construct">__construct()</a>, 
+			<a href="class-Core.Controllers.Controller.html#_getArgs">getArgs()</a>, 
+			<a href="class-Core.Controllers.Controller.html#_getController">getController()</a>, 
+			<a href="class-Core.Controllers.Controller.html#_getGetVars">getGetVars()</a>, 
+			<a href="class-Core.Controllers.Controller.html#_getMethod">getMethod()</a>, 
+			<a href="class-Core.Controllers.Controller.html#_getModel">getModel()</a>, 
+			<a href="class-Core.Controllers.Controller.html#_getModelName">getModelName()</a>, 
+			<a href="class-Core.Controllers.Controller.html#_getPostVars">getPostVars()</a>, 
+			<a href="class-Core.Controllers.Controller.html#_getReq">getReq()</a>, 
+			<a href="class-Core.Controllers.Controller.html#_getRouteParams">getRouteParams()</a>, 
+			<a href="class-Core.Controllers.Controller.html#_getServer">getServer()</a>, 
+			<a href="class-Core.Controllers.Controller.html#_indexAction">indexAction()</a>, 
+			<a href="class-Core.Controllers.Controller.html#_loadReq">loadReq()</a>
 		</code></td>
 	</tr>
 	</table>
@@ -229,13 +230,17 @@
 
 
 	<table class="summary inherited">
-	<caption>Properties inherited from <a href="class-Core.Controllers.controller.html#properties">Core\Controllers\controller</a></caption>
+	<caption>Properties inherited from <a href="class-Core.Controllers.Controller.html#properties">Core\Controllers\Controller</a></caption>
 	<tr>
 		<td><code>
-			<a href="class-Core.Controllers.controller.html#$config"><var>$config</var></a>, 
-			<a href="class-Core.Controllers.controller.html#$err404Tpl"><var>$err404Tpl</var></a>, 
-			<a href="class-Core.Controllers.controller.html#$response"><var>$response</var></a>, 
-			<a href="class-Core.Controllers.controller.html#$view"><var>$view</var></a>
+			<a href="class-Core.Controllers.Controller.html#$config"><var>$config</var></a>, 
+			<a href="class-Core.Controllers.Controller.html#$err404Tpl"><var>$err404Tpl</var></a>, 
+			<a href="class-Core.Controllers.Controller.html#$getVars"><var>$getVars</var></a>, 
+			<a href="class-Core.Controllers.Controller.html#$postVars"><var>$postVars</var></a>, 
+			<a href="class-Core.Controllers.Controller.html#$response"><var>$response</var></a>, 
+			<a href="class-Core.Controllers.Controller.html#$route"><var>$route</var></a>, 
+			<a href="class-Core.Controllers.Controller.html#$server"><var>$server</var></a>, 
+			<a href="class-Core.Controllers.Controller.html#$view"><var>$view</var></a>
 		</code></td>
 	</tr>
 	</table>
@@ -252,6 +257,6 @@
 </div>
 </div>
 <script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?3370987451"></script>
+<script src="elementlist.js?4147873919"></script>
 </body>
 </html>

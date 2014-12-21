@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Core\Views\view</title>
+	<title>Class Core\Views\View</title>
 
 	<link rel="stylesheet" href="resources/style.css?1648332946">
 
@@ -27,6 +27,8 @@
 				<li><a href="namespace-Core.Controllers.html">Controllers</a>
 						</li>
 				<li><a href="namespace-Core.Database.html">Database</a>
+						</li>
+				<li><a href="namespace-Core.DI.html">DI</a>
 						</li>
 				<li><a href="namespace-Core.ErrorHandler.html">ErrorHandler</a>
 						</li>
@@ -54,9 +56,13 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-Core.Views.view.html">view</a></li>
+				<li class="active"><a href="class-Core.Views.View.html">View</a></li>
 			</ul>
 
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Core.Views.viewInterface.html">viewInterface</a></li>
+			</ul>
 
 
 
@@ -96,7 +102,7 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class view</h1>
+	<h1>Class View</h1>
 
 
 	<div class="description">
@@ -104,6 +110,17 @@
 
 	</div>
 
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>Core\Views\View</span></b>			
+			 implements 
+				<a href="class-Core.Views.viewInterface.html"><span>Core\Views\viewInterface</span></a>, 
+			
+				<a href="class-Core.CacheSystem.Cachable.html"><span>Core\CacheSystem\Cachable</span></a>
+			
+			
+		</dd>
+	</dl>
 
 
 
@@ -128,7 +145,7 @@
 <br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-		<b>Located at</b> <a href="source-class-Core.Views.view.html#25-210" title="Go to source code">Views/view.php</a><br>
+		<b>Located at</b> <a href="source-class-Core.Views.View.html#27-296" title="Go to source code">Views/View.php</a><br>
 	</div>
 
 
@@ -147,18 +164,24 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Core.Views.view.html#85-91" title="Go to source code">__construct</a>( )</code>
+		<code><a href="source-class-Core.Views.View.html#87-94" title="Go to source code">__construct</a>( <span>Smarty <var>$tplEngine</var></span> )</code>
 
 		<div class="description short">
-			<p>View constructor</p>
+			
 
 		</div>
 
 		<div class="description detailed hidden">
-			<p>View constructor</p>
+			
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$tplEngine</var></dt>
+					<dd>
+</dd>
+				</dl></div>
 
 
 
@@ -167,7 +190,7 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="setDebugMode" id="_setDebugMode">
+	<tr data-order="init" id="_init">
 
 		<td class="attributes"><code>
 			 public 
@@ -178,8 +201,42 @@
 		</td>
 
 		<td class="name"><div>
+		<a class="anchor" href="#_init">#</a>
+		<code><a href="source-class-Core.Views.View.html#96-114" title="Go to source code">init</a>( )</code>
+
+		<div class="description short">
+			<p>Initiates tplEngine</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Initiates tplEngine</p>
+
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Core.Views.viewInterface.html#_init">Core\Views\viewInterface::init()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDebugMode" id="_setDebugMode">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed|
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
 		<a class="anchor" href="#_setDebugMode">#</a>
-		<code><a href="source-class-Core.Views.view.html#114-122" title="Go to source code">setDebugMode</a>( <span>boolean <var>$bool</var> = <span class="php-keyword1">true</span></span> )</code>
+		<code><a href="source-class-Core.Views.View.html#116-125" title="Go to source code">setDebugMode</a>( <span>boolean <var>$bool</var> = <span class="php-keyword1">true</span></span> )</code>
 
 		<div class="description short">
 			<p>Loads the debug html with data to be displayed</p>
@@ -198,10 +255,16 @@
 </dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed|</code>
+				</div>
 
 
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Core.Views.viewInterface.html#_setDebugMode">Core\Views\viewInterface::setDebugMode()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -210,14 +273,14 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			mixed|
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_set">#</a>
-		<code><a href="source-class-Core.Views.view.html#124-133" title="Go to source code">set</a>( <span>mixed <var>$var</var></span>, <span>mixed <var>$val</var></span> )</code>
+		<code><a href="source-class-Core.Views.View.html#127-137" title="Go to source code">set</a>( <span>mixed <var>$var</var></span>, <span>mixed <var>$val</var></span> )</code>
 
 		<div class="description short">
 			<p>Assigns new public parameters with given value</p>
@@ -239,10 +302,16 @@
 </dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed|</code>
+				</div>
 
 
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Core.Views.viewInterface.html#_set">Core\Views\viewInterface::set()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -258,7 +327,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_render">#</a>
-		<code><a href="source-class-Core.Views.view.html#135-172" title="Go to source code">render</a>( )</code>
+		<code><a href="source-class-Core.Views.View.html#139-176" title="Go to source code">render</a>( )</code>
 
 		<div class="description short">
 			<p>Renders the final html output</p>
@@ -279,6 +348,8 @@
 
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Core.Views.viewInterface.html#_render">Core\Views\viewInterface::render()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -294,7 +365,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_disable">#</a>
-		<code><a href="source-class-Core.Views.view.html#174-180" title="Go to source code">disable</a>( )</code>
+		<code><a href="source-class-Core.Views.View.html#178-184" title="Go to source code">disable</a>( )</code>
 
 		<div class="description short">
 			<p>Disables the view render method</p>
@@ -311,6 +382,8 @@
 
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Core.Views.viewInterface.html#_disable">Core\Views\viewInterface::disable()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -319,22 +392,22 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			Smarty|
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setTemplateDir">#</a>
-		<code><a href="source-class-Core.Views.view.html#182-191" title="Go to source code">setTemplateDir</a>( <span>mixed <var>$path</var></span> )</code>
+		<code><a href="source-class-Core.Views.View.html#186-196" title="Go to source code">setTemplateDir</a>( <span>array|string <var>$path</var></span> )</code>
 
 		<div class="description short">
-			<p>The directory where the .tpl files are located</p>
+			<p>Set Template directory</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			<p>The directory where the .tpl files are located</p>
+			<p>Set Template directory</p>
 
 
 
@@ -345,6 +418,257 @@
 </dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Smarty|</code>
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Core.Views.viewInterface.html#_setTemplateDir">Core\Views\viewInterface::setTemplateDir()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get" id="_get">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get">#</a>
+		<code><a href="source-class-Core.Views.View.html#198-207" title="Go to source code">get</a>( <span>mixed <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Set public properties</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set public properties</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setTemplateVars" id="_setTemplateVars">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setTemplateVars">#</a>
+		<code><a href="source-class-Core.Views.View.html#209-222" title="Go to source code">setTemplateVars</a>( <span>mixed <var>$var</var></span>, <span>mixed <var>$val</var></span> )</code>
+
+		<div class="description short">
+			<p>Set template variables</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set template variables</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$var</var></dt>
+					<dd>
+</dd>
+					<dt><var>$val</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Core.Views.viewInterface.html#_setTemplateVars">Core\Views\viewInterface::setTemplateVars()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="assignArrayByPath" id="_assignArrayByPath">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_assignArrayByPath">#</a>
+		<code><a href="source-class-Core.Views.View.html#224-239" title="Go to source code">assignArrayByPath</a>( <span>mixed <var>&amp; $arr</var></span>, <span>mixed <var>$path</var></span>, <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Allows the use of dot separated array key access in setTemplateVars</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Allows the use of dot separated array key access in setTemplateVars</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$arr</var></dt>
+					<dd>
+</dd>
+					<dt><var>$path</var></dt>
+					<dd>
+</dd>
+					<dt><var>$value</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setTemplate" id="_setTemplate">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setTemplate">#</a>
+		<code><a href="source-class-Core.Views.View.html#241-249" title="Go to source code">setTemplate</a>( <span>mixed <var>$tpl</var></span> )</code>
+
+		<div class="description short">
+			<p>Set template file to render</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set template file to render</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$tpl</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Core.Views.viewInterface.html#_setTemplate">Core\Views\viewInterface::setTemplate()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setHeader" id="_setHeader">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setHeader">#</a>
+		<code><a href="source-class-Core.Views.View.html#251-259" title="Go to source code">setHeader</a>( <span>mixed <var>$val</var></span> )</code>
+
+		<div class="description short">
+			<p>Set header of http response</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set header of http response</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$val</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Core.Views.viewInterface.html#_setHeader">Core\Views\viewInterface::setHeader()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getHeader" id="_getHeader">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getHeader">#</a>
+		<code><a href="source-class-Core.Views.View.html#261-272" title="Go to source code">getHeader</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the header</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the header</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code>
+				</div>
 
 
 
@@ -364,15 +688,15 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___sleep">#</a>
-		<code><a href="source-class-Core.Views.view.html#193-201" title="Go to source code">__sleep</a>( )</code>
+		<code><a href="source-class-Core.Views.View.html#274-282" title="Go to source code">__sleep</a>( )</code>
 
 		<div class="description short">
-			<p>Sleep method</p>
+			<p>Magic sleep method to define properties to cache (serialize)</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Sleep method</p>
+			<p>Magic sleep method to define properties to cache (serialize)</p>
 
 
 
@@ -385,38 +709,52 @@
 
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Core.CacheSystem.Cachable.html#___sleep">Core\CacheSystem\Cachable::__sleep()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="__wakeup" id="___wakeup">
+	<tr data-order="wakeUp" id="_wakeUp">
 
 		<td class="attributes"><code>
 			 public 
 
-			
+			mixed|
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#___wakeup">#</a>
-		<code><a href="source-class-Core.Views.view.html#203-209" title="Go to source code">__wakeup</a>( )</code>
+		<a class="anchor" href="#_wakeUp">#</a>
+		<code><a href="source-class-Core.Views.View.html#284-294" title="Go to source code">wakeUp</a>( <span>mixed <var>$di</var></span> )</code>
 
 		<div class="description short">
-			<p>Wakeup magic method</p>
+			<p>Custom wakeup method called by the Cache object on retrieval (unserialized)</p>
 
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Wakeup magic method</p>
+			<p>Custom wakeup method called by the Cache object on retrieval (unserialized)</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$di</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed|</code>
+				</div>
 
 
 
 
-
-
-
-
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Core.CacheSystem.Cachable.html#_wakeUp">Core\CacheSystem\Cachable::wakeUp()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -442,7 +780,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.Views.view.html#36-39" title="Go to source code"><var>$disabled</var></a>
+				<a href="source-class-Core.Views.View.html#38-41" title="Go to source code"><var>$disabled</var></a>
 
 			<div class="description short">
 				<p>Defines if View class is disabled from rendering</p>
@@ -469,7 +807,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.Views.view.html#40-43" title="Go to source code"><var>$showHeader</var></a>
+				<a href="source-class-Core.Views.View.html#42-45" title="Go to source code"><var>$showHeader</var></a>
 
 			<div class="description short">
 				<p>Defines whether to include the header html</p>
@@ -496,7 +834,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.Views.view.html#44-47" title="Go to source code"><var>$showFooter</var></a>
+				<a href="source-class-Core.Views.View.html#46-49" title="Go to source code"><var>$showFooter</var></a>
 
 			<div class="description short">
 				<p>Defines whether to include the footer html</p>
@@ -516,6 +854,33 @@
 			</div>
 		</td>
 	</tr>
+	<tr data-order="tplInfo" id="$tplInfo">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Core.Views.View.html#50-53" title="Go to source code"><var>$tplInfo</var></a>
+
+			<div class="description short">
+				<p>Template info</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Template info</p>
+
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$tplInfo" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
 	</table>
 
 
@@ -531,6 +896,6 @@
 </div>
 </div>
 <script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?3370987451"></script>
+<script src="elementlist.js?4147873919"></script>
 </body>
 </html>
