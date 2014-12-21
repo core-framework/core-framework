@@ -12,6 +12,7 @@ src/Core/cache
 */scripts/angular-route
 */index.php
 */robots.txt
+demoapp/Templates/root/sitemap.xml
 
 ### Windows template
 # Windows image file caches
