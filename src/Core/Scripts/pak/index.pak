@@ -41,9 +41,9 @@ $bootstrapPath = _ROOT . DS . "src" . DS . "Core" . DS . "inc" . DS . "bootstrap
 
 require_once $bootstrapPath;
 
-use Core\core;
+use Core\Core;
 
-$core = new core(true);
+$core = new Core(true);
 $core->forceApc = false;
 $core->registerApp('demoapp\\', DS . 'demoapp' . DS);                   // Comment this when you have setup your own app
 //$core->registerApp('{appName}\\', DS . '{appName}' . DS);             // unComment this when you have setup your own app
