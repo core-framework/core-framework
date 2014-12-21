@@ -10,13 +10,9 @@
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <{if isset($metaKeywords)}>
-                <meta name="keywords" content="<{$metaKeywords}>">
-            <{/if}>
-            <{if isset($metaDescription)}>
-                <meta name="description" content="<{$metaDescription}>">
-            <{/if}>
-            <meta name="author" content="Shalom Sam">
+            <{foreach from=$metas key=k item=v}>
+                <meta name="{$k}" content="{$v}" />
+            <{/foreach}>
         <{/block}>
         <!-- END: Metas -->
         <!-- Styles -->

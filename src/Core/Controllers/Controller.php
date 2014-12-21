@@ -22,7 +22,7 @@
 
 namespace Core\Controllers;
 
-use Core\Config\config;
+use Core\Config\Config;
 use Core\Models;
 use Core\Routes\Routes;
 use Core\Views\view;
@@ -163,8 +163,9 @@ class Controller
         $this->generateCSRFKey();
         $this->view->tplInfo['vars']['title'] = isset($params['pageTitle']) ? $params['pageTitle'] : '';
         $this->view->tplInfo['vars']['pageName'] = isset($params['pageName']) ? $params['pageName'] : '';
-        $this->view->tplInfo['vars']['metaKeywords'] = isset($params['metaKeywords']) ? $params['metaKeywords'] : '';
-        $this->view->tplInfo['vars']['metaDescription'] = isset($params['metaDescription']) ? $params['metaDescription'] : '';
+        $this->view->tplInfo['vars']['metas']['keywords'] = isset($params['metaKeywords']) ? $params['metaKeywords'] : '';
+        $this->view->tplInfo['vars']['metas']['description'] = isset($params['metaDescription']) ? $params['metaDescription'] : '';
+        $this->view->tplInfo['vars']['metas']['author'] = "Shalom Sam";
         $this->view->tplInfo['vars']['csrf'] = $_SESSION['csrf'];
     }
 

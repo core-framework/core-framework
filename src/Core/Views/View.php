@@ -214,7 +214,28 @@ class View implements viewInterface, Cachable
      */
     public function setTemplateVars($var, $val)
     {
-        $this->tplInfo['vars'][$var] = $val;
+        if(strpos($var, '.') !== false) {
+            $this->assignArrayByPath($this->tplInfo['vars'], $var, $val);
+        } else {
+            $this->tplInfo['vars'][$var] = $val;
+        }
+    }
+
+    /**
+     * Allows the use of dot separated array key access in setTemplateVars
+     *
+     * @param $arr
+     * @param $path
+     * @param $value
+     */
+    public function assignArrayByPath(&$arr, $path, $value) {
+        $keys = explode('.', $path);
+
+        while ($key = array_shift($keys)) {
+            $arr = &$arr[$key];
+        }
+
+        $arr = $value;
     }
 
     /**

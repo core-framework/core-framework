@@ -131,10 +131,11 @@ class Routes implements Cachable
      *
      * @param Request $request
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request, Config $config)
     {
         $this->templatePath = DS . "Templates" . DS;
         $this->request = $request;
+        $this->config = $config;
         $this->path = $request->getPath();
         $this->checkforTrailingSlashes();
         $this->pathBurst();
@@ -183,7 +184,7 @@ class Routes implements Cachable
      */
     private function loadRoutesConf()
     {
-        $this->collection = Config::getRoutesConfig();
+        $this->collection = $this->config->getRoutesConfig();
     }
 
     /**

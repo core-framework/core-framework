@@ -8,7 +8,6 @@
 
 namespace demoapp\Controllers;
 
-
 class documentationController extends demoController
 {
 
@@ -29,6 +28,17 @@ class documentationController extends demoController
         $commonLangFile = _ROOT . DS . "demoapp" . DS . "Templates" . DS . "demopages" . DS . "lang" . DS . $lang . DS . "common.php";
         $pageLangFile = _ROOT . DS . "demoapp" . DS . "Templates" . DS . "demopages" . DS . "lang" . DS . $lang . DS . "documentations" . DS . $pageName . ".php";
         $pageTpl = "demopages/documentations/sub_pages.tpl";
+
+        $googleVerification = '';
+        if ($this->config->__get('google-site-verification')) {
+            $googleVerification = $this->config->__get('google-site-verification');
+        } elseif(getenv('google-site-verification')) {
+            $googleVerification = getenv('google-site-verification');
+        } else {
+            $googleVerification = "";
+        }
+
+        $this->view->setTemplateVars('metas.google-site-verification', $googleVerification);
 
         $this->view->setTemplate('demopages/demo.tpl');
         $this->view->setTemplateVars('includeTpl', $pageTpl);

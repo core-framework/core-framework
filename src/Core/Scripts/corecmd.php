@@ -22,7 +22,9 @@
 
 namespace Core\Scripts;
 
+use Core\CacheSystem\Cachable;
 use Core\CacheSystem\cache;
+use Core\Config\Config;
 use Core\Helper\Helper;
 
 /**
@@ -34,7 +36,7 @@ use Core\Helper\Helper;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class corecmd
+class corecmd implements Cachable
 {
     /**
      * @var string Contains the current defined application name
@@ -94,6 +96,10 @@ class corecmd
      * @var cache Contains the cache object
      */
     private static $cache;
+    /**
+     * @var Config
+     */
+    private static $config;
 
     /**
      * corecmd Constructor
@@ -111,6 +117,8 @@ class corecmd
 
         $this::$IOStream = new IOStream();
         $this::$cache = new cache();
+        $this::$config = new Config();
+
 
         if (sizeof($args) === 0 || (isset($options['h']) || isset($options['help']))) {
 
@@ -133,6 +141,9 @@ class corecmd
             } else {
                 self::removeVhost($args[2]);
             }
+
+        } elseif ($args[1] === 'addConfigVars') {
+            self::addConfigVars($args[2], $args[3]);
 
         } elseif (method_exists($this, $args[1])) {
             $size = sizeof($args);
@@ -1041,6 +1052,23 @@ class corecmd
     }
 
     /**
+     * Add Config params to file
+     *
+     * @param $key
+     * @param $val
+     */
+    public static function addConfigVars($key, $val)
+    {
+        self::$IOStream->writeln("Adding values - $key -> $val");
+        $r = self::$config->store($key, $val);
+        if ($r === true) {
+            self::$IOStream->writeln("done!");
+        } else {
+            self::$IOStream->writeln("failed to add the values to file");
+        }
+    }
+
+    /**
      * Clear all cache
      */
     public static function clearCache()
@@ -1069,9 +1097,9 @@ class corecmd
     }
 
     /**
-     * Wakeup magic method
+     * Wakeup custom method
      */
-    public function __wakeup()
+    public function wakeUp($di)
     {
         $this::$IOStream = new IOStream();
         $this::$cache = new cache();

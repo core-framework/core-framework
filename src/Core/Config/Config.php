@@ -36,36 +36,26 @@ class Config
     /**
      * @var array Global configurations
      */
-    private static $globalConfig;
+    private $globalConfig;
+    /**
+     * @var string Global config file path
+     */
+    public $globalConfPath;
     /**
      * @var array Routes Configurations
      */
-    private static $routesConfig;
-    /**
-     * @var Config Instance of the Config Class
-     */
-    private static $instance;
+    private $routesConfig;
 
     /**
      * Constructor to load configurations
      */
-    protected function __construct()
+    public function __construct()
     {
-        $globalConf = _ROOT . DS . "config" . DS . "global.conf.php";
+        $this->globalConfPath = $globalConf = _ROOT . DS . "config" . DS . "global.conf.php";
         $routeConf = _ROOT . DS . "config" . DS . "routes.conf.php";
 
-        self::$globalConfig = include $globalConf;
-        self::$routesConfig = include $routeConf;
-    }
-
-
-    public static function getInstance()
-    {
-        if (null === self::$instance) {
-           self::$instance = new Config();
-        }
-
-        return self::$instance;
+        $this->globalConfig = include $globalConf;
+        $this->routesConfig = include $routeConf;
     }
 
     /**
@@ -73,9 +63,9 @@ class Config
      *
      * @return mixed
      */
-    public static function getGlobalConfig()
+    public function getGlobalConfig()
     {
-        return self::$globalConfig;
+        return $this->globalConfig;
     }
 
     /**
@@ -86,24 +76,42 @@ class Config
      */
     public function __get($name)
     {
-        if (array_key_exists($name, self::$globalConfig)) {
-            return self::$globalConfig[$name];
-        } elseif (array_key_exists($name, self::$routesConfig)) {
-            return self::$routesConfig[$name];
+        if (array_key_exists($name, $this->globalConfig)) {
+            return $this->globalConfig[$name];
+        } elseif (array_key_exists($name, $this->routesConfig)) {
+            return $this->routesConfig[$name];
         } else {
-            return null;
+            return false;
         }
+    }
+
+    /**
+     * Store new params to file
+     *
+     * @param $name
+     * @param $val
+     * @return int
+     */
+    public function store($name, $val)
+    {
+        $this->globalConfig[$name] = $val;
+        $globalConfig = $this->globalConfig;
+        chmod($this->globalConfPath, 0777);
+        $data = '<?php return ' . var_export($globalConfig, true) . ";\n ?>";
+        $r = file_put_contents($this->globalConfPath, $data);
+        chmod($this->globalConfPath, 0655);
+        return $r;
     }
 
     /**
      * Set/add config data
      *
      * @param string $name
-     * @param mixed $arr
+     * @param mixed $val
      */
-    public function __set($name, $arr)
+    public function __set($name, $val)
     {
-        self::$globalConfig->$name = $arr;
+        $this->globalConfig[$name] = $val;
     }
 
     /**
@@ -111,9 +119,9 @@ class Config
      *
      * @return mixed
      */
-    public static function getRoutesConfig()
+    public function getRoutesConfig()
     {
-        return self::$routesConfig;
+        return $this->routesConfig;
     }
 
 }

@@ -16,7 +16,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testConfig()
     {
-        $config = Config::getInstance();
+        $config = new Config();
 
         $this->assertInstanceOf('Core\\Config\\Config', $config);
     }
