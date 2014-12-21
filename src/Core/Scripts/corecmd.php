@@ -296,7 +296,12 @@ class corecmd implements Cachable
         self::setupApp('demoapp');
         $resp = self::$IOStream->ask("Do you want to setup your app now", 'yes', ['yes', 'no']);
         if ($resp === 'yes') {
-            self::setupApp();
+            $appName = self::$IOStream->ask("Enter your App name");
+            if(empty($appName)) {
+                self::$IOStream->showErr("App name cannot be empty!");
+                exit;
+            }
+            self::setupApp($appName);
         }
 
         self::createCacheFolder();
