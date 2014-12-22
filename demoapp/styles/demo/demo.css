@@ -156,6 +156,18 @@ h1:hover .permalink, h2:hover .permalink, h3:hover .permalink, h4:hover .permali
     margin-top: 54px;
 }
 
+.debugWrp {
+    padding: 10px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 37px;
+    width: 100%;
+    background: #dcdcdc;
+    z-index: 99999;
+    box-shadow: 0 -1px 5px rgba(0,0,0,0.4);
+}
+
 @media (max-width: 480px) {
     .navbar-brand {
         padding: 25px 75px;
@@ -164,6 +176,11 @@ h1:hover .permalink, h2:hover .permalink, h3:hover .permalink, h4:hover .permali
 
     .hero-unit {
         padding: 15px 5px;
+    }
+
+    .btn.btn-lg {
+        min-width: 100% !important;
+        margin: 10px 0px;
     }
 }
 

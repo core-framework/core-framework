@@ -29,57 +29,57 @@
         </div>
     </div>
     <hr>
-    <div class="container center-block productInfo">
+    <div class="row center-block productInfo">
         <div class="col-xs-12 col-lg-4 row center-block">
             <div class="row">
-                <div class="col-xs-6 col-lg-3">
+                <div class="col-lg-3 visible-xs-inline bold-xs">
                     Author:
                 </div>
-                <div class="col-xs-6 col-lg-9">
+                <div class="col-lg-9 visible-xs-inline">
                     <{$docVarsCom.author.name}>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6 col-lg-3">
+                <div class="col-lg-3 visible-xs-inline bold-xs">
                     Contact:
                 </div>
-                <div class="col-xs-6 col-lg-9">
+                <div class="col-lg-9 visible-xs-inline">
                     <a href="#"><{$docVarsCom.author.email}></a>
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-lg-4 row center-block">
             <div class="row">
-                <div class="col-xs-6 col-lg-4">
+                <div class="col-lg-4 visible-xs-inline bold-xs">
                     Author URL:
                 </div>
-                <div class="col-xs-6 col-lg-8">
+                <div class="col-lg-8 visible-xs-inline">
                     <a href="<{$docVarsCom.author.url}>"><{$docVarsCom.author.url|replace:"http://":""}></a>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6 col-lg-4">
+                <div class="col-lg-4 visible-xs-inline bold-xs">
                     Core Version:
                 </div>
-                <div class="col-xs-6 col-lg-8">
+                <div class="col-lg-8 visible-xs-inline">
                     <{$docVarsCom.product.current_ver}>
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-lg-4 center-block">
             <div class="row">
-                <div class="col-xs-6">
+                <div class="visible-xs-inline bold-xs col-lg-4">
                     Documentation Version:
                 </div>
-                <div class="col-xs-6">
+                <div class="visible-xs-inline col-lg-8">
                     <{$docVarsCom.product.doc_ver}>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
+                <div class="visible-xs-inline bold-xs col-lg-4">
                     Product Created:
                 </div>
-                <div class="col-xs-6">
+                <div class="visible-xs-inline col-lg-8">
                     <{$docVarsCom.product.created_on}>
                 </div>
             </div>
