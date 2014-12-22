@@ -11,7 +11,9 @@
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <{foreach from=$metas key=k item=v}>
-                <meta name="{$k}" content="{$v}" />
+                <{if not empty($v) }>
+                    <meta name="<{$k}>" content="<{$v}>" />
+                <{/if}>
             <{/foreach}>
         <{/block}>
         <!-- END: Metas -->

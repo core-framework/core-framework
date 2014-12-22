@@ -83,7 +83,7 @@ class core
      */
     private $controller;
     /**
-     * @var view View object
+     * @var \Core\Views\View View object
      */
     private $view;
 
