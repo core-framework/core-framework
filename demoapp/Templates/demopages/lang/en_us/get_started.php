@@ -49,19 +49,19 @@ npm install bower -g</pre>
     'subTitle3' => 'Post Installation',
     'subTitle3_pLink' => 'post-installation',
     'subBlock3' => '<p class="para">
-            Now if everything has been setup correctly and if you see your domain resolve, now you could go ahead and setup your own application. Open up your console and move into the root directory where Core Framework has been installed. Once there type <code class="prettyprint">corecon</code>. If you get an error or if the command doesn&rsquo;t exist then this is likely because Core Framework&rsquo;s attempt at aliasing <code class="prettyprint">src/Core/Scripts/Console</code> probably failed. You can easily remedy this by typing the following command in console - <code class="prettyprint">alias corecon="src/Core/Scripts/Console"</code>**
+            Now if everything has been setup correctly and if you see your domain resolve, now you could go ahead and setup your own application. Open up your console and move into the root directory where Core Framework has been installed. Once there type <code>corecon</code>. If you get an error or if the command doesn&rsquo;t exist then this is likely because Core Framework&rsquo;s attempt at aliasing <code>src/Core/Scripts/Console</code> probably failed. You can easily remedy this by typing the following command in console - <code>alias corecon="src/Core/Scripts/Console"</code>**
         </p>
         <p class="para">
             **Path will change if you are not in Core Framework&rsquo;s Root
 </p>
         <p class="para">
-Now type in <code class="prettyprint">corecon</code> again in your console, and this time you should get command options help displayed. The help displayed shows you the set of commands that can be used and what they do. Now go ahead set up your web application using the following command -
+Now type in <code>corecon</code> again in your console, and this time you should get command options help displayed. The help displayed shows you the set of commands that can be used and what they do. Now go ahead set up your web application using the following command -
         </p>
         <pre class="prettyprint">corecon setupApp</pre>
         <p class="para">
 This will run the setup process, and the cli will prompt you to enter your web applications domain name. Here you can either enter a full fledged valid domain name if this is for production, or you can simply enter the keyword of your choice.
         </p>
         <p class="well well-small">
-            <strong>Note:</strong> The domain you enter essentially also becomes the folder name with the dots (".") replaced with dashes ("-"). Thus if your domain name you entered is <code class="prettyprint">coreframework.in</code>, then your web application folder name will be <code class="prettyprint">coreframework-in</code>
+            <strong>Note:</strong> The domain you enter essentially also becomes the folder name with the dots (".") replaced with dashes ("-"). Thus if your domain name you entered is <code>coreframework.in</code>, then your web application folder name will be <code>coreframework-in</code>
         </p>'
 ];

@@ -5,7 +5,7 @@
 
 	<title>Class Core\CacheSystem\Cache</title>
 
-	<link rel="stylesheet" href="resources/style.css?1648332946">
+	<link rel="stylesheet" href="resources/style.css?2174713577">
 
 </head>
 
@@ -16,36 +16,84 @@
 
 
 		<div id="groups">
-			<h3>Namespaces</h3>
+				<h3>Namespaces</h3>
 			<ul>
-				<li class="active"><a href="namespace-Core.html">Core<span></span></a>
+				<li class="active">
+					<a href="namespace-Core.html">
+						Core<span></span>
+					</a>
+
 						<ul>
-				<li class="active"><a href="namespace-Core.CacheSystem.html">CacheSystem</a>
+				<li class="active">
+					<a href="namespace-Core.CacheSystem.html">
+						CacheSystem					</a>
+
 						</li>
-				<li><a href="namespace-Core.Config.html">Config</a>
+				<li>
+					<a href="namespace-Core.Config.html">
+						Config					</a>
+
 						</li>
-				<li><a href="namespace-Core.Controllers.html">Controllers</a>
+				<li>
+					<a href="namespace-Core.Controllers.html">
+						Controllers					</a>
+
 						</li>
-				<li><a href="namespace-Core.Database.html">Database</a>
+				<li>
+					<a href="namespace-Core.Database.html">
+						Database					</a>
+
 						</li>
-				<li><a href="namespace-Core.DI.html">DI</a>
+				<li>
+					<a href="namespace-Core.DI.html">
+						DI					</a>
+
 						</li>
-				<li><a href="namespace-Core.ErrorHandler.html">ErrorHandler</a>
+				<li>
+					<a href="namespace-Core.ErrorHandler.html">
+						ErrorHandler					</a>
+
 						</li>
-				<li><a href="namespace-Core.Helper.html">Helper</a>
+				<li>
+					<a href="namespace-Core.Helper.html">
+						Helper					</a>
+
 						</li>
-				<li><a href="namespace-Core.Models.html">Models</a>
+				<li>
+					<a href="namespace-Core.Models.html">
+						Models					</a>
+
 						</li>
-				<li><a href="namespace-Core.Request.html">Request</a>
+				<li>
+					<a href="namespace-Core.Request.html">
+						Request					</a>
+
 						</li>
-				<li><a href="namespace-Core.Routes.html">Routes</a>
+				<li>
+					<a href="namespace-Core.Routes.html">
+						Routes					</a>
+
 						</li>
-				<li><a href="namespace-Core.Scripts.html">Scripts</a>
+				<li>
+					<a href="namespace-Core.Scripts.html">
+						Scripts					</a>
+
 						</li>
-				<li><a href="namespace-Core.Views.html">Views</a>
+				<li>
+					<a href="namespace-Core.Views.html">
+						Views					</a>
+
 						</li>
 							</ul></li>
-				<li><a href="namespace-PHP.html">PHP</a>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
 						</li>
 			</ul>
 		</div>
@@ -61,7 +109,7 @@
 
 			<h3>Interfaces</h3>
 			<ul>
-				<li><a href="class-Core.CacheSystem.Cachable.html">Cachable</a></li>
+				<li><a href="class-Core.CacheSystem.Cacheable.html">Cacheable</a></li>
 			</ul>
 
 
@@ -93,9 +141,6 @@
 <span>Class</span>			</li>
 		</ul>
 		<ul>
-			<li>
-				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
-			</li>
 		</ul>
 		<ul>
 		</ul>
@@ -108,6 +153,20 @@
 	<div class="description">
 	<p>Class to handle key based caching of data</p>
 
+<pre><span class="php-var">$cache</span> = <span class="php-keyword1">new</span> Cache();
+ <span class="php-var">$request</span> = <span class="php-keyword1">new</span> Request();
+
+ <span class="php-comment">//store object</span>
+ <span class="php-var">$cache</span>-&gt;cacheContent(<span class="php-quote">'request_cache'</span>, <span class="php-var">$request</span>, <span class="php-num">300</span>);
+ <span class="php-comment">//OR store strings</span>
+ <span class="php-var">$cache</span>-&gt;cacheContent(<span class="php-quote">'someUniqueKey'</span>, <span class="php-quote">'someValue'</span>, <span class="php-num">300</span>);
+ <span class="php-comment">//get Cached value</span>
+ <span class="php-var">$CachedRequest</span> = <span class="php-var">$cache</span>-&gt;getCache(<span class="php-quote">'request_cache'</span>);
+ <span class="php-comment">//delete specific cache</span>
+ <span class="php-var">$cache</span>-&gt;deleteCache(<span class="php-quote">'request_cache'</span>);
+
+ <span class="php-comment">//clear all cache</span>
+ <span class="php-var">$cache</span>-&gt;clearCache();</pre>
 	</div>
 
 
@@ -127,14 +186,13 @@
 				<b>License:</b>
 				<a href="http://creativecommons.org/licenses/by-sa/4.0/">http://creativecommons.org/licenses/by-sa/4.0/</a><br>
 				<b>Author:</b>
-				Shalom Sam <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;">&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;</a>
-<br>
+				Shalom Sam <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;">&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;</a><br>
 				<b>Version:</b>
-				$Revision$
-<br>
+				$Revision$<br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-		<b>Located at</b> <a href="source-class-Core.CacheSystem.Cache.html#28-285" title="Go to source code">CacheSystem/Cache.php</a><br>
+			<b>Located at</b> <a href="source-class-Core.CacheSystem.Cache.html#26-260" title="Go to source code">CacheSystem/Cache.php</a>
+		<br>
 	</div>
 
 
@@ -153,16 +211,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Core.CacheSystem.Cache.html#44-59" title="Go to source code">__construct</a>( )</code>
+		<code><a href="source-class-Core.CacheSystem.Cache.html#60-75" title="Go to source code">__construct</a>( )</code>
 
 		<div class="description short">
 			<p>Cache Constructor</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Cache Constructor</p>
-
 
 
 
@@ -185,16 +241,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCacheDir">#</a>
-		<code><a href="source-class-Core.CacheSystem.Cache.html#61-69" title="Go to source code">getCacheDir</a>( )</code>
+		<code><a href="source-class-Core.CacheSystem.Cache.html#77-85" title="Go to source code">getCacheDir</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the Cache directory</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Returns the Cache directory</p>
-
 
 
 
@@ -221,29 +275,24 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cacheContent">#</a>
-		<code><a href="source-class-Core.CacheSystem.Cache.html#71-129" title="Go to source code">cacheContent</a>( <span>mixed <var>$key</var></span>, <span>mixed <var>$payload</var></span>, <span>mixed <var>$ttl</var></span> )</code>
+		<code><a href="source-class-Core.CacheSystem.Cache.html#87-149" title="Go to source code">cacheContent</a>( <span> <var>$key</var></span>, <span> <var>$payload</var></span>, <span> <var>$ttl</var></span> )</code>
 
 		<div class="description short">
 			<p>Caches the given content</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Caches the given content</p>
 
 
-
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$key</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 					<dt><var>$payload</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 					<dt><var>$ttl</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -255,51 +304,6 @@
 				<div class="list">
 					<code><a href="class-ErrorException.html">ErrorException</a></code>
 				</div>
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="cacheDI" id="_cacheDI">
-
-		<td class="attributes"><code>
-			 public 
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_cacheDI">#</a>
-		<code><a href="source-class-Core.CacheSystem.Cache.html#142-167" title="Go to source code">cacheDI</a>( <span>mixed <var>$key</var></span>, <span><code><a href="class-Core.DI.DI.html">Core\DI\DI</a></code> <var>$di</var></span> )</code>
-
-		<div class="description short">
-			<p>Cache Dependency Injection container</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Cache Dependency Injection container</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$key</var></dt>
-					<dd>
-</dd>
-					<dt><var>$di</var></dt>
-					<dd>
-</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>boolean</code>
-				</div>
-
 
 
 
@@ -318,64 +322,25 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCache">#</a>
-		<code><a href="source-class-Core.CacheSystem.Cache.html#169-202" title="Go to source code">getCache</a>( <span>mixed <var>$key</var></span> )</code>
+		<code><a href="source-class-Core.CacheSystem.Cache.html#162-193" title="Go to source code">getCache</a>( <span> <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>returns cache of given key||string if exists else returns false</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>returns cache of given key||string if exists else returns false</p>
-
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$key</var></dt>
-					<dd>Hash string to identify cached vars
-</dd>
+					<dd>Hash string to identify cached vars</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
 					<code>boolean|mixed</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getDI" id="_getDI">
-
-		<td class="attributes"><code>
-			 public 
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getDI">#</a>
-		<code><a href="source-class-Core.CacheSystem.Cache.html#204-220" title="Go to source code">getDI</a>( )</code>
-
-		<div class="description short">
-			<p>Gets the Dependency Container object</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Gets the Dependency Container object</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>boolean</code>
 				</div>
 
 
@@ -396,23 +361,20 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cacheExists">#</a>
-		<code><a href="source-class-Core.CacheSystem.Cache.html#222-247" title="Go to source code">cacheExists</a>( <span>mixed <var>$key</var></span> )</code>
+		<code><a href="source-class-Core.CacheSystem.Cache.html#195-220" title="Go to source code">cacheExists</a>( <span> <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Checks if the cache with given $key exists</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Checks if the cache with given $key exists</p>
 
 
-
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$key</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -438,23 +400,20 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteCache">#</a>
-		<code><a href="source-class-Core.CacheSystem.Cache.html#249-268" title="Go to source code">deleteCache</a>( <span>mixed <var>$key</var></span> )</code>
+		<code><a href="source-class-Core.CacheSystem.Cache.html#222-241" title="Go to source code">deleteCache</a>( <span> <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Deletes the cache of given $key if exists else returns false</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Deletes the cache of given $key if exists else returns false</p>
 
 
-
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$key</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -480,16 +439,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clearCache">#</a>
-		<code><a href="source-class-Core.CacheSystem.Cache.html#270-284" title="Go to source code">clearCache</a>( )</code>
+		<code><a href="source-class-Core.CacheSystem.Cache.html#243-259" title="Go to source code">clearCache</a>( )</code>
 
 		<div class="description short">
 			<p>Clear all cache</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Clear all cache</p>
-
 
 
 
@@ -526,7 +483,7 @@
 	</div>
 </div>
 </div>
-<script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?4147873919"></script>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
 </body>
 </html>

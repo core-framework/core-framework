@@ -43,7 +43,11 @@ namespace Core\DI;
  *  $view = $di->get('View);
  * </code>
  *
- * @package Core\DI
+ * @package Core\Views
+ * @version $Revision$
+ * @license http://creativecommons.org/licenses/by-sa/4.0/
+ * @link http://coreframework.in
+ * @author Shalom Sam <shalom.s@coreframework.in>
  */
 class DI
 {

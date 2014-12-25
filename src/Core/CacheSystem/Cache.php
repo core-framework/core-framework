@@ -26,6 +26,24 @@ namespace Core\CacheSystem;
 /**
  * Class to handle key based caching of data
  *
+ * <code>
+ *  $cache = new Cache();
+ *  $request = new Request();
+ *
+ *  //store object
+ *  $cache->cacheContent('request_cache', $request, 300);
+ *  //OR store strings
+ *  $cache->cacheContent('someUniqueKey', 'someValue', 300);
+ *  //get Cached value
+ *  $CachedRequest = $cache->getCache('request_cache');
+ *  //delete specific cache
+ *  $cache->deleteCache('request_cache');
+ *
+ *  //clear all cache
+ *  $cache->clearCache();
+ *
+ * </code>
+ *
  * @package Core\CacheSystem
  * @version $Revision$
  * @license http://creativecommons.org/licenses/by-sa/4.0/
@@ -234,7 +252,7 @@ class Cache
             $filename = $fileInfo->getFilename();
             $filePath = $this->cacheDir . $filename;
             chmod($filePath, 0777);
-            if (unlink($filePath)) {
+            if (unlink($filePath) === false) {
                 throw new \Exception("Unable to clear Cache.");
             }
         }

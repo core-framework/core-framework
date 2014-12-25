@@ -25,6 +25,17 @@ namespace Core\Config;
 /**
  * Class to load Core Framework configurations
  *
+ * <code>
+ *  $config = new Config();
+ *  //set config params
+ *  $config->someProp = 'someValue';
+ *  //get set config params or params defined in config.php
+ *  $someProp = $config->someProp
+ *
+ *  //store config data to file
+ *  $config->store('someKey', 'someValue');
+ * </code>
+ *
  * @package Core\Config
  * @version $Revision$
  * @license http://creativecommons.org/licenses/by-sa/4.0/

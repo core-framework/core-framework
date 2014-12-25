@@ -27,6 +27,10 @@ use Core\CacheSystem\Cacheable;
 /**
  * The class that handles the incoming request to server
  *
+ * <code>
+ *  $request = DI::get('Request');
+ * </code>
+ *
  * @package Core\Request
  * @version $Revision$
  * @license http://creativecommons.org/licenses/by-sa/4.0/

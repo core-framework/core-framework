@@ -28,6 +28,26 @@ use Core\DI\DI;
 /**
  * This is the base view class in Core Framework
  *
+ * <code>
+ *
+ *  $view = DI::get('View');
+ *  //set template file
+ *  $view->setTemplate('some.tpl')
+ *  //set template var values
+ *  $view->setTemplateVars('someKey', 'someValue');
+ *  //OR
+ *  $view->setTemplateVars('metas.somekey', 'someval');
+ *  $view->setTemplateVars('metas.someotherkey', 'someotherval');
+ *
+ *  //Use In template file
+ *  <{foreach from=$metas key=k item=v}>
+ *      <{if not empty($v) }>
+ *          <meta name="<{$k}>" content="<{$v}>" />
+ *      <{/if}>
+ *  <{/foreach}>
+ *
+ * </code>
+ *
  * @package Core\Views
  * @version $Revision$
  * @license http://creativecommons.org/licenses/by-sa/4.0/

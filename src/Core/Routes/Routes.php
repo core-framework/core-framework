@@ -30,6 +30,14 @@ use Core\Request\Request;
 /**
  * Handles the routing for the incoming request
  *
+ * <code>
+ *  $route = DI::get('Route');
+ *
+ *  //find find for current route in given route config
+ *  $route->findMatch();
+ *
+ * </code>
+ *
  * @package Core\Routes
  * @version $Revision$
  * @license http://creativecommons.org/licenses/by-sa/4.0/

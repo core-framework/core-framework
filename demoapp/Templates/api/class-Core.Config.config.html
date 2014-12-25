@@ -5,7 +5,7 @@
 
 	<title>Class Core\Config\Config</title>
 
-	<link rel="stylesheet" href="resources/style.css?1648332946">
+	<link rel="stylesheet" href="resources/style.css?2174713577">
 
 </head>
 
@@ -16,36 +16,84 @@
 
 
 		<div id="groups">
-			<h3>Namespaces</h3>
+				<h3>Namespaces</h3>
 			<ul>
-				<li class="active"><a href="namespace-Core.html">Core<span></span></a>
+				<li class="active">
+					<a href="namespace-Core.html">
+						Core<span></span>
+					</a>
+
 						<ul>
-				<li><a href="namespace-Core.CacheSystem.html">CacheSystem</a>
+				<li>
+					<a href="namespace-Core.CacheSystem.html">
+						CacheSystem					</a>
+
 						</li>
-				<li class="active"><a href="namespace-Core.Config.html">Config</a>
+				<li class="active">
+					<a href="namespace-Core.Config.html">
+						Config					</a>
+
 						</li>
-				<li><a href="namespace-Core.Controllers.html">Controllers</a>
+				<li>
+					<a href="namespace-Core.Controllers.html">
+						Controllers					</a>
+
 						</li>
-				<li><a href="namespace-Core.Database.html">Database</a>
+				<li>
+					<a href="namespace-Core.Database.html">
+						Database					</a>
+
 						</li>
-				<li><a href="namespace-Core.DI.html">DI</a>
+				<li>
+					<a href="namespace-Core.DI.html">
+						DI					</a>
+
 						</li>
-				<li><a href="namespace-Core.ErrorHandler.html">ErrorHandler</a>
+				<li>
+					<a href="namespace-Core.ErrorHandler.html">
+						ErrorHandler					</a>
+
 						</li>
-				<li><a href="namespace-Core.Helper.html">Helper</a>
+				<li>
+					<a href="namespace-Core.Helper.html">
+						Helper					</a>
+
 						</li>
-				<li><a href="namespace-Core.Models.html">Models</a>
+				<li>
+					<a href="namespace-Core.Models.html">
+						Models					</a>
+
 						</li>
-				<li><a href="namespace-Core.Request.html">Request</a>
+				<li>
+					<a href="namespace-Core.Request.html">
+						Request					</a>
+
 						</li>
-				<li><a href="namespace-Core.Routes.html">Routes</a>
+				<li>
+					<a href="namespace-Core.Routes.html">
+						Routes					</a>
+
 						</li>
-				<li><a href="namespace-Core.Scripts.html">Scripts</a>
+				<li>
+					<a href="namespace-Core.Scripts.html">
+						Scripts					</a>
+
 						</li>
-				<li><a href="namespace-Core.Views.html">Views</a>
+				<li>
+					<a href="namespace-Core.Views.html">
+						Views					</a>
+
 						</li>
 							</ul></li>
-				<li><a href="namespace-PHP.html">PHP</a>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
 						</li>
 			</ul>
 		</div>
@@ -89,9 +137,6 @@
 <span>Class</span>			</li>
 		</ul>
 		<ul>
-			<li>
-				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
-			</li>
 		</ul>
 		<ul>
 		</ul>
@@ -104,6 +149,14 @@
 	<div class="description">
 	<p>Class to load Core Framework configurations</p>
 
+<pre><span class="php-var">$config</span> = <span class="php-keyword1">new</span> Config();
+ <span class="php-comment">//set config params</span>
+ <span class="php-var">$config</span>-&gt;someProp = <span class="php-quote">'someValue'</span>;
+ <span class="php-comment">//get set config params or params defined in config.php</span>
+ <span class="php-var">$someProp</span> = <span class="php-var">$config</span>-&gt;someProp
+
+ <span class="php-comment">//store config data to file</span>
+ <span class="php-var">$config</span>-&gt;store(<span class="php-quote">'someKey'</span>, <span class="php-quote">'someValue'</span>);</pre>
 	</div>
 
 
@@ -123,14 +176,13 @@
 				<b>License:</b>
 				<a href="http://creativecommons.org/licenses/by-sa/4.0/">http://creativecommons.org/licenses/by-sa/4.0/</a><br>
 				<b>Author:</b>
-				Shalom Sam <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;">&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;</a>
-<br>
+				Shalom Sam <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;">&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;</a><br>
 				<b>Version:</b>
-				$Revision$
-<br>
+				$Revision$<br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-		<b>Located at</b> <a href="source-class-Core.Config.Config.html#25-127" title="Go to source code">Config/Config.php</a><br>
+			<b>Located at</b> <a href="source-class-Core.Config.Config.html#25-138" title="Go to source code">Config/Config.php</a>
+		<br>
 	</div>
 
 
@@ -149,16 +201,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Core.Config.Config.html#49-59" title="Go to source code">__construct</a>( )</code>
+		<code><a href="source-class-Core.Config.Config.html#60-70" title="Go to source code">__construct</a>( )</code>
 
 		<div class="description short">
 			<p>Constructor to load configurations</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Constructor to load configurations</p>
-
 
 
 
@@ -181,16 +231,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getGlobalConfig">#</a>
-		<code><a href="source-class-Core.Config.Config.html#61-69" title="Go to source code">getGlobalConfig</a>( )</code>
+		<code><a href="source-class-Core.Config.Config.html#72-80" title="Go to source code">getGlobalConfig</a>( )</code>
 
 		<div class="description short">
 			<p>gets global config</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>gets global config</p>
-
 
 
 
@@ -217,23 +265,20 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___get">#</a>
-		<code><a href="source-class-Core.Config.Config.html#71-86" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-Core.Config.Config.html#82-97" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			<p>Searches for the given parameter and returns its value if found else returns null</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Searches for the given parameter and returns its value if found else returns null</p>
 
 
-
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$name</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -259,26 +304,22 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_store">#</a>
-		<code><a href="source-class-Core.Config.Config.html#88-104" title="Go to source code">store</a>( <span>mixed <var>$name</var></span>, <span>mixed <var>$val</var></span> )</code>
+		<code><a href="source-class-Core.Config.Config.html#99-115" title="Go to source code">store</a>( <span> <var>$name</var></span>, <span> <var>$val</var></span> )</code>
 
 		<div class="description short">
 			<p>Store new params to file</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Store new params to file</p>
 
 
-
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$name</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 					<dt><var>$val</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -304,26 +345,22 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___set">#</a>
-		<code><a href="source-class-Core.Config.Config.html#106-115" title="Go to source code">__set</a>( <span>string <var>$name</var></span>, <span>mixed <var>$val</var></span> )</code>
+		<code><a href="source-class-Core.Config.Config.html#117-126" title="Go to source code">__set</a>( <span>string <var>$name</var></span>, <span>mixed <var>$val</var></span> )</code>
 
 		<div class="description short">
 			<p>Set/add config data</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Set/add config data</p>
 
 
-
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$name</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 					<dt><var>$val</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 				</dl></div>
 
 
@@ -345,16 +382,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRoutesConfig">#</a>
-		<code><a href="source-class-Core.Config.Config.html#117-125" title="Go to source code">getRoutesConfig</a>( )</code>
+		<code><a href="source-class-Core.Config.Config.html#128-136" title="Go to source code">getRoutesConfig</a>( )</code>
 
 		<div class="description short">
 			<p>get routes config</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>get routes config</p>
-
 
 
 
@@ -391,16 +426,14 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.Config.Config.html#40-43" title="Go to source code"><var>$globalConfPath</var></a>
+				<a href="source-class-Core.Config.Config.html#51-54" title="Go to source code"><var>$globalConfPath</var></a>
 
 			<div class="description short">
 				<p>Global config file path</p>
-
 			</div>
 
 			<div class="description detailed hidden">
 				<p>Global config file path</p>
-
 
 			</div>
 		</td>
@@ -425,7 +458,7 @@
 	</div>
 </div>
 </div>
-<script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?4147873919"></script>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
 </body>
 </html>

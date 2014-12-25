@@ -5,7 +5,7 @@
 
 	<title>Class Core\Routes\Routes</title>
 
-	<link rel="stylesheet" href="resources/style.css?1648332946">
+	<link rel="stylesheet" href="resources/style.css?2174713577">
 
 </head>
 
@@ -16,36 +16,84 @@
 
 
 		<div id="groups">
-			<h3>Namespaces</h3>
+				<h3>Namespaces</h3>
 			<ul>
-				<li class="active"><a href="namespace-Core.html">Core<span></span></a>
+				<li class="active">
+					<a href="namespace-Core.html">
+						Core<span></span>
+					</a>
+
 						<ul>
-				<li><a href="namespace-Core.CacheSystem.html">CacheSystem</a>
+				<li>
+					<a href="namespace-Core.CacheSystem.html">
+						CacheSystem					</a>
+
 						</li>
-				<li><a href="namespace-Core.Config.html">Config</a>
+				<li>
+					<a href="namespace-Core.Config.html">
+						Config					</a>
+
 						</li>
-				<li><a href="namespace-Core.Controllers.html">Controllers</a>
+				<li>
+					<a href="namespace-Core.Controllers.html">
+						Controllers					</a>
+
 						</li>
-				<li><a href="namespace-Core.Database.html">Database</a>
+				<li>
+					<a href="namespace-Core.Database.html">
+						Database					</a>
+
 						</li>
-				<li><a href="namespace-Core.DI.html">DI</a>
+				<li>
+					<a href="namespace-Core.DI.html">
+						DI					</a>
+
 						</li>
-				<li><a href="namespace-Core.ErrorHandler.html">ErrorHandler</a>
+				<li>
+					<a href="namespace-Core.ErrorHandler.html">
+						ErrorHandler					</a>
+
 						</li>
-				<li><a href="namespace-Core.Helper.html">Helper</a>
+				<li>
+					<a href="namespace-Core.Helper.html">
+						Helper					</a>
+
 						</li>
-				<li><a href="namespace-Core.Models.html">Models</a>
+				<li>
+					<a href="namespace-Core.Models.html">
+						Models					</a>
+
 						</li>
-				<li><a href="namespace-Core.Request.html">Request</a>
+				<li>
+					<a href="namespace-Core.Request.html">
+						Request					</a>
+
 						</li>
-				<li class="active"><a href="namespace-Core.Routes.html">Routes</a>
+				<li class="active">
+					<a href="namespace-Core.Routes.html">
+						Routes					</a>
+
 						</li>
-				<li><a href="namespace-Core.Scripts.html">Scripts</a>
+				<li>
+					<a href="namespace-Core.Scripts.html">
+						Scripts					</a>
+
 						</li>
-				<li><a href="namespace-Core.Views.html">Views</a>
+				<li>
+					<a href="namespace-Core.Views.html">
+						Views					</a>
+
 						</li>
 							</ul></li>
-				<li><a href="namespace-PHP.html">PHP</a>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
 						</li>
 			</ul>
 		</div>
@@ -89,9 +137,6 @@
 <span>Class</span>			</li>
 		</ul>
 		<ul>
-			<li>
-				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
-			</li>
 		</ul>
 		<ul>
 		</ul>
@@ -104,13 +149,17 @@
 	<div class="description">
 	<p>Handles the routing for the incoming request</p>
 
+<pre><span class="php-var">$route</span> = DI::get(<span class="php-quote">'Route'</span>);
+
+ <span class="php-comment">//find find for current route in given route config</span>
+ <span class="php-var">$route</span>-&gt;findMatch();</pre>
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
 <b><span>Core\Routes\Routes</span></b>			
 			 implements 
-				<a href="class-Core.CacheSystem.Cachable.html"><span>Core\CacheSystem\Cachable</span></a>
+				<a href="class-Core.CacheSystem.Cacheable.html"><span>Core\CacheSystem\Cacheable</span></a>
 			
 			
 		</dd>
@@ -132,14 +181,13 @@
 				<b>License:</b>
 				<a href="http://creativecommons.org/licenses/by-sa/4.0/">http://creativecommons.org/licenses/by-sa/4.0/</a><br>
 				<b>Author:</b>
-				Shalom Sam <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;">&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;</a>
-<br>
+				Shalom Sam <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;">&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;</a><br>
 				<b>Version:</b>
-				$Revision$
-<br>
+				$Revision$<br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-		<b>Located at</b> <a href="source-class-Core.Routes.Routes.html#29-704" title="Go to source code">Routes/Routes.php</a><br>
+			<b>Located at</b> <a href="source-class-Core.Routes.Routes.html#30-716" title="Go to source code">Routes/Routes.php</a>
+		<br>
 	</div>
 
 
@@ -158,26 +206,22 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#129-144" title="Go to source code">__construct</a>( <span><code><a href="class-Core.Request.Request.html">Core\Request\Request</a></code> <var>$request</var></span>, <span><code><a href="class-Core.Config.Config.html">Core\Config\Config</a></code> <var>$config</var></span> )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#138-153" title="Go to source code">__construct</a>( <span><code><a href="class-Core.Request.Request.html">Core\Request\Request</a></code> <var>$request</var></span>, <span><code><a href="class-Core.Config.Config.html">Core\Config\Config</a></code> <var>$config</var></span> )</code>
 
 		<div class="description short">
 			<p>Sets $this properties</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Sets $this properties</p>
 
 
-
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$request</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 					<dt><var>$config</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 				</dl></div>
 
 
@@ -199,16 +243,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_findMatch">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#191-228" title="Go to source code">findMatch</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#200-237" title="Go to source code">findMatch</a>( )</code>
 
 		<div class="description short">
 			<p>find controller and methods for current URL (path)</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>find controller and methods for current URL (path)</p>
-
 
 
 
@@ -231,16 +273,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkIfPatternMatch">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#290-403" title="Go to source code">checkIfPatternMatch</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#299-412" title="Go to source code">checkIfPatternMatch</a>( )</code>
 
 		<div class="description short">
 			<p>check if URL (path) matches defined paths (pathConf file)</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>check if URL (path) matches defined paths (pathConf file)</p>
-
 
 
 
@@ -263,16 +303,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPath">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#405-413" title="Go to source code">getPath</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#414-422" title="Go to source code">getPath</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the relative URL requested</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Returns the relative URL requested</p>
-
 
 
 
@@ -299,16 +337,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFileName">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#415-423" title="Go to source code">getFileName</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#424-432" title="Go to source code">getFileName</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the current fileName</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Returns the current fileName</p>
-
 
 
 
@@ -335,16 +371,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFileExt">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#425-433" title="Go to source code">getFileExt</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#434-442" title="Go to source code">getFileExt</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the file extension</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Returns the file extension</p>
-
 
 
 
@@ -371,16 +405,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getNamespace">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#435-443" title="Go to source code">getNamespace</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#444-452" title="Go to source code">getNamespace</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the namespace</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Returns the namespace</p>
-
 
 
 
@@ -407,23 +439,20 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setNamespace">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#445-453" title="Go to source code">setNamespace</a>( <span>mixed <var>$str</var></span> )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#454-462" title="Go to source code">setNamespace</a>( <span> <var>$str</var></span> )</code>
 
 		<div class="description short">
 			<p>sets the namespace</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>sets the namespace</p>
 
 
-
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$str</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 				</dl></div>
 
 
@@ -445,16 +474,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getController">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#455-463" title="Go to source code">getController</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#464-472" title="Go to source code">getController</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the controller</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Returns the controller</p>
-
 
 
 
@@ -481,23 +508,20 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setController">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#465-473" title="Go to source code">setController</a>( <span>mixed <var>$str</var></span> )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#474-482" title="Go to source code">setController</a>( <span> <var>$str</var></span> )</code>
 
 		<div class="description short">
 			<p>sets the controller</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>sets the controller</p>
 
 
-
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$str</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 				</dl></div>
 
 
@@ -519,16 +543,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMethod">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#475-483" title="Go to source code">getMethod</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#484-492" title="Go to source code">getMethod</a>( )</code>
 
 		<div class="description short">
 			<p>get class method</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>get class method</p>
-
 
 
 
@@ -555,23 +577,20 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setMethod">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#485-493" title="Go to source code">setMethod</a>( <span>mixed <var>$method</var></span> )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#494-502" title="Go to source code">setMethod</a>( <span> <var>$method</var></span> )</code>
 
 		<div class="description short">
 			<p>set class method</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>set class method</p>
 
 
-
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$method</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 				</dl></div>
 
 
@@ -593,16 +612,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRqstMethod">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#495-503" title="Go to source code">getRqstMethod</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#504-512" title="Go to source code">getRqstMethod</a>( )</code>
 
 		<div class="description short">
 			<p>returns the method</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>returns the method</p>
-
 
 
 
@@ -629,23 +646,20 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setRqstMethod">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#505-513" title="Go to source code">setRqstMethod</a>( <span>mixed <var>$str</var></span> )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#514-522" title="Go to source code">setRqstMethod</a>( <span> <var>$str</var></span> )</code>
 
 		<div class="description short">
 			<p>sets the method</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>sets the method</p>
 
 
-
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$str</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 				</dl></div>
 
 
@@ -667,16 +681,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getArgs">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#515-523" title="Go to source code">getArgs</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#524-532" title="Go to source code">getArgs</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the arguments [array]</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Returns the arguments [array]</p>
-
 
 
 
@@ -703,16 +715,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getModel">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#525-533" title="Go to source code">getModel</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#534-542" title="Go to source code">getModel</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the model</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Returns the model</p>
-
 
 
 
@@ -739,16 +749,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRequired">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#535-543" title="Go to source code">getRequired</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#544-552" title="Go to source code">getRequired</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the required files</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Returns the required files</p>
-
 
 
 
@@ -775,16 +783,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getIsRootFile">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#545-553" title="Go to source code">getIsRootFile</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#554-562" title="Go to source code">getIsRootFile</a>( )</code>
 
 		<div class="description short">
 			<p>Returns true if the file is a root file</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Returns true if the file is a root file</p>
-
 
 
 
@@ -811,16 +817,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getIsFEComponent">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#555-563" title="Go to source code">getIsFEComponent</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#564-572" title="Go to source code">getIsFEComponent</a>( )</code>
 
 		<div class="description short">
 			<p>Returns true if the file Front End Component</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Returns true if the file Front End Component</p>
-
 
 
 
@@ -847,16 +851,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getIsCustomServe">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#565-573" title="Go to source code">getIsCustomServe</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#574-582" title="Go to source code">getIsCustomServe</a>( )</code>
 
 		<div class="description short">
 			<p>Returns true if the file is set as Custom serve (serveAsIs)</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Returns true if the file is set as Custom serve (serveAsIs)</p>
-
 
 
 
@@ -883,16 +885,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getReferencePath">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#575-583" title="Go to source code">getReferencePath</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#584-592" title="Go to source code">getReferencePath</a>( )</code>
 
 		<div class="description short">
 			<p>returns reference path set in routes.conf</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>returns reference path set in routes.conf</p>
-
 
 
 
@@ -919,16 +919,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRouteVars">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#585-593" title="Go to source code">getRouteVars</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#594-602" title="Go to source code">getRouteVars</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the properties of the path</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Returns the properties of the path</p>
-
 
 
 
@@ -955,23 +953,20 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addRouteVars">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#595-604" title="Go to source code">addRouteVars</a>( <span>array <var>$arr</var></span> )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#604-613" title="Go to source code">addRouteVars</a>( <span>array <var>$arr</var></span> )</code>
 
 		<div class="description short">
 			<p>Add route vars</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Add route vars</p>
 
 
-
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$arr</var></dt>
-					<dd>
-</dd>
+					<dd></dd>
 				</dl></div>
 
 
@@ -993,16 +988,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getGetVars">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#606-614" title="Go to source code">getGetVars</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#615-623" title="Go to source code">getGetVars</a>( )</code>
 
 		<div class="description short">
 			<p>returns the sanitized $_GET</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>returns the sanitized $_GET</p>
-
 
 
 
@@ -1029,16 +1022,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPostVars">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#616-624" title="Go to source code">getPostVars</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#625-633" title="Go to source code">getPostVars</a>( )</code>
 
 		<div class="description short">
 			<p>returns the sanitized $_POST</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>returns the sanitized $_POST</p>
-
 
 
 
@@ -1065,16 +1056,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCookies">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#626-634" title="Go to source code">getCookies</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#635-643" title="Go to source code">getCookies</a>( )</code>
 
 		<div class="description short">
 			<p>returns sanitized $_COOKIE</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>returns sanitized $_COOKIE</p>
-
 
 
 
@@ -1101,16 +1090,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getReqstMethod">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#636-644" title="Go to source code">getReqstMethod</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#645-653" title="Go to source code">getReqstMethod</a>( )</code>
 
 		<div class="description short">
 			<p>returns the current request method</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>returns the current request method</p>
-
 
 
 
@@ -1137,16 +1124,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDefinedMethod">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#646-654" title="Go to source code">getDefinedMethod</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#655-663" title="Go to source code">getDefinedMethod</a>( )</code>
 
 		<div class="description short">
 			<p>returns the defined request method for the path</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>returns the defined request method for the path</p>
-
 
 
 
@@ -1173,16 +1158,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getServer">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#656-664" title="Go to source code">getServer</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#665-673" title="Go to source code">getServer</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the Server details</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Returns the Server details</p>
-
 
 
 
@@ -1209,16 +1192,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___sleep">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#666-697" title="Go to source code">__sleep</a>( )</code>
+		<code><a href="source-class-Core.Routes.Routes.html#675-706" title="Go to source code">__sleep</a>( )</code>
 
 		<div class="description short">
 			<p>Sleep magic method</p>
-
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Sleep magic method</p>
-
 
 
 
@@ -1231,51 +1212,39 @@
 
 
 				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Core.CacheSystem.Cachable.html#___sleep">Core\CacheSystem\Cachable::__sleep()</a></code></div>
+				<div class="list"><code><a href="class-Core.CacheSystem.Cacheable.html#___sleep">Core\CacheSystem\Cacheable::__sleep()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="wakeUp" id="_wakeUp">
+	<tr data-order="__wakeup" id="___wakeup">
 
 		<td class="attributes"><code>
 			 public 
 
-			mixed|
+			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_wakeUp">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#699-702" title="Go to source code">wakeUp</a>( <span>mixed <var>$di</var></span> )</code>
+		<a class="anchor" href="#___wakeup">#</a>
+		<code><a href="source-class-Core.Routes.Routes.html#708-714" title="Go to source code">__wakeup</a>( )</code>
 
 		<div class="description short">
-			<p>Custom wakeup method called by the Cache object on retrieval (unserialized)</p>
-
+			<p>Magic wakup method. Initializes on unserialize</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Custom wakeup method called by the Cache object on retrieval (unserialized)</p>
+			<p>Magic wakup method. Initializes on unserialize</p>
 
 
 
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$di</var></dt>
-					<dd>
-</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed|</code>
-				</div>
 
 
 
 
 				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Core.CacheSystem.Cachable.html#_wakeUp">Core\CacheSystem\Cachable::wakeUp()</a></code></div>
+				<div class="list"><code><a href="class-Core.CacheSystem.Cacheable.html#___wakeup">Core\CacheSystem\Cacheable::__wakeup()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -1301,16 +1270,14 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.Routes.Routes.html#40-43" title="Go to source code"><var>$path</var></a>
+				<a href="source-class-Core.Routes.Routes.html#49-52" title="Go to source code"><var>$path</var></a>
 
 			<div class="description short">
 				<p>The path/query string of the request</p>
-
 			</div>
 
 			<div class="description detailed hidden">
 				<p>The path/query string of the request</p>
-
 
 			</div>
 		</td>
@@ -1328,16 +1295,14 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.Routes.Routes.html#44-47" title="Go to source code"><var>$urlPathArr</var></a>
+				<a href="source-class-Core.Routes.Routes.html#53-56" title="Go to source code"><var>$urlPathArr</var></a>
 
 			<div class="description short">
 				<p>The path represented as an array split at '/', .i.e. /some/path would be ['some','path']</p>
-
 			</div>
 
 			<div class="description detailed hidden">
 				<p>The path represented as an array split at '/', .i.e. /some/path would be ['some','path']</p>
-
 
 			</div>
 		</td>
@@ -1355,16 +1320,14 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.Routes.Routes.html#48-51" title="Go to source code"><var>$controllerVerb</var></a>
+				<a href="source-class-Core.Routes.Routes.html#57-60" title="Go to source code"><var>$controllerVerb</var></a>
 
 			<div class="description short">
 				<p>The string that defines the Controller and Method associated with a given URL path, extracted from the route.conf</p>
-
 			</div>
 
 			<div class="description detailed hidden">
 				<p>The string that defines the Controller and Method associated with a given URL path, extracted from the route.conf</p>
-
 
 			</div>
 		</td>
@@ -1382,16 +1345,14 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.Routes.Routes.html#52-55" title="Go to source code"><var>$request</var></a>
+				<a href="source-class-Core.Routes.Routes.html#61-64" title="Go to source code"><var>$request</var></a>
 
 			<div class="description short">
 				<p>Request object</p>
-
 			</div>
 
 			<div class="description detailed hidden">
 				<p>Request object</p>
-
 
 			</div>
 		</td>
@@ -1409,16 +1370,14 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Core.Routes.Routes.html#56-59" title="Go to source code"><var>$config</var></a>
+				<a href="source-class-Core.Routes.Routes.html#65-68" title="Go to source code"><var>$config</var></a>
 
 			<div class="description short">
 				<p>Config object</p>
-
 			</div>
 
 			<div class="description detailed hidden">
 				<p>Config object</p>
-
 
 			</div>
 		</td>
@@ -1443,7 +1402,7 @@
 	</div>
 </div>
 </div>
-<script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?4147873919"></script>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
 </body>
 </html>
