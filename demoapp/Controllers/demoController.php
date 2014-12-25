@@ -105,8 +105,17 @@ class demoController extends Controller
         $commonLangFile = _ROOT . DS . "demoapp" . DS . "Templates" . DS . "demopages" . DS . "lang" . DS . $lang . DS . "common.php";
 
         $this->view->setTemplate('demopages/demo.tpl');
-        $this->view->setTemplateVars('docVarsCom', include_once $commonLangFile);
-        $this->view->setTemplateVars('customServePath', $routeParams['customServePath']);
+        if (is_readable($commonLangFile)) {
+            $this->view->setTemplateVars('docVarsCom', include_once $commonLangFile);
+        }
+        if (is_readable($routeParams['customServePath'])) {
+            $this->view->setTemplateVars('customServePath', $routeParams['customServePath']);
+        } else {
+            header('Status: 404 Page Not Found', false, 404);
+            header('Location: /documentation/api/404.html');
+            exit;
+        }
+
         $this->view->setTemplateVars('mainPage', 'documentation');
         $this->view->setTemplateVars('subPage', true);
     }

@@ -485,6 +485,7 @@ class core
         } else {
             $this->setHeaders($fileExt);
             include_once $realPath;
+            $this->view->disable();
         }
 
     }
