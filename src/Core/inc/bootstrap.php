@@ -39,7 +39,7 @@ $di->register('Route', '\\Core\\Routes\\Routes')
     ->setArguments(array('Request', 'Config'));
 $di->register('View', '\\Core\\Views\\View')
     ->setArguments(array('Smarty'));
-$di->register('Smarty', '\\Smarty')
+$di->register('Smarty', '')
     ->setDefinition(function(){
             return new Smarty();
         });

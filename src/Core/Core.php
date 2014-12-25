@@ -86,7 +86,9 @@ class core
      * @var \Core\Views\View View object
      */
     private $view;
-
+    /**
+     * @var \Core\Config\Config Config object
+     */
     private $config;
     /**
      * @var array Template information
@@ -169,6 +171,7 @@ class core
         $apcisEnabled = ini_get('apc.enabled');
         $this->hasAPC = $apcisEnabled && $apcisloaded ? true : false;
 
+
         $this->request = $di->get('Request');
         $this->path = $this->request->getPath();
 
@@ -238,7 +241,6 @@ class core
     {
         $this->route = $this->_di->get('Route');
         $this->view = $this->_di->get('View');
-        $this->cache->cacheDI('_di', $this->_di);
         $this->globalConf = require_once _ROOT . $this->globalConf;
     }
 

@@ -23,10 +23,11 @@
 namespace Core\CacheSystem;
 
 /**
- * Interface Cachable
+ * Interface Cacheable
  * @package Core\CacheSystem
  */
-interface Cachable {
+interface Cacheable
+{
 
     /**
      * Magic sleep method to define properties to cache (serialize)
@@ -36,11 +37,8 @@ interface Cachable {
     public function __sleep();
 
     /**
-     * Custom wakeup method called by the Cache object on retrieval (unserialized)
-     *
-     * @param $di
-     * @return mixed|void
+     * Magic wakup method. Initializes on unserialize
      */
-    public function wakeUp($di);
+    public function __wakeup();
 
 } 

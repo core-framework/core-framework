@@ -22,8 +22,9 @@
 
 namespace Core\Routes;
 
-use Core\CacheSystem\Cachable;
+use Core\CacheSystem\Cacheable;
 use Core\Config\Config;
+use Core\DI\DI;
 use Core\Request\Request;
 
 /**
@@ -35,7 +36,7 @@ use Core\Request\Request;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class Routes implements Cachable
+class Routes implements Cacheable
 {
     /**
      * @var string The path/query string of the request
@@ -696,9 +697,12 @@ class Routes implements Cachable
         ];
     }
 
-    public function wakeUp($di)
+    /**
+     * Magic wakup method. Initializes on unserialize
+     */
+    public function __wakeup()
     {
-
+        $this->request = DI::getService('Request');
     }
 
 } 

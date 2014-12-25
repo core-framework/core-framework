@@ -22,7 +22,7 @@
 
 namespace Core\Request;
 
-use Core\CacheSystem\Cachable;
+use Core\CacheSystem\Cacheable;
 
 /**
  * The class that handles the incoming request to server
@@ -33,7 +33,7 @@ use Core\CacheSystem\Cachable;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class Request implements Cachable
+class Request implements Cacheable
 {
     /**
      * @var string The URL/query string (relative path)
@@ -241,12 +241,9 @@ class Request implements Cachable
     }
 
     /**
-     * custom wakeup method
-     *
-     * @param $di
-     * @return null
+     * Magic wakup method. Initializes on unserialize
      */
-    public function wakeUp($di)
+    public function __wakeup()
     {
 
     }

@@ -39,6 +39,10 @@ body.api p {
     font-size: 10px;
 }
 
+.bold-xs {
+    font-weight: normal;
+}
+
 .home .navbar-inverse .navbar-nav li.home a,
 .documentation .navbar-inverse .navbar-nav li.documentation a,
 .tutorials .navbar-inverse .navbar-nav li.tutorials a,
@@ -181,6 +185,10 @@ h1:hover .permalink, h2:hover .permalink, h3:hover .permalink, h4:hover .permali
     .btn.btn-lg {
         min-width: 100% !important;
         margin: 10px 0px;
+    }
+
+    .bold-xs {
+        font-weight: bold;
     }
 }
 

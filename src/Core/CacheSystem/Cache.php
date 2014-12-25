@@ -22,8 +22,6 @@
 
 namespace Core\CacheSystem;
 
-use Core\DI\DI;
-
 
 /**
  * Class to handle key based caching of data
@@ -105,7 +103,7 @@ class Cache
         if ($type === 'array') {
             $cache['content'] = $payload;
         } elseif ($type === 'object') {
-            if ($payload instanceof Cachable) {
+            if ($payload instanceof Cacheable) {
                 $cache['content'] = serialize($payload);
             } else {
                 throw new \ErrorException("Object must implement Cachable interface");
@@ -122,8 +120,12 @@ class Cache
         $cache['ttl'] = $ttl;
         $data = '<?php return ' . var_export($cache, true) . ";\n ?>";
 
-        $y = touch($file);
-        $x = file_put_contents($file, $data);
+        if (touch($file) === false) {
+            throw new \ErrorException("Unable to create cache file.");
+        }
+        if (file_put_contents($file, $data) === false) {
+            throw new \ErrorException("Unable to write to file.");
+        }
 
         return true;
     }
@@ -137,33 +139,6 @@ class Cache
     private function isValidMd5($md5 = '')
     {
         return preg_match('/^[a-f0-9]{32}$/', $md5);
-    }
-
-    /**
-     * Cache Dependency Injection container
-     *
-     * @param $key
-     * @param DI $di
-     * @return bool
-     */
-    public function cacheDI($key, DI $di)
-    {
-        if (!$this->isValidMd5($key)) {
-            $key = md5($key);
-        }
-
-        $file = $this->cacheDir . $key . ".php";
-        $content = serialize($di);
-        $cache['content'] = $content;
-        $cache['type'] = 'object';
-        $cache['cTime'] = time();
-        $cache['ttl'] = 0;
-        $data = '<?php return ' . var_export($cache, true) . ";\n ?>";
-
-        $y = touch($file);
-        $x = file_put_contents($file, $data);
-
-        return true;
     }
 
     /**
@@ -191,29 +166,9 @@ class Cache
                 $content = $cache['content'];
                 if ($cache['type'] === 'object') {
                     $content = unserialize($content);
-                    $di = $this->getDI();
-                    $content->wakeUp($di);
                 }
                 return $content;
             }
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Gets the Dependency Container object
-     *
-     * @return bool
-     */
-    public function getDI()
-    {
-        $key = md5('_di');
-        $cacheDir = $this->cacheDir;
-
-        if (is_file($cacheDir . $key . ".php")) {
-            $cache = include_once $cacheDir . $key . ".php";
-            return $cache['content'];
         } else {
             return false;
         }
@@ -279,7 +234,9 @@ class Cache
             $filename = $fileInfo->getFilename();
             $filePath = $this->cacheDir . $filename;
             chmod($filePath, 0777);
-            $r = unlink($filePath);
+            if (unlink($filePath)) {
+                throw new \Exception("Unable to clear Cache.");
+            }
         }
     }
 } 

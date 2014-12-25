@@ -22,7 +22,8 @@
 
 namespace Core\Views;
 
-use Core\CacheSystem\Cachable;
+use Core\CacheSystem\Cacheable;
+use Core\DI\DI;
 
 /**
  * This is the base view class in Core Framework
@@ -33,7 +34,7 @@ use Core\CacheSystem\Cachable;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class View implements viewInterface, Cachable
+class View implements viewInterface, Cacheable
 {
     /**
      * @var bool Defines if View class is disabled from rendering
@@ -192,7 +193,7 @@ class View implements viewInterface, Cachable
     public function setTemplateDir($path)
     {
         $this->templateDir = $path;
-        $this->tplEngine->addTemplateDir(_ROOT . $this->templateDir);
+        $this->tplEngine->addTemplateDir(_ROOT . $path);
     }
 
     /**
@@ -282,14 +283,11 @@ class View implements viewInterface, Cachable
     }
 
     /**
-     * Custom wakeup method called by the Cache object on retrieval (unserialized)
-     *
-     * @param $di
-     * @return mixed|void
+     * Magic wakup method. Initializes on unserialize
      */
-    public function wakeUp($di)
+    public function __wakeup()
     {
-        $this->tplEngine = $di->get('Smarty');
+        $this->tplEngine = DI::get('Smarty');
         $this->init();
     }
 

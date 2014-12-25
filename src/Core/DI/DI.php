@@ -24,6 +24,25 @@ namespace Core\DI;
 
 /**
  * Class DI
+ *
+ * <code>
+ *  $di = new DI()
+ *  $di->register('View', '\\Core\\Views\\View')
+ *      ->setArguments(array('Smarty'));
+ *  $di->register('Smarty', '')
+ *      ->setDefinition(function() {
+ *          return new Smarty();
+ *      })
+ *
+ *  //OR
+ *  DI::register(....)
+ *
+ * //Later to get services
+ *  $view = DI::get('View');
+ * //OR
+ *  $view = $di->get('View);
+ * </code>
+ *
  * @package Core\DI
  */
 class DI
@@ -31,11 +50,11 @@ class DI
     /**
      * @var array Array of service objects definitions
      */
-    protected $services = [];
+    protected static $services = [];
     /**
      * @var array Array of shared service instances
      */
-    protected $sharedInstances = [];
+    protected static $sharedInstances = [];
 
     /**
      * Method to register services
@@ -46,7 +65,7 @@ class DI
      * @return mixed
      * @throws \ErrorException
      */
-    public function register($name, $definition, $shared = true)
+    public static function register($name, $definition, $shared = true)
     {
         if (!is_string($name)) {
             throw new \ErrorException("Service name must be a valid string.");
@@ -56,48 +75,9 @@ class DI
             throw new \ErrorException("Inncorrect parameter type.");
         }
 
-        $this->services[$name] = new Service($name, $definition, $shared);
+        self::$services[$name] = new Service($name, $definition, $shared);
 
-        return $this->services[$name];
-    }
-
-
-    /**
-     * Returns if service is shared or not
-     *
-     * @param $name
-     * @param $shared
-     * @return mixed
-     * @throws \ErrorException
-     */
-    public function setShared($name, $shared)
-    {
-        if (!$this->services[$name]) {
-            throw new \ErrorException("Service must be registered first.");
-        }
-
-        $this->services[$name]->setShared($shared);
-
-        return $this->services[$name];
-    }
-
-    /**
-     * Set service implementation definition
-     *
-     * @param $name
-     * @param $definition
-     * @return mixed
-     * @throws \ErrorException
-     */
-    public function setDefinition($name, $definition)
-    {
-        if (!$this->services[$name]) {
-            throw new \ErrorException("Service must be registered first.");
-        }
-
-        $this->services[$name]->setDefinition($definition);
-
-        return $this->services[$name];
+        return self::$services[$name];
     }
 
     /**
@@ -107,29 +87,29 @@ class DI
      * @return object
      * @throws \ErrorException
      */
-    public function get($name)
+    public static function get($name)
     {
         if (!is_string($name)) {
             throw new \ErrorException("Service name must be a valid string");
         }
 
-        if (!$this->serviceExists($name)) {
+        if (!self::serviceExists($name)) {
             throw new \ErrorException("Service of type $name not found. Service $name must be registered before use.");
         }
 
-        $definition = $this->services[$name]->getDefinition();
-        $arguments = $this->services[$name]->getArguments();
-        $shared = $this->services[$name]->getShared();
+        $definition = self::$services[$name]->getDefinition();
+        $arguments = self::$services[$name]->getArguments();
+        $shared = self::$services[$name]->getShared();
 
-        if (!empty($this->sharedInstances[$name]) && $shared === true) {
-            return $this->sharedInstances[$name];
+        if (!empty(self::$sharedInstances[$name]) && $shared === true) {
+            return self::$sharedInstances[$name];
         }
 
         if ($definition instanceof \Closure) {
 
             if ($shared) {
-                $this->sharedInstances[$name] = $definition();
-                return $this->sharedInstances[$name];
+                self::$sharedInstances[$name] = $definition();
+                return self::$sharedInstances[$name];
             }
 
             return $definition();
@@ -137,8 +117,8 @@ class DI
         } elseif (is_object($definition)) {
 
             if ($shared) {
-                $this->sharedInstances[$name] = $definition;
-                return $this->sharedInstances[$name];
+                self::$sharedInstances[$name] = $definition;
+                return self::$sharedInstances[$name];
             }
             return $definition;
 
@@ -149,19 +129,19 @@ class DI
             if (is_null($arguments)) {
 
                 if ($shared) {
-                    $this->sharedInstances[$name] = $r->newInstance();
-                    return $this->sharedInstances[$name];
+                    self::$sharedInstances[$name] = $r->newInstance();
+                    return self::$sharedInstances[$name];
                 }
 
                 return $r->newInstance();
 
             } else {
 
-                $arguments = $this->checkIfIsDependent($arguments);
+                $arguments = self::checkIfIsDependent($arguments);
 
                 if ($shared) {
-                    $this->sharedInstances[$name] = $r->newInstanceArgs($arguments);
-                    return $this->sharedInstances[$name];
+                    self::$sharedInstances[$name] = $r->newInstanceArgs($arguments);
+                    return self::$sharedInstances[$name];
                 }
 
                 return $r->newInstanceArgs($arguments);
@@ -176,7 +156,6 @@ class DI
 
     }
 
-
     /**
      * Return true if given service exists, else false
      *
@@ -185,9 +164,8 @@ class DI
      */
     public function serviceExists($name)
     {
-        return !empty($this->services[$name]) ? true : false;
+        return !empty(self::$services[$name]) ? true : false;
     }
-
 
     /**
      * Checks and returns dependencies passed as argument
@@ -209,8 +187,8 @@ class DI
         $returnArguments = [];
 
         foreach ($arguments as $key => $val) {
-            if (is_string($val) && (class_exists($val) || $this->serviceExists($val))) {
-                $returnArguments[] = $this->get($val);
+            if (is_string($val) && (class_exists($val) || self::serviceExists($val))) {
+                $returnArguments[] = self::get($val);
             } else {
                 $returnArguments[] = $val;
             }
@@ -218,6 +196,76 @@ class DI
 
         return $returnArguments;
 
+    }
+
+    /**
+     * Returns if service is shared or not
+     *
+     * @param $name
+     * @param $shared
+     * @return mixed
+     * @throws \ErrorException
+     */
+    public function setShared($name, $shared)
+    {
+        if (!self::$services[$name]) {
+            throw new \ErrorException("Service must be registered first.");
+        }
+
+        self::$services[$name]->setShared($shared);
+
+        return self::$services[$name];
+    }
+
+    /**
+     * Set service implementation definition
+     *
+     * @param $name
+     * @param $definition
+     * @return mixed
+     * @throws \ErrorException
+     */
+    public function setDefinition($name, $definition)
+    {
+        if (!self::$services[$name]) {
+            throw new \ErrorException("Service must be registered first.");
+        }
+
+        self::$services[$name]->setDefinition($definition);
+
+        return self::$services[$name];
+    }
+
+    /**
+     * Returns the Definition for given service name
+     *
+     * @param $name
+     * @return mixed
+     * @throws \ErrorException
+     */
+    public function getDefinition($name)
+    {
+        if (!self::$services[$name]) {
+            throw new \ErrorException("Service must be registered first.");
+        }
+
+        return self::$services[$name]->getDefinition();
+    }
+
+    /**
+     * Returns the set Arguments for the given service name
+     *
+     * @param $name
+     * @return mixed
+     * @throws \ErrorException
+     */
+    public function getArguments($name)
+    {
+        if (!self::$services[$name]) {
+            throw new \ErrorException("Service must be registered first.");
+        }
+
+        return self::$services[$name]->getArguments();
     }
 
     /**
