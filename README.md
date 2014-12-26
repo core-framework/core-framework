@@ -21,3 +21,6 @@ You can checkout the download/install instructions at the [get started](http://w
 Where can i find the Documentation on this?
 -------------------------------------------
 You can checkout the Core php framework documentation [here](http://www.coreframework.in/documentation).
+
+
+For additional information please visit [www.coreframework.in](http://www.coreframework.in).
