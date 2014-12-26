@@ -4,5 +4,6 @@ source:
 destination: demoapp/Templates/api
 exclude:
 	- src/Core/Tests
+	- src/Core/cache
 	- src/Core/smarty_cache
 	
