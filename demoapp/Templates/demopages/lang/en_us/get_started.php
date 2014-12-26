@@ -32,9 +32,9 @@ npm install bower -g</pre>
     'subBlock2' => '<p class="para">
             If all the required packages have been installed as mentioned above, then use the below command to install Core Framework -
         </p>
-        <pre class="prettyprint">composer create-project shalomsam/core {path/to/desired/folder} {version}</pre>
+        <pre class="prettyprint">composer create-project core-framework/CoreFramework {path/to/desired/folder} {version}</pre>
         <p class="para">Ex:</p>
-        <pre class="prettyprint">composer create-project shalomsam/core /var/www/CoreFramework "v1.2.4-alpha"</pre>
+        <pre class="prettyprint">composer create-project core-framework/CoreFramework /var/www/CoreFramework "v1.2.4-alpha"</pre>
         <p class="para">
             Once the Core Framework and it dependencies have been downloaded successfully, move into directory where the framework is install and run the following command -
         </p>

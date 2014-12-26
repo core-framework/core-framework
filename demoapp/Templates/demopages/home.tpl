@@ -21,10 +21,10 @@
         <p class="well well-small"><{$home.intro_note}></p>
 
         <div class="row-fluid addLinks">
-            <a href="https://github.com/shalomsam/Core/issues" class="btn btn-danger btn-lg"><{$home.track_issues}></a>
-            <a href="https://github.com/shalomsam/Core/fork" class="btn btn-success btn-lg"><{$home.contribute}></a>
-            <a href="https://github.com/shalomsam/Core/blob/master/changelog" role="button"
-               class="btn btn-primary btn-lg" data-toggle="modal"><{$home.change_logs}></a>
+            <a href="https://github.com/core-framework/CoreFramework/issues" class="btn btn-danger btn-lg"><{$home.track_issues}></a>
+            <a href="https://github.com/core-framework/CoreFramework/fork" class="btn btn-success btn-lg"><{$home.contribute}></a>
+            <a href="https://github.com/core-framework/CoreFramework/blob/master/changelog" role="button"
+               class="btn btn-primary btn-lg"><{$home.change_logs}></a>
             <a href="/about#credits" role="button" class="btn btn-info btn-lg"><{$home.credits}></a>
         </div>
     </div>

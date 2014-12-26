@@ -1,5 +1,5 @@
 {
-    "name": "shalomsam/core",
+    "name": "core-framework/CoreFramework",
     "description": "Core PHP Framework",
     "type": "project",
     "license": "MIT",
