@@ -1,6 +1,7 @@
 {
     "name": "core-framework/CoreFramework",
     "description": "Core PHP Framework",
+    "replace": {"shalomsam/Core": "self.version"},
     "type": "project",
     "license": "MIT",
     "keywords": [
