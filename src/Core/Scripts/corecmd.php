@@ -22,7 +22,7 @@
 
 namespace Core\Scripts;
 
-use Core\CacheSystem\Cachable;
+use Core\CacheSystem\Cacheable;
 use Core\CacheSystem\cache;
 use Core\Config\Config;
 use Core\Helper\Helper;
@@ -36,7 +36,7 @@ use Core\Helper\Helper;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class corecmd implements Cachable
+class corecmd implements Cacheable
 {
     /**
      * @var string Contains the current defined application name
@@ -699,12 +699,12 @@ class corecmd implements Cachable
 
             self::$IOStream->writeln("creating cache folder", 'green');
             if (!is_dir($cacheDir)) {
-                mkdir($cacheDir, 0755);
+                mkdir($cacheDir, 0777);
                 chown($cacheDir, $apacheUser . ":" . $apacheGroup);
             } else {
                 self::$IOStream->writeln("Setting up cache folder", 'green');
                 chown($cacheDir, $apacheUser . ":" . $apacheGroup);
-                chmod($cacheDir, 0755);
+                chmod($cacheDir, 0777);
             }
         }
     }
@@ -1104,7 +1104,7 @@ class corecmd implements Cachable
     /**
      * Wakeup custom method
      */
-    public function wakeUp($di)
+    public function __wakeup()
     {
         $this::$IOStream = new IOStream();
         $this::$cache = new cache();
