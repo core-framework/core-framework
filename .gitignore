@@ -13,6 +13,9 @@ src/Core/cache
 */index.php
 */robots.txt
 demoapp/Templates/root/sitemap.xml
+bower.json
+apigen.neon
+*App/
 
 ### Windows template
 # Windows image file caches

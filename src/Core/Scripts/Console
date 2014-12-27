@@ -8,6 +8,7 @@ use Core\CacheSystem\Cache;
 define('DS', DIRECTORY_SEPARATOR);
 chdir(__DIR__ . DS . ".." . DS . ".." . DS . ".." . DS);
 $vendor = getcwd() . DS . "vendor";
+
 if (is_dir($vendor)) {
     $rootDir = getcwd();
     define('_ROOT', $rootDir);
@@ -31,12 +32,12 @@ $cache = new Cache();
 $corecmd = $cache->getCache('corecmd_cache');
 
 if (!empty($corecmd) && $corecmd !== false) {
-    /** @var TYPE_NAME $argv */
-    /** @var TYPE_NAME $argc */
+    /** @var string $argv */
+    /** @var string $argc */
     $cmd = $corecmd->__construct($argv, $argc);
 } else {
-    /** @var TYPE_NAME $argv */
-    /** @var TYPE_NAME $argc */
+    /** @var string $argv */
+    /** @var string $argc */
     $cmd = new corecmd($argv, $argc);
     $cache->cacheContent("corecmd_cache", $cmd, 0);
 }

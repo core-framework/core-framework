@@ -62,8 +62,8 @@ class Config
      */
     public function __construct()
     {
-        $this->globalConfPath = $globalConf = _ROOT . DS . "config" . DS . "global.conf.php";
-        $routeConf = _ROOT . DS . "config" . DS . "routes.conf.php";
+        $this->globalConfPath = $globalConf = _APPDIR . DS . "config" . DS . "global.conf.php";
+        $routeConf = _APPDIR . DS . "config" . DS . "routes.conf.php";
 
         $this->globalConfig = include $globalConf;
         $this->routesConfig = include $routeConf;

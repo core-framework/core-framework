@@ -241,7 +241,7 @@ class core
     {
         $this->route = $this->_di->get('Route');
         $this->view = $this->_di->get('View');
-        $this->globalConf = require_once _ROOT . $this->globalConf;
+        $this->globalConf = $this->config->getGlobalConfig();
     }
 
     /**

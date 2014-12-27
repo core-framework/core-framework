@@ -23,7 +23,7 @@
 namespace Core\Scripts;
 
 use Core\CacheSystem\Cacheable;
-use Core\CacheSystem\cache;
+use Core\CacheSystem\Cache;
 use Core\Config\Config;
 use Core\Helper\Helper;
 
@@ -116,7 +116,7 @@ class corecmd implements Cacheable
         $options = getopt($shortopts, $longopts);
 
         $this::$IOStream = new IOStream();
-        $this::$cache = new cache();
+        $this::$cache = new Cache();
         $this::$config = new Config();
 
 
@@ -125,15 +125,18 @@ class corecmd implements Cacheable
             $this->showHelp();
 
         } elseif ($args[1] === 'install') {
+
             if (isset($args[2]) && $args[2] === '--dev') {
                 $this->install(true);
             } else {
                 $this->install();
             }
+
         } elseif ($args[1] === 'addHostFileEntry') {
             self::addHosts($args[2], $args[3]);
 
         } elseif ($args[1] === 'removeVhost') {
+
             if ($args[3] === '--vhost') {
                 self::removeVhost($args[2], true, false);
             } elseif ($args[3] === '--hosts') {
@@ -143,6 +146,7 @@ class corecmd implements Cacheable
             }
 
         } elseif ($args[1] === 'addConfigVars') {
+
             self::addConfigVars($args[2], $args[3]);
 
         } elseif (method_exists($this, $args[1])) {
@@ -455,11 +459,11 @@ class corecmd implements Cacheable
     public static function setupApp($appName = 'demoapp')
     {
 
-        if (empty($appName) || $appName !== 'demoapp') {
+        if (empty($appName) && $appName !== 'demoapp') {
 
             $callback = (function ($input) {
                 if (preg_match(
-                    '^([a-zA-Z0-9]{1,}\.)?([a-zA-Z0-9][a-zA-Z0-9-_]{0,61}[a-zA-Z0-9]{0,1}\.?)([a-zA-Z]{1,6}|[a-zA-Z0-9-]{1,30}\.[a-zA-Z]{2,3})?$',
+                    '/^[a-zA-Z\.]{4,}$/',
                     $input
                 )) {
                     return true;
@@ -503,7 +507,7 @@ class corecmd implements Cacheable
                 $appDir . DS . "Templates" . DS . "root"
             );
 
-            self::createConf();
+            self::createConf($appDir);
             self::createIndex($appName);
             self::createHtaccess($appName);
             self::symResources($appName);
@@ -515,11 +519,11 @@ class corecmd implements Cacheable
             self::$IOStream->writeln("Recreating app's .htaccess file...", "yellow");
             self::createHtaccess($appName);
             self::$IOStream->writeln("Recreating app's conf files...", "yellow");
-            self::createConf();
+            self::createConf($appDir);
         }
 
         self::$IOStream->writeln("You can setup virtual hosts using the following command -", 'yellow');
-        $consolePath = _ROOT . "src" . DS . "Core" . DS . "Scripts" . DS . "Console";
+        $consolePath = _ROOT . DS . "src" . DS . "Core" . DS . "Scripts" . DS . "Console";
         $name = empty(self::$appName) ? '{appDirName}' : self::$appName;
         self::$IOStream->writeColoredLn(
             "sudo:yellow $consolePath:cyan setupHost:cyan $name:white"
@@ -527,14 +531,15 @@ class corecmd implements Cacheable
     }
 
     /**
-     * Creates Conf files
+     * Create Conf files
      *
+     * @param $appDir
      * @throws \Exception
      */
-    public static function createConf()
+    public static function createConf($appDir)
     {
         $confSource = __DIR__ . DS . "pak" . DS . "config.pak";
-        $confDest = _ROOT . DS . "config";
+        $confDest = _ROOT . DS . $appDir . DS . "config";
         $confFile = $confDest . DS . "global.conf.php";
         $routesConf = $confDest . DS . "routes.conf.php";
 
@@ -911,9 +916,26 @@ class corecmd implements Cacheable
 
     }
 
-    public static function update()
+    public static function update($dev = false)
     {
+        self::printSign();
+        self::$dev = $dev;
+        $devTxt = $dev ? 'dev' : 'normal';
+        self::$IOStream->writeln("Installing Core in " . $devTxt . " mode ...", 'green');
+        self::createAlias();
+        $resp = self::$IOStream->ask("Do you want to setup your app now", 'yes', ['yes', 'no']);
+        if ($resp === 'yes') {
+            $appName = self::$IOStream->ask("Enter your App name");
+            if(empty($appName)) {
+                self::$IOStream->showErr("App name cannot be empty!");
+                exit;
+            }
+            self::setupApp($appName);
+        }
 
+        self::createCacheFolder();
+        self::createSmartyCache();
+        self::$IOStream->writeln("Application setup successfully!", 'green');
     }
 
     /**
