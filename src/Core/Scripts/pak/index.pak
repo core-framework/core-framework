@@ -34,10 +34,10 @@ if (empty($sess_id)) {
     session_start();
 }
 define('DS', DIRECTORY_SEPARATOR);
+define('_APPDIR', __DIR__);
 $root = __DIR__ . DS . "../";
 chdir($root);
 define('_ROOT', getcwd());
-define('_APPDIR', __DIR__);
 
 $bootstrapPath = _ROOT . DS . "src" . DS . "Core" . DS . "inc" . DS . "bootstrap.php";
 require_once $bootstrapPath;

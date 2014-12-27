@@ -125,15 +125,18 @@ class corecmd implements Cacheable
             $this->showHelp();
 
         } elseif ($args[1] === 'install') {
+
             if (isset($args[2]) && $args[2] === '--dev') {
                 $this->install(true);
             } else {
                 $this->install();
             }
+
         } elseif ($args[1] === 'addHostFileEntry') {
             self::addHosts($args[2], $args[3]);
 
         } elseif ($args[1] === 'removeVhost') {
+
             if ($args[3] === '--vhost') {
                 self::removeVhost($args[2], true, false);
             } elseif ($args[3] === '--hosts') {
@@ -143,6 +146,7 @@ class corecmd implements Cacheable
             }
 
         } elseif ($args[1] === 'addConfigVars') {
+
             self::addConfigVars($args[2], $args[3]);
 
         } elseif (method_exists($this, $args[1])) {
@@ -503,7 +507,7 @@ class corecmd implements Cacheable
                 $appDir . DS . "Templates" . DS . "root"
             );
 
-            self::createConf();
+            self::createConf($appDir);
             self::createIndex($appName);
             self::createHtaccess($appName);
             self::symResources($appName);
@@ -515,7 +519,7 @@ class corecmd implements Cacheable
             self::$IOStream->writeln("Recreating app's .htaccess file...", "yellow");
             self::createHtaccess($appName);
             self::$IOStream->writeln("Recreating app's conf files...", "yellow");
-            self::createConf();
+            self::createConf($appDir);
         }
 
         self::$IOStream->writeln("You can setup virtual hosts using the following command -", 'yellow');
@@ -527,14 +531,15 @@ class corecmd implements Cacheable
     }
 
     /**
-     * Creates Conf files
+     * Create Conf files
      *
+     * @param $appDir
      * @throws \Exception
      */
-    public static function createConf()
+    public static function createConf($appDir)
     {
         $confSource = __DIR__ . DS . "pak" . DS . "config.pak";
-        $confDest = _ROOT . DS . "config";
+        $confDest = _ROOT . DS . $appDir . DS . "config";
         $confFile = $confDest . DS . "global.conf.php";
         $routesConf = $confDest . DS . "routes.conf.php";
 
