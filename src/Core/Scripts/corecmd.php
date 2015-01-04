@@ -49,7 +49,7 @@ class corecmd implements Cacheable
     /**
      * @var string Path to application directory
      */
-    public static $appDir;
+    public static $appDirPath;
     /**
      * @var bool Defines if running in development mode
      */
@@ -482,32 +482,32 @@ class corecmd implements Cacheable
 
 
         self::$appName = $appName;
-        self::$appDir = $appDir = _ROOT . DS . $appName;
-        if (!is_readable($appDir)) {
-            mkdir($appDir, 0755);
-            mkdir($appDir . DS . "Templates", 0755);
+        self::$appDirPath = $appDirPath = _ROOT . DS . $appName;
+        if (!is_readable($appDirPath)) {
+            mkdir($appDirPath, 0755);
+            mkdir($appDirPath . DS . "Templates", 0755);
             copy(
                 _ROOT . DS . "demoapp" . DS . "Templates" . DS . "root.tpl",
-                $appDir . DS . "Templates" . DS . "root.tpl"
+                $appDirPath . DS . "Templates" . DS . "root.tpl"
             );
-            chmod($appDir . DS . "Templates" . DS . "root.tpl", 0755);
-            mkdir($appDir . DS . "Templates" . DS . "common", 0755);
+            chmod($appDirPath . DS . "Templates" . DS . "root.tpl", 0755);
+            mkdir($appDirPath . DS . "Templates" . DS . "common", 0755);
             Helper::copyr(
                 _ROOT . DS . "demoapp" . DS . "Templates" . DS . "common",
-                $appDir . DS . "Templates" . DS . "common"
+                $appDirPath . DS . "Templates" . DS . "common"
             );
-            mkdir($appDir . DS . "Templates" . DS . "errors", 0755);
+            mkdir($appDirPath . DS . "Templates" . DS . "errors", 0755);
             Helper::copyr(
                 _ROOT . DS . "demoapp" . DS . "Templates" . DS . "errors",
-                $appDir . DS . "Templates" . DS . "errors"
+                $appDirPath . DS . "Templates" . DS . "errors"
             );
-            mkdir($appDir . DS . "Templates" . DS . "root", 0755);
+            mkdir($appDirPath . DS . "Templates" . DS . "root", 0755);
             Helper::copyr(
                 _ROOT . DS . "demoapp" . DS . "Templates" . DS . "root",
-                $appDir . DS . "Templates" . DS . "root"
+                $appDirPath . DS . "Templates" . DS . "root"
             );
 
-            self::createConf($appDir);
+            self::createConf($appDirPath);
             self::createIndex($appName);
             self::createHtaccess($appName);
             self::symResources($appName);
@@ -519,7 +519,7 @@ class corecmd implements Cacheable
             self::$IOStream->writeln("Recreating app's .htaccess file...", "yellow");
             self::createHtaccess($appName);
             self::$IOStream->writeln("Recreating app's conf files...", "yellow");
-            self::createConf($appDir);
+            self::createConf($appDirPath);
         }
 
         self::$IOStream->writeln("You can setup virtual hosts using the following command -", 'yellow');
@@ -539,7 +539,7 @@ class corecmd implements Cacheable
     public static function createConf($appDir)
     {
         $confSource = __DIR__ . DS . "pak" . DS . "config.pak";
-        $confDest = _ROOT . DS . $appDir . DS . "config";
+        $confDest = $appDir . DS . "config";
         $confFile = $confDest . DS . "global.conf.php";
         $routesConf = $confDest . DS . "routes.conf.php";
 
@@ -1113,7 +1113,7 @@ class corecmd implements Cacheable
     {
         return [
             'appName',
-            'appDir',
+            'appDirPath',
             'dev',
             'pdoDrivers',
             'httpdConfPath',
