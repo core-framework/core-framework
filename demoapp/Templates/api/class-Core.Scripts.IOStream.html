@@ -56,9 +56,13 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Core.Scripts.Argument.html">Argument</a></li>
+				<li><a href="class-Core.Scripts.CLI.html">CLI</a></li>
 				<li><a href="class-Core.Scripts.cmdcolors.html">cmdcolors</a></li>
-				<li><a href="class-Core.Scripts.corecmd.html">corecmd</a></li>
+				<li><a href="class-Core.Scripts.Command.html">Command</a></li>
+				<li><a href="class-Core.Scripts.Core.html">Core</a></li>
 				<li class="active"><a href="class-Core.Scripts.IOStream.html">IOStream</a></li>
+				<li><a href="class-Core.Scripts.Options.html">Options</a></li>
 			</ul>
 
 
@@ -146,7 +150,7 @@
 <br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-		<b>Located at</b> <a href="source-class-Core.Scripts.IOStream.html#26-228" title="Go to source code">Scripts/IOStream.php</a><br>
+		<b>Located at</b> <a href="source-class-Core.Scripts.IOStream.html#26-307" title="Go to source code">Scripts/IOStream.php</a><br>
 	</div>
 
 
@@ -292,7 +296,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_ask">#</a>
-		<code><a href="source-class-Core.Scripts.IOStream.html#110-143" title="Go to source code">ask</a>( <span>mixed <var>$msg</var></span>, <span>null <var>$default</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$opt</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Core.Scripts.IOStream.html#110-151" title="Go to source code">ask</a>( <span>mixed <var>$message</var></span>, <span>null <var>$default</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$options</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Outputs the given message and returns the value. If options ($opt) are set then its will return false if input value does not match one of the given options. Typically used for simple yes | no questions</p>
@@ -306,7 +310,7 @@
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$msg</var></dt>
+					<dt><var>$message</var></dt>
 					<dd>The message to output or question to ask
 </dd>
 					<dt><var>$default</var></dt>
@@ -314,7 +318,7 @@
 &lt;li&gt;The default value to return if input is null&lt;/li&gt;
 &lt;/ul&gt;
 </dd>
-					<dt><var>$opt</var></dt>
+					<dt><var>$options</var></dt>
 					<dd>&lt;ul&gt;
 &lt;li&gt;The set of input options (input must match one of the options)&lt;/li&gt;
 &lt;/ul&gt;
@@ -347,7 +351,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_showErr">#</a>
-		<code><a href="source-class-Core.Scripts.IOStream.html#145-154" title="Go to source code">showErr</a>( <span>mixed <var>$msg</var></span> )</code>
+		<code><a href="source-class-Core.Scripts.IOStream.html#153-171" title="Go to source code">showErr</a>( <span>mixed <var>$msg</var></span>, <span>mixed <var>$exception</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Prints error message with specific formatting</p>
@@ -362,7 +366,61 @@
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$msg</var></dt>
-					<dd>error message to display
+					<dd>
+</dd>
+					<dt><var>$exception</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-ErrorException.html">ErrorException</a></code>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="write" id="_write">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_write">#</a>
+		<code><a href="source-class-Core.Scripts.IOStream.html#173-193" title="Go to source code">write</a>( <span>mixed <var>$text</var></span>, <span>null <var>$foreColor</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$backColor</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$format</var> = <span class="php-quote">&quot;%s&quot;</span></span> )</code>
+
+		<div class="description short">
+			<p>Output text</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Output text</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$text</var></dt>
+					<dd>
+</dd>
+					<dt><var>$foreColor</var></dt>
+					<dd>
+</dd>
+					<dt><var>$backColor</var></dt>
+					<dd>
+</dd>
+					<dt><var>$format</var></dt>
+					<dd>
 </dd>
 				</dl></div>
 
@@ -385,7 +443,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_writeln">#</a>
-		<code><a href="source-class-Core.Scripts.IOStream.html#156-177" title="Go to source code">writeln</a>( <span>mixed <var>$msg</var></span>, <span>null <var>$foreColor</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$backColor</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$format</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Core.Scripts.IOStream.html#195-216" title="Go to source code">writeln</a>( <span>mixed <var>$msg</var></span>, <span>null <var>$foreColor</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$backColor</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$format</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Outputs a single line</p>
@@ -431,14 +489,14 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			boolean|mixed|string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_choice">#</a>
-		<code><a href="source-class-Core.Scripts.IOStream.html#179-208" title="Go to source code">choice</a>( <span>mixed <var>$introMsg</var></span>, <span>array <var>$list</var></span>, <span>null <var>$repeat</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Core.Scripts.IOStream.html#218-285" title="Go to source code">choice</a>( <span>mixed <var>$introMsg</var></span>, <span>array <var>$list</var></span>, <span>null <var>$repeat</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>For multiple choice based questions or messages</p>
@@ -467,7 +525,15 @@
 </dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean|mixed|string</code>
+				</div>
 
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-ErrorException.html">ErrorException</a></code>
+				</div>
 
 
 
@@ -486,7 +552,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_writeColoredLn">#</a>
-		<code><a href="source-class-Core.Scripts.IOStream.html#210-227" title="Go to source code">writeColoredLn</a>( <span>mixed <var>$line</var></span>, <span>null <var>$format</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Core.Scripts.IOStream.html#287-306" title="Go to source code">writeColoredLn</a>( <span>mixed <var>$line</var></span>, <span>null <var>$format</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>To output a multi-colored line. Each string to be colored must be a separate word (spaced string) and the color is determined buy the color specified by :color after string. Ex: 'some:green random:yellow string:red'</p>
@@ -638,6 +704,6 @@
 </div>
 </div>
 <script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?2699210741"></script>
+<script src="elementlist.js?2459465943"></script>
 </body>
 </html>

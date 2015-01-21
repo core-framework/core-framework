@@ -1,9 +1,30 @@
 #!/usr/bin/env php
 <?php
 
+/**
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This file is part of the Core Framework package.
+ *
+ * (c) Shalom Sam <shalom.s@coreframework.in>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Core\Scripts;
 
-use Core\CacheSystem\Cache;
+use Core\DI\DI;
 
 define('DS', DIRECTORY_SEPARATOR);
 chdir(__DIR__ . DS . ".." . DS . ".." . DS . ".." . DS);
@@ -21,25 +42,47 @@ if (is_dir($vendor)) {
         define('_ROOT', $rootDir);
         define('_isPROJECT', false);
     } else {
-        echo "ERROR: root path not found";
+        throw new \ErrorException("Vendor path not found");
     }
 }
 
+require_once _ROOT . DS . "vendor" . DS . "autoload.php";
+require_once _ROOT . DS . "src" . DS . "Core" . DS . "inc" . DS . "clibootstrap.php";
 
-$loader = require_once _ROOT . DS . "vendor" . DS . "autoload.php";
+$cache = DI::get('Cache');
+/**
+ * @var \Core\Scripts\Core $console
+ */
+$console = DI::get('Core');
 
-$cache = new Cache();
-$corecmd = $cache->getCache('corecmd_cache');
+$console->setVersion("v2.0.0");
+$console->addCommand('install', "Sets up the app environment", get_class($console)."::install")
+    ->setOptions("dev", "d", "Installs in development mode")
+    ->addArguments('appName', false, "Application name");
+$console->addCommand('create-alias', "Creates an alias for the Console Cli application", get_class($console)."::createAlias");
+$console->addCommand('make-resources', "Creates styles, scripts and font resources symlinked from bower-components folder", get_class($console)."::symResources")
+    ->addArguments('appName', false, "Application name");
+$console->addCommand('setup-app', "Sets up the given application folder", get_class($console)."::setupApp")
+    ->addArguments('appName', true, "Application name");
+$console->addCommand('create-conf', "Sets up conf files for your application", get_class($console)."::createConf")
+    ->addArguments('appName', false, "Application name");
+$console->addCommand('create-index', "Set up the index.php for you application", get_class($console)."::createIndex")
+    ->addArguments('appName', false, "Application name");
+$console->addCommand('add-hosts', "Add entry to host file", get_class($console)."::addHosts")
+    ->addArguments('domain', true, "domain name")
+    ->addArguments('ip', true, "IP address");
+$console->addCommand('add-vhost', "Adds a virtual host entry", get_class($console)."::addVhost")
+    ->addArguments('domain', true, "domain name")
+    ->addArguments('ip', true, "IP address");
+$console->addCommand('remove-vhost', "Removes the given virtual host entry", get_class($console)."::removeVhost")
+    ->addArguments('appName', true, "Application name");
+$console->addCommand('add-config-vars', "Adds given key => value pair to global config", get_class($console)."::addConfigVars")
+    ->addArguments('key', true, "Config Key identifier")
+    ->addArguments('val', true, "Config Key value");
+$console->addCommand('clear-cache', "Clears All cache", get_class($console)."::clearCache");
 
-if (!empty($corecmd) && $corecmd !== false) {
-    /** @var string $argv */
-    /** @var string $argc */
-    $cmd = $corecmd->__construct($argv, $argc);
-} else {
-    /** @var string $argv */
-    /** @var string $argc */
-    $cmd = new corecmd($argv, $argc);
-    $cache->cacheContent("corecmd_cache", $cmd, 0);
-}
+/** @var string $argv */
+/** @var string $argc */
+$console->parse($argv, $argc);
 
 
