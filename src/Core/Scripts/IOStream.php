@@ -131,6 +131,10 @@ class IOStream extends cmdcolors
 
         if (!empty($options)) {
             fprintf($this->output, "%s : [" . $options[0] . "/" . $options[1] . "] ", $coloredMsg);
+        } elseif(!empty($default)) {
+            fprintf($this->output, "%s : [" . $default . "] ", $coloredMsg);
+        } else {
+            fprintf($this->output, "%s : ", $coloredMsg);
         }
 
         $input = trim(fgets($this->input), "\n");

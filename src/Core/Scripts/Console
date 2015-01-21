@@ -46,6 +46,8 @@ if (is_dir($vendor)) {
     }
 }
 
+error_reporting(E_ERROR);
+
 require_once _ROOT . DS . "vendor" . DS . "autoload.php";
 require_once _ROOT . DS . "src" . DS . "Core" . DS . "inc" . DS . "clibootstrap.php";
 
