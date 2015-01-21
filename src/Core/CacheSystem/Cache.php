@@ -251,7 +251,7 @@ class Cache
             }
             $filename = $fileInfo->getFilename();
             $filePath = $this->cacheDir . $filename;
-            chmod($filePath, 0777);
+            @chmod($filePath, 0777);
             if (unlink($filePath) === false) {
                 throw new \Exception("Unable to clear Cache.");
             }

@@ -139,7 +139,7 @@
 <br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-		<b>Located at</b> <a href="source-class-Core.Config.Config.html#25-138" title="Go to source code">Config/Config.php</a><br>
+		<b>Located at</b> <a href="source-class-Core.Config.Config.html#25-216" title="Go to source code">Config/Config.php</a><br>
 	</div>
 
 
@@ -158,7 +158,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Core.Config.Config.html#60-70" title="Go to source code">__construct</a>( )</code>
+		<code><a href="source-class-Core.Config.Config.html#68-110" title="Go to source code">__construct</a>( )</code>
 
 		<div class="description short">
 			<p>Constructor to load configurations</p>
@@ -190,7 +190,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getGlobalConfig">#</a>
-		<code><a href="source-class-Core.Config.Config.html#72-80" title="Go to source code">getGlobalConfig</a>( )</code>
+		<code><a href="source-class-Core.Config.Config.html#112-120" title="Go to source code">getGlobalConfig</a>( )</code>
 
 		<div class="description short">
 			<p>gets global config</p>
@@ -226,7 +226,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___get">#</a>
-		<code><a href="source-class-Core.Config.Config.html#82-97" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-Core.Config.Config.html#122-137" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			<p>Searches for the given parameter and returns its value if found else returns null</p>
@@ -261,14 +261,14 @@
 		<td class="attributes"><code>
 			 public 
 
-			integer
+			boolean
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_store">#</a>
-		<code><a href="source-class-Core.Config.Config.html#99-115" title="Go to source code">store</a>( <span>mixed <var>$name</var></span>, <span>mixed <var>$val</var></span> )</code>
+		<code><a href="source-class-Core.Config.Config.html#139-152" title="Go to source code">store</a>( <span>mixed <var>$arr</var></span>, <span>mixed <var>$filePath</var></span> )</code>
 
 		<div class="description short">
 			<p>Store new params to file</p>
@@ -282,17 +282,17 @@
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$name</var></dt>
+					<dt><var>$arr</var></dt>
 					<dd>
 </dd>
-					<dt><var>$val</var></dt>
+					<dt><var>$filePath</var></dt>
 					<dd>
 </dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>integer</code>
+					<code>boolean</code>
 				</div>
 
 
@@ -313,7 +313,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___set">#</a>
-		<code><a href="source-class-Core.Config.Config.html#117-126" title="Go to source code">__set</a>( <span>string <var>$name</var></span>, <span>mixed <var>$val</var></span> )</code>
+		<code><a href="source-class-Core.Config.Config.html#154-163" title="Go to source code">__set</a>( <span>string <var>$name</var></span>, <span>mixed <var>$val</var></span> )</code>
 
 		<div class="description short">
 			<p>Set/add config data</p>
@@ -354,7 +354,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRoutesConfig">#</a>
-		<code><a href="source-class-Core.Config.Config.html#128-136" title="Go to source code">getRoutesConfig</a>( )</code>
+		<code><a href="source-class-Core.Config.Config.html#165-173" title="Go to source code">getRoutesConfig</a>( )</code>
 
 		<div class="description short">
 			<p>get routes config</p>
@@ -363,6 +363,83 @@
 
 		<div class="description detailed hidden">
 			<p>get routes config</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setCliConfig" id="_setCliConfig">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setCliConfig">#</a>
+		<code><a href="source-class-Core.Config.Config.html#175-183" title="Go to source code">setCliConfig</a>( <span>mixed <var>$name</var></span>, <span>mixed <var>$val</var></span> )</code>
+
+		<div class="description short">
+			
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>
+</dd>
+					<dt><var>$val</var></dt>
+					<dd>
+</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getCliConfig" id="_getCliConfig">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getCliConfig">#</a>
+		<code><a href="source-class-Core.Config.Config.html#185-191" title="Go to source code">getCliConfig</a>( )</code>
+
+		<div class="description short">
+			
+
+		</div>
+
+		<div class="description detailed hidden">
+			
 
 
 
@@ -420,6 +497,33 @@
 			</div>
 		</td>
 	</tr>
+	<tr data-order="cliConfPath" id="$cliConfPath">
+		<td class="attributes"><code>
+			public  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Core.Config.Config.html#59-62" title="Go to source code"><var>$cliConfPath</var></a>
+
+			<div class="description short">
+				<p>Cli config path</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Cli config path</p>
+
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$cliConfPath" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
 	</table>
 
 
@@ -435,6 +539,6 @@
 </div>
 </div>
 <script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?2699210741"></script>
+<script src="elementlist.js?2459465943"></script>
 </body>
 </html>
