@@ -14,6 +14,7 @@ src/Core/cache
 */robots.txt
 demoapp/Templates/root/sitemap.xml
 apigen.neon
+*/cli.conf.php
 *App/
 
 ### Windows template
@@ -43,9 +44,11 @@ vendor/
 
 /config/global.conf.php
 /config/routes.conf.php
+src/Core/Scripts/cli.conf.php
 
 ### NOTs
 !src/Core/Config/
 !demoapp/styles/*.*
 !demoapp/styles/demo/
 !demoapp/scripts/*.*
+!Tests/Scripts/

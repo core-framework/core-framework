@@ -110,47 +110,86 @@ class IOStream extends cmdcolors
     /**
      * Outputs the given message and returns the value. If options ($opt) are set then its will return false if input value does not match one of the given options. Typically used for simple yes | no questions
      *
-     * @param $msg - The message to output or question to ask
+     * @param $message - The message to output or question to ask
      * @param null $default - The default value to return if input is null
-     * @param null $opt - The set of input options (input must match one of the options)
+     * @param null $options - The set of input options (input must match one of the options)
      * @return bool|string - returns the input value
      */
-    public function ask($msg, $default = null, $opt = null)
+    public function ask($message, $default = null, $options = null)
     {
-        $coloredMsg = $this->getColoredString($msg, 'green');
-        if (!empty($default)) {
-            fprintf($this->output, "%s : [" . $default . "] ", $coloredMsg);
-        } else {
-            fprintf($this->output, "%s : ", $coloredMsg);
+        if (!is_string($message)) {
+            throw new \InvalidArgumentException("Message must be a string");
+        }
+        if (!is_null($default) && !is_string($default)) {
+            throw new \InvalidArgumentException("default must be a string");
+        }
+        if (!is_null($options) && (!is_array($options) || count($options) > 2)) {
+            throw new \InvalidArgumentException("option must be an array and not greater then length 2");
+        }
+
+        $coloredMsg = $this->getColoredString($message, 'green');
+
+        if (!empty($options)) {
+            fprintf($this->output, "%s : [" . $options[0] . "/" . $options[1] . "] ", $coloredMsg);
         }
 
         $input = trim(fgets($this->input), "\n");
 
-        if (empty($input) && !empty($default)) {
+        if (empty($input)) {
             return $default;
-        } elseif (!empty($opt) && !empty($default) && !empty($input)) {
-            if (in_array($input, $opt) && is_array($opt)) {
-                return $input;
-            } elseif (!is_array($opt)) {
-                $this->showErr("Option must be of type array");
-                return false;
-            } else {
-                return false;
-            }
-        } else {
+        }
+
+        if (is_null($options)) {
             return $input;
+        }
+
+        if (strtolower($input) === strtolower($options[0]) || strtolower($input) === strtolower($options[1])) {
+            return $input;
+        } else {
+            throw new \InvalidArgumentException("Input must be either {$options[0]} or {$options[1]}");
         }
     }
 
     /**
      * Prints error message with specific formatting
      *
-     * @param $msg - error message to display
+     * @param $msg
+     * @param $exception
+     * @throws \ErrorException
      */
-    public function showErr($msg)
+    public function showErr($msg, $exception = null)
     {
-        $coloredMsg = $this->getColoredString($msg, 'white', 'red');
-        fprintf($this->output, PHP_EOL . "%20.40s" . PHP_EOL, $coloredMsg);
+        if (empty($exception)) {
+            $coloredMsg = $this->getColoredString($msg, 'white', 'red');
+            $coloredSpace = $this->getColoredString(" ", 'white', 'red');
+            fprintf($this->output, "%20.40s" , $coloredSpace);
+            fprintf($this->output, "%20.40s", $coloredMsg);
+            fprintf($this->output, "%20.40s" , $coloredSpace);
+        } else {
+            throw new $exception(sprintf($msg));
+        }
+    }
+
+    /**
+     * Output text
+     *
+     * @param $text
+     * @param null $foreColor
+     * @param null $backColor
+     * @param string $format
+     */
+    public function write($text, $foreColor = null, $backColor = null, $format = "%s")
+    {
+        $coloredMsg = $text;
+        if (!empty($foreColor) || !empty($backColor)) {
+            $coloredMsg = $this->getColoredString($text, $foreColor, $backColor);
+        }
+
+        if (!empty($format)) {
+            print sprintf($format, $coloredMsg);
+        } else {
+            print sprintf("%s", $coloredMsg);
+        }
     }
 
     /**
@@ -165,8 +204,8 @@ class IOStream extends cmdcolors
     {
         $coloredMsg = $msg;
 
-        if (!empty($foreColor)) {
-            $coloredMsg = $this->getColoredString($msg, $foreColor, $backColor);
+        if (!empty($foreColor) || !empty($backColor)) {
+            $coloredMsg = $this->getColoredString($msg, strtolower($foreColor), strtolower($backColor));
         }
 
         if (!empty($format)) {
@@ -182,17 +221,39 @@ class IOStream extends cmdcolors
      * @param $introMsg - the question or message to output
      * @param array $list - the list of choices to display
      * @param null $repeat - the no. of times to repeat the question
+     * @return bool|mixed|string
+     * @throws \ErrorException
      */
     public function choice($introMsg, array $list, $repeat = null)
     {
+        if (!is_string($introMsg)) {
+            throw new \ErrorException("Argument introMsg must be a string");
+        }
+        if (!is_null($repeat) && !is_int($repeat)) {
+            throw new \ErrorException("Argument repeat must be an integer");
+        }
+
+        $msg = "Your Choice No(s). (can be multiple comma separated Nos.)";
         $opt = [];
-        self::writeln($introMsg, 'yellow');
+        $this->writeln($introMsg, 'yellow');
         foreach ($list as $i => $v) {
             array_push($opt, $i);
-            self::writeColoredLn("[" . $i . "]:yellow " . $v . ":green");
+            $this->writeColoredLn("[" . $i . "]:yellow " . $v . ":green");
         }
+
+
         if (empty($repeat)) {
-            self::ask("Your Choice ", '1', $opt);
+
+            $coloredMsg = $this->getColoredString('Your Choice :', 'green');
+            fprintf($this->output, "%s : [0-". (sizeof($list) - 1) ."]", $coloredMsg);
+
+            $input = trim(fgets($this->input), "\n");
+
+            if (empty($input) && (int) $input !== 0) {
+                $this->showErr("No option given exiting...");
+                return false;
+            }
+
         } else {
             $callback = (function ($input) {
                 $i = (int)$input;
@@ -202,9 +263,25 @@ class IOStream extends cmdcolors
                     return false;
                 }
             });
-            self::askAndValidata("Your Choice ", $callback, "input must be one of the choices", 3);
+            $input = $this->askAndValidate($msg, $callback, "input must be one of the choices", $repeat);
         }
 
+        if (strpos($input, ",")) {
+            $return = explode(",", $input);
+            foreach($return as $i => $v) {
+                $return[$i] = (int) $v;
+                if ((int) $v > sizeof($list) || (int) $v < 0) {
+                    $this->showErr("Input value must be in range 0 - ".sizeof($list));
+                    return false;
+                }
+            }
+        } elseif (is_bool($input)) {
+            $this->showErr('Invalid Input provided');
+        } else {
+            $return = (int) $input;
+        }
+
+        return $return;
     }
 
     /**
@@ -218,7 +295,9 @@ class IOStream extends cmdcolors
         $decoratedLine = "";
         $arr = explode(' ', $line);
         foreach ($arr as $txt) {
-            $split = explode(':', $txt);
+            //$split = explode(':', $txt);
+            $split = preg_split('~\\\\.(*SKIP)(*FAIL)|\:~s', $txt);
+            $split = str_replace('\:', ':', $split);
             $decoratedLine .= " " . $this->getColoredString($split[0], $split[1]);
         }
         $format = empty($format) ? "%s" . PHP_EOL : $format;
