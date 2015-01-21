@@ -356,7 +356,7 @@
 </span><span id="251" class="l"><a class="l" href="#251">251: </a>            }
 </span><span id="252" class="l"><a class="l" href="#252">252: </a>            <span class="php-var">$filename</span> = <span class="php-var">$fileInfo</span>-&gt;getFilename();
 </span><span id="253" class="l"><a class="l" href="#253">253: </a>            <span class="php-var">$filePath</span> = <span class="php-var">$this</span>-&gt;cacheDir . <span class="php-var">$filename</span>;
-</span><span id="254" class="l"><a class="l" href="#254">254: </a>            <span class="php-keyword2">chmod</span>(<span class="php-var">$filePath</span>, <span class="php-num">0777</span>);
+</span><span id="254" class="l"><a class="l" href="#254">254: </a>            @<span class="php-keyword2">chmod</span>(<span class="php-var">$filePath</span>, <span class="php-num">0777</span>);
 </span><span id="255" class="l"><a class="l" href="#255">255: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">unlink</span>(<span class="php-var">$filePath</span>) === <span class="php-keyword1">false</span>) {
 </span><span id="256" class="l"><a class="l" href="#256">256: </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \Exception(<span class="php-quote">&quot;Unable to clear Cache.&quot;</span>);
 </span><span id="257" class="l"><a class="l" href="#257">257: </a>            }
@@ -371,6 +371,6 @@
 </div>
 </div>
 <script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?2699210741"></script>
+<script src="elementlist.js?2459465943"></script>
 </body>
 </html>

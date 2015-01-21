@@ -47,7 +47,7 @@ class Config
     /**
      * @var array Global configurations
      */
-    private $globalConfig;
+    private $globalConfig = [];
     /**
      * @var string Global config file path
      */
@@ -55,18 +55,58 @@ class Config
     /**
      * @var array Routes Configurations
      */
-    private $routesConfig;
+    private $routesConfig = [];
+    /**
+     * @var string Cli config path
+     */
+    public $cliConfPath;
+    /**
+     * @var array|mixed Cli script configurations
+     */
+    private $cliConf = [];
 
     /**
      * Constructor to load configurations
      */
     public function __construct()
     {
-        $this->globalConfPath = $globalConf = _APPDIR . DS . "config" . DS . "global.conf.php";
-        $routeConf = _APPDIR . DS . "config" . DS . "routes.conf.php";
+        if(!defined('_APPDIR')) {
+            define('_APPDIR', _ROOT . DS . "demoapp");
+        }
 
-        $this->globalConfig = include $globalConf;
-        $this->routesConfig = include $routeConf;
+        $this->globalConfPath = $globalConfPath = _APPDIR . DS . "config" . DS . "global.conf.php";
+        $routeConfPath = _APPDIR . DS . "config" . DS . "routes.conf.php";
+        $this->cliConfPath = $cliConfPath = _ROOT . DS . "src" . DS . "Core" . DS . "Scripts" . DS . "cli.conf.php";
+
+        //GlobalConf
+        if(is_readable($globalConfPath)) {
+            $this->globalConfig = include $globalConfPath;
+
+            if (!is_array($this->globalConfig)) {
+                $this->globalConfig = [];
+            }
+        } else {
+            touch($globalConfPath, 0755);
+        }
+        //RouteConf
+        if(is_readable($routeConfPath)) {
+            $this->routesConfig = include $routeConfPath;
+            if (!is_array($this->routesConfig)) {
+                $this->globalConfig = [];
+            }
+        } else {
+            touch($routeConfPath, 0755);
+        }
+        //CliConf
+        if(is_readable($cliConfPath)) {
+            $this->cliConf = include $cliConfPath;
+            if (!is_array($this->cliConf)) {
+                $this->cliConf = [];
+            }
+        } else {
+            touch($cliConfPath, 0755);
+        }
+
     }
 
     /**
@@ -99,19 +139,16 @@ class Config
     /**
      * Store new params to file
      *
-     * @param $name
-     * @param $val
-     * @return int
+     * @param $arr
+     * @param $filePath
+     * @return bool
      */
-    public function store($name, $val)
+    public function store($arr, $filePath)
     {
-        $this->globalConfig[$name] = $val;
-        $globalConfig = $this->globalConfig;
-        chmod($this->globalConfPath, 0777);
-        $data = '<?php return ' . var_export($globalConfig, true) . ";\n ?>";
-        $r = file_put_contents($this->globalConfPath, $data);
-        chmod($this->globalConfPath, 0655);
-        return $r;
+        chmod($filePath, 0777);
+        $data = '<?php return ' . var_export($arr, true) . ";\n ?>";
+        file_put_contents($filePath, $data);
+        return chmod($filePath, 0655);
     }
 
     /**
@@ -133,6 +170,47 @@ class Config
     public function getRoutesConfig()
     {
         return $this->routesConfig;
+    }
+
+    /**
+     * @param $name
+     * @param $val
+     */
+    public function setCliConfig($name, $val)
+    {
+        $this->cliConf[$name] = $val;
+        $this->store($this->cliConf, $this->cliConfPath);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCliConfig()
+    {
+        return $this->cliConf;
+    }
+
+    // TODO : integrate the below function into config class for dot(.) based array access
+    /**
+     * Allows the use of dot separated array key access
+     *
+     * @param $arr
+     * @param $path
+     * @param $value
+     */
+    private function assignArrayByPath(&$arr, $path, $value)
+    {
+        $keys = explode('.', $path);
+
+        while ($key = array_shift($keys)) {
+            $arr = &$arr[$key];
+        }
+
+        if (is_array($arr)) {
+            array_push($arr, $value);
+        } else {
+            $arr = $value;
+        }
     }
 
 }
