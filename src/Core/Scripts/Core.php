@@ -626,7 +626,7 @@ class Core extends CLI
         if (!is_readable($confFile) || !is_readable($routesConf)) {
 
             $accumilate['pdoDriver'] = $this->io->askAndValidate(
-                "Enter PDO Driver to use : ",
+                "Enter PDO Driver to use ",
                 function ($input) {
                     if (in_array($input, $this->pdoDrivers)) {
                         return true;
@@ -739,11 +739,11 @@ class Core extends CLI
             array_splice($diffContent, $index + 3, 0, ">>>>> Original content");
         }
         chmod($existingFile, 0755);
-        if (file_put_contents($orgFile, implode(PHP_EOL, $diffContent)) === false) {
+        if (file_put_contents($existingFile, implode(PHP_EOL, $diffContent)) === false) {
             $this->io->showErr("Unable write file {$existingFile}");
             exit;
         } elseif (sizeof($diffs) > 0) {
-            $this->io->showErr("Merge conflict in {$existingFile}");
+            $this->io->showErr("Merge conflict in {$existingFile} \n");
             $this->io->writeln("Continuing ....", 'green');
         } elseif ($this::$verbose === true) {
             $this->io->writeln("{$existingFile} Merged successfully!", 'green');
@@ -848,13 +848,17 @@ class Core extends CLI
 
             if (!is_dir($cacheDir)) {
                 mkdir($cacheDir, 0777);
-                chown($cacheDir, $apacheUser . ":" . $apacheGroup);
+                chown($cacheDir, $apacheUser);
             } else {
                 if ($this::$verbose === true) {
                     $this->io->writeln("Setting up cache folder", 'green');
                 }
-                chown($cacheDir, $apacheUser . ":" . $apacheGroup);
-                chmod($cacheDir, 0777);
+                if( chown($cacheDir, $apacheUser) === false ) {
+                    exec('sudo chown ' . $apacheUser . ' ' . $cacheDir);
+                }
+                if( chmod($cacheDir, 0777) === false ) {
+                    exec('sudo chmod 0777 ' . $cacheDir);
+                }
             }
         }
     }

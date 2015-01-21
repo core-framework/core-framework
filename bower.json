@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "coreFramework",
   "version": "0.0.0",
   "authors": [
@@ -26,35 +25,3 @@
     "bootstrap": "~3.2.0"
   }
 }
-=======
-    "name": "coreFramework",
-    "version": "0.0.0",
-    "authors": [
-        "Shalom Sam <shalom-s@hotmail.com>"
-    ],
-    "description": "Core Framework is a PHP framework",
-    "main": "index.html",
-    "moduleType": [
-        "globals"
-    ],
-    "keywords": [
-        "php framework",
-        "Core Framework",
-        "php",
-        "core",
-        "framework"
-    ],
-    "license": "MIT",
-    "private": true,
-    "ignore": [
-        "**\/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "dependencies": {
-        "bootstrap": "~3.2.0"
-    }
-}
->>>>>>> 113f754991e241b96b75cd11614ef996351f9009
