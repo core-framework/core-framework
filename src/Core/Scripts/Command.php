@@ -18,6 +18,7 @@ class Command {
     protected $arguments = [];
     protected $description;
     protected $definition;
+    private $_map;
 
 
     function __construct($name, $description, $definition)
@@ -106,11 +107,27 @@ class Command {
      * @param null $optionVal
      * @param null $isRequired
      * @return $this
+     * @throws \ErrorException
      */
     public function setOptions($name, $shortName = null, $description = null, $optionVal = null, $isRequired = null)
     {
+        if (!empty($shortName)) {
+            $this->_map[$shortName] = $name;
+        }
+        if (empty($name)) {
+            throw new \ErrorException("\$name cannot be null");
+        }
         $this->options[$name] = new Options($name, $shortName, $description, $optionVal, $isRequired);
         return $this;
+    }
+
+    /**
+     * @param $shortName
+     * @return mixed
+     */
+    public function getNameFromShortName($shortName)
+    {
+        return $this->_map[$shortName];
     }
 
     /**

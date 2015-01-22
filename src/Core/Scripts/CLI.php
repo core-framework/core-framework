@@ -233,18 +233,22 @@ class CLI implements Cacheable
     }
 
     /**
-     * Set options
+     * Set Options
      *
      * @param $name
-     * @param $shortName
-     * @param $description
-     * @param $definition
+     * @param null $shortName
+     * @param null $description
+     * @param null $definition
      * @return $this
+     * @throws \ErrorException
      */
     public function setOptions($name, $shortName = null, $description = null, $definition = null)
     {
-        if (!empty($shortName) && empty($name)) {
+        if (!empty($shortName)) {
             $this->_map[$shortName] = $name;
+        }
+        if (empty($name)) {
+            throw new \ErrorException("\$name cannot be null");
         }
 
         $this->options[$name] = new Options($name, $shortName, $description, $definition);
@@ -282,9 +286,14 @@ class CLI implements Cacheable
 
         if ($this->commandExists($argv[0])) {
 
-            $def = $this->commands[$argv[0]]->getDefinition();
-            $options = $this->commands[$argv[0]]->getOptions();
-            $arguments = $this->commands[$argv[0]]->getArguments();
+            /**
+             * @var $command Command
+             */
+            $command = $this->commands[$argv[0]];
+            $def = $command->getDefinition();
+            $options = $command->getOptions();
+            $arguments = $command->getArguments();
+
             array_shift($argv);
             $optsAsArr = $this->getOptionsAsArray($options);
 
@@ -298,7 +307,7 @@ class CLI implements Cacheable
                 } elseif (substr($argv[0], 0, 1) == '-') {
 
                     $shortName = preg_replace('/-+/', "", $argv[0]);
-                    $optionName = $this->_map[$shortName];
+                    $optionName = $command->getNameFromShortName($shortName);
                     $this->parseCommandOptions($optionName, $options[$optionName], str_split($optsAsArr[0]), $argv);
                     array_shift($argv);
 
