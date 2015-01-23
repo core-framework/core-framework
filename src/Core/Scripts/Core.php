@@ -585,7 +585,7 @@ class Core extends CLI
                 $this->io->writeln("App Directory by $appName already exists", "yellow");
                 $this->createIndex($appName);
                 $this->createHtaccess($appName);
-                $this->createConf($appDirPath);
+                $this->createConf($appName);
             }
         }
 
@@ -743,7 +743,7 @@ class Core extends CLI
             $this->io->showErr("Unable write file {$existingFile}");
             exit;
         } elseif (sizeof($diffs) > 0) {
-            $this->io->showErr("Merge conflict in {$existingFile} \n");
+            $this->io->showErr("Merge conflict in $existingFile");
             $this->io->writeln("Continuing ....", 'green');
         } elseif ($this::$verbose === true) {
             $this->io->writeln("{$existingFile} Merged successfully!", 'green');
