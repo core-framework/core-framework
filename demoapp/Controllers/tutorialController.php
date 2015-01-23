@@ -11,12 +11,21 @@ namespace demoapp\Controllers;
 
 class tutorialController extends demoController
 {
-
+    /**
+     * Index Action for tutorials
+     */
     public function indexAction()
     {
         $this->commonFunction('tutorial');
     }
 
+    // TODO: Add tutorial section
+
+    /**
+     * *** CURRENTLY UNUSED AS TUTORIAL PAGES DON'T EXIST ****
+     *
+     * @param $pageName
+     */
     public function tutorialAction($pageName)
     {
 
