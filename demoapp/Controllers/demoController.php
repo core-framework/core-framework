@@ -53,6 +53,12 @@ class demoController extends Controller
 
         $this->view->setTemplateVars('metas.google-site-verification', $googleVerification);
         $this->view->setTemplate('demopages/demo.tpl');
+
+        if (!$this->view->templateExists($pageTpl)) {
+            $pageTpl = "errors/404.tpl";
+            $this->view->setHeader('404');
+        }
+
         $this->view->setTemplateVars('includeTpl', $pageTpl);
         $this->view->setTemplateVars('pageName', $pageName);
         $this->view->setTemplateVars('docVarsCom', include_once $commonLangFile);

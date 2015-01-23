@@ -197,6 +197,17 @@ class View implements viewInterface, Cacheable
     }
 
     /**
+     * Check if the given template file exists
+     *
+     * @param $tpl
+     * @return bool
+     */
+    public function templateExists($tpl)
+    {
+        return $this->tplEngine->templateExists($tpl);
+    }
+
+    /**
      * Disables the view render method
      */
     public function disable()
