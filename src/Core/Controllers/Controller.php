@@ -26,6 +26,7 @@ use Core\Config\Config;
 use Core\Models;
 use Core\Routes\Routes;
 use Core\Views\view;
+use SebastianBergmann\Exporter\Exception;
 
 /**
  * The base controller for Core Framework
@@ -161,11 +162,47 @@ class Controller
     {
         $params = $this->routeParams;
         $this->generateCSRFKey();
-        $this->view->tplInfo['vars']['title'] = isset($params['pageTitle']) ? $params['pageTitle'] : '';
-        $this->view->tplInfo['vars']['pageName'] = isset($params['pageName']) ? $params['pageName'] : '';
-        $this->view->tplInfo['vars']['metas']['keywords'] = isset($params['metaKeywords']) ? $params['metaKeywords'] : '';
-        $this->view->tplInfo['vars']['metas']['description'] = isset($params['metaDescription']) ? $params['metaDescription'] : '';
-        $this->view->tplInfo['vars']['metas']['author'] = "Shalom Sam";
+        $metas = [];
+
+        if(isset($params['argReq'])) {
+            $path = ltrim($this->route->path, "/");
+            $path = implode("_", explode("/", $path));
+            $this->view->tplInfo['vars']['pageName'] = $path;
+        } else {
+            $this->view->tplInfo['vars']['pageName'] = isset($params['pageName']) ? $params['pageName'] : '';
+        }
+
+        $routeConf = $this->config->getRoutesConfig();
+        if ((isset($routeConf['$global']['metaAndTitleFromFile']) && $routeConf['$global']['metaAndTitleFromFile'] === true ) ||
+            (isset($params['metaAndTitleFromFile']) && $params['metaAndTitleFromFile'] === true))
+        {
+            $metaFilePath = isset($routeConf['$global']['metaFile']) ? $routeConf['$global']['metaFile'] :
+                isset($params['metaFile']) ? $params['metaFile'] : "";
+            $metaPath = _APPDIR . DS . ltrim($metaFilePath, "/");
+            if (is_readable($metaPath)) {
+                $metaContent = include($metaPath);
+                $metas = $metaContent["/" . $this->route->path];
+            } else {
+                trigger_error(htmlentities("{$routeConf['$global']['mataFile']} file not found or is not readable"), E_USER_WARNING);
+            }
+
+        } else {
+            $this->view->tplInfo['vars']['title'] = isset($params['pageTitle']) ? $params['pageTitle'] : '';
+            $metas = isset($params['metas']) ? $params['metas'] : '';
+        }
+
+        if (!empty($metas)) {
+            foreach($metas as $key => $val) {
+
+                if ($key === 'pageTitle' || $key === 'title') {
+                    $this->view->tplInfo['vars']['title'] = $val;
+                } else {
+                    $this->view->tplInfo['vars']['metas'][$key] = $val;
+                }
+
+            }
+        }
+
         $this->view->tplInfo['vars']['csrf'] = $_SESSION['csrf'];
     }
 

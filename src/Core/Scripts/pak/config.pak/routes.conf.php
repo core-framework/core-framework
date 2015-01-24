@@ -48,10 +48,20 @@
  *
  */
 return $routes = [
+
+    '$global' => [
+        'metaAndTitleFromFile' => false
+    ],
+
     '/' => [
         'pageName' => 'demo',
         'pageTitle' => 'Demo Home Page',
-        'controller' => '\\demoapp\\Controllers:demoController:indexAction'
+        'controller' => '\\demoapp\\Controllers:demoController:indexAction',
+        'metas' => [
+            'keywords' => 'test, keywords, for test',
+            'description' => 'This is a test description',
+            'author' => 'Shalom Sam'
+        ]
     ],
 
     '/about' => [
@@ -89,7 +99,9 @@ return $routes = [
         'argReq' => ['page' => '[\w]'],
         'argDefault' => '',
         'method' => 'GET',
-        'controller' => '\\demoapp\\Controllers:documentationController:documentationAction'
+        'controller' => '\\demoapp\\Controllers:documentationController:documentationAction',
+        'metaAndTitleFromFile' => true,
+        'metaFile' => 'metas/metas.php'
     ],
 
     '/download' => [
