@@ -1,21 +1,23 @@
 .idea/
+.DS_Store/
 .htaccess
+
+####
 bower_components/
 logs/
 composer.lock
 src/Core/smarty_cache
-.DS_Store/
 src/Core/cache
-*/styles/
-*/scripts/
-*/scripts/angular
-*/scripts/angular-route
-*/index.php
-*/robots.txt
 demoapp/Templates/root/sitemap.xml
 apigen.neon
+
+####
+*/styles/*
+*/index.php
+*/robots.txt
 */cli.conf.php
 *App/
+*app/
 
 ### Windows template
 # Windows image file caches
