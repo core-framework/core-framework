@@ -26,7 +26,7 @@ return $common = [
             'View' => '/documentation/view',
             'Templates' => '/documentation/templates',
             //'Front-end components' => '/documentation/fecomponents',
-            'Class Reference' => '/documentation/api/index.html'
+            'API Reference' => '/documentation/api'
         ],
         'Download' => '/download'
     ]

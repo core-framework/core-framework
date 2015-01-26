@@ -3,54 +3,113 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Core\Routes\Routes</title>
+	<title>Class Core\Routes\Routes | CoreFramework API</title>
 
-	<link rel="stylesheet" href="resources/style.css?1648332946">
+	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
+	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
 
 </head>
 
 <body>
-<div id="left">
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">CoreFramework API</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-Core.Routes.html" title="Summary of Core\Routes"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
 	<div id="menu">
-		<a href="index.html" title="Overview"><span>Overview</span></a>
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="">
+			<input type="hidden" name="ie" value="UTF-8">
+			<input type="text" name="q" class="search-query" placeholder="Search">
+		</form>
 
 
 		<div id="groups">
-			<h3>Namespaces</h3>
+				<h3>Namespaces</h3>
 			<ul>
-				<li class="active"><a href="namespace-Core.html">Core<span></span></a>
-						<ul>
-				<li><a href="namespace-Core.CacheSystem.html">CacheSystem</a>
-						</li>
-				<li><a href="namespace-Core.Config.html">Config</a>
-						</li>
-				<li><a href="namespace-Core.Controllers.html">Controllers</a>
-						</li>
-				<li><a href="namespace-Core.Database.html">Database</a>
-						</li>
-				<li><a href="namespace-Core.DI.html">DI</a>
-						</li>
-				<li><a href="namespace-Core.ErrorHandler.html">ErrorHandler</a>
-						</li>
-				<li><a href="namespace-Core.Helper.html">Helper</a>
-						</li>
-				<li><a href="namespace-Core.Models.html">Models</a>
-						</li>
-				<li><a href="namespace-Core.Request.html">Request</a>
-						</li>
-				<li class="active"><a href="namespace-Core.Routes.html">Routes</a>
-						</li>
-				<li><a href="namespace-Core.Scripts.html">Scripts</a>
-						</li>
-				<li><a href="namespace-Core.Views.html">Views</a>
-						</li>
-							</ul></li>
-				<li><a href="namespace-PHP.html">PHP</a>
-						</li>
+					<li class="active main">
+						<a href="namespace-Core.html">
+							Core<span></span>
+						</a>
+							<ul>
+					<li class="main">
+						<a href="namespace-Core.CacheSystem.html">
+							CacheSystem						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Config.html">
+							Config						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Controllers.html">
+							Controllers						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Database.html">
+							Database						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.DI.html">
+							DI						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.ErrorHandler.html">
+							ErrorHandler						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Helper.html">
+							Helper						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Models.html">
+							Models						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Request.html">
+							Request						</a>
+							</li>
+					<li class="active main">
+						<a href="namespace-Core.Routes.html">
+							Routes						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Scripts.html">
+							Scripts						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Views.html">
+							Views						</a>
+							</li>
+								</ul></li>
 			</ul>
 		</div>
-
-		<hr>
 
 
 		<div id="elements">
@@ -70,33 +129,7 @@
 <div id="splitter"></div>
 
 <div id="right">
-<div id="rightInner">
-	<form id="search">
-		<input type="hidden" name="cx" value="">
-		<input type="hidden" name="ie" value="UTF-8">
-		<input type="text" name="q" class="text" placeholder="Search">
-	</form>
-
-	<div id="navigation">
-		<ul>
-			<li>
-				<a href="index.html" title="Overview"><span>Overview</span></a>
-			</li>
-			<li>
-				<a href="namespace-Core.Routes.html" title="Summary of Core\Routes"><span>Namespace</span></a>
-			</li>
-			<li class="active">
-<span>Class</span>			</li>
-		</ul>
-		<ul>
-			<li>
-				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
-			</li>
-		</ul>
-		<ul>
-		</ul>
-	</div>
-
+	<div id="rightInner">
 <div id="content" class="class">
 	<h1>Class Routes</h1>
 
@@ -108,10 +141,9 @@
 
  <span class="php-comment">//find find for current route in given route config</span>
  <span class="php-var">$route</span>-&gt;findMatch();</pre>
-
 	</div>
 
-	<dl class="tree">
+	<dl class="tree well">
 		<dd style="padding-left:0px">
 <b><span>Core\Routes\Routes</span></b>			
 			 implements 
@@ -128,1303 +160,1192 @@
 
 
 
-	<div class="info">
+	<div class="alert alert-info">
 		
 		
-		<b>Namespace:</b> Core\Routes<br>
+		<b>Namespace:</b> <a href="namespace-Core.html">Core</a>\<a href="namespace-Core.Routes.html">Routes</a><br>
 		<b>Package:</b> Core\Routes<br>
 
 				<b>License:</b>
 				<a href="http://creativecommons.org/licenses/by-sa/4.0/">http://creativecommons.org/licenses/by-sa/4.0/</a><br>
 				<b>Author:</b>
-				Shalom Sam <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;">&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;</a>
-<br>
+				Shalom Sam <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;">&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;</a><br>
 				<b>Version:</b>
-				$Revision$
-<br>
+				$Revision$<br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-		<b>Located at</b> <a href="source-class-Core.Routes.Routes.html#30-716" title="Go to source code">Routes/Routes.php</a><br>
+			<b>Located at</b> <a href="source-class-Core.Routes.Routes.html#30-716" title="Go to source code">Routes/Routes.php</a>
+		<br>
 	</div>
 
 
 
-	<table class="summary methods" id="methods">
-	<caption>Methods summary</caption>
-	<tr data-order="__construct" id="___construct">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#138-153" title="Go to source code">__construct</a>( <span><code><a href="class-Core.Request.Request.html">Core\Request\Request</a></code> <var>$request</var></span>, <span><code><a href="class-Core.Config.Config.html">Core\Config\Config</a></code> <var>$config</var></span> )</code>
-
-		<div class="description short">
-			<p>Sets $this properties</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Sets $this properties</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$request</var></dt>
-					<dd>
-</dd>
-					<dt><var>$config</var></dt>
-					<dd>
-</dd>
-				</dl></div>
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="findMatch" id="_findMatch">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_findMatch">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#200-237" title="Go to source code">findMatch</a>( )</code>
-
-		<div class="description short">
-			<p>find controller and methods for current URL (path)</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>find controller and methods for current URL (path)</p>
-
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="checkIfPatternMatch" id="_checkIfPatternMatch">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_checkIfPatternMatch">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#299-412" title="Go to source code">checkIfPatternMatch</a>( )</code>
-
-		<div class="description short">
-			<p>check if URL (path) matches defined paths (pathConf file)</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>check if URL (path) matches defined paths (pathConf file)</p>
-
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getPath" id="_getPath">
-
-		<td class="attributes"><code>
-			 public 
-
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getPath">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#414-422" title="Go to source code">getPath</a>( )</code>
-
-		<div class="description short">
-			<p>Returns the relative URL requested</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Returns the relative URL requested</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getFileName" id="_getFileName">
-
-		<td class="attributes"><code>
-			 public 
-
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getFileName">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#424-432" title="Go to source code">getFileName</a>( )</code>
-
-		<div class="description short">
-			<p>Returns the current fileName</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Returns the current fileName</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getFileExt" id="_getFileExt">
-
-		<td class="attributes"><code>
-			 public 
-
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getFileExt">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#434-442" title="Go to source code">getFileExt</a>( )</code>
-
-		<div class="description short">
-			<p>Returns the file extension</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Returns the file extension</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getNamespace" id="_getNamespace">
-
-		<td class="attributes"><code>
-			 public 
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getNamespace">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#444-452" title="Go to source code">getNamespace</a>( )</code>
-
-		<div class="description short">
-			<p>Returns the namespace</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Returns the namespace</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="setNamespace" id="_setNamespace">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_setNamespace">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#454-462" title="Go to source code">setNamespace</a>( <span>mixed <var>$str</var></span> )</code>
-
-		<div class="description short">
-			<p>sets the namespace</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>sets the namespace</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$str</var></dt>
-					<dd>
-</dd>
-				</dl></div>
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getController" id="_getController">
-
-		<td class="attributes"><code>
-			 public 
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getController">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#464-472" title="Go to source code">getController</a>( )</code>
-
-		<div class="description short">
-			<p>Returns the controller</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Returns the controller</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="setController" id="_setController">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_setController">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#474-482" title="Go to source code">setController</a>( <span>mixed <var>$str</var></span> )</code>
-
-		<div class="description short">
-			<p>sets the controller</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>sets the controller</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$str</var></dt>
-					<dd>
-</dd>
-				</dl></div>
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getMethod" id="_getMethod">
-
-		<td class="attributes"><code>
-			 public 
-
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getMethod">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#484-492" title="Go to source code">getMethod</a>( )</code>
-
-		<div class="description short">
-			<p>get class method</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>get class method</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="setMethod" id="_setMethod">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_setMethod">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#494-502" title="Go to source code">setMethod</a>( <span>mixed <var>$method</var></span> )</code>
-
-		<div class="description short">
-			<p>set class method</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>set class method</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$method</var></dt>
-					<dd>
-</dd>
-				</dl></div>
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getRqstMethod" id="_getRqstMethod">
-
-		<td class="attributes"><code>
-			 public 
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getRqstMethod">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#504-512" title="Go to source code">getRqstMethod</a>( )</code>
-
-		<div class="description short">
-			<p>returns the method</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>returns the method</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="setRqstMethod" id="_setRqstMethod">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_setRqstMethod">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#514-522" title="Go to source code">setRqstMethod</a>( <span>mixed <var>$str</var></span> )</code>
-
-		<div class="description short">
-			<p>sets the method</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>sets the method</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$str</var></dt>
-					<dd>
-</dd>
-				</dl></div>
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getArgs" id="_getArgs">
-
-		<td class="attributes"><code>
-			 public 
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getArgs">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#524-532" title="Go to source code">getArgs</a>( )</code>
-
-		<div class="description short">
-			<p>Returns the arguments [array]</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Returns the arguments [array]</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getModel" id="_getModel">
-
-		<td class="attributes"><code>
-			 public 
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getModel">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#534-542" title="Go to source code">getModel</a>( )</code>
-
-		<div class="description short">
-			<p>Returns the model</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Returns the model</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getRequired" id="_getRequired">
-
-		<td class="attributes"><code>
-			 public 
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getRequired">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#544-552" title="Go to source code">getRequired</a>( )</code>
-
-		<div class="description short">
-			<p>Returns the required files</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Returns the required files</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getIsRootFile" id="_getIsRootFile">
-
-		<td class="attributes"><code>
-			 public 
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getIsRootFile">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#554-562" title="Go to source code">getIsRootFile</a>( )</code>
-
-		<div class="description short">
-			<p>Returns true if the file is a root file</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Returns true if the file is a root file</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>boolean</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getIsFEComponent" id="_getIsFEComponent">
-
-		<td class="attributes"><code>
-			 public 
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getIsFEComponent">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#564-572" title="Go to source code">getIsFEComponent</a>( )</code>
-
-		<div class="description short">
-			<p>Returns true if the file Front End Component</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Returns true if the file Front End Component</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>boolean</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getIsCustomServe" id="_getIsCustomServe">
-
-		<td class="attributes"><code>
-			 public 
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getIsCustomServe">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#574-582" title="Go to source code">getIsCustomServe</a>( )</code>
-
-		<div class="description short">
-			<p>Returns true if the file is set as Custom serve (serveAsIs)</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Returns true if the file is set as Custom serve (serveAsIs)</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getReferencePath" id="_getReferencePath">
-
-		<td class="attributes"><code>
-			 public 
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getReferencePath">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#584-592" title="Go to source code">getReferencePath</a>( )</code>
-
-		<div class="description short">
-			<p>returns reference path set in routes.conf</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>returns reference path set in routes.conf</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getRouteVars" id="_getRouteVars">
-
-		<td class="attributes"><code>
-			 public 
-
-			array
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getRouteVars">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#594-602" title="Go to source code">getRouteVars</a>( )</code>
-
-		<div class="description short">
-			<p>Returns the properties of the path</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Returns the properties of the path</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>array</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="addRouteVars" id="_addRouteVars">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_addRouteVars">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#604-613" title="Go to source code">addRouteVars</a>( <span>array <var>$arr</var></span> )</code>
-
-		<div class="description short">
-			<p>Add route vars</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Add route vars</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$arr</var></dt>
-					<dd>
-</dd>
-				</dl></div>
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getGetVars" id="_getGetVars">
-
-		<td class="attributes"><code>
-			 public 
-
-			array
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getGetVars">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#615-623" title="Go to source code">getGetVars</a>( )</code>
-
-		<div class="description short">
-			<p>returns the sanitized $_GET</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>returns the sanitized $_GET</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>array</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getPostVars" id="_getPostVars">
-
-		<td class="attributes"><code>
-			 public 
-
-			array
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getPostVars">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#625-633" title="Go to source code">getPostVars</a>( )</code>
-
-		<div class="description short">
-			<p>returns the sanitized $_POST</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>returns the sanitized $_POST</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>array</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getCookies" id="_getCookies">
-
-		<td class="attributes"><code>
-			 public 
-
-			array
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getCookies">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#635-643" title="Go to source code">getCookies</a>( )</code>
-
-		<div class="description short">
-			<p>returns sanitized $_COOKIE</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>returns sanitized $_COOKIE</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>array</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getReqstMethod" id="_getReqstMethod">
-
-		<td class="attributes"><code>
-			 public 
-
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getReqstMethod">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#645-653" title="Go to source code">getReqstMethod</a>( )</code>
-
-		<div class="description short">
-			<p>returns the current request method</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>returns the current request method</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getDefinedMethod" id="_getDefinedMethod">
-
-		<td class="attributes"><code>
-			 public 
-
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getDefinedMethod">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#655-663" title="Go to source code">getDefinedMethod</a>( )</code>
-
-		<div class="description short">
-			<p>returns the defined request method for the path</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>returns the defined request method for the path</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getServer" id="_getServer">
-
-		<td class="attributes"><code>
-			 public 
-
-			array
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getServer">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#665-673" title="Go to source code">getServer</a>( )</code>
-
-		<div class="description short">
-			<p>Returns the Server details</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Returns the Server details</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>array</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="__sleep" id="___sleep">
-
-		<td class="attributes"><code>
-			 public 
-
-			array
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#___sleep">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#675-706" title="Go to source code">__sleep</a>( )</code>
-
-		<div class="description short">
-			<p>Sleep magic method</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Sleep magic method</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>array</code>
-				</div>
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Core.CacheSystem.Cacheable.html#___sleep">Core\CacheSystem\Cacheable::__sleep()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="__wakeup" id="___wakeup">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#___wakeup">#</a>
-		<code><a href="source-class-Core.Routes.Routes.html#708-714" title="Go to source code">__wakeup</a>( )</code>
-
-		<div class="description short">
-			<p>Magic wakup method. Initializes on unserialize</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Magic wakup method. Initializes on unserialize</p>
-
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Core.CacheSystem.Cacheable.html#___wakeup">Core\CacheSystem\Cacheable::__wakeup()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	</table>
-
-
-
-
-
-
-
-
-
-
-
-
-	<table class="summary properties" id="properties">
-	<caption>Properties summary</caption>
-	<tr data-order="path" id="$path">
-		<td class="attributes"><code>
-			public  
-			string
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-Core.Routes.Routes.html#49-52" title="Go to source code"><var>$path</var></a>
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#138-153" title="Go to source code">__construct</a>( <span><code><a href="class-Core.Request.Request.html">Core\Request\Request</a></code> <var>$request</var></span>, <span><code><a href="class-Core.Config.Config.html">Core\Config\Config</a></code> <var>$config</var></span> )</code>
 
 			<div class="description short">
-				<p>The path/query string of the request</p>
-
+				<p>Sets $this properties</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>The path/query string of the request</p>
+				<p>Sets $this properties</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$request</var></dt>
+						<dd></dd>
+						<dt><var>$config</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
 
 
 			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#$path" class="anchor">#</a>
-				<code><span class="php-quote">&quot;&quot;</span></code>
-			</div>
-		</td>
-	</tr>
-	<tr data-order="urlPathArr" id="$urlPathArr">
-		<td class="attributes"><code>
-			public  
-			array
-		</code></td>
+			</div></td>
+		</tr>
+		<tr data-order="findMatch" id="_findMatch">
 
-		<td class="name">
-				<a href="source-class-Core.Routes.Routes.html#53-56" title="Go to source code"><var>$urlPathArr</var></a>
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_findMatch">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#200-237" title="Go to source code">findMatch</a>( )</code>
 
 			<div class="description short">
-				<p>The path represented as an array split at '/', .i.e. /some/path would be ['some','path']</p>
-
+				<p>find controller and methods for current URL (path)</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>The path represented as an array split at '/', .i.e. /some/path would be ['some','path']</p>
+				<p>find controller and methods for current URL (path)</p>
+
+
+
+
+
 
 
 			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#$urlPathArr" class="anchor">#</a>
-				<code>[]</code>
-			</div>
-		</td>
-	</tr>
-	<tr data-order="controllerVerb" id="$controllerVerb">
-		<td class="attributes"><code>
-			public  
-			string
-		</code></td>
+			</div></td>
+		</tr>
+		<tr data-order="checkIfPatternMatch" id="_checkIfPatternMatch">
 
-		<td class="name">
-				<a href="source-class-Core.Routes.Routes.html#57-60" title="Go to source code"><var>$controllerVerb</var></a>
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_checkIfPatternMatch">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#299-412" title="Go to source code">checkIfPatternMatch</a>( )</code>
 
 			<div class="description short">
-				<p>The string that defines the Controller and Method associated with a given URL path, extracted from the route.conf</p>
-
+				<p>check if URL (path) matches defined paths (pathConf file)</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>The string that defines the Controller and Method associated with a given URL path, extracted from the route.conf</p>
+				<p>check if URL (path) matches defined paths (pathConf file)</p>
+
+
+
+
+
 
 
 			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#$controllerVerb" class="anchor">#</a>
-				<code></code>
-			</div>
-		</td>
-	</tr>
-	<tr data-order="request" id="$request">
-		<td class="attributes"><code>
-			protected  
-			<code><a href="class-Core.Request.Request.html">Core\Request\Request</a></code>
-		</code></td>
+			</div></td>
+		</tr>
+		<tr data-order="getPath" id="_getPath">
 
-		<td class="name">
-				<a href="source-class-Core.Routes.Routes.html#61-64" title="Go to source code"><var>$request</var></a>
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getPath">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#414-422" title="Go to source code">getPath</a>( )</code>
 
 			<div class="description short">
-				<p>Request object</p>
-
+				<p>Returns the relative URL requested</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>Request object</p>
+				<p>Returns the relative URL requested</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
 
 
 			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#$request" class="anchor">#</a>
-				<code></code>
-			</div>
-		</td>
-	</tr>
-	<tr data-order="config" id="$config">
-		<td class="attributes"><code>
-			protected  
-			<code><a href="class-Core.Config.Config.html">Core\Config\Config</a></code>
-		</code></td>
+			</div></td>
+		</tr>
+		<tr data-order="getFileName" id="_getFileName">
 
-		<td class="name">
-				<a href="source-class-Core.Routes.Routes.html#65-68" title="Go to source code"><var>$config</var></a>
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getFileName">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#424-432" title="Go to source code">getFileName</a>( )</code>
 
 			<div class="description short">
-				<p>Config object</p>
-
+				<p>Returns the current fileName</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>Config object</p>
+				<p>Returns the current fileName</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
 
 
 			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#$config" class="anchor">#</a>
-				<code></code>
+			</div></td>
+		</tr>
+		<tr data-order="getFileExt" id="_getFileExt">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getFileExt">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#434-442" title="Go to source code">getFileExt</a>( )</code>
+
+			<div class="description short">
+				<p>Returns the file extension</p>
 			</div>
-		</td>
-	</tr>
-	</table>
+
+			<div class="description detailed hidden">
+				<p>Returns the file extension</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getNamespace" id="_getNamespace">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getNamespace">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#444-452" title="Go to source code">getNamespace</a>( )</code>
+
+			<div class="description short">
+				<p>Returns the namespace</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns the namespace</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setNamespace" id="_setNamespace">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setNamespace">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#454-462" title="Go to source code">setNamespace</a>( <span> <var>$str</var></span> )</code>
+
+			<div class="description short">
+				<p>sets the namespace</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>sets the namespace</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$str</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getController" id="_getController">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getController">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#464-472" title="Go to source code">getController</a>( )</code>
+
+			<div class="description short">
+				<p>Returns the controller</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns the controller</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setController" id="_setController">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setController">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#474-482" title="Go to source code">setController</a>( <span> <var>$str</var></span> )</code>
+
+			<div class="description short">
+				<p>sets the controller</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>sets the controller</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$str</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getMethod" id="_getMethod">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getMethod">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#484-492" title="Go to source code">getMethod</a>( )</code>
+
+			<div class="description short">
+				<p>get class method</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>get class method</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setMethod" id="_setMethod">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setMethod">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#494-502" title="Go to source code">setMethod</a>( <span> <var>$method</var></span> )</code>
+
+			<div class="description short">
+				<p>set class method</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>set class method</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$method</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getRqstMethod" id="_getRqstMethod">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getRqstMethod">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#504-512" title="Go to source code">getRqstMethod</a>( )</code>
+
+			<div class="description short">
+				<p>returns the method</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>returns the method</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setRqstMethod" id="_setRqstMethod">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setRqstMethod">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#514-522" title="Go to source code">setRqstMethod</a>( <span> <var>$str</var></span> )</code>
+
+			<div class="description short">
+				<p>sets the method</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>sets the method</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$str</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getArgs" id="_getArgs">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getArgs">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#524-532" title="Go to source code">getArgs</a>( )</code>
+
+			<div class="description short">
+				<p>Returns the arguments [array]</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns the arguments [array]</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getModel" id="_getModel">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getModel">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#534-542" title="Go to source code">getModel</a>( )</code>
+
+			<div class="description short">
+				<p>Returns the model</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns the model</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getRequired" id="_getRequired">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getRequired">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#544-552" title="Go to source code">getRequired</a>( )</code>
+
+			<div class="description short">
+				<p>Returns the required files</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns the required files</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getIsRootFile" id="_getIsRootFile">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getIsRootFile">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#554-562" title="Go to source code">getIsRootFile</a>( )</code>
+
+			<div class="description short">
+				<p>Returns true if the file is a root file</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns true if the file is a root file</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getIsFEComponent" id="_getIsFEComponent">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getIsFEComponent">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#564-572" title="Go to source code">getIsFEComponent</a>( )</code>
+
+			<div class="description short">
+				<p>Returns true if the file Front End Component</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns true if the file Front End Component</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getIsCustomServe" id="_getIsCustomServe">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getIsCustomServe">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#574-582" title="Go to source code">getIsCustomServe</a>( )</code>
+
+			<div class="description short">
+				<p>Returns true if the file is set as Custom serve (serveAsIs)</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns true if the file is set as Custom serve (serveAsIs)</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getReferencePath" id="_getReferencePath">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getReferencePath">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#584-592" title="Go to source code">getReferencePath</a>( )</code>
+
+			<div class="description short">
+				<p>returns reference path set in routes.conf</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>returns reference path set in routes.conf</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getRouteVars" id="_getRouteVars">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getRouteVars">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#594-602" title="Go to source code">getRouteVars</a>( )</code>
+
+			<div class="description short">
+				<p>Returns the properties of the path</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns the properties of the path</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="addRouteVars" id="_addRouteVars">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_addRouteVars">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#604-613" title="Go to source code">addRouteVars</a>( <span>array <var>$arr</var></span> )</code>
+
+			<div class="description short">
+				<p>Add route vars</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Add route vars</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$arr</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getGetVars" id="_getGetVars">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getGetVars">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#615-623" title="Go to source code">getGetVars</a>( )</code>
+
+			<div class="description short">
+				<p>returns the sanitized $_GET</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>returns the sanitized $_GET</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getPostVars" id="_getPostVars">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getPostVars">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#625-633" title="Go to source code">getPostVars</a>( )</code>
+
+			<div class="description short">
+				<p>returns the sanitized $_POST</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>returns the sanitized $_POST</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getCookies" id="_getCookies">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getCookies">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#635-643" title="Go to source code">getCookies</a>( )</code>
+
+			<div class="description short">
+				<p>returns sanitized $_COOKIE</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>returns sanitized $_COOKIE</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getReqstMethod" id="_getReqstMethod">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getReqstMethod">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#645-653" title="Go to source code">getReqstMethod</a>( )</code>
+
+			<div class="description short">
+				<p>returns the current request method</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>returns the current request method</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getDefinedMethod" id="_getDefinedMethod">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getDefinedMethod">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#655-663" title="Go to source code">getDefinedMethod</a>( )</code>
+
+			<div class="description short">
+				<p>returns the defined request method for the path</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>returns the defined request method for the path</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getServer" id="_getServer">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getServer">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#665-673" title="Go to source code">getServer</a>( )</code>
+
+			<div class="description short">
+				<p>Returns the Server details</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns the Server details</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="__sleep" id="___sleep">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___sleep">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#675-706" title="Go to source code">__sleep</a>( )</code>
+
+			<div class="description short">
+				<p>Sleep magic method</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sleep magic method</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Core.CacheSystem.Cacheable.html#___sleep">Core\CacheSystem\Cacheable::__sleep()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="__wakeup" id="___wakeup">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___wakeup">#</a>
+			<code><a href="source-class-Core.Routes.Routes.html#708-714" title="Go to source code">__wakeup</a>( )</code>
+
+			<div class="description short">
+				<p>Magic wakup method. Initializes on unserialize</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Magic wakup method. Initializes on unserialize</p>
+
+
+
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Core.CacheSystem.Cacheable.html#___wakeup">Core\CacheSystem\Cacheable::__wakeup()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped properties" id="properties">
+		<tr data-order="path" id="$path">
+			<td class="attributes"><code>
+				public  
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Core.Routes.Routes.html#49-52" title="Go to source code"><var>$path</var></a>
+
+				<div class="description short">
+					<p>The path/query string of the request</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>The path/query string of the request</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$path" class="anchor">#</a>
+					<code><span class="php-quote">&quot;&quot;</span></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="urlPathArr" id="$urlPathArr">
+			<td class="attributes"><code>
+				public  
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Core.Routes.Routes.html#53-56" title="Go to source code"><var>$urlPathArr</var></a>
+
+				<div class="description short">
+					<p>The path represented as an array split at '/', .i.e. /some/path would be ['some','path']</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>The path represented as an array split at '/', .i.e. /some/path would be ['some','path']</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$urlPathArr" class="anchor">#</a>
+					<code>[]</code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="controllerVerb" id="$controllerVerb">
+			<td class="attributes"><code>
+				public  
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Core.Routes.Routes.html#57-60" title="Go to source code"><var>$controllerVerb</var></a>
+
+				<div class="description short">
+					<p>The string that defines the Controller and Method associated with a given URL path, extracted from the route.conf</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>The string that defines the Controller and Method associated with a given URL path, extracted from the route.conf</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$controllerVerb" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="request" id="$request">
+			<td class="attributes"><code>
+				protected  
+				<code><a href="class-Core.Request.Request.html">Core\Request\Request</a></code>
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Core.Routes.Routes.html#61-64" title="Go to source code"><var>$request</var></a>
+
+				<div class="description short">
+					<p>Request object</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>Request object</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$request" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="config" id="$config">
+			<td class="attributes"><code>
+				protected  
+				<code><a href="class-Core.Config.Config.html">Core\Config\Config</a></code>
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Core.Routes.Routes.html#65-68" title="Go to source code"><var>$config</var></a>
+
+				<div class="description short">
+					<p>Config object</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>Config object</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$config" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+		</table>
 
 
 
@@ -1432,13 +1353,13 @@
 
 
 </div>
+	</div>
 
 	<div id="footer">
-		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+		CoreFramework API API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
-</div>
-<script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?2459465943"></script>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
 </body>
 </html>

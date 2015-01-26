@@ -274,7 +274,7 @@ class core
         $reqstMethod = $this->route->getReqstMethod();
         $this->view->setDebugMode($this->devMode);
 
-        if ((empty($controller) && !$isFEComponent && !$isRootFile) || $definedMethod !== $reqstMethod) {
+        if ((empty($controller) && !$isFEComponent && !$isRootFile && !$isCustomServe) || $definedMethod !== $reqstMethod) {
             $this->route->header = '404';
             $this->route->setController('errorController');
             $this->route->setMethod('pageNotFound');
@@ -451,9 +451,10 @@ class core
     private function handleCustomServe()
     {
         $args = $this->route->getArgs();
-        $routeVars = $this->route->getGetVars();
-        $showHeader = empty($routeVars['showHeader']) ? true : $routeVars['showHeader'];
-        $showFooter = empty($routeVars['showFooter']) ? false : $routeVars['showFooter'];
+        $routeVars = $this->route->getRouteVars();
+        $showHeader = isset($routeVars['showHeader']) && $routeVars['showHeader'] === true ? true : false;
+        $showFooter = isset($routeVars['showFooter']) && $routeVars['showFooter'] === true ? true : false;
+        $serveIframe = isset($routeVars['serveIframe']) && $routeVars['serveIframe'] === true ? true : false;
         $fileName = $this->route->getFileName();
         $fileName = !empty($fileName) ? $fileName : 'index';
         $fileExt = $this->route->getFileExt();
@@ -476,9 +477,17 @@ class core
             $realPath .= $fileName . "." . $fileExt;
         }
 
-        if ($showHeader === true && $fileExt === 'html') {
-
+        if ($showHeader === true && $serveIframe === false && $fileExt === 'html') {
+            $this->view->showHeader = $showHeader;
+            $this->view->showFooter = $showFooter;
             $this->route->addRouteVars(['customServePath' => $realPath]);
+            $this->view->setDebugMode(false);
+            $this->render();
+
+        } elseif ($serveIframe === true && $showHeader === true) {
+            $this->view->showHeader = $showHeader;
+            $this->view->showFooter = $showFooter;
+            $this->view->setTemplateVars('iframeUrl', $referencePath);
             $this->view->setDebugMode(false);
             $this->render();
 
