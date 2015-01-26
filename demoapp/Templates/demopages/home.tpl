@@ -29,57 +29,57 @@
         </div>
     </div>
     <hr>
-    <div class="row center-block productInfo">
-        <div class="col-xs-12 col-lg-4 row center-block">
+    <div class="center-block productInfo">
+        <div class="col-xs-12 col-md-4 col-lg-4 center-block">
             <div class="row">
-                <div class="col-lg-3 visible-xs-inline bold-xs visible-lg-block">
+                <div class="col-lg-3 visible-xs-inline visible-sm-inline bold-xs visible-lg-block visible-md-inline-block visible-lg-inline-block">
                     Author:
                 </div>
-                <div class="col-lg-9 visible-xs-inline visible-lg-block">
+                <div class="col-lg-9 visible-xs-inline visible-sm-inline visible-lg-block visible-md-inline-block visible-lg-inline-block">
                     <{$docVarsCom.author.name}>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-3 visible-xs-inline bold-xs visible-lg-block">
+                <div class="col-lg-3 visible-xs-inline visible-sm-inline bold-xs visible-lg-block visible-md-inline-block visible-lg-inline-block">
                     Contact:
                 </div>
-                <div class="col-lg-9 visible-xs-inline visible-lg-block">
+                <div class="col-lg-9 visible-xs-inline visible-sm-inline visible-lg-block visible-md-inline-block visible-lg-inline-block">
                     <a href="#"><{$docVarsCom.author.email}></a>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-lg-4 row center-block">
+        <div class="col-xs-12 col-md-4 col-lg-4 center-block">
             <div class="row">
-                <div class="col-lg-4 visible-xs-inline bold-xs visible-lg-block">
+                <div class="col-lg-4 visible-xs-inline visible-sm-inline bold-xs visible-lg-block visible-md-inline-block visible-lg-inline-block">
                     Author URL:
                 </div>
-                <div class="col-lg-8 visible-xs-inline visible-lg-block">
+                <div class="col-lg-8 visible-xs-inline visible-sm-inline visible-lg-block visible-md-inline-block visible-lg-inline-block">
                     <a href="<{$docVarsCom.author.url}>"><{$docVarsCom.author.url|replace:"http://":""}></a>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 visible-xs-inline bold-xs visible-lg-block">
+                <div class="col-lg-4 visible-xs-inline visible-sm-inline bold-xs visible-lg-block visible-md-inline-block visible-lg-inline-block">
                     Core Version:
                 </div>
-                <div class="col-lg-8 visible-xs-inline visible-lg-block">
+                <div class="col-lg-8 visible-xs-inline visible-sm-inline visible-lg-block visible-md-inline-block visible-lg-inline-block">
                     <{$docVarsCom.product.current_ver}>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-lg-4 center-block">
+        <div class="col-xs-12 col-md-4 col-lg-4 center-block">
             <div class="row">
-                <div class="visible-xs-inline bold-xs col-lg-6 visible-lg-block">
+                <div class="bold-xs col-lg-6 visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline-block">
                     Documentation Version:
                 </div>
-                <div class="visible-xs-inline col-lg-4 visible-lg-block">
+                <div class="col-lg-4 visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline-block">
                     <{$docVarsCom.product.doc_ver}>
                 </div>
             </div>
             <div class="row">
-                <div class="visible-xs-inline bold-xs col-lg-6 visible-lg-block">
+                <div class="col-lg-6 bold-xs visible-xs-inline visible-sm-inline visible-md-inline-block visible-lg-inline-block">
                     Product Created:
                 </div>
-                <div class="visible-xs-inline col-lg-4 visible-lg-block">
+                <div class="col-lg-4 visible-xs-inline visible-sm-inline visible-md-inline-block visible-lg-inline-block">
                     <{$docVarsCom.product.created_on}>
                 </div>
             </div>

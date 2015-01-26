@@ -21,8 +21,12 @@
 
         <!--  MAIN CONTAINER START  -->
         <{if isset($customServePath) }>
-            <div class="customServeWrp">
+            <div class="container-fluid customServeWrp">
                 <{fetch file=$customServePath }>
+            </div>
+        <{elseif isset($iframeUrl) }>
+            <div class="container-fluid iframeWrp">
+                <iframe src="<{$iframeUrl}>" frameborder="0" style="height: 800px; width: 100%; min-height: 100%;"></iframe>
             </div>
         <{else}>
             <div class="container midWrp">
