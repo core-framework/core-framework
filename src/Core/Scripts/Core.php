@@ -89,45 +89,6 @@ class Core extends CLI
         parent::showHelp();
     }
 
-    public function install($appName = "demoapp", $dev = false)
-    {
-        if ($dev === true) {
-            $this->environment = "development";
-        }
-
-        $this->appName = $appName;
-        $this->appDirPath = _ROOT . DS . $appName;
-        $this->printSign();
-        $this->io->writeln("version: " . $this->getVersion());
-        $this->createAlias();
-        $this->checkNodeIsInstalled();
-        $this->checkBowerIsInstalled();
-
-        if ($appName !== 'demoapp') {
-            $this->addCliConf('core.appList', $appName);
-            $this->getFrontEndManager();
-        }
-
-        switch ($this->frontEndManager) {
-
-            case 'bower':
-                $this->getBowerDependencies();
-                $this->bower('install');
-                $this->symResources($appName);
-                $this->setupApp($appName);
-                break;
-
-            // TODO : add support for other front-end dependency management systems
-            // case 'yeoman':
-            //    $this->installYeoMan();
-            //    break;
-        }
-
-        $this->createCacheFolder();
-        $this->createSmartyCache();
-        $this->io->writeln("Application setup successfully!", 'green');
-    }
-
     /**
      * Prints the CoreFramework CLI sign
      */
@@ -178,6 +139,45 @@ class Core extends CLI
         );
 
         $this->io->writeln('Core Framework Console (c) Shalom Sam <shalom.s@coreframework.in>', 'green');
+    }
+
+    public function install($appName = "demoapp", $dev = false)
+    {
+        if ($dev === true) {
+            $this->environment = "development";
+        }
+
+        $this->appName = $appName;
+        $this->appDirPath = _ROOT . DS . $appName;
+        $this->printSign();
+        $this->io->writeln("version: " . $this->getVersion());
+        $this->createAlias();
+        $this->checkNodeIsInstalled();
+        $this->checkBowerIsInstalled();
+
+        if ($appName !== 'demoapp') {
+            $this->addCliConf('core.appList', $appName);
+            $this->getFrontEndManager();
+        }
+
+        switch ($this->frontEndManager) {
+
+            case 'bower':
+                $this->getBowerDependencies();
+                $this->bower('install');
+                $this->symResources($appName);
+                $this->setupApp($appName);
+                break;
+
+            // TODO : add support for other front-end dependency management systems
+            // case 'yeoman':
+            //    $this->installYeoMan();
+            //    break;
+        }
+
+        $this->createCacheFolder();
+        $this->createSmartyCache();
+        $this->io->writeln("Application setup successfully!", 'green');
     }
 
     /**
@@ -739,7 +739,7 @@ class Core extends CLI
             array_splice($diffContent, $index + 3, 0, ">>>>> Original content");
         }
         chmod($existingFile, 0755);
-        if (file_put_contents($existingFile, implode(PHP_EOL, $diffContent)) === false) {
+        if (file_put_contents($existingFile, $diffContent) === false) {
             $this->io->showErr("Unable write file {$existingFile}");
             exit;
         } elseif (sizeof($diffs) > 0) {
