@@ -3,54 +3,113 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Core\Config\Config</title>
+	<title>Class Core\Config\Config | CoreFramework API</title>
 
-	<link rel="stylesheet" href="resources/style.css?1648332946">
+	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
+	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
 
 </head>
 
 <body>
-<div id="left">
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">CoreFramework API</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-Core.Config.html" title="Summary of Core\Config"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
 	<div id="menu">
-		<a href="index.html" title="Overview"><span>Overview</span></a>
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="">
+			<input type="hidden" name="ie" value="UTF-8">
+			<input type="text" name="q" class="search-query" placeholder="Search">
+		</form>
 
 
 		<div id="groups">
-			<h3>Namespaces</h3>
+				<h3>Namespaces</h3>
 			<ul>
-				<li class="active"><a href="namespace-Core.html">Core<span></span></a>
-						<ul>
-				<li><a href="namespace-Core.CacheSystem.html">CacheSystem</a>
-						</li>
-				<li class="active"><a href="namespace-Core.Config.html">Config</a>
-						</li>
-				<li><a href="namespace-Core.Controllers.html">Controllers</a>
-						</li>
-				<li><a href="namespace-Core.Database.html">Database</a>
-						</li>
-				<li><a href="namespace-Core.DI.html">DI</a>
-						</li>
-				<li><a href="namespace-Core.ErrorHandler.html">ErrorHandler</a>
-						</li>
-				<li><a href="namespace-Core.Helper.html">Helper</a>
-						</li>
-				<li><a href="namespace-Core.Models.html">Models</a>
-						</li>
-				<li><a href="namespace-Core.Request.html">Request</a>
-						</li>
-				<li><a href="namespace-Core.Routes.html">Routes</a>
-						</li>
-				<li><a href="namespace-Core.Scripts.html">Scripts</a>
-						</li>
-				<li><a href="namespace-Core.Views.html">Views</a>
-						</li>
-							</ul></li>
-				<li><a href="namespace-PHP.html">PHP</a>
-						</li>
+					<li class="active main">
+						<a href="namespace-Core.html">
+							Core<span></span>
+						</a>
+							<ul>
+					<li class="main">
+						<a href="namespace-Core.CacheSystem.html">
+							CacheSystem						</a>
+							</li>
+					<li class="active main">
+						<a href="namespace-Core.Config.html">
+							Config						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Controllers.html">
+							Controllers						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Database.html">
+							Database						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.DI.html">
+							DI						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.ErrorHandler.html">
+							ErrorHandler						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Helper.html">
+							Helper						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Models.html">
+							Models						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Request.html">
+							Request						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Routes.html">
+							Routes						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Scripts.html">
+							Scripts						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Views.html">
+							Views						</a>
+							</li>
+								</ul></li>
 			</ul>
 		</div>
-
-		<hr>
 
 
 		<div id="elements">
@@ -70,33 +129,7 @@
 <div id="splitter"></div>
 
 <div id="right">
-<div id="rightInner">
-	<form id="search">
-		<input type="hidden" name="cx" value="">
-		<input type="hidden" name="ie" value="UTF-8">
-		<input type="text" name="q" class="text" placeholder="Search">
-	</form>
-
-	<div id="navigation">
-		<ul>
-			<li>
-				<a href="index.html" title="Overview"><span>Overview</span></a>
-			</li>
-			<li>
-				<a href="namespace-Core.Config.html" title="Summary of Core\Config"><span>Namespace</span></a>
-			</li>
-			<li class="active">
-<span>Class</span>			</li>
-		</ul>
-		<ul>
-			<li>
-				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
-			</li>
-		</ul>
-		<ul>
-		</ul>
-	</div>
-
+	<div id="rightInner">
 <div id="content" class="class">
 	<h1>Class Config</h1>
 
@@ -112,7 +145,6 @@
 
  <span class="php-comment">//store config data to file</span>
  <span class="php-var">$config</span>-&gt;store(<span class="php-quote">'someKey'</span>, <span class="php-quote">'someValue'</span>);</pre>
-
 	</div>
 
 
@@ -123,408 +155,372 @@
 
 
 
-	<div class="info">
+	<div class="alert alert-info">
 		
 		
-		<b>Namespace:</b> Core\Config<br>
+		<b>Namespace:</b> <a href="namespace-Core.html">Core</a>\<a href="namespace-Core.Config.html">Config</a><br>
 		<b>Package:</b> Core\Config<br>
 
 				<b>License:</b>
 				<a href="http://creativecommons.org/licenses/by-sa/4.0/">http://creativecommons.org/licenses/by-sa/4.0/</a><br>
 				<b>Author:</b>
-				Shalom Sam <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;">&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;</a>
-<br>
+				Shalom Sam <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;">&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;</a><br>
 				<b>Version:</b>
-				$Revision$
-<br>
+				$Revision$<br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-		<b>Located at</b> <a href="source-class-Core.Config.Config.html#25-216" title="Go to source code">Config/Config.php</a><br>
+			<b>Located at</b> <a href="source-class-Core.Config.Config.html#25-216" title="Go to source code">Config/Config.php</a>
+		<br>
 	</div>
 
 
 
-	<table class="summary methods" id="methods">
-	<caption>Methods summary</caption>
-	<tr data-order="__construct" id="___construct">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Core.Config.Config.html#68-110" title="Go to source code">__construct</a>( )</code>
-
-		<div class="description short">
-			<p>Constructor to load configurations</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Constructor to load configurations</p>
-
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getGlobalConfig" id="_getGlobalConfig">
-
-		<td class="attributes"><code>
-			 public 
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getGlobalConfig">#</a>
-		<code><a href="source-class-Core.Config.Config.html#112-120" title="Go to source code">getGlobalConfig</a>( )</code>
-
-		<div class="description short">
-			<p>gets global config</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>gets global config</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="__get" id="___get">
-
-		<td class="attributes"><code>
-			 public 
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#___get">#</a>
-		<code><a href="source-class-Core.Config.Config.html#122-137" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
-
-		<div class="description short">
-			<p>Searches for the given parameter and returns its value if found else returns null</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Searches for the given parameter and returns its value if found else returns null</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$name</var></dt>
-					<dd>
-</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="store" id="_store">
-
-		<td class="attributes"><code>
-			 public 
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_store">#</a>
-		<code><a href="source-class-Core.Config.Config.html#139-152" title="Go to source code">store</a>( <span>mixed <var>$arr</var></span>, <span>mixed <var>$filePath</var></span> )</code>
-
-		<div class="description short">
-			<p>Store new params to file</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Store new params to file</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$arr</var></dt>
-					<dd>
-</dd>
-					<dt><var>$filePath</var></dt>
-					<dd>
-</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>boolean</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="__set" id="___set">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#___set">#</a>
-		<code><a href="source-class-Core.Config.Config.html#154-163" title="Go to source code">__set</a>( <span>string <var>$name</var></span>, <span>mixed <var>$val</var></span> )</code>
-
-		<div class="description short">
-			<p>Set/add config data</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Set/add config data</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$name</var></dt>
-					<dd>
-</dd>
-					<dt><var>$val</var></dt>
-					<dd>
-</dd>
-				</dl></div>
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getRoutesConfig" id="_getRoutesConfig">
-
-		<td class="attributes"><code>
-			 public 
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getRoutesConfig">#</a>
-		<code><a href="source-class-Core.Config.Config.html#165-173" title="Go to source code">getRoutesConfig</a>( )</code>
-
-		<div class="description short">
-			<p>get routes config</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>get routes config</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="setCliConfig" id="_setCliConfig">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_setCliConfig">#</a>
-		<code><a href="source-class-Core.Config.Config.html#175-183" title="Go to source code">setCliConfig</a>( <span>mixed <var>$name</var></span>, <span>mixed <var>$val</var></span> )</code>
-
-		<div class="description short">
-			
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$name</var></dt>
-					<dd>
-</dd>
-					<dt><var>$val</var></dt>
-					<dd>
-</dd>
-				</dl></div>
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getCliConfig" id="_getCliConfig">
-
-		<td class="attributes"><code>
-			 public 
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getCliConfig">#</a>
-		<code><a href="source-class-Core.Config.Config.html#185-191" title="Go to source code">getCliConfig</a>( )</code>
-
-		<div class="description short">
-			
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed</code>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	</table>
-
-
-
-
-
-
-
-
-
-
-
-
-	<table class="summary properties" id="properties">
-	<caption>Properties summary</caption>
-	<tr data-order="globalConfPath" id="$globalConfPath">
-		<td class="attributes"><code>
-			public  
-			string
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-Core.Config.Config.html#51-54" title="Go to source code"><var>$globalConfPath</var></a>
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-Core.Config.Config.html#68-110" title="Go to source code">__construct</a>( )</code>
 
 			<div class="description short">
-				<p>Global config file path</p>
-
+				<p>Constructor to load configurations</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>Global config file path</p>
+				<p>Constructor to load configurations</p>
+
+
+
+
+
 
 
 			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#$globalConfPath" class="anchor">#</a>
-				<code></code>
-			</div>
-		</td>
-	</tr>
-	<tr data-order="cliConfPath" id="$cliConfPath">
-		<td class="attributes"><code>
-			public  
-			string
-		</code></td>
+			</div></td>
+		</tr>
+		<tr data-order="getGlobalConfig" id="_getGlobalConfig">
 
-		<td class="name">
-				<a href="source-class-Core.Config.Config.html#59-62" title="Go to source code"><var>$cliConfPath</var></a>
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getGlobalConfig">#</a>
+			<code><a href="source-class-Core.Config.Config.html#112-120" title="Go to source code">getGlobalConfig</a>( )</code>
 
 			<div class="description short">
-				<p>Cli config path</p>
-
+				<p>gets global config</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>Cli config path</p>
+				<p>gets global config</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
 
 
 			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#$cliConfPath" class="anchor">#</a>
-				<code></code>
+			</div></td>
+		</tr>
+		<tr data-order="__get" id="___get">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___get">#</a>
+			<code><a href="source-class-Core.Config.Config.html#122-137" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
+
+			<div class="description short">
+				<p>Searches for the given parameter and returns its value if found else returns null</p>
 			</div>
-		</td>
-	</tr>
-	</table>
+
+			<div class="description detailed hidden">
+				<p>Searches for the given parameter and returns its value if found else returns null</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="store" id="_store">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_store">#</a>
+			<code><a href="source-class-Core.Config.Config.html#139-152" title="Go to source code">store</a>( <span> <var>$arr</var></span>, <span> <var>$filePath</var></span> )</code>
+
+			<div class="description short">
+				<p>Store new params to file</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Store new params to file</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$arr</var></dt>
+						<dd></dd>
+						<dt><var>$filePath</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="__set" id="___set">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___set">#</a>
+			<code><a href="source-class-Core.Config.Config.html#154-163" title="Go to source code">__set</a>( <span>string <var>$name</var></span>, <span>mixed <var>$val</var></span> )</code>
+
+			<div class="description short">
+				<p>Set/add config data</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Set/add config data</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd></dd>
+						<dt><var>$val</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getRoutesConfig" id="_getRoutesConfig">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getRoutesConfig">#</a>
+			<code><a href="source-class-Core.Config.Config.html#165-173" title="Go to source code">getRoutesConfig</a>( )</code>
+
+			<div class="description short">
+				<p>get routes config</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>get routes config</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setCliConfig" id="_setCliConfig">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setCliConfig">#</a>
+			<code><a href="source-class-Core.Config.Config.html#175-183" title="Go to source code">setCliConfig</a>( <span> <var>$name</var></span>, <span> <var>$val</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd></dd>
+						<dt><var>$val</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getCliConfig" id="_getCliConfig">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getCliConfig">#</a>
+			<code><a href="source-class-Core.Config.Config.html#185-191" title="Go to source code">getCliConfig</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped properties" id="properties">
+		<tr data-order="globalConfPath" id="$globalConfPath">
+			<td class="attributes"><code>
+				public  
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Core.Config.Config.html#51-54" title="Go to source code"><var>$globalConfPath</var></a>
+
+				<div class="description short">
+					<p>Global config file path</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>Global config file path</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$globalConfPath" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="cliConfPath" id="$cliConfPath">
+			<td class="attributes"><code>
+				public  
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Core.Config.Config.html#59-62" title="Go to source code"><var>$cliConfPath</var></a>
+
+				<div class="description short">
+					<p>Cli config path</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>Cli config path</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$cliConfPath" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+		</table>
 
 
 
@@ -532,13 +528,13 @@
 
 
 </div>
+	</div>
 
 	<div id="footer">
-		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+		CoreFramework API API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
-</div>
-<script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?2459465943"></script>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
 </body>
 </html>

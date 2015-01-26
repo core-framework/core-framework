@@ -2,8 +2,38 @@ source:
 	- src/Core
 	
 destination: demoapp/Templates/api
+
 exclude:
-	- src/Core/Tests
-	- src/Core/cache
-	- src/Core/smarty_cache
+	- src/Core/Tests/
+	- src/Core/cache/
+	- src/Core/smarty_cache/
+
+skipDocPath:
+	- *\Smarty
+
+extensions: [php]
+
+charset: [UTF-8]
+
+main: Core
+
+title: CoreFramework API
+
+baseUrl: http://coreframework.in/documentation/api/
+
+templateTheme: bootstrap
+
+groups: auto
+
+accessLevels: [public, protected]
+
+sourceCode: true
+
+tree: true
+
+deprecated: true
+
+todo: true
+
+download: false
 	

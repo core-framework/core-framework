@@ -114,9 +114,10 @@ class demoController extends Controller
         if (is_readable($commonLangFile)) {
             $this->view->setTemplateVars('docVarsCom', include_once $commonLangFile);
         }
+
         if (is_readable($routeParams['customServePath'])) {
             $this->view->setTemplateVars('customServePath', $routeParams['customServePath']);
-        } else {
+        } elseif (!isset($routeParams['serveIframe'])) {
             header('Status: 404 Page Not Found', false, 404);
             header('Location: /documentation/api/404.html');
             exit;

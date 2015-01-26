@@ -3,54 +3,113 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Core\Request\Request</title>
+	<title>Class Core\Request\Request | CoreFramework API</title>
 
-	<link rel="stylesheet" href="resources/style.css?1648332946">
+	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
+	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
 
 </head>
 
 <body>
-<div id="left">
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">CoreFramework API</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-Core.Request.html" title="Summary of Core\Request"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
 	<div id="menu">
-		<a href="index.html" title="Overview"><span>Overview</span></a>
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="">
+			<input type="hidden" name="ie" value="UTF-8">
+			<input type="text" name="q" class="search-query" placeholder="Search">
+		</form>
 
 
 		<div id="groups">
-			<h3>Namespaces</h3>
+				<h3>Namespaces</h3>
 			<ul>
-				<li class="active"><a href="namespace-Core.html">Core<span></span></a>
-						<ul>
-				<li><a href="namespace-Core.CacheSystem.html">CacheSystem</a>
-						</li>
-				<li><a href="namespace-Core.Config.html">Config</a>
-						</li>
-				<li><a href="namespace-Core.Controllers.html">Controllers</a>
-						</li>
-				<li><a href="namespace-Core.Database.html">Database</a>
-						</li>
-				<li><a href="namespace-Core.DI.html">DI</a>
-						</li>
-				<li><a href="namespace-Core.ErrorHandler.html">ErrorHandler</a>
-						</li>
-				<li><a href="namespace-Core.Helper.html">Helper</a>
-						</li>
-				<li><a href="namespace-Core.Models.html">Models</a>
-						</li>
-				<li class="active"><a href="namespace-Core.Request.html">Request</a>
-						</li>
-				<li><a href="namespace-Core.Routes.html">Routes</a>
-						</li>
-				<li><a href="namespace-Core.Scripts.html">Scripts</a>
-						</li>
-				<li><a href="namespace-Core.Views.html">Views</a>
-						</li>
-							</ul></li>
-				<li><a href="namespace-PHP.html">PHP</a>
-						</li>
+					<li class="active main">
+						<a href="namespace-Core.html">
+							Core<span></span>
+						</a>
+							<ul>
+					<li class="main">
+						<a href="namespace-Core.CacheSystem.html">
+							CacheSystem						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Config.html">
+							Config						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Controllers.html">
+							Controllers						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Database.html">
+							Database						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.DI.html">
+							DI						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.ErrorHandler.html">
+							ErrorHandler						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Helper.html">
+							Helper						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Models.html">
+							Models						</a>
+							</li>
+					<li class="active main">
+						<a href="namespace-Core.Request.html">
+							Request						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Routes.html">
+							Routes						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Scripts.html">
+							Scripts						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Views.html">
+							Views						</a>
+							</li>
+								</ul></li>
 			</ul>
 		</div>
-
-		<hr>
 
 
 		<div id="elements">
@@ -70,33 +129,7 @@
 <div id="splitter"></div>
 
 <div id="right">
-<div id="rightInner">
-	<form id="search">
-		<input type="hidden" name="cx" value="">
-		<input type="hidden" name="ie" value="UTF-8">
-		<input type="text" name="q" class="text" placeholder="Search">
-	</form>
-
-	<div id="navigation">
-		<ul>
-			<li>
-				<a href="index.html" title="Overview"><span>Overview</span></a>
-			</li>
-			<li>
-				<a href="namespace-Core.Request.html" title="Summary of Core\Request"><span>Namespace</span></a>
-			</li>
-			<li class="active">
-<span>Class</span>			</li>
-		</ul>
-		<ul>
-			<li>
-				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
-			</li>
-		</ul>
-		<ul>
-		</ul>
-	</div>
-
+	<div id="rightInner">
 <div id="content" class="class">
 	<h1>Class Request</h1>
 
@@ -105,10 +138,9 @@
 	<p>The class that handles the incoming request to server</p>
 
 <pre><span class="php-var">$request</span> = DI::get(<span class="php-quote">'Request'</span>);</pre>
-
 	</div>
 
-	<dl class="tree">
+	<dl class="tree well">
 		<dd style="padding-left:0px">
 <b><span>Core\Request\Request</span></b>			
 			 implements 
@@ -125,366 +157,331 @@
 
 
 
-	<div class="info">
+	<div class="alert alert-info">
 		
 		
-		<b>Namespace:</b> Core\Request<br>
+		<b>Namespace:</b> <a href="namespace-Core.html">Core</a>\<a href="namespace-Core.Request.html">Request</a><br>
 		<b>Package:</b> Core\Request<br>
 
 				<b>License:</b>
 				<a href="http://creativecommons.org/licenses/by-sa/4.0/">http://creativecommons.org/licenses/by-sa/4.0/</a><br>
 				<b>Author:</b>
-				Shalom Sam <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;">&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;</a>
-<br>
+				Shalom Sam <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;">&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;</a><br>
 				<b>Version:</b>
-				$Revision$
-<br>
+				$Revision$<br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-		<b>Located at</b> <a href="source-class-Core.Request.Request.html#27-255" title="Go to source code">Request/Request.php</a><br>
+			<b>Located at</b> <a href="source-class-Core.Request.Request.html#27-255" title="Go to source code">Request/Request.php</a>
+		<br>
 	</div>
 
 
 
-	<table class="summary methods" id="methods">
-	<caption>Methods summary</caption>
-	<tr data-order="__construct" id="___construct">
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="__construct" id="___construct">
 
-		<td class="attributes"><code>
-			 public 
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
 
-			
-			
-			</code>
-		</td>
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-Core.Request.Request.html#99-108" title="Go to source code">__construct</a>( <span>boolean <var>$devMode</var> = <span class="php-keyword1">false</span></span> )</code>
 
-		<td class="name"><div>
-		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Core.Request.Request.html#99-108" title="Go to source code">__construct</a>( <span>boolean <var>$devMode</var> = <span class="php-keyword1">false</span></span> )</code>
+			<div class="description short">
+				<p>Request Constructor</p>
+			</div>
 
-		<div class="description short">
-			<p>Request Constructor</p>
+			<div class="description detailed hidden">
+				<p>Request Constructor</p>
 
-		</div>
 
-		<div class="description detailed hidden">
-			<p>Request Constructor</p>
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$devMode</var></dt>
+						<dd></dd>
+					</dl></div>
 
 
 
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$devMode</var></dt>
-					<dd>
-</dd>
-				</dl></div>
 
 
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getServer" id="_getServer">
 
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
 
+			<td class="name"><div>
+			<a class="anchor" href="#_getServer">#</a>
+			<code><a href="source-class-Core.Request.Request.html#177-185" title="Go to source code">getServer</a>( )</code>
 
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getServer" id="_getServer">
+			<div class="description short">
+				<p>Returns an array of server info</p>
+			</div>
 
-		<td class="attributes"><code>
-			 public 
+			<div class="description detailed hidden">
+				<p>Returns an array of server info</p>
 
-			array
-			
-			</code>
-		</td>
 
-		<td class="name"><div>
-		<a class="anchor" href="#_getServer">#</a>
-		<code><a href="source-class-Core.Request.Request.html#177-185" title="Go to source code">getServer</a>( )</code>
 
-		<div class="description short">
-			<p>Returns an array of server info</p>
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
 
-		</div>
 
-		<div class="description detailed hidden">
-			<p>Returns an array of server info</p>
 
 
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getCookies" id="_getCookies">
 
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
 
-				<h4>Returns</h4>
-				<div class="list">
-					<code>array</code>
-				</div>
+			<td class="name"><div>
+			<a class="anchor" href="#_getCookies">#</a>
+			<code><a href="source-class-Core.Request.Request.html#187-195" title="Go to source code">getCookies</a>( )</code>
 
+			<div class="description short">
+				<p>Returns an array of Cookies set</p>
+			</div>
 
+			<div class="description detailed hidden">
+				<p>Returns an array of Cookies set</p>
 
 
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getCookies" id="_getCookies">
 
-		<td class="attributes"><code>
-			 public 
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
 
-			array
-			
-			</code>
-		</td>
 
-		<td class="name"><div>
-		<a class="anchor" href="#_getCookies">#</a>
-		<code><a href="source-class-Core.Request.Request.html#187-195" title="Go to source code">getCookies</a>( )</code>
 
-		<div class="description short">
-			<p>Returns an array of Cookies set</p>
 
-		</div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getRqstMethod" id="_getRqstMethod">
 
-		<div class="description detailed hidden">
-			<p>Returns an array of Cookies set</p>
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
 
+			<td class="name"><div>
+			<a class="anchor" href="#_getRqstMethod">#</a>
+			<code><a href="source-class-Core.Request.Request.html#197-205" title="Go to source code">getRqstMethod</a>( )</code>
 
+			<div class="description short">
+				<p>Returns the method used for the current request</p>
+			</div>
 
+			<div class="description detailed hidden">
+				<p>Returns the method used for the current request</p>
 
-				<h4>Returns</h4>
-				<div class="list">
-					<code>array</code>
-				</div>
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
 
 
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getRqstMethod" id="_getRqstMethod">
 
-		<td class="attributes"><code>
-			 public 
 
-			string
-			
-			</code>
-		</td>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getPath" id="_getPath">
 
-		<td class="name"><div>
-		<a class="anchor" href="#_getRqstMethod">#</a>
-		<code><a href="source-class-Core.Request.Request.html#197-205" title="Go to source code">getRqstMethod</a>( )</code>
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
 
-		<div class="description short">
-			<p>Returns the method used for the current request</p>
+			<td class="name"><div>
+			<a class="anchor" href="#_getPath">#</a>
+			<code><a href="source-class-Core.Request.Request.html#207-215" title="Go to source code">getPath</a>( )</code>
 
-		</div>
+			<div class="description short">
+				<p>Returns the url path/query string</p>
+			</div>
 
-		<div class="description detailed hidden">
-			<p>Returns the method used for the current request</p>
+			<div class="description detailed hidden">
+				<p>Returns the url path/query string</p>
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
 
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code>
-				</div>
 
 
 
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getGetVars" id="_getGetVars">
 
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getPath" id="_getPath">
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
 
-		<td class="attributes"><code>
-			 public 
+			<td class="name"><div>
+			<a class="anchor" href="#_getGetVars">#</a>
+			<code><a href="source-class-Core.Request.Request.html#217-225" title="Go to source code">getGetVars</a>( )</code>
 
-			string
-			
-			</code>
-		</td>
+			<div class="description short">
+				<p>Returns an array of sanitized $_GET variables</p>
+			</div>
 
-		<td class="name"><div>
-		<a class="anchor" href="#_getPath">#</a>
-		<code><a href="source-class-Core.Request.Request.html#207-215" title="Go to source code">getPath</a>( )</code>
+			<div class="description detailed hidden">
+				<p>Returns an array of sanitized $_GET variables</p>
 
-		<div class="description short">
-			<p>Returns the url path/query string</p>
 
-		</div>
 
-		<div class="description detailed hidden">
-			<p>Returns the url path/query string</p>
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
 
 
 
 
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code>
-				</div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getPostVars" id="_getPostVars">
 
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
 
+			<td class="name"><div>
+			<a class="anchor" href="#_getPostVars">#</a>
+			<code><a href="source-class-Core.Request.Request.html#227-235" title="Go to source code">getPostVars</a>( )</code>
 
+			<div class="description short">
+				<p>Returns an array of sanitized $_POST variables</p>
+			</div>
 
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getGetVars" id="_getGetVars">
+			<div class="description detailed hidden">
+				<p>Returns an array of sanitized $_POST variables</p>
 
-		<td class="attributes"><code>
-			 public 
 
-			array
-			
-			</code>
-		</td>
 
-		<td class="name"><div>
-		<a class="anchor" href="#_getGetVars">#</a>
-		<code><a href="source-class-Core.Request.Request.html#217-225" title="Go to source code">getGetVars</a>( )</code>
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
 
-		<div class="description short">
-			<p>Returns an array of sanitized $_GET variables</p>
 
-		</div>
 
-		<div class="description detailed hidden">
-			<p>Returns an array of sanitized $_GET variables</p>
 
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="__sleep" id="___sleep">
 
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
 
+			<td class="name"><div>
+			<a class="anchor" href="#___sleep">#</a>
+			<code><a href="source-class-Core.Request.Request.html#237-245" title="Go to source code">__sleep</a>( )</code>
 
-				<h4>Returns</h4>
-				<div class="list">
-					<code>array</code>
-				</div>
+			<div class="description short">
+				<p>Sleep magic method</p>
+			</div>
 
+			<div class="description detailed hidden">
+				<p>Sleep magic method</p>
 
 
 
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getPostVars" id="_getPostVars">
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
 
-		<td class="attributes"><code>
-			 public 
 
-			array
-			
-			</code>
-		</td>
 
-		<td class="name"><div>
-		<a class="anchor" href="#_getPostVars">#</a>
-		<code><a href="source-class-Core.Request.Request.html#227-235" title="Go to source code">getPostVars</a>( )</code>
 
-		<div class="description short">
-			<p>Returns an array of sanitized $_POST variables</p>
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Core.CacheSystem.Cacheable.html#___sleep">Core\CacheSystem\Cacheable::__sleep()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="__wakeup" id="___wakeup">
 
-		</div>
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
 
-		<div class="description detailed hidden">
-			<p>Returns an array of sanitized $_POST variables</p>
+			<td class="name"><div>
+			<a class="anchor" href="#___wakeup">#</a>
+			<code><a href="source-class-Core.Request.Request.html#247-253" title="Go to source code">__wakeup</a>( )</code>
 
+			<div class="description short">
+				<p>Magic wakup method. Initializes on unserialize</p>
+			</div>
 
+			<div class="description detailed hidden">
+				<p>Magic wakup method. Initializes on unserialize</p>
 
 
-				<h4>Returns</h4>
-				<div class="list">
-					<code>array</code>
-				</div>
 
 
 
 
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="__sleep" id="___sleep">
 
-		<td class="attributes"><code>
-			 public 
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Core.CacheSystem.Cacheable.html#___wakeup">Core\CacheSystem\Cacheable::__wakeup()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		</table>
 
-			array
-			
-			</code>
-		</td>
 
-		<td class="name"><div>
-		<a class="anchor" href="#___sleep">#</a>
-		<code><a href="source-class-Core.Request.Request.html#237-245" title="Go to source code">__sleep</a>( )</code>
 
-		<div class="description short">
-			<p>Sleep magic method</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Sleep magic method</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>array</code>
-				</div>
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Core.CacheSystem.Cacheable.html#___sleep">Core\CacheSystem\Cacheable::__sleep()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="__wakeup" id="___wakeup">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#___wakeup">#</a>
-		<code><a href="source-class-Core.Request.Request.html#247-253" title="Go to source code">__wakeup</a>( )</code>
-
-		<div class="description short">
-			<p>Magic wakup method. Initializes on unserialize</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Magic wakup method. Initializes on unserialize</p>
-
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Core.CacheSystem.Cacheable.html#___wakeup">Core\CacheSystem\Cacheable::__wakeup()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	</table>
-
-
-
-
-
-
-
-
-
-
+		<h3>Magic methods summary</h3>
 
 
 
@@ -494,13 +491,13 @@
 
 
 </div>
+	</div>
 
 	<div id="footer">
-		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+		CoreFramework API API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
-</div>
-<script src="resources/combined.js?721046668"></script>
-<script src="elementlist.js?2459465943"></script>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
 </body>
 </html>
