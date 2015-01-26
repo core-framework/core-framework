@@ -80,7 +80,72 @@ return $page = [
     'subTitle3_pLink' => 'additional_support',
     'subPara3' => '
     <p class="para">
-        Other than the <code class="prettyprint">&#39;pageTitle&#39;</code> and <code class="prettyprint">&#39;pageName&#39;</code> route variables, Core Framework supports <code class="prettyprint">&#39;metaKeywords&#39;</code>, <code class="prettyprint">&#39;metaDescription&#39;</code> and <code class="prettyprint">&#39;model&#39;</code>. Most of these route variables are self explanatory. The <code class="prettyprint">&#39;pageTitle&#39;</code> is to set the title of the page. And similarly <code class="prettyprint">&#39;metaDescription&#39;</code> and <code class="prettyprint">&#39;metaKeywords&#39;</code> are used to set the respective meta values. The <code class="prettyprint">&#39;model&#39;</code> is used to autoload the defined model, which then is available in the defined controller as <code class="prettyprint">$this->model</code>
+        In additon to the above variables routing also has support for the following -
+        <br/>
+        <br/>
+        <strong>metas</strong>: All html metas can be defined as an array of <code>$key => $value</code> pairs as shown below
+    </p>
+    <pre class="prettyprint linenums">
+    &#39;/&#39; => [
+        &#39;pageName&#39; => &#39;demo&#39;,
+        &#39;controller&#39; => &#39;\\demoapp\\Controllers:demoController:indexAction&#39;,
+        &#39;metas&#39; => [
+            &#39;pageTitle&#39; => &#39;Demo Home Page&#39;,
+            &#39;keywords&#39; => &#39;test, keywords, for test&#39;,
+            &#39;description&#39; => &#39;This is a test description&#39;,
+            &#39;author&#39; => &#39;Shalom Sam&#39;
+        ]
+    ]
+    </pre>
+    <p class="para">
+        And they will be filled in html as <code class="prettyprint html">&lt;meta name="$key" content="$value" /&gt;</code>
+    </p>
+    <p class="para">
+        &#39;pageTitle&#39; or &#39;title&#39; can also be defined in metas and will be correctly set as page titles.
+    </p>
+    <div class="alert alert-warning" role="alert"><strong>NOTE</strong>: The page title defined in metas (as &#39;pageTitle&#39; or &#39;title&#39;) takes precedence over the page title defined as &#39;pageTitle&#39; above metas.
+    </div>
+
+    <p class="para">
+        <strong>serveAsIs</strong>: This variable / parameter accepts a boolean value and is used to serve micro sites within the main site. This variable / parameter must be used conjunction with &#39;referencePath&#39;, &#39;showHeader&#39;, &#39;showFooter&#39; and &#39;serveIframe&#39;
+        <br/>
+        <br/>
+        <strong>referencePath</strong>: The reference path must contain the (relative) path to the folder, whose contents must be served as a micro site. If &#39;serveIframe&#39; is set to true then &#39;referencePath&#39; must contain the (relative) URL to the main index file or in other words url to the micro site&#39;s home page.
+        <br/>
+        <br/>
+        <strong>serveIframe</strong>: If the need arises to serve the content as iframe then this must be set as true. This also requires that 2 routes be defined for this purpose (logically). One for the path that serves the iframe. And one for the content to be served for the URLs to be provided in the iframe. The below example will make this clearer -
+    </p>
+    <pre class="prettyprint linenums">
+        &#39;/documentation/api&#39; => [
+            &#39;pageName&#39; => &#39;api&#39;,
+            &#39;pageTitle&#39; => &#39;Core Framework API&#39;,
+            &#39;serveAsIs&#39; => true,
+            &#39;serveIframe&#39; => true,
+            &#39;referencePath&#39; => &#39;/documentation/api/index.html&#39;,
+            &#39;controller&#39; => &#39;&#92;&#92;demoapp&#92;&#92;Controllers:demoController:apiAction&#39;,
+            &#39;showHeader&#39; => true
+        ],
+
+        &#39;/documentation/api/{page}&#39; => [
+            &#39;pageName&#39; => &#39;api&#39;,
+            &#39;argReq&#39; => [&#39;page&#39; => &#39;[&#92;S]&#39;],
+            &#39;argDefault&#39; => &#39;index.html&#39;,
+            &#39;method&#39; => &#39;GET&#39;,
+            &#39;serveAsIs&#39; => true,
+            &#39;referencePath&#39; => &#39;Templates/api&#39;,
+            &#39;controller&#39; => &#39;&#92;&#92;demoapp&#92;&#92;Controllers:demoController:apiAction&#39;,
+            &#39;showHeader&#39; => false,
+            &#39;showFooter&#39; => false
+        ],
+    </pre>
+    <div class="alert alert-warning">
+        <strong>NOTE</strong>: It is necessary to set &#39;serveAsIs&#39; as true even when setting &#39;serveIframe&#39; as true.
+    </div>
+    <p class="para">
+        <strong>showHeader</strong>: This variable / parameter accepts a boolean value. If set, determines if the Header should be shown for the current URL path.
+        <br/>
+        <br/>
+        <strong>showFooter</strong>: This variable / parameter accepts a boolean value. If set, determines if the footer should be shown for the current URL path.
     </p>
     '
 ];
