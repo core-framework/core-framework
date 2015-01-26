@@ -82,15 +82,26 @@ return $routes = [
         'controller' => '\\demoapp\\Controllers:documentationController:indexAction'
     ],
 
-    '/documentation/api/{page}' => [
+    '/documentation/api' => [
         'pageName' => 'api',
         'pageTitle' => 'Core Framework API',
+        'serveAsIs' => true,
+        'serveIframe' => true,
+        'referencePath' => '/documentation/api/index.html',
+        'controller' => '\\demoapp\\Controllers:demoController:apiAction',
+        'showHeader' => true
+    ],
+
+    '/documentation/api/{page}' => [
+        'pageName' => 'api',
         'argReq' => ['page' => '[\S]'],
         'argDefault' => 'index.html',
         'method' => 'GET',
         'serveAsIs' => true,
         'referencePath' => 'Templates/api',
-        'controller' => '\\demoapp\\Controllers:demoController:apiAction'
+        'controller' => '\\demoapp\\Controllers:demoController:apiAction',
+        'showHeader' => false,
+        'showFooter' => false
     ],
 
     '/documentation/{page}' => [
