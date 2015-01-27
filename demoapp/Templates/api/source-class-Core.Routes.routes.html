@@ -355,7 +355,7 @@
 </span><span id="218" class="l"><a href="#218">218 </a>            <span class="php-keyword1">if</span> ((<span class="php-var">$this</span>-&gt;urlPathArr[<span class="php-num">0</span>] === <span class="php-var">$file</span>)) {
 </span><span id="219" class="l"><a href="#219">219 </a>                <span class="php-var">$this</span>-&gt;isRootFile = <span class="php-keyword1">true</span>;
 </span><span id="220" class="l"><a href="#220">220 </a>                <span class="php-keyword1">if</span> (!<span class="php-var">$is_readable</span>) {
-</span><span id="221" class="l"><a href="#221">221 </a>
+</span><span id="221" class="l"><a href="#221">221 </a>                    <span class="php-keyword2">trigger_error</span>(<span class="php-quote">&quot;File is not readable: permission denied&quot;</span>, E_USER_WARNING);
 </span><span id="222" class="l"><a href="#222">222 </a>                }
 </span><span id="223" class="l"><a href="#223">223 </a>            }
 </span><span id="224" class="l"><a href="#224">224 </a>
