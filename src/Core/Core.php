@@ -376,7 +376,7 @@ class core
 
         }
 
-        if (is_readable($pathTpl)) {
+        if (is_file($pathTpl)) {
             $this->setHeaders($fileExt);
             include $pathTpl;
             return true;
