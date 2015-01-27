@@ -218,7 +218,7 @@ class Routes implements Cacheable
             if (($this->urlPathArr[0] === $file)) {
                 $this->isRootFile = true;
                 if (!$is_readable) {
-
+                    trigger_error("File is not readable: permission denied", E_USER_WARNING);
                 }
             }
 
