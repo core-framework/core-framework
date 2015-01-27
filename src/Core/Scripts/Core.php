@@ -732,11 +732,11 @@ class Core extends CLI
         $diffContent = $fileArr1;
 
         foreach ($diffs as $index => $diff) {
-            array_splice($diffContent, $index - 1, 0, "<<<<< Edited (your) content");
+            array_splice($diffContent, $index - 1, 0, "<<<<< Edited (your) content" . PHP_EOL);
             array_splice($diffContent, $index, 0, $fileArr2[$index]);
-            array_splice($diffContent, $index + 1, 0, "===========");
+            array_splice($diffContent, $index + 1, 0, "===========" . PHP_EOL);
             array_splice($diffContent, $index + 2, 0, $fileArr1[$index]);
-            array_splice($diffContent, $index + 3, 0, ">>>>> Original content");
+            array_splice($diffContent, $index + 3, 0, ">>>>> Original content" . PHP_EOL);
         }
         chmod($existingFile, 0755);
         if (file_put_contents($existingFile, $diffContent) === false) {
