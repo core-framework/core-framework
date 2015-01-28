@@ -166,9 +166,10 @@ class IOStream extends cmdcolors
         if (empty($exception)) {
             $coloredMsg = $this->getColoredString($msg, 'white', 'red');
             $coloredSpace = $this->getColoredString(" ", 'white', 'red');
-            fprintf($this->output, "%20.40s" , $coloredSpace);
-            fprintf($this->output, "%20.40s", $coloredMsg);
-            fprintf($this->output, "%20.40s" , $coloredSpace);
+            fprintf($this->output, "%s" , $coloredSpace);
+            fprintf($this->output, "%-40s", $coloredMsg);
+            fprintf($this->output, "%s" , $coloredSpace.PHP_EOL);
+	    //fprintf($this->output, "%s", PHP_EOL);
         } else {
             throw new $exception(sprintf($msg));
         }
