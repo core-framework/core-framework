@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Core\DI\DI | CoreFramework API</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
+	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">CoreFramework API</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-Core.DI.html" title="Summary of Core\DI"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="">
+			<input type="hidden" name="ie" value="UTF-8">
+			<input type="text" name="q" class="search-query" placeholder="Search">
+		</form>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="active main">
+						<a href="namespace-Core.html">
+							Core<span></span>
+						</a>
+							<ul>
+					<li class="main">
+						<a href="namespace-Core.CacheSystem.html">
+							CacheSystem						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Config.html">
+							Config						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Controllers.html">
+							Controllers						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Database.html">
+							Database						</a>
+							</li>
+					<li class="active main">
+						<a href="namespace-Core.DI.html">
+							DI						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.ErrorHandler.html">
+							ErrorHandler						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Helper.html">
+							Helper						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Models.html">
+							Models						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Request.html">
+							Request						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Routes.html">
+							Routes						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Scripts.html">
+							Scripts						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Views.html">
+							Views						</a>
+							</li>
+								</ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Core.DI.DI.html">DI</a></li>
+				<li><a href="class-Core.DI.Service.html">Service</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Core.DI.serviceInterface.html">serviceInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class DI</h1>
+
+
+	<div class="description">
+	<p>Class DI</p>
+
+<pre><span class="php-var">$di</span> = <span class="php-keyword1">new</span> DI()
+ <span class="php-var">$di</span>-&gt;register(<span class="php-quote">'View'</span>, <span class="php-quote">'\\Core\\Views\\View'</span>)
+     -&gt;setArguments(<span class="php-keyword1">array</span>(<span class="php-quote">'Smarty'</span>));
+ <span class="php-var">$di</span>-&gt;register(<span class="php-quote">'Smarty'</span>, <span class="php-quote">''</span>)
+     -&gt;setDefinition(<span class="php-keyword1">function</span>() {
+         <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> Smarty();
+     })
+
+ <span class="php-comment">//OR</span>
+ DI::register(....)
+
+<span class="php-comment">//Later to get services</span>
+ <span class="php-var">$view</span> = DI::get(<span class="php-quote">'View'</span>);
+<span class="php-comment">//OR</span>
+ <span class="php-var">$view</span> = <span class="php-var">$di</span>-&gt;get(<span class="php-quote">'View);</span></pre>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Core.html">Core</a>\<a href="namespace-Core.DI.html">DI</a><br>
+		<b>Package:</b> Core\Views<br>
+
+				<b>License:</b>
+				<a href="http://creativecommons.org/licenses/by-sa/4.0/">http://creativecommons.org/licenses/by-sa/4.0/</a><br>
+				<b>Author:</b>
+				Shalom Sam <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;">&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;</a><br>
+				<b>Version:</b>
+				$Revision$<br>
+				<b>Link:</b>
+				<a href="http://coreframework.in">http://coreframework.in</a><br>
+			<b>Located at</b> <a href="source-class-Core.DI.DI.html#25-285" title="Go to source code">DI/DI.php</a>
+		<br>
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="register" id="_register">
+
+			<td class="attributes"><code>
+				 public static
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_register">#</a>
+			<code><a href="source-class-Core.DI.DI.html#63-85" title="Go to source code">register</a>( <span> <var>$name</var></span>, <span> <var>$definition</var></span>, <span>boolean <var>$shared</var> = <span class="php-keyword1">true</span></span> )</code>
+
+			<div class="description short">
+				<p>Method to register services</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Method to register services</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd></dd>
+						<dt><var>$definition</var></dt>
+						<dd></dd>
+						<dt><var>$shared</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						ErrorException
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="get" id="_get">
+
+			<td class="attributes"><code>
+				 public static
+				object
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_get">#</a>
+			<code><a href="source-class-Core.DI.DI.html#87-161" title="Go to source code">get</a>( <span> <var>$name</var></span> )</code>
+
+			<div class="description short">
+				<p>Lazy load the given service object</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Lazy load the given service object</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						object
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						ErrorException
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="serviceExists" id="_serviceExists">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_serviceExists">#</a>
+			<code><a href="source-class-Core.DI.DI.html#163-172" title="Go to source code">serviceExists</a>( <span> <var>$name</var></span> )</code>
+
+			<div class="description short">
+				<p>Return true if given service exists, else false</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Return true if given service exists, else false</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="checkIfIsDependent" id="_checkIfIsDependent">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_checkIfIsDependent">#</a>
+			<code><a href="source-class-Core.DI.DI.html#174-203" title="Go to source code">checkIfIsDependent</a>( <span> <var>$arguments</var></span> )</code>
+
+			<div class="description short">
+				<p>Checks and returns dependencies passed as argument</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Checks and returns dependencies passed as argument</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$arguments</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						ErrorException
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setShared" id="_setShared">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setShared">#</a>
+			<code><a href="source-class-Core.DI.DI.html#205-222" title="Go to source code">setShared</a>( <span> <var>$name</var></span>, <span> <var>$shared</var></span> )</code>
+
+			<div class="description short">
+				<p>Returns if service is shared or not</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns if service is shared or not</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd></dd>
+						<dt><var>$shared</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						ErrorException
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setDefinition" id="_setDefinition">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setDefinition">#</a>
+			<code><a href="source-class-Core.DI.DI.html#224-241" title="Go to source code">setDefinition</a>( <span> <var>$name</var></span>, <span> <var>$definition</var></span> )</code>
+
+			<div class="description short">
+				<p>Set service implementation definition</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Set service implementation definition</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd></dd>
+						<dt><var>$definition</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						ErrorException
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getDefinition" id="_getDefinition">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getDefinition">#</a>
+			<code><a href="source-class-Core.DI.DI.html#243-257" title="Go to source code">getDefinition</a>( <span> <var>$name</var></span> )</code>
+
+			<div class="description short">
+				<p>Returns the Definition for given service name</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns the Definition for given service name</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						ErrorException
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getArguments" id="_getArguments">
+
+			<td class="attributes"><code>
+				 public 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getArguments">#</a>
+			<code><a href="source-class-Core.DI.DI.html#259-273" title="Go to source code">getArguments</a>( <span> <var>$name</var></span> )</code>
+
+			<div class="description short">
+				<p>Returns the set Arguments for the given service name</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns the set Arguments for the given service name</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						ErrorException
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="__sleep" id="___sleep">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___sleep">#</a>
+			<code><a href="source-class-Core.DI.DI.html#275-283" title="Go to source code">__sleep</a>( )</code>
+
+			<div class="description short">
+				<p>Magic sleep method for serialization</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Magic sleep method for serialization</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped properties" id="properties">
+		<tr data-order="services" id="$services">
+			<td class="attributes"><code>
+				protected static 
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Core.DI.DI.html#54-57" title="Go to source code"><var>$services</var></a>
+
+				<div class="description short">
+					<p>Array of service objects definitions</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>Array of service objects definitions</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$services" class="anchor">#</a>
+					<code>[]</code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="sharedInstances" id="$sharedInstances">
+			<td class="attributes"><code>
+				protected static 
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Core.DI.DI.html#58-61" title="Go to source code"><var>$sharedInstances</var></a>
+
+				<div class="description short">
+					<p>Array of shared service instances</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>Array of shared service instances</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$sharedInstances" class="anchor">#</a>
+					<code>[]</code>
+				</div>
+			</td>
+		</tr>
+		</table>
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		CoreFramework API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

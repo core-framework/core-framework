@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Core\CacheSystem\Cache | CoreFramework API</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
+	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">CoreFramework API</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-Core.CacheSystem.html" title="Summary of Core\CacheSystem"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="">
+			<input type="hidden" name="ie" value="UTF-8">
+			<input type="text" name="q" class="search-query" placeholder="Search">
+		</form>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="active main">
+						<a href="namespace-Core.html">
+							Core<span></span>
+						</a>
+							<ul>
+					<li class="active main">
+						<a href="namespace-Core.CacheSystem.html">
+							CacheSystem						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Config.html">
+							Config						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Controllers.html">
+							Controllers						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Database.html">
+							Database						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.DI.html">
+							DI						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.ErrorHandler.html">
+							ErrorHandler						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Helper.html">
+							Helper						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Models.html">
+							Models						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Request.html">
+							Request						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Routes.html">
+							Routes						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Scripts.html">
+							Scripts						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Views.html">
+							Views						</a>
+							</li>
+								</ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Core.CacheSystem.Cache.html">Cache</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Core.CacheSystem.Cacheable.html">Cacheable</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Cache</h1>
+
+
+	<div class="description">
+	<p>Class to handle key based caching of data</p>
+
+<pre><span class="php-var">$cache</span> = <span class="php-keyword1">new</span> Cache();
+ <span class="php-var">$request</span> = <span class="php-keyword1">new</span> Request();
+
+ <span class="php-comment">//store object</span>
+ <span class="php-var">$cache</span>-&gt;cacheContent(<span class="php-quote">'request_cache'</span>, <span class="php-var">$request</span>, <span class="php-num">300</span>);
+ <span class="php-comment">//OR store strings</span>
+ <span class="php-var">$cache</span>-&gt;cacheContent(<span class="php-quote">'someUniqueKey'</span>, <span class="php-quote">'someValue'</span>, <span class="php-num">300</span>);
+ <span class="php-comment">//get Cached value</span>
+ <span class="php-var">$CachedRequest</span> = <span class="php-var">$cache</span>-&gt;getCache(<span class="php-quote">'request_cache'</span>);
+ <span class="php-comment">//delete specific cache</span>
+ <span class="php-var">$cache</span>-&gt;deleteCache(<span class="php-quote">'request_cache'</span>);
+
+ <span class="php-comment">//clear all cache</span>
+ <span class="php-var">$cache</span>-&gt;clearCache();</pre>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Core.html">Core</a>\<a href="namespace-Core.CacheSystem.html">CacheSystem</a><br>
+		<b>Package:</b> Core\CacheSystem<br>
+
+				<b>License:</b>
+				<a href="http://creativecommons.org/licenses/by-sa/4.0/">http://creativecommons.org/licenses/by-sa/4.0/</a><br>
+				<b>Author:</b>
+				Shalom Sam <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;">&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;</a><br>
+				<b>Version:</b>
+				$Revision$<br>
+				<b>Link:</b>
+				<a href="http://coreframework.in">http://coreframework.in</a><br>
+			<b>Located at</b> <a href="source-class-Core.CacheSystem.Cache.html#26-260" title="Go to source code">CacheSystem/Cache.php</a>
+		<br>
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-Core.CacheSystem.Cache.html#60-75" title="Go to source code">__construct</a>( )</code>
+
+			<div class="description short">
+				<p>Cache Constructor</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Cache Constructor</p>
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getCacheDir" id="_getCacheDir">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getCacheDir">#</a>
+			<code><a href="source-class-Core.CacheSystem.Cache.html#77-85" title="Go to source code">getCacheDir</a>( )</code>
+
+			<div class="description short">
+				<p>Returns the Cache directory</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Returns the Cache directory</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="cacheContent" id="_cacheContent">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_cacheContent">#</a>
+			<code><a href="source-class-Core.CacheSystem.Cache.html#87-149" title="Go to source code">cacheContent</a>( <span> <var>$key</var></span>, <span> <var>$payload</var></span>, <span> <var>$ttl</var></span> )</code>
+
+			<div class="description short">
+				<p>Caches the given content</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Caches the given content</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$key</var></dt>
+						<dd></dd>
+						<dt><var>$payload</var></dt>
+						<dd></dd>
+						<dt><var>$ttl</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean
+					</div>
+
+					<h4>Throws</h4>
+					<div class="list">
+						ErrorException
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getCache" id="_getCache">
+
+			<td class="attributes"><code>
+				 public 
+				boolean|mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getCache">#</a>
+			<code><a href="source-class-Core.CacheSystem.Cache.html#162-193" title="Go to source code">getCache</a>( <span> <var>$key</var></span> )</code>
+
+			<div class="description short">
+				<p>returns cache of given key||string if exists else returns false</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>returns cache of given key||string if exists else returns false</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$key</var></dt>
+						<dd>Hash string to identify cached vars</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean|mixed
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="cacheExists" id="_cacheExists">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_cacheExists">#</a>
+			<code><a href="source-class-Core.CacheSystem.Cache.html#195-220" title="Go to source code">cacheExists</a>( <span> <var>$key</var></span> )</code>
+
+			<div class="description short">
+				<p>Checks if the cache with given $key exists</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Checks if the cache with given $key exists</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$key</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="deleteCache" id="_deleteCache">
+
+			<td class="attributes"><code>
+				 public 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_deleteCache">#</a>
+			<code><a href="source-class-Core.CacheSystem.Cache.html#222-241" title="Go to source code">deleteCache</a>( <span> <var>$key</var></span> )</code>
+
+			<div class="description short">
+				<p>Deletes the cache of given $key if exists else returns false</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Deletes the cache of given $key if exists else returns false</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$key</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="clearCache" id="_clearCache">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_clearCache">#</a>
+			<code><a href="source-class-Core.CacheSystem.Cache.html#243-259" title="Go to source code">clearCache</a>( )</code>
+
+			<div class="description short">
+				<p>Clear all cache</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Clear all cache</p>
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		CoreFramework API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

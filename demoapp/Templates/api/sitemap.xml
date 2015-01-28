@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>http://coreframework.in/documentation/api/index.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.CacheSystem.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Config.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Controllers.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Database.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.DI.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.ErrorHandler.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Helper.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Models.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Request.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Routes.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Scripts.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Views.html</loc>
+</url>
+
+
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Views.View.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Views.viewInterface.html</loc>
+</url>
+</urlset>

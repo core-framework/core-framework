@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Core\Scripts\corecmd | CoreFramework API</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?08b23951ef4599ca9cbf1f902d0e8290c9653ddd">
+	<link rel="stylesheet" href="resources/style.css?062e9e59e0b8c44fbaaded5b7ffc21f907b78669">
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="index.html" class="brand">CoreFramework API</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li>
+							<a href="namespace-Core.Scripts.html" title="Summary of Core\Scripts"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+						<li>
+							<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+						</li>
+						<li>
+							<a href="todo.html" title="Todo list"><span>Todo</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="">
+			<input type="hidden" name="ie" value="UTF-8">
+			<input type="text" name="q" class="search-query" placeholder="Search">
+		</form>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="active main">
+						<a href="namespace-Core.html">
+							Core<span></span>
+						</a>
+							<ul>
+					<li class="main">
+						<a href="namespace-Core.CacheSystem.html">
+							CacheSystem						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Config.html">
+							Config						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Controllers.html">
+							Controllers						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Database.html">
+							Database						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.DI.html">
+							DI						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.ErrorHandler.html">
+							ErrorHandler						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Helper.html">
+							Helper						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Models.html">
+							Models						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Request.html">
+							Request						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Routes.html">
+							Routes						</a>
+							</li>
+					<li class="active main">
+						<a href="namespace-Core.Scripts.html">
+							Scripts						</a>
+							</li>
+					<li class="main">
+						<a href="namespace-Core.Views.html">
+							Views						</a>
+							</li>
+								</ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Core.Scripts.Argument.html">Argument</a></li>
+				<li><a href="class-Core.Scripts.CLI.html">CLI</a></li>
+				<li><a href="class-Core.Scripts.cmdcolors.html">cmdcolors</a></li>
+				<li><a href="class-Core.Scripts.Command.html">Command</a></li>
+				<li><a href="class-Core.Scripts.Core.html">Core</a></li>
+				<li class="active"><a href="class-Core.Scripts.corecmd.html">corecmd</a></li>
+				<li><a href="class-Core.Scripts.IOStream.html">IOStream</a></li>
+				<li><a href="class-Core.Scripts.Options.html">Options</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class corecmd</h1>
+
+
+	<div class="description">
+	<p>Class that runs the console commands</p>
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+<b><span>Core\Scripts\corecmd</span></b>			
+			 implements 
+				<a href="class-Core.CacheSystem.Cacheable.html"><span>Core\CacheSystem\Cacheable</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Core.html">Core</a>\<a href="namespace-Core.Scripts.html">Scripts</a><br>
+		<b>Package:</b> Core\Scripts<br>
+
+				<b>License:</b>
+				<a href="http://creativecommons.org/licenses/by-sa/4.0/">http://creativecommons.org/licenses/by-sa/4.0/</a><br>
+				<b>Author:</b>
+				Shalom Sam <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;">&#115;h&#x61;&#108;&#x6f;&#109;&#x2e;&#115;&#x40;&#99;o&#x72;&#101;&#x66;&#114;&#x61;&#109;&#x65;&#x77;&#111;&#x72;&#107;&#x2e;&#105;&#x6e;</a><br>
+				<b>Version:</b>
+				$Revision$<br>
+				<b>Link:</b>
+				<a href="http://coreframework.in">http://coreframework.in</a><br>
+			<b>Located at</b> <a href="source-class-Core.Scripts.corecmd.html#30-1135" title="Go to source code">Scripts/corecmd.php</a>
+		<br>
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-Core.Scripts.corecmd.html#104-165" title="Go to source code">__construct</a>( <span> <var>$args</var></span>, <span> <var>$count</var></span> )</code>
+
+			<div class="description short">
+				<p>corecmd Constructor</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>corecmd Constructor</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$args</var></dt>
+						<dd></dd>
+						<dt><var>$count</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="install" id="_install">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_install">#</a>
+			<code><a href="source-class-Core.Scripts.corecmd.html#287-314" title="Go to source code">install</a>( <span>boolean <var>$dev</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Runs commands to install the coreFramework for use by your web app</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Runs commands to install the coreFramework for use by your web app</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$dev</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="symResources" id="_symResources">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_symResources">#</a>
+			<code><a href="source-class-Core.Scripts.corecmd.html#326-452" title="Go to source code">symResources</a>( <span> <var>$appName</var></span> )</code>
+
+			<div class="description short">
+				<p>Creates symlinks for front-end resources</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates symlinks for front-end resources</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$appName</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setupApp" id="_setupApp">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setupApp">#</a>
+			<code><a href="source-class-Core.Scripts.corecmd.html#454-531" title="Go to source code">setupApp</a>( <span> <var>$appName</var> = <span class="php-quote">'demoapp'</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates Conf files, index file, htaccess, and sumlinks to front-end resources</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates Conf files, index file, htaccess, and sumlinks to front-end resources</p>
+
+
+
+
+					<h4>Throws</h4>
+					<div class="list">
+						Exception
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="createConf" id="_createConf">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_createConf">#</a>
+			<code><a href="source-class-Core.Scripts.corecmd.html#533-590" title="Go to source code">createConf</a>( <span> <var>$appDir</var></span> )</code>
+
+			<div class="description short">
+				<p>Create Conf files</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Create Conf files</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$appDir</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+					<h4>Throws</h4>
+					<div class="list">
+						Exception
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="addHosts" id="_addHosts">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_addHosts">#</a>
+			<code><a href="source-class-Core.Scripts.corecmd.html#785-810" title="Go to source code">addHosts</a>( <span> <var>$domain</var></span>, <span> <var>$ip</var></span> )</code>
+
+			<div class="description short">
+				<p>Adds an entry to hosts files for the app</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Adds an entry to hosts files for the app</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$domain</var></dt>
+						<dd></dd>
+						<dt><var>$ip</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="removeVhost" id="_removeVhost">
+
+			<td class="attributes"><code>
+				 public static
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_removeVhost">#</a>
+			<code><a href="source-class-Core.Scripts.corecmd.html#844-917" title="Go to source code">removeVhost</a>( <span> <var>$appName</var></span>, <span>boolean <var>$removeVhost</var> = <span class="php-keyword1">true</span></span>, <span>boolean <var>$removeHostEntry</var> = <span class="php-keyword1">true</span></span> )</code>
+
+			<div class="description short">
+				<p>Removes (previously added) virtual host entry from vhost.conf/httpd.conf file</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Removes (previously added) virtual host entry from vhost.conf/httpd.conf file</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$appName</var></dt>
+						<dd></dd>
+						<dt><var>$removeVhost</var></dt>
+						<dd></dd>
+						<dt><var>$removeHostEntry</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="update" id="_update">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_update">#</a>
+			<code><a href="source-class-Core.Scripts.corecmd.html#919-939" title="Go to source code">update</a>( <span> <var>$dev</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setupHost" id="_setupHost">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setupHost">#</a>
+			<code><a href="source-class-Core.Scripts.corecmd.html#941-1000" title="Go to source code">setupHost</a>( <span>null <var>$domain</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$ip</var> = <span class="php-quote">'127.0.0.1'</span></span> )</code>
+
+			<div class="description short">
+				<p>setup virtual host for app (includes updating hosts and httpd.conf || httpd-vhosts.conf file )</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>setup virtual host for app (includes updating hosts and httpd.conf || httpd-vhosts.conf file )</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$domain</var></dt>
+						<dd></dd>
+						<dt><var>$ip</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="addVhost" id="_addVhost">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_addVhost">#</a>
+			<code><a href="source-class-Core.Scripts.corecmd.html#1002-1040" title="Go to source code">addVhost</a>( <span> <var>$domain</var></span>, <span> <var>$ip</var></span> )</code>
+
+			<div class="description short">
+				<p>Add virtual host entery to httpd-vhosts.conf if found else httpd.conf</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Add virtual host entery to httpd-vhosts.conf if found else httpd.conf</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$domain</var></dt>
+						<dd></dd>
+						<dt><var>$ip</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="addConfigVars" id="_addConfigVars">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_addConfigVars">#</a>
+			<code><a href="source-class-Core.Scripts.corecmd.html#1081-1096" title="Go to source code">addConfigVars</a>( <span> <var>$key</var></span>, <span> <var>$val</var></span> )</code>
+
+			<div class="description short">
+				<p>Add Config params to file</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Add Config params to file</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$key</var></dt>
+						<dd></dd>
+						<dt><var>$val</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="clearCache" id="_clearCache">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_clearCache">#</a>
+			<code><a href="source-class-Core.Scripts.corecmd.html#1098-1105" title="Go to source code">clearCache</a>( )</code>
+
+			<div class="description short">
+				<p>Clear all cache</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Clear all cache</p>
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="__sleep" id="___sleep">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___sleep">#</a>
+			<code><a href="source-class-Core.Scripts.corecmd.html#1107-1124" title="Go to source code">__sleep</a>( )</code>
+
+			<div class="description short">
+				<p>Sleep magic method</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Sleep magic method</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Core.CacheSystem.Cacheable.html#___sleep">Core\CacheSystem\Cacheable::__sleep()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="__wakeup" id="___wakeup">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___wakeup">#</a>
+			<code><a href="source-class-Core.Scripts.corecmd.html#1126-1133" title="Go to source code">__wakeup</a>( )</code>
+
+			<div class="description short">
+				<p>Wakeup custom method</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Wakeup custom method</p>
+
+
+
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Core.CacheSystem.Cacheable.html#___wakeup">Core\CacheSystem\Cacheable::__wakeup()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped properties" id="properties">
+		<tr data-order="appName" id="$appName">
+			<td class="attributes"><code>
+				public static 
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Core.Scripts.corecmd.html#41-44" title="Go to source code"><var>$appName</var></a>
+
+				<div class="description short">
+					<p>Contains the current defined application name</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>Contains the current defined application name</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$appName" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="domainName" id="$domainName">
+			<td class="attributes"><code>
+				public static 
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Core.Scripts.corecmd.html#45-48" title="Go to source code"><var>$domainName</var></a>
+
+				<div class="description short">
+					<p>The Domain Name of the Web App.</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>The Domain Name of the Web App.</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$domainName" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="appDirPath" id="$appDirPath">
+			<td class="attributes"><code>
+				public static 
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Core.Scripts.corecmd.html#49-52" title="Go to source code"><var>$appDirPath</var></a>
+
+				<div class="description short">
+					<p>Path to application directory</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>Path to application directory</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$appDirPath" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="dev" id="$dev">
+			<td class="attributes"><code>
+				public static 
+				boolean
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Core.Scripts.corecmd.html#53-56" title="Go to source code"><var>$dev</var></a>
+
+				<div class="description short">
+					<p>Defines if running in development mode</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>Defines if running in development mode</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$dev" class="anchor">#</a>
+					<code><span class="php-keyword1">false</span></code>
+				</div>
+			</td>
+		</tr>
+		</table>
+
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		CoreFramework API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
