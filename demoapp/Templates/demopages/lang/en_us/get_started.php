@@ -32,24 +32,24 @@ npm install bower -g</pre>
     'subBlock2' => '<p class="para">
             If all the required packages have been installed as mentioned above, then use the below command to install Core Framework -
         </p>
-        <pre class="prettyprint">composer create-project core-framework/CoreFramework {path/to/desired/folder} {version}</pre>
+        <pre class="prettyprint">composer create-project core-framework&#47;core-framework {path/to/desired/folder} {version}</pre>
         <p class="para">Ex:</p>
-        <pre class="prettyprint">composer create-project core-framework/CoreFramework /var/www/CoreFramework "v1.2.4-alpha"</pre>
+        <pre class="prettyprint">composer create-project core-framework&#47;core-framework /var/www/CoreFramework "v2.0.0-beta"</pre>
         <p class="para">
             Once the Core Framework and it dependencies have been downloaded successfully, move into directory where the framework is install and run the following command -
         </p>
-        <pre class="prettyprint">src/Core/Scripts/Console install</pre>
+        <pre class="prettyprint">src&#47;Core&#47;Scripts&#47;Console install</pre>
         <p class="para">
             The above command will setup the default demoapp and then prompt you to setup your web application. You can choose to say yes and setup your web application or you can say no and set it up later using the following command -
         </p>
-        <pre class="prettyprint">src/Core/Scripts/Console setupApp {yourAppName}</pre>
+        <pre class="prettyprint">src&#47;Core&#47;Scripts&#47;Console setupApp {yourAppName}</pre>
         <p class="para">
             For now lets ignore application setup and proceed with a "no". Once default web application (demoapp) OR your web application has been setup successfully. The Console cli prompts you with the command you can run to setup your virtual host. You can either use these commands to setup the virtual host or you could do this the way you choose and are comfortable with. If you have already setup your virtual host (or once you have done so) you can check if your domain resolves in the browser to show the Core Framework home page.
         </p>',
     'subTitle3' => 'Post Installation',
     'subTitle3_pLink' => 'post-installation',
     'subBlock3' => '<p class="para">
-            Now if everything has been setup correctly and if you see your domain resolve, now you could go ahead and setup your own application. Open up your console and move into the root directory where Core Framework has been installed. Once there type <code>corecon</code>. If you get an error or if the command doesn&rsquo;t exist then this is likely because Core Framework&rsquo;s attempt at aliasing <code>src/Core/Scripts/Console</code> probably failed. You can easily remedy this by typing the following command in console - <code>alias corecon="src/Core/Scripts/Console"</code>**
+            Now if everything has been setup correctly and if you see your domain resolve, now you could go ahead and setup your own application. Open up your console and move into the root directory where Core Framework has been installed. Once there type <code>corecon</code>. If you get an error or if the command doesn&rsquo;t exist then this is likely because Core Framework&rsquo;s attempt at aliasing <code>src&#47;Core&#47;Scripts&#47;Console</code> probably failed. You can easily remedy this by typing the following command in console - <code>alias corecon="src/Core/Scripts/Console"</code>**
         </p>
         <p class="para">
             **Path will change if you are not in Core Framework&rsquo;s Root
@@ -61,7 +61,7 @@ Now type in <code>corecon</code> again in your console, and this time you should
         <p class="para">
 This will run the setup process, and the cli will prompt you to enter your web applications domain name. Here you can either enter a full fledged valid domain name if this is for production, or you can simply enter the keyword of your choice.
         </p>
-        <p class="well well-small">
+        <p class="alert alert-warning">
             <strong>Note:</strong> The domain you enter essentially also becomes the folder name with the dots (".") replaced with dashes ("-"). Thus if your domain name you entered is <code>coreframework.in</code>, then your web application folder name will be <code>coreframework-in</code>
         </p>'
 ];
