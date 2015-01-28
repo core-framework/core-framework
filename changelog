@@ -1,36 +1,11 @@
 Core Framework Change Log
 ==========================
 
-Version 1.2.0
----------------
-* Added new Console cli commands for application setup.
-
-Version 1.2.1
----------------
-* Created this change log
-* Minor bug fixes and code formatting
-
-Version 1.2.2
----------------
-* Minor bug fixes and code formatting
-* Revised internal caching and update all classes (CacheSystem)
-* Regenerated API docs
-
-Version 1.2.3
----------------
-* Minor bug fixes and code formatting
-* Updated License info in all files
-* Updates to internal Caching
-* Updates to API docs
-* New customServe (microsite) feature
-
-Version 1.2.4
----------------
-* Minor bug fixes
-
-Version 1.2.5
----------------
-* Minor bug fixes
-* HTML/CSS/JS changes to demoapp
-* Added scroll to hash js for demoapp/livesite
-* Exposed server info to base controller
+Version 2.0.0-beta
+--------------------
+* Major code revamp and restructuring
+* Added DI (dependency injection) class
+* Implemented DI in framework
+* Added features for micro-site serving in routes.conf.php
+* Added features for meta keyword and description in route.conf.php
+* minor bug fixes

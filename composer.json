@@ -1,5 +1,5 @@
 {
-    "name": "core-framework/CoreFramework",
+    "name": "core-framework/core-framework",
     "description": "Core PHP Framework",
     "replace": {"shalomsam/Core": "self.version"},
     "type": "project",
