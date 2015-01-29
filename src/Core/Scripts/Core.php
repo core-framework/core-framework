@@ -84,7 +84,8 @@ class Core extends CLI
         parent::__construct(DI::get('IOStream'), DI::get('Config'));
     }
 
-    public function showHelp() {
+    public function showHelp()
+    {
         $this->printSign();
         parent::showHelp();
     }
@@ -853,10 +854,10 @@ class Core extends CLI
                 if ($this::$verbose === true) {
                     $this->io->writeln("Setting up cache folder", 'green');
                 }
-                if( chown($cacheDir, $apacheUser) === false ) {
+                if (chown($cacheDir, $apacheUser) === false) {
                     exec('sudo chown ' . $apacheUser . ' ' . $cacheDir);
                 }
-                if( chmod($cacheDir, 0777) === false ) {
+                if (chmod($cacheDir, 0777) === false) {
                     exec('sudo chmod 0777 ' . $cacheDir);
                 }
             }
