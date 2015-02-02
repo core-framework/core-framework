@@ -136,6 +136,13 @@ return $routes = [
         'controller' => '\\demoapp\\Controllers:tutorialController:tutorialAction'
     ],
 
+    '/test/helloworld' => [
+        'pageName' => 'test',
+        'pageTitle' => 'Test',
+        'method' => 'GET',
+        'controller' => '\\Core\\Controllers:testController:helloWorldAction'
+    ],
+
     '/test/hello/{name}' => [
         'pageName' => 'test',
         'pageTitle' => 'Test',

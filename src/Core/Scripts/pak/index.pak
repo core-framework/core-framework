@@ -44,8 +44,7 @@ require_once $bootstrapPath;
 
 $core = new Core($di, true);
 $core->forceApc = false;
-$core->registerApp('demoapp\\', DS . 'demoapp' . DS);                   // Comment this when you have setup your own app
-//$core->registerApp('demoapp\\', DS . 'demoapp' . DS);             // unComment this when you have setup your own app
+$core->registerApp('demoapp\\', DS . 'demoapp' . DS);                   // Register your app here using the same syntax (replace `demoapp` with your App Name.
 $core->Load();
 
 session_write_close();

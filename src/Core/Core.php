@@ -579,10 +579,9 @@ class core
 
     /**
      * register application directories
-     * @param $namespace
      * @param $appDir
      */
-    public function registerApp($namespace, $appDir)
+    public function registerApp($appDir)
     {
         $this->addControllerDir($appDir . "Controllers" . DS);
         $this->addModelDir($appDir . "Models" . DS);

@@ -46,4 +46,8 @@ class testController extends Controller
         $this->view->setTemplateVars('name', $payload['name']);
     }
 
+    public function helloWorldAction(){
+        $this->view->setTemplate('helloworld.tpl');
+    }
+
 } 
