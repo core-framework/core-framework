@@ -920,24 +920,32 @@ class Core extends CLI
         $smarty_sub_config = $smartyCacheDir . DS . "config";
         $smarty_sub_template = $smartyCacheDir . DS . "templates_c";
         if (!is_dir($smartyCacheDir)) {
-            mkdir($smartyCacheDir, 0777);
+            //mkdir($smartyCacheDir, 0777);
+            exec('sudo mkdir '.$smartyCacheDir);
         } else {
-            chmod($smartyCacheDir, 0777);
+            //chmod($smartyCacheDir, 0777);
+            exec('sudo chmod 0777 '.$smartyCacheDir);
         }
         if (!is_dir($smarty_sub_cache)) {
-            mkdir($smarty_sub_cache, 0777);
+            //mkdir($smarty_sub_cache, 0777);
+            exec('sudo mkdir '.$smarty_sub_cache);
         } else {
-            chmod($smarty_sub_cache, 0777);
+            //chmod($smarty_sub_cache, 0777);
+            exec('sudo chmod 0777 '.$smarty_sub_cache);
         }
         if (!is_dir($smarty_sub_config)) {
-            mkdir($smarty_sub_config, 0777);
+            //mkdir($smarty_sub_config, 0777);
+            exec('sudo mkdir '.$smarty_sub_config);
         } else {
-            chmod($smarty_sub_config, 0777);
+            //chmod($smarty_sub_config, 0777);
+            exec('sudo chmod 0777 '.$smarty_sub_config);
         }
         if (!is_dir($smarty_sub_template)) {
-            mkdir($smarty_sub_template, 0777);
+            //mkdir($smarty_sub_template, 0777);
+            exec('sudo mkdir '.$smarty_sub_cache);
         } else {
-            chmod($smarty_sub_template, 0777);
+            //chmod($smarty_sub_template, 0777);
+            exec('sudo chmod 0777 '.$smarty_sub_config);
         }
     }
 
