@@ -183,6 +183,16 @@ class Config
     }
 
     /**
+     * Add parameter to global conf array
+     *
+     * @param $name
+     * @param $val
+     */
+    public function addToGlobalConfig($name, $val) {
+        $this->globalConfig[$name] = $val;
+    }
+
+    /**
      * @return mixed
      */
     public function getCliConfig()

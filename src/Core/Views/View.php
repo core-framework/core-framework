@@ -104,7 +104,14 @@ class View implements viewInterface, Cacheable
      * @var string Path to base template files directory
      */
     private $baseTemplateDir;
-
+    /**
+     * @var number Cache life time or time to live
+     */
+    public $cache_lifetime;
+    /**
+     * @var string Test template path
+     */
+    public $httpTestsDir;
     /**
      * @param \Smarty $tplEngine
      */
@@ -130,8 +137,17 @@ class View implements viewInterface, Cacheable
         $this->tplEngine->setCompileDir(_ROOT . DS . "src" . DS . "Core" . DS . 'smarty_cache' . DS . 'templates_c' . DS);
         $this->tplEngine->setConfigDir(_ROOT . DS . "src" . DS . "Core" . DS . 'smarty_cache' . DS . 'configs' . DS);
         $this->tplEngine->setCacheDir(_ROOT . DS . "src" . DS . "Core" . DS . 'smarty_cache' . DS . 'cache' . DS);
+        $this->tplEngine->addTemplateDir(_ROOT . $this->baseTemplateDir);
+        $this->tplEngine->addTemplateDir(_ROOT . $this->httpTestsDir);
         $this->tplEngine->inheritance_merge_compiled_includes = false;
+        $this->tplEngine->caching = 1;
+        $this->tplEngine->cache_lifetime = $this->cache_lifetime;
         //$this->testInstall();exit;
+
+//        $clear = htmlentities(filter_var($_GET['action']), FILTER_SANITIZE_STRING);
+//        if ($clear === 'clear_cache') {
+//            $this->tplEngine->clearAllCache();
+//        }
     }
 
     /**
@@ -164,36 +180,36 @@ class View implements viewInterface, Cacheable
      */
     public function render()
     {
-        $this->tplEngine->addTemplateDir(_ROOT . $this->baseTemplateDir);
-        $this->tplEngine->addTemplateDir(_ROOT . $this->httpTestsDir);
         if ($this->disabled === false) {
             $tplInfo = $this->tplInfo;
             $tpl = $this->tpl = $tplInfo['tpl'];
-            $tpl_exists = $this->tplEngine->templateExists($tpl);
-            $this->tplInfo['vars']['showHeader'] = $this->showHeader;
-            $this->tplInfo['vars']['showFooter'] = $this->showFooter;
-            $tplVars = $this->tplVars = $this->tplInfo['vars'];
+            if (!$this->tplEngine->isCached($tpl)) {
+
+                $tpl_exists = $this->tplEngine->templateExists($tpl);
+                $this->tplInfo['vars']['showHeader'] = $this->showHeader;
+                $this->tplInfo['vars']['showFooter'] = $this->showFooter;
+                $tplVars = $this->tplVars = $this->tplInfo['vars'];
 
 
-            if ($this->debugMode) {
-                $this->debugDfltHtml = include_once _ROOT . $this->debugfile;
-                $this->tplEngine->assign('debugDfltHtml', $this->debugDfltHtml);
-            }
+                if ($this->debugMode) {
+                    $this->debugDfltHtml = include_once _ROOT . $this->debugfile;
+                    $this->tplEngine->assign('debugDfltHtml', $this->debugDfltHtml);
+                }
 
-            if (!$tpl_exists) {
-                $tpl = "errors/error404.tpl";
-            }
+                if (!$tpl_exists) {
+                    $tpl = "errors/error404.tpl";
+                }
 
-            if (!empty($tplVars) || sizeof($tplVars) !== 0) {
-                foreach ($tplVars as $key => $val) {
-                    $this->tplEngine->assign($key, $val);
+                if ((!empty($tplVars) || sizeof($tplVars) !== 0)) {
+                    foreach ($tplVars as $key => $val) {
+                        $this->tplEngine->assign($key, $val);
+                    }
                 }
             }
-            //$this->tplEngine->testInstall();
             $this->tplEngine->display($tpl);
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**

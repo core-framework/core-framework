@@ -84,7 +84,8 @@ class Core extends CLI
         parent::__construct(DI::get('IOStream'), DI::get('Config'));
     }
 
-    public function showHelp() {
+    public function showHelp()
+    {
         $this->printSign();
         parent::showHelp();
     }
@@ -690,7 +691,10 @@ class Core extends CLI
         $appDirPath = _ROOT . DS . $appName . DS;
         $newIndex = $appDirPath . "index.php";
         $contents = file_get_contents($index);
-        $newContents = preg_replace('/\{appName\}/', $appName, $contents);
+
+        if ($appName !== 'demoapp') {
+            $newContents = preg_replace('/\{appName\}/', $appName, $contents);
+        }
 
         if (is_readable($newIndex)) {
 
@@ -853,10 +857,10 @@ class Core extends CLI
                 if ($this::$verbose === true) {
                     $this->io->writeln("Setting up cache folder", 'green');
                 }
-                if( chown($cacheDir, $apacheUser) === false ) {
+                if (chown($cacheDir, $apacheUser) === false) {
                     exec('sudo chown ' . $apacheUser . ' ' . $cacheDir);
                 }
-                if( chmod($cacheDir, 0777) === false ) {
+                if (chmod($cacheDir, 0777) === false) {
                     exec('sudo chmod 0777 ' . $cacheDir);
                 }
             }
@@ -921,31 +925,31 @@ class Core extends CLI
         $smarty_sub_template = $smartyCacheDir . DS . "templates_c";
         if (!is_dir($smartyCacheDir)) {
             //mkdir($smartyCacheDir, 0777);
-            exec('sudo mkdir '.$smartyCacheDir);
+            exec('sudo mkdir ' . $smartyCacheDir);
         } else {
             //chmod($smartyCacheDir, 0777);
-            exec('sudo chmod 0777 '.$smartyCacheDir);
+            exec('sudo chmod 0777 ' . $smartyCacheDir);
         }
         if (!is_dir($smarty_sub_cache)) {
             //mkdir($smarty_sub_cache, 0777);
-            exec('sudo mkdir '.$smarty_sub_cache);
+            exec('sudo mkdir ' . $smarty_sub_cache);
         } else {
             //chmod($smarty_sub_cache, 0777);
-            exec('sudo chmod 0777 '.$smarty_sub_cache);
+            exec('sudo chmod 0777 ' . $smarty_sub_cache);
         }
         if (!is_dir($smarty_sub_config)) {
             //mkdir($smarty_sub_config, 0777);
-            exec('sudo mkdir '.$smarty_sub_config);
+            exec('sudo mkdir ' . $smarty_sub_config);
         } else {
             //chmod($smarty_sub_config, 0777);
-            exec('sudo chmod 0777 '.$smarty_sub_config);
+            exec('sudo chmod 0777 ' . $smarty_sub_config);
         }
         if (!is_dir($smarty_sub_template)) {
             //mkdir($smarty_sub_template, 0777);
-            exec('sudo mkdir '.$smarty_sub_cache);
+            exec('sudo mkdir ' . $smarty_sub_cache);
         } else {
             //chmod($smarty_sub_template, 0777);
-            exec('sudo chmod 0777 '.$smarty_sub_config);
+            exec('sudo chmod 0777 ' . $smarty_sub_config);
         }
     }
 

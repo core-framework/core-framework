@@ -46,10 +46,9 @@ define('_ROOT', $root);
 $bootstrapPath = _ROOT . DS . 'src' . DS . 'Core' . DS . 'inc' . DS . 'bootstrap.php';
 require_once $bootstrapPath;
 
-$core = new Core($di, true);
-$core->forceApc = false;
+$core = new Core($di, true, true);
 $core->registerApp(DS . 'demoapp' . DS);                   // Comment this when you have setup your own app
-//$core->registerApp('demoapp\\', DS . '{{demoapp}}' . DS);             // unComment this when you have setup your own app
+//$core->registerApp('demoapp\\', DS . '{demoapp}' . DS);             // unComment this when you have setup your own app
 $core->Load();
 //session_write_close();
 

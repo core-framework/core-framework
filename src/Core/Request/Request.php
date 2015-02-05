@@ -79,7 +79,6 @@ class Request implements Cacheable
         '[',
         ']',
         '\\',
-        '/',
         '!',
         '~',
         '`',
@@ -88,7 +87,6 @@ class Request implements Cacheable
         '|',
         '%',
         '+',
-        '-',
         '?php'
     ];
     /**
@@ -122,7 +120,6 @@ class Request implements Cacheable
 
         //get POST vars && GET vars sanitized
         foreach ($_GET as $key => $value) {
-            //$getVars[$key] = htmlentities(filter_var($val, FILTER_SANITIZE_STRING));
             switch ($key) {
                 case 'email':
                     $this->getVars[$key] = htmlentities(filter_var($value, FILTER_SANITIZE_EMAIL));
@@ -140,7 +137,6 @@ class Request implements Cacheable
         }
 
         foreach ($_POST as $key => $value) {
-            //$postVars[$key] = htmlentities(filter_var($val, FILTER_SANITIZE_STRING));
             switch ($key) {
                 case 'email':
                     $this->postVars[$key] = htmlentities(filter_var($value, FILTER_SANITIZE_EMAIL));
@@ -166,10 +162,9 @@ class Request implements Cacheable
         }
 
         //path
-        str_replace($this->illegal, '', $this->getVars['page']);
-        $this->path = isset($this->getVars['page']) && $this->getVars['page'] != 'index.php' ? htmlentities(
-            filter_var($_GET['page'], FILTER_SANITIZE_URL)
-        ) : '';
+        $rawPath = $this->getVars['page'];
+        str_replace($this->illegal, '', $rawPath);
+        $this->path = isset($rawPath) && $rawPath != 'index.php' ? $rawPath : '';
 
     }
 

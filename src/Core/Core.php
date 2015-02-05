@@ -41,19 +41,23 @@ class core
     /**
      * @var array Controller directories
      */
-    public $controllerDir = [];
+    private $controllerDir = [];
     /**
      * @var array Model Directories
      */
-    public $modelDir = [];
+    private $modelDir = [];
     /**
      * @var bool Development mode ( if set to true, disables APC and relies on internal caching )
      */
-    public $devMode = false;
+    private $devMode = false;
+    /**
+     * @var bool Determines whether to use APC caching when available
+     */
+    private $useAPC = true;
     /**
      * @var string Current URL path
      */
-    public $path;
+    private $path;
     /**
      * @var bool To force APC even if devMode is true ( considering that APC is available )
      */
@@ -93,26 +97,6 @@ class core
     /**
      * @var array Template information
      */
-    private $templateInfo;
-    /**
-     * @var array Valid Extensions
-     */
-    private $validExtensions = [
-        'js',
-        'css',
-        'html',
-        'jpeg',
-        'jpg',
-        'gif',
-        'png',
-        'ico',
-        'swf',
-        'ttf',
-        'woff',
-        'svg',
-        'php',
-        'map'
-    ];
     /**
      * @var string Styles(css) directory
      */
@@ -144,56 +128,59 @@ class core
     /**
      * @var int Time To Live (ttl) for cache
      */
-    private $cachettl = 900; //15m
+    private $cachettl = 3600; //15m
 
     /**
-     * Initialize the Core Class
+     * Initializes the Core class
      *
      * @param DI $di
+     * @param bool $useAPC
      * @param bool $devMode
      * @throws \ErrorException
      */
-    public function __construct(DI $di, $devMode = false)
+    public function __construct(DI $di, $useAPC = true, $devMode = false)
     {
         $pathKey = "";
         $hasKeyAPC = false;
         $hasKeyCache = false;
         $this->devMode = $devMode;
-        $this->cache = $di->get('Cache');
-        $this->config = $di->get('Config');
-        $this->_di = $di;
+        $this->useAPC = $useAPC;
 
-        $this->controllerDir[0] = DS . "src" . DS . "Core" . DS . "Controllers" . DS;
-        $this->modelDir[0] = DS . "src" . DS . "Core" . DS . "Models" . DS;
-        $this->globalConf = $globalConf = DS . "config" . DS . "global.conf.php";
-
-        $apcisloaded = extension_loaded("apc");
+        $apcisloaded = extension_loaded('apc');
         $apcisEnabled = ini_get('apc.enabled');
         $this->hasAPC = $apcisEnabled && $apcisloaded ? true : false;
 
-
         $this->request = $di->get('Request');
         $this->path = $this->request->getPath();
+        $this->cache = $di->get('Cache');
 
         $clear = htmlentities(filter_var($_GET['action']), FILTER_SANITIZE_STRING);
         if ($clear === 'clear_cache') {
             $this->clearCache();
         }
 
-        if ($this->hasAPC && !$this->devMode) {
+        if ($this->hasAPC === true && $this->useAPC === true) {
             $path = $this->path;
-            $pathKey = md5($path . "_view");
+            $pathKey = md5($path . '_view');
             $hasKeyAPC = apc_exists($pathKey);
             $hasKeyCache = $this->cache->cacheExists($pathKey);
         }
 
         if ($hasKeyAPC) {
             $this->APCinit($pathKey);
-            $this->cacheMethod = "APC";
+            $this->cacheMethod = 'APC';
         } elseif ($hasKeyCache) {
             $this->cachedinit($pathKey);
-            $this->cacheMethod = "internal_cache";
+            $this->cacheMethod = 'internal_cache';
         } else {
+
+            $this->config = $di->get('Config');
+            $this->_di = $di;
+
+            $this->controllerDir[0] = DS . 'src' . DS . 'Core' . DS . 'Controllers' . DS;
+            $this->modelDir[0] = DS . 'src' . DS . 'Core' . DS . 'Models' . DS;
+            $this->globalConf = $globalConf = DS . 'config' . DS . 'global.conf.php';
+
             $this->defaultinit();
             $this->cacheMethod = 'none';
         }
@@ -241,6 +228,7 @@ class core
     {
         $this->route = $this->_di->get('Route');
         $this->view = $this->_di->get('View');
+        $this->view->cache_lifetime = $this->cachettl;
         $this->globalConf = $this->config->getGlobalConfig();
     }
 
@@ -280,27 +268,27 @@ class core
             $this->route->setMethod('pageNotFound');
         }
 
-        if ($isRootFile) {
-            $r = $this->handleFEComponents(true);
-            if ($r === false) {
-                $this->route->header = '404';
-                $this->route->setController('errorController');
-                $this->route->setMethod('pageNotFound');
-            } else {
-                exit;
-            }
-        }
+//        if ($isRootFile) {
+//            $r = $this->handleFEComponents(true);
+//            if ($r === false) {
+//                $this->route->header = '404';
+//                $this->route->setController('errorController');
+//                $this->route->setMethod('pageNotFound');
+//            } else {
+//                exit;
+//            }
+//        }
 
-        if ($isFEComponent) {
-            $r = $this->handleFEComponents();
-            if ($r === false) {
-                $this->route->header = '404';
-                $this->route->setController('errorController');
-                $this->route->setMethod('pageNotFound');
-            } else {
-                exit;
-            }
-        }
+//        if ($isFEComponent) {
+//            $r = $this->handleFEComponents();
+//            if ($r === false) {
+//                $this->route->header = '404';
+//                $this->route->setController('errorController');
+//                $this->route->setMethod('pageNotFound');
+//            } else {
+//                exit;
+//            }
+//        }
 
         if ($isCustomServe === true) {
             $this->handleCustomServe();
@@ -313,79 +301,81 @@ class core
 
     }
 
-    /**
-     * function to handle the Front End Components
-     * @param bool $isRoot
-     * @return bool
-     */
-    private function handleFEComponents($isRoot = false)
-    {
-        $fileName = $this->route->getFileName();
-        $fileExt = $this->route->getFileExt();
-        $templateDir = $this->templateDir;
-        $stylesDir = $this->stylesDir;
-        $scriptsDir = $this->scriptsDir;
-        $imagesDir = $this->imagesDir;
-        $controller = "";
-        $folder = "";
-        $pathTpl = "";
-
-        if ($isRoot) {
-            $folder = "root" . DS;
-            $pathTpl = _ROOT . $templateDir . $folder . $fileName . "." . $fileExt;
-
-        } elseif ($this->route->urlPathArr[0] === 'scripts') {
-
-            if ($this->route->urlPathArr[1] === $fileName . "." . $fileExt) {
-                $folder = "";
-                $controller = $scriptsDir;
-            } elseif ($this->route->urlPathArr[1] === 'base') {
-                $folder = "";
-                $controller = DS . "src" . DS . "Core" . DS . "Resources" . DS . "scripts" . DS;
-            } else {
-                $folder = $this->route->urlPathArr[1] . DS;
-                $controller = $scriptsDir;
-            }
-
-            $pathTpl = _ROOT . $controller . $folder . $fileName . "." . $fileExt;
-
-        } elseif ($this->route->urlPathArr[0] === 'styles') {
-
-            if ($this->route->urlPathArr[1] === $fileName . "." . $fileExt) {
-                $folder = "";
-                $controller = $stylesDir;
-            } elseif ($this->route->urlPathArr[1] === 'base') {
-                $folder = "";
-                $controller = DS . "src" . DS . "Core" . DS . "Resources" . DS . "styles" . DS;
-            } else {
-                $folder = $this->route->urlPathArr[1] . DS;
-                $controller = $stylesDir;
-            }
-
-            $pathTpl = _ROOT . $controller . $folder . $fileName . "." . $fileExt;
-
-
-        } elseif ($this->route->urlPathArr[0] === 'images') {
-            if ($this->route->urlPathArr[1] === 'base') {
-                $controller = DS . "src" . DS . "Core" . DS . "Resources" . DS . "images" . DS;
-                $pathTpl = _ROOT . $controller . $fileName . "." . $fileExt;
-            } else {
-                $controller = $imagesDir;
-                $pathTpl = _ROOT . $controller . $folder . $fileName . "." . $fileExt;
-            }
-
-        }
-
-        if (is_file($pathTpl)) {
-            $this->setHeaders($fileExt);
-            include $pathTpl;
-            return true;
-
-        } else {
-            return false;
-        }
-
-    }
+//    /**
+//     * function to handle the Front End Components
+//     *
+//     * @deprecated
+//     * @param bool $isRoot
+//     * @return bool
+//     */
+//    private function handleFEComponents($isRoot = false)
+//    {
+//        $fileName = $this->route->getFileName();
+//        $fileExt = $this->route->getFileExt();
+//        $templateDir = $this->templateDir;
+//        $stylesDir = $this->stylesDir;
+//        $scriptsDir = $this->scriptsDir;
+//        $imagesDir = $this->imagesDir;
+//        $controller = "";
+//        $folder = "";
+//        $pathTpl = "";
+//
+//        if ($isRoot) {
+//            $folder = "root" . DS;
+//            $pathTpl = _ROOT . $templateDir . $folder . $fileName . "." . $fileExt;
+//
+//        } elseif ($this->route->urlPathArr[0] === 'scripts') {
+//
+//            if ($this->route->urlPathArr[1] === $fileName . "." . $fileExt) {
+//                $folder = "";
+//                $controller = $scriptsDir;
+//            } elseif ($this->route->urlPathArr[1] === 'base') {
+//                $folder = "";
+//                $controller = DS . "src" . DS . "Core" . DS . "Resources" . DS . "scripts" . DS;
+//            } else {
+//                $folder = $this->route->urlPathArr[1] . DS;
+//                $controller = $scriptsDir;
+//            }
+//
+//            $pathTpl = _ROOT . $controller . $folder . $fileName . "." . $fileExt;
+//
+//        } elseif ($this->route->urlPathArr[0] === 'styles') {
+//
+//            if ($this->route->urlPathArr[1] === $fileName . "." . $fileExt) {
+//                $folder = "";
+//                $controller = $stylesDir;
+//            } elseif ($this->route->urlPathArr[1] === 'base') {
+//                $folder = "";
+//                $controller = DS . "src" . DS . "Core" . DS . "Resources" . DS . "styles" . DS;
+//            } else {
+//                $folder = $this->route->urlPathArr[1] . DS;
+//                $controller = $stylesDir;
+//            }
+//
+//            $pathTpl = _ROOT . $controller . $folder . $fileName . "." . $fileExt;
+//
+//
+//        } elseif ($this->route->urlPathArr[0] === 'images') {
+//            if ($this->route->urlPathArr[1] === 'base') {
+//                $controller = DS . "src" . DS . "Core" . DS . "Resources" . DS . "images" . DS;
+//                $pathTpl = _ROOT . $controller . $fileName . "." . $fileExt;
+//            } else {
+//                $controller = $imagesDir;
+//                $pathTpl = _ROOT . $controller . $folder . $fileName . "." . $fileExt;
+//            }
+//
+//        }
+//
+//        if (is_file($pathTpl)) {
+//            $this->setHeaders($fileExt);
+//            include $pathTpl;
+//            return true;
+//
+//        } else {
+//            return false;
+//        }
+//
+//    }
 
     /**
      * Set header
@@ -527,7 +517,7 @@ class core
 
             }
         } else {
-            throw new \ErrorException("Class or Method not found", 11);
+            throw new \ErrorException('Class or Method not found', 11);
         }
 
         $ttl = $this->cachettl;
@@ -537,7 +527,7 @@ class core
         }
 
         $path = $this->path;
-        $pathVar = $path . "_view";
+        $pathVar = $path . '_view';
         $pathKey = md5($pathVar);
         if ($this->hasAPC && (!$this->devMode || $this->forceApc)) {
             apc_store($pathKey, $this->view, $ttl);
@@ -583,8 +573,8 @@ class core
      */
     public function registerApp($appDir)
     {
-        $this->addControllerDir($appDir . "Controllers" . DS);
-        $this->addModelDir($appDir . "Models" . DS);
+        $this->addControllerDir($appDir . 'Controllers' . DS);
+        $this->addModelDir($appDir . 'Models' . DS);
         $this->setResourcesDir($appDir);
 
         if ($this->devMode === true) {
@@ -622,9 +612,9 @@ class core
     public function setResourcesDir($path)
     {
         $this->resourcesDir = $path;
-        $this->setTemplateDir($path . "Templates" . DS);
-        $this->setImagesDir($path . "images" . DS);
-        $this->setScriptsDir($path . "scripts" . DS);
+        $this->setTemplateDir($path . 'Templates' . DS);
+        $this->setImagesDir($path . 'images' . DS);
+        $this->setScriptsDir($path . 'scripts' . DS);
         $this->setStylesDir($path . "styles" . DS);
     }
 
@@ -731,27 +721,49 @@ class core
      */
     private function autoloadController($namespacedClass)
     {
-        $arr = explode("\\", $namespacedClass);
-        $first = $arr[0];
-        $classname = end($arr);
-        $found = false;
+        $hasAPC = $this->hasAPC;
 
-        $file = _ROOT . DS . strtr($namespacedClass, '\\', DS) . ".php";
-        $elsefile = _ROOT . DS . "src" . DS . "Core" . DS . "Controllers" . DS . $classname . ".php";
+        if ($hasAPC && apc_exists($namespacedClass . '_file')) {
+
+            $file = apc_fetch($namespacedClass . '_file');
+            require_once $file;
+            return;
+        }
+
+
+        $arr = explode("\\", $namespacedClass);
+        $classname = end($arr);
+
+        $file = _ROOT . DS . strtr($namespacedClass, '\\', DS) . '.php';
+        $elsefile = _ROOT . DS . 'src' . DS . 'Core' . DS . 'Controllers' . DS . $classname . '.php';
 
         if (file_exists($file)) {
+
+            if ($hasAPC) {
+                apc_store($namespacedClass . '_file', $file);
+            }
             require_once $file;
-            $found = true;
+
         } elseif (file_exists($elsefile)) {
+
+            if ($hasAPC) {
+                apc_store($namespacedClass . '_file', $elsefile);
+            }
             require_once $elsefile;
-            $found = true;
+
         } else {
+
             foreach ($this->controllerDir as $i => $val) {
-                $file = _ROOT . $val . "Controllers" . DS . $classname . ".php";
+                $file = _ROOT . $val . DS . $classname . '.php';
                 if (file_exists($file)) {
+                    if ($hasAPC) {
+                        apc_store($namespacedClass . '_file', $file);
+                    }
                     require_once $file;
+                    return;
                 }
             }
+
         }
     }
 
@@ -762,19 +774,49 @@ class core
      */
     private function autoloadModel($modelName)
     {
+        $hasAPC = $this->hasAPC;
+
+        if ($hasAPC && apc_exists($modelName . '_file')) {
+
+            $file = apc_fetch($modelName . '_file');
+            require_once $file;
+            return;
+        }
+
         if(strpos($modelName, "\\") > 0){
             return false;
         }
-        $file = _ROOT . $this->modelDir . $modelName . ".php";
-        //else check in Core
-        $elsefile = _ROOT . DS . "src" . DS . "Core" . DS . "Models" . DS . $modelName . ".php";
+
+        $file = _ROOT . $this->modelDir . $modelName . '.php';
+        $elsefile = _ROOT . DS . 'src' . DS . 'Core' . DS . 'Models' . DS . $modelName . '.php';
 
         if (file_exists($file)) {
+
+            if ($hasAPC) {
+                apc_store($modelName . '_file', $file);
+            }
             require_once $file;
+
         } elseif (file_exists($elsefile)) {
+
+            if ($hasAPC) {
+                apc_store($modelName . '_file', $elsefile);
+            }
             require_once $elsefile;
+
         } else {
-            return false;
+
+            foreach ($this->modelDir as $i => $val) {
+                $file = _ROOT . $val . DS . $modelName . '.php';
+                if (file_exists($file)) {
+                    if ($hasAPC) {
+                        apc_store($modelName . '_file', $file);
+                    }
+                    require_once $file;
+                    return;
+                }
+            }
+
         }
     }
 
