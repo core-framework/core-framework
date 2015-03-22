@@ -10,11 +10,14 @@
 
 //global $_CONFIG;
 
-return $_CONFIG = [
-    'pdoDriver' => '{pdoDriver}',
-    'db' => '{db}',
-    'tables' => [],
-    'host' => '{host}',
-    'user' => '{user}',
-    'pass' => '{pass}'
+$global = [
+
+    '$global' => [
+        'metaAndTitleFromFile' => false
+    ],
+    '$db' => require('db.conf.php'),
+    '$routes' => require('routes.conf.php')
+
 ];
+
+return $global;

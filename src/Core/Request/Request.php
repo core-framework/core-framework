@@ -42,27 +42,31 @@ class Request implements Cacheable
     /**
      * @var string The URL/query string (relative path)
      */
-    private $path;
+    public $path;
     /**
      * @var string The request method .i.e. GET, POST, PUT and DELETE
      */
-    private $method;
+    public $method;
     /**
      * @var array Contains the sanitized array of the global $_GET variable
      */
-    private $getVars;
+    public $getVars;
     /**
      * @var array Contains the sanitized array of the global $_POST variable
      */
-    private $postVars;
+    public $postVars;
     /**
      * @var array Contains the $_SERVER data from the request
      */
-    private $server;
+    public $server;
     /**
      * @var array Contains the cookie data from the request
      */
-    private $cookies;
+    public $cookies;
+    /**
+     * @var bool Defines if operating in development mode
+     */
+    public $devMode = false;
     /**
      * @var array An array of illegal characters
      */
@@ -89,10 +93,6 @@ class Request implements Cacheable
         '+',
         '?php'
     ];
-    /**
-     * @var bool Defines if operating in development mode
-     */
-    private $devMode = false;
 
     /**
      * Request Constructor

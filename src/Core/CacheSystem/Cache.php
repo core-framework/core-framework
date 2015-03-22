@@ -50,7 +50,7 @@ namespace Core\CacheSystem;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class Cache
+class Cache extends BaseCache
 {
     /**
      * @var string The directory path where cache files should be stored
@@ -62,10 +62,10 @@ class Cache
      */
     public function __construct()
     {
-        if (!defined(DS) && !defined(_ROOT)) {
-            define('DS', DIRECTORY_SEPARATOR);
-            define('_ROOT', __DIR__ . DS . ".." . DS . ".." . DS . "..");
-        }
+
+        defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+        defined('_ROOT') or define('_ROOT', realpath(__DIR__ . DS . ".." . DS . ".." . DS . ".."));
+
         $this->cacheDir = _ROOT . DS . "src" . DS . "Core" . DS . "cache" . DS;
         if (!is_dir($this->cacheDir)) {
             mkdir($this->cacheDir, 0755);
@@ -108,7 +108,7 @@ class Cache
             $ttlTime = $cache['cTime'] + $cache['ttl'];
             if (($currentTime >> $ttlTime) && $cache['ttl'] !== 0) {
                 $content = $payload;
-                if ($type === 'object' && $payload instanceof Cachable) {
+                if ($type === 'object' && $payload instanceof Cacheable) {
                     $content = serialize($payload);
                 }
 
@@ -148,16 +148,6 @@ class Cache
         return true;
     }
 
-    /**
-     * Check if string is md5 hash
-     *
-     * @param string $md5
-     * @return int
-     */
-    private function isValidMd5($md5 = '')
-    {
-        return preg_match('/^[a-f0-9]{32}$/', $md5);
-    }
 
     /**
      * returns cache of given key||string if exists else returns false
@@ -207,7 +197,7 @@ class Cache
         if (is_file($cacheDir . $key . ".php")) {
             $cache = include_once $cacheDir . $key . ".php";
             $currentTime = time();
-            $ttlTime = $cache['wTime'] + $cache['ttl'];
+            $ttlTime = $cache['cTime'] + $cache['ttl'];
             if ($currentTime >> $ttlTime) {
                 unlink($cacheDir . $key . ".php");
                 return false;

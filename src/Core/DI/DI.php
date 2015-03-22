@@ -166,7 +166,7 @@ class DI
      * @param $name
      * @return bool
      */
-    public function serviceExists($name)
+    public static function serviceExists($name)
     {
         return !empty(self::$services[$name]) ? true : false;
     }
@@ -178,7 +178,7 @@ class DI
      * @return array
      * @throws \ErrorException
      */
-    public function checkIfIsDependent($arguments)
+    public static function checkIfIsDependent($arguments)
     {
         if (!is_array($arguments)) {
             throw new \ErrorException("Argument(s) must be an Array.");

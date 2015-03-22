@@ -8,13 +8,32 @@
  * file that was distributed with this source code.
  */
 
-$total_time = round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 3);
+$total_time = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
+$total_time_ms = round($total_time * 1000);
 
-$cpu = sys_getloadavg();
+//$cpu = sys_getloadavg();
+$memory = memory_get_usage(true);
+$peak = memory_get_peak_usage(true);
 
-return $html = '<div class="debugWrp hidden-xs" >' .
-    '<span style="padding: 10px 5px;">core.mem = ' . xdebug_memory_usage() . '</span>' .
-    '<span style="padding: 10px 5px;">core.mem_peak = ' . xdebug_peak_memory_usage() . '</span>' .
-    '<span style="padding: 10px 5px;">core.cpu_usage = [0] => ' . $cpu[0] . ' [1] => ' . $cpu[1] . ' [2] =>' . $cpu[2] . '</span>' .
-    '<span style="padding: 10px 5px;">core.exec_time = ' . $total_time . ' seconds </span>' .
+$memory_mb = bytesToMb($memory);
+$peak_mb = bytesToMb($peak);
+
+function bytesToKb($bytes)
+{
+    return $bytes / 1024;
+}
+
+function bytesToMb($bytes)
+{
+    return bytesToKb($bytes) / 1024;
+}
+
+return $html = '<div class="debugWrp minimize-wrap right" >' .
+    '<div class="debugBox minimize-content" >' .
+    '<div class="pull-left"><img src="/images/CoreFramework-B-Logo.png" width="200" /></div>' .
+    '<div class="pull-left">memory: <span class="label label-default">' . $memory_mb . ' MB</span></div>' .
+    '<div class="pull-left">peak: <span class="label label-default">' . $peak_mb . ' MB</span></div>' .
+    '<div class="pull-left">time: <span class="label label-default">' . $total_time_ms . ' ms</span></div>' .
+    '</div>' .
+    '<div class="btnWrp pull-right"><a href="#" class="minimize glyphicon glyphicon-chevron-right"></a></div>' .
     '</div>';

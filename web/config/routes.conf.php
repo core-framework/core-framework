@@ -49,100 +49,28 @@
  */
 return $routes = [
 
-//    '$global' => [
-//        'metaAndTitleFromFile' => false
-//    ],
 
     '/' => [
         'pageName' => 'demo',
         'pageTitle' => 'Demo Home Page',
-        'controller' => '\\demoapp\\Controllers:demoController:indexAction',
+        'controller' => '\\web\\Controllers:siteController:indexAction',
         'metas' => [
             'keywords' => 'test, keywords, for test',
             'description' => 'This is a test description',
             'author' => 'Shalom Sam'
         ]
     ],
-
     '/about' => [
         'pageName' => 'demo',
         'pageTitle' => 'Demo about Page',
-        'controller' => '\\demoapp\\Controllers:demoController:aboutAction'
+        'controller' => '\\web\\Controllers:siteController:aboutAction'
     ],
-
-    '/get_started' => [
-        'pageName' => 'demo',
-        'pageTitle' => 'Demo about Page',
-        'controller' => '\\demoapp\\Controllers:demoController:getstartedAction'
-    ],
-
-    '/documentation' => [
-        'pageName' => 'demo',
-        'pageTitle' => 'Demo about Page',
-        'controller' => '\\demoapp\\Controllers:documentationController:indexAction'
-    ],
-
-    '/documentation/api' => [
-        'pageName' => 'api',
-        'pageTitle' => 'Core Framework API',
-        'serveAsIs' => true,
-        'serveIframe' => true,
-        'referencePath' => '/documentation/api/index.html',
-        'controller' => '\\demoapp\\Controllers:demoController:apiAction',
-        'showHeader' => true
-    ],
-
-    '/documentation/api/{page}' => [
-        'pageName' => 'api',
-        'argReq' => ['page' => '[\S]'],
-        'argDefault' => 'index.html',
-        'method' => 'GET',
-        'serveAsIs' => true,
-        'referencePath' => 'Templates/api',
-        'controller' => '\\demoapp\\Controllers:demoController:apiAction',
-        'showHeader' => false,
-        'showFooter' => false
-    ],
-
-    '/documentation/{page}' => [
-        'pageName' => 'demo',
-        'pageTitle' => 'Demo about Page',
-        'argReq' => ['page' => '[\w]'],
-        'argDefault' => '',
-        'method' => 'GET',
-        'controller' => '\\demoapp\\Controllers:documentationController:documentationAction',
-        'metaAndTitleFromFile' => true,
-        'metaFile' => 'metas/metas.php'
-    ],
-
-    '/download' => [
-        'pageName' => 'demo',
-        'pageTitle' => 'Demo about Page',
-        'controller' => '\\demoapp\\Controllers:demoController:downloadAction'
-    ],
-
-    '/tutorial' => [
-        'pageName' => 'demo',
-        'pageTitle' => 'Demo about Page',
-        'controller' => '\\demoapp\\Controllers:tutorialController:indexAction'
-    ],
-
-    '/tutorial/{page}' => [
-        'pageName' => 'demo',
-        'pageTitle' => 'Demo about Page',
-        'argReq' => ['page' => '[\w]'],
-        'argDefault' => '',
-        'method' => 'GET',
-        'controller' => '\\demoapp\\Controllers:tutorialController:tutorialAction'
-    ],
-
     '/test/helloworld' => [
         'pageName' => 'test',
         'pageTitle' => 'Test',
         'method' => 'GET',
         'controller' => '\\Core\\Controllers:testController:helloWorldAction'
     ],
-
     '/test/hello/{name}' => [
         'pageName' => 'test',
         'pageTitle' => 'Test',
@@ -151,7 +79,6 @@ return $routes = [
         'method' => 'GET',
         'controller' => '\\Core\\Controllers:testController'
     ],
-
     '/testing/{id}' => [
         'pageName' => 'testing',
         'pageTitle' => 'Testing',
@@ -160,11 +87,10 @@ return $routes = [
         'method' => 'GET',
         'controller' => '\\Core\\Controllers:testController'
     ],
-
     'testingmulti/{id}/someMethod/{slug}' => [
         'pageName' => 'test',
         'pageTitle' => 'Test',
-        'argReq' =>  ['id' => '[\d]', 'slug' => '[\w]'],
+        'argReq' => ['id' => '[\d]', 'slug' => '[\w]'],
         'argDefault' => ['id' => '1', 'slug' => 'awesome'],
         'method' => 'post',
         'controller' => '\\Core\\Controllers:testController:someMethod'

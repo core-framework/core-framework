@@ -31,7 +31,7 @@ namespace Core\Controllers;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class testController extends Controller
+class testController extends BaseController
 {
 
     /**

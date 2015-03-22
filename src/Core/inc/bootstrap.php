@@ -23,8 +23,8 @@
 
 use Core\DI\DI;
 
-define('_CORE', _ROOT . DS . 'src' . DS . 'Core');
-define('DS', DIRECTORY_SEPARATOR);
+//define('_CORE', _ROOT . DS . 'src' . DS . 'Core');
+//define('DS', DIRECTORY_SEPARATOR);
 
 $loader = require_once _ROOT . DS . 'vendor' . DS . 'autoload.php';
 

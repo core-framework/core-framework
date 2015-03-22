@@ -73,6 +73,14 @@ class View implements viewInterface, Cacheable
      */
     public $tplInfo;
     /**
+     * @var number Cache life time or time to live
+     */
+    public $cache_lifetime;
+    /**
+     * @var string Test template path
+     */
+    public $httpTestsDir;
+    /**
      * @var object Smarty instance
      */
     private $tplEngine;
@@ -104,14 +112,7 @@ class View implements viewInterface, Cacheable
      * @var string Path to base template files directory
      */
     private $baseTemplateDir;
-    /**
-     * @var number Cache life time or time to live
-     */
-    public $cache_lifetime;
-    /**
-     * @var string Test template path
-     */
-    public $httpTestsDir;
+
     /**
      * @param \Smarty $tplEngine
      */
@@ -237,7 +238,7 @@ class View implements viewInterface, Cacheable
      * @param array|string $path
      * @return \Smarty|void
      */
-    public function setTemplateDir($path)
+    public function addTemplateDir($path)
     {
         $this->templateDir = $path;
         $this->tplEngine->addTemplateDir(_ROOT . $path);
@@ -265,7 +266,7 @@ class View implements viewInterface, Cacheable
         if(strpos($var, '.') !== false) {
             $this->assignArrayByPath($this->tplInfo['vars'], $var, $val);
         } else {
-            $this->tplInfo['vars'][$var] = $val;
+            $this->tplEngine->assign($var, $val);
         }
     }
 

@@ -31,7 +31,7 @@ namespace Core\Controllers;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class errorController extends Controller
+class errorController extends BaseController
 {
     /**
      * Method for 404 page not found error

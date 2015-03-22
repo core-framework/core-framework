@@ -53,7 +53,7 @@ interface viewInterface {
      *
      * @param $path
      */
-    public function setTemplateDir($path);
+    public function addTemplateDir($path);
 
     /**
      * Set template variables
