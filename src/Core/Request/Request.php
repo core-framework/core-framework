@@ -119,36 +119,49 @@ class Request implements Cacheable
         }
 
         //get POST vars && GET vars sanitized
+        $this->requestInit();
+
+        //path
+        $rawPath = isset($this->getVars['page']) ? $this->getVars['page'] : '';
+        str_replace($this->illegal, '', $rawPath);
+        $this->path = isset($rawPath) && $rawPath != 'index.php' ? $rawPath : '';
+
+    }
+
+    public function requestInit()
+    {
         foreach ($_GET as $key => $value) {
+            //$getVars[$key] = htmlentities(filter_var($val, FILTER_SANITIZE_STRING));
             switch ($key) {
                 case 'email':
-                    $this->getVars[$key] = htmlentities(filter_var($value, FILTER_SANITIZE_EMAIL));
+                    $this->getVars[$key] = htmlentities(filter_var(trim($value), FILTER_SANITIZE_EMAIL), ENT_COMPAT, 'UTF-8', false);
                     break;
 
                 case 'phone':
                 case 'mobile':
-                    $this->getVars[$key] = htmlentities(filter_var($value, FILTER_SANITIZE_NUMBER_INT));
+                    $this->getVars[$key] = htmlentities(filter_var(trim($value), FILTER_SANITIZE_NUMBER_INT), ENT_COMPAT, 'UTF-8', false);
                     break;
 
                 default:
-                    $this->getVars[$key] = htmlentities(filter_var($value, FILTER_SANITIZE_STRING));
+                    $this->getVars[$key] = htmlentities(filter_var(trim($value), FILTER_SANITIZE_STRING), ENT_COMPAT, 'UTF-8', false);
                     break;
             }
         }
 
         foreach ($_POST as $key => $value) {
+            //$postVars[$key] = htmlentities(filter_var($val, FILTER_SANITIZE_STRING));
             switch ($key) {
                 case 'email':
-                    $this->postVars[$key] = htmlentities(filter_var($value, FILTER_SANITIZE_EMAIL));
+                    $this->postVars[$key] = htmlentities(filter_var(trim($value), FILTER_SANITIZE_EMAIL), ENT_COMPAT, 'UTF-8', false);
                     break;
 
                 case 'phone':
                 case 'mobile':
-                    $this->postVars[$key] = htmlentities(filter_var($value, FILTER_SANITIZE_NUMBER_INT));
+                    $this->postVars[$key] = htmlentities(filter_var(trim($value), FILTER_SANITIZE_NUMBER_INT), ENT_COMPAT, 'UTF-8', false);
                     break;
 
                 default:
-                    $this->postVars[$key] = htmlentities(filter_var($value, FILTER_SANITIZE_STRING));
+                    $this->postVars[$key] = htmlentities(filter_var(trim($value), FILTER_SANITIZE_STRING), ENT_COMPAT, 'UTF-8', false);
                     break;
             }
         }
@@ -158,14 +171,8 @@ class Request implements Cacheable
         }
 
         foreach ($_COOKIE as $key => $value) {
-            $this->cookies[$key] = htmlentities(filter_var($value, FILTER_SANITIZE_STRING));
+            $this->cookies[$key] = htmlentities(filter_var(trim($value), FILTER_SANITIZE_STRING), ENT_COMPAT, 'UTF-8', false);
         }
-
-        //path
-        $rawPath = $this->getVars['page'];
-        str_replace($this->illegal, '', $rawPath);
-        $this->path = isset($rawPath) && $rawPath != 'index.php' ? $rawPath : '';
-
     }
 
 

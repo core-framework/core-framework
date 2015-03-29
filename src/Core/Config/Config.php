@@ -56,6 +56,7 @@ class Config
      * @var array Routes Configurations
      */
     private $routesConfig = [];
+    public $routeConfPath;
     /**
      * @var string Cli config path
      */
@@ -71,12 +72,12 @@ class Config
     public function __construct()
     {
         if(!defined('_APPDIR')) {
-            define('_APPDIR', _ROOT . DS . "demoapp");
+            define('_APPDIR', _ROOT . "/web");
         }
 
-        $this->globalConfPath = $globalConfPath = _APPDIR . DS . "config" . DS . "global.conf.php";
-        $routeConfPath = _APPDIR . DS . "config" . DS . "routes.conf.php";
-        $this->cliConfPath = $cliConfPath = _ROOT . DS . "src" . DS . "Core" . DS . "Scripts" . DS . "cli.conf.php";
+        $this->globalConfPath = $globalConfPath = _APPDIR . "/config/global.conf.php";
+        $this->routeConfPath = $routeConfPath = _APPDIR . "/config/routes.conf.php";
+        $this->cliConfPath = $cliConfPath = _ROOT . "/src/Core/Scripts/cli.conf.php";
 
         //GlobalConf
         if(is_readable($globalConfPath)) {
@@ -88,6 +89,7 @@ class Config
         } else {
             touch($globalConfPath, 0755);
         }
+
         //RouteConf
         if(is_readable($routeConfPath)) {
             $this->routesConfig = include $routeConfPath;
@@ -107,6 +109,13 @@ class Config
             touch($cliConfPath, 0755);
         }
 
+    }
+
+    public function reloadConfig()
+    {
+        $this->globalConfig = include $this->globalConfPath;
+        $this->routesConfig = include $this->routeConfPath;
+        $this->cliConf      = include $this->cliConfPath;
     }
 
     /**

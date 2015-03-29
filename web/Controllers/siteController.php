@@ -9,6 +9,7 @@
 namespace web\Controllers;
 
 use Core\Controllers\BaseController;
+use web\Models\User;
 
 class siteController extends BaseController
 {
@@ -48,5 +49,103 @@ class siteController extends BaseController
         $this->view->setTemplate('about.tpl');
     }
 
+    public function registerAction()
+    {
+        $this->view->disable();
+        $postVars = $this->postVars;
+
+        try {
+
+            if ( empty($postVars['lname']) || empty($postVars['fname']) || empty($postVars['email']) || empty($postVars['password']) || empty($postVars['password_confirm']) || empty($postVars['csrf']) ) {
+                throw new \ErrorException('One or more user data not provided.');
+            }
+
+            if ( $postVars['csrf'] !== $_SESSION['csrf'] ) {
+                throw new \ErrorException('CSRF miss match: the CSRF key has expired please reload the page and try again');
+            }
+
+            if ( $postVars['password'] !== $postVars['password_confirm'] ) {
+                throw new \ErrorException('Password and Confirm password do not match');
+            }
+
+            $postVars['name'] = $postVars['fname'] . " " . $postVars['lname'];
+            $user = new User($postVars);
+
+            $r = $user->save();
+            $jsonArr = [];
+            if ($r === true) {
+                //$this->resetCache();
+                $_SESSION['user'] = (array) $user;
+                $jsonArr['status'] = 'success';
+                $jsonArr['redirectUrl'] = '/';
+            } else {
+                $r['status'] = 'error';
+                $jsonArr['message'] = 'Unable to write to database';
+            }
+
+        } catch (\Exception $e) {
+            $jsonArr['status'] = 'error';
+            $jsonArr['message'] = $e->getMessage();
+            $jsonArr['code'] = $e->getCode();
+        }
+
+        $json = json_encode($this->utf8ize($jsonArr), JSON_FORCE_OBJECT);
+        header('Content-Type: application/json');
+        echo $json;
+
+    }
+
+    public function loginAction()
+    {
+        $this->view->disable();
+        $postVars = $this->postVars;
+        try {
+
+            if ( empty($postVars['email']) || empty($postVars['password']) || empty($postVars['csrf']) ) {
+                throw new \ErrorException('One or more user data not provided.');
+            }
+
+            if ( $postVars['csrf'] !== $_SESSION['csrf'] ) {
+                throw new \ErrorException('CSRF miss match: the CSRF key has expired please reload the page and try again');
+            }
+
+            $proposedUser = new User();
+            $proposedUserObj = $proposedUser->getOneRow(['email' => $postVars['email']]);
+            $proposedUserArr = (array) $proposedUserObj;
+
+            if (empty($proposedUserArr)) {
+                throw new \LogicException("Invalid User email or password");
+            }
+
+            $authenticated = User::check_hash($postVars['password'], $proposedUserObj->pass_hash);
+
+            if ($authenticated === true) {
+                $_SESSION['user'] = (array) $proposedUserObj;
+                $json = [ 'status' => 'success', 'redirectUrl' => '/' ];
+                $this->resetCache();
+
+            } else {
+                $json = [ 'status' => 'error', 'message' => 'Invalid User email or password' ];
+            }
+
+        } catch (\Exception $e) {
+            $json = [ 'status' => 'error', 'message' => $e->getMessage() ];
+        }
+
+        echo json_encode($json);
+    }
+
+    public function logoutAction()
+    {
+        $this->view->disable();
+        $_SESSION = [];
+        session_unset();
+        $this->resetCache();
+        session_regenerate_id();
+        session_destroy();
+        header('Location: /');
+
+        exit();
+    }
 
 }

@@ -95,6 +95,8 @@ class Cache extends BaseCache
      */
     public function cacheContent($key, $payload, $ttl)
     {
+        $cache = [];
+
         if (!$this->isValidMd5($key)) {
             $key = md5($key);
         }

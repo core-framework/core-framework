@@ -9,7 +9,9 @@
 namespace Core\Controllers;
 
 
+use Core\Application\Application;
 use Core\Application\CoreApp;
+use Core\DI\DI;
 use Core\Routes\Router;
 use Core\Views\AppView;
 
@@ -31,13 +33,21 @@ class BaseController
      */
     public $conf;
 
-    private $csrf;
+    public $postVars;
+
+    public $method;
+
+    public $csrf;
 
     function __construct(Router $router, AppView $view, $conf = [])
     {
         $this->router = $router;
         $this->view = $view;
         $this->conf = $conf;
+
+        $this->postVars = &$router->postVars;
+        $this->getVars = &$router->getVars;
+        $this->method = &$router->method;
 
         $this->checkForInput();
         $this->baseInit();
@@ -49,10 +59,15 @@ class BaseController
      */
     private function checkForInput()
     {
-        $postData = file_get_contents("php://input");
-        if ($postData) {
-            $postData = $this->inputSanitize($postData);
-            $this->router->postVars['json'] = json_decode($postData);
+        $postdata = file_get_contents("php://input");
+        if (!empty($postdata) && is_array($postdata)) {
+            $postdata = $this->inputSanitize($postdata);
+            $this->postVars['json'] = json_decode($postdata);
+        } elseif (!empty($postdata) && is_string($postdata)) {
+            if ($this->method === 'put') {
+                parse_str($postdata, $this->postVars['put']);
+                $this->postVars['put'] = $this->inputSanitize($this->postVars['put']);
+            }
         }
     }
 
@@ -100,10 +115,10 @@ class BaseController
         $this->generateCSRFKey();
 
         $pageTitle = isset($routeParams['pageTitle']) ? $routeParams['pageTitle'] : '';
-        $this->view->tplEngine->assign('title', $pageTitle);
+        $this->view->setTemplateVars('title', $pageTitle);
 
         if (isset($this->conf['routeVars']['pageName'])) {
-            $this->view->tplEngine->assign('pageName', $this->conf['routeVars']['pageName']);
+            $this->view->setTemplateVars('pageName', $this->conf['routeVars']['pageName']);
         }
 
         if ((isset($conf['$global']['metaAndTitleFromFile']) &&
@@ -131,12 +146,11 @@ class BaseController
         if (!empty($metas)) {
 
             if (isset($metas['pageTitle'])) {
-                $this->view->tplEngine->assign('title', $metas['pageTitle']);
+                $this->view->setTemplateVars('title', $metas['pageTitle']);
                 unset($metas['pageTitle']);
             }
 
-            $this->view->tplEngine->assign('metas', $metas);
-            $this->view->tplEngine->assign('csrf', $this->csrf);
+            $this->view->setTemplateVars('metas', $metas);
         }
 
     }
@@ -149,6 +163,7 @@ class BaseController
     {
         $key = sha1(microtime());
         $this->csrf = $_SESSION['csrf'] = empty($_SESSION['csrf']) ? $key : $_SESSION['csrf'];
+        $this->view->setTemplateVars('csrf', $this->csrf);
     }
 
     /**
@@ -159,6 +174,36 @@ class BaseController
     public function indexAction()
     {
         $this->view->tplInfo['tpl'] = 'homepage/home.tpl';
+    }
+
+
+    public function utf8ize($d) {
+        if (is_array($d)) {
+            foreach ($d as $k => $v) {
+                $d[$k] = $this->utf8ize($v);
+            }
+        } else if (is_string ($d)) {
+            return utf8_encode($d);
+        }
+        return $d;
+    }
+
+
+    public function resetCache($key = null)
+    {
+        $routes = $this->conf['$routes'];
+        /** @var \Core\CacheSystem\BaseCache $cache */
+        $cache = Application::get('Cache');
+
+        if (!empty ($key)) {
+            $cache->deleteCache($key);
+        }
+
+        foreach($routes as $route => $params) {
+            $key = $route . '_view_' . session_id();
+            $cache->deleteCache($key);
+        }
+
     }
 
 }

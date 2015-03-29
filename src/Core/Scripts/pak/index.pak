@@ -21,35 +21,22 @@
  * file that was distributed with this source code.
  */
 
-use Core\Core;
+session_start();
 
-// Change as required
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
 
-//ini_set('session.save_path', '/tmp');
-//ini_set('session.use_cookies', 1);
-//ini_set('session.cookie_lifetime', 1440);
-//ini_set('session.cookie_domain', 'yourDomain'); // add your own domain
-//$sess_id = session_id();
-//
-//if (empty($sess_id)) {
-//
-//    session_start();
-//
-//}
+defined('CORE_DEBUG') or define('CORE_DEBUG', true);
+defined('CORE_ENV') or define('CORE_ENV', 'dev');
 
-define('DS', DIRECTORY_SEPARATOR);
-define('_APPDIR', __DIR__);
-$root = __DIR__ . DS . '..';
-//chdir($root);
-define('_ROOT', $root);
+require(__DIR__ . '/../vendor/autoload.php');
 
-$bootstrapPath = _ROOT . DS . 'src' . DS . 'Core' . DS . 'inc' . DS . 'bootstrap.php';
-require_once $bootstrapPath;
+use Core\Application\Application;
 
-$core = new Core($di, true, true);
-$core->registerApp(DS . 'demoapp' . DS);                   // Comment this when you have setup your own app
-//$core->registerApp('demoapp\\', DS . '{demoapp}' . DS);             // unComment this when you have setup your own app
-$core->Load();
-//session_write_close();
+$conf = require(__DIR__ . '/config/global.conf.php');
+$app = new Application($conf);
+$app->run();
+
+session_write_close();
 
 ?>

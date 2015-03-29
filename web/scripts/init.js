@@ -1,11 +1,3 @@
-!function ($) {
-    $(function () {
-        $('.dropdown-toggle').dropdown();
-        // make code pretty
-        window.prettyPrint && prettyPrint();
-    })
-}(window.jQuery);
-
 $(document).ready(function () {
     hashScrollInit();
 
@@ -33,8 +25,64 @@ $(document).ready(function () {
         $('#registerModal').modal('show');
     });
 
+    //register and login btn
+    $('#loginBtn, #registerBtn').on('click', function () {
+        $(this).parents('.modal').find('form').submit();
+    });
+
+    //on form submit
+    $('#registerForm, #loginForm').on('submit', function (e) {
+        e.preventDefault();
+        var data = $(this).serialize(),
+            url = $(this).attr('action'),
+            id = $(this).parents('.modal').attr('id');
+
+        var $ajax = $.ajax({
+            url: url,
+            data: data,
+            method: 'POST',
+            dataType: 'JSON'
+        });
+
+
+        $ajax.done(function (data) {
+            if (data.status === 'success') {
+                showAlert('#' + id + ' .notice.alert', data.msg || data.message, 'success');
+                if(data.redirectUrl) {
+                    window.location.href = data.redirectUrl;
+                }
+            } else {
+                showAlert('#' + id + ' .notice.alert', data.msg || data.message, 'error');
+            }
+        }).error(function (data){
+            showAlert('#' + id + ' .notice.alert', data.msg || data.message, 'error');
+        });
+
+    });
+
 });
 
+
+function showAlert(selector, msg, type) {
+
+    if ($(selector).length === 0) {
+        throw new Error(selector + 'Element not found');
+    }
+
+    $(selector).removeClass('alert-success alert-danger');
+    if (type === 'success') {
+        $(selector).addClass('alert-success');
+    } else {
+        $(selector).addClass('alert-danger');
+    }
+
+    var promise = $(selector).text(msg).fadeIn().delay(8000).fadeOut();
+    $(window).scrollTop($(selector).offset().top - 100);
+
+    promise.promise().then(function() {
+        $(selector).removeClass('alert-success alert-danger');
+    });
+}
 
 function hashScrollInit() {
     var hash = window.location.hash;
@@ -54,3 +102,4 @@ function hashScrollInit() {
         }, 500);
     });
 }
+

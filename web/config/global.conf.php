@@ -18,7 +18,8 @@ $global = [
         'basePath' => realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'),
         'apcIsLoaded' => extension_loaded('apc'),
         'apcIsEnabled' => ini_get('apc.enabled'),
-        'tplType' => 'tpl'
+        'tplType' => 'tpl',
+        'useAPC' => true
     ],
     '$db' => require('db.conf.php'),
     '$routes' => require('routes.conf.php')

@@ -26,10 +26,11 @@
                         </div>
                     </div>
                 </div>
-                <div id="registerErrBlock" class="alert" style="display: none;">
+                <div id="registerErrBlock" class="notice alert" style="display: none;">
                     <!-- error block -->
                 </div>
                 <form id="registerForm" class="container-fluid" action="/user/register">
+                    <input type="hidden" name="csrf" value="<{$csrf}>" />
                     <div class="row-fluid">
                         <div class="col-md-6 col-xs-12">
                             <input type="text" name="fname" placeholder="First Name *" required/>
@@ -96,11 +97,20 @@
                             <p class="text-grey">*All fields are required</p>
                         </div>
                     </div>
+                    <div class="row-fluid">
+                        <div class="col-sm-12">
+                            <div class="alert alert-warning">
+                                <strong>Note:</strong> This modal can be edited at: <code><{$appPath}>
+                                    /Templates/login_register.tpl</code>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="loginErrBlock" class="alert" style="display: none;">
+                <div id="loginErrBlock" class="notice alert" style="display: none;">
                     <!-- error block -->
                 </div>
                 <form id="loginForm" class="container-fluid" action="/user/login">
+                    <input type="hidden" name="csrf" value="<{$csrf}>" />
                     <div class="row-fluid">
                         <div class="col-xs-12">
                             <input type="email" name="email" placeholder="Email Address *" required/>
@@ -133,6 +143,49 @@
         </div>
         <div class="forgot-pass-wrap text-center">
             <a id="forgotpass" href="#forgotpass">Forgot your password?</a>
+        </div>
+    </div>
+</div>
+
+<!-- forgot password modal -->
+<div class="modal fade" id="forgotPassModal" tabindex="-1" role="dialog" aria-labelledby="forgotPassModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        <div class="col-sm-6">
+                            <h4 class="modal-title" id="forgotPassLabel">Forgot Password</h4>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <p class="text-grey">*All fields are required</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="fpMsgBlock" class="notice alert" style="display: none;">
+                    <!-- error block -->
+                </div>
+                <form id="forgotPassForm" class="container-fluid" action="/user/forgotpass">
+                    <input type="hidden" name="csrf" value="<{$csrf}>" />
+                    <div class="row-fluid">
+                        <div class="col-xs-12">
+                            <input type="email" name="email" placeholder="Email Address *" required />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        <div class="col-sm-12 text-center">
+                            <button id="forgotPassBtn" data-loading-text="Sending Email..." type="button" class="btn btn-default btn-gold btn-fluid" >RESET PASSWORD</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

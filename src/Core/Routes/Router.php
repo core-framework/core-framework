@@ -358,6 +358,6 @@ class Router extends Request implements Cacheable
      */
     public function __wakeup()
     {
-
+        $this->requestInit();
     }
 }

@@ -10,6 +10,7 @@ namespace Core\Scripts;
 
 
 use Core\CacheSystem\Cache;
+use Core\Database\Database;
 use Core\DI\DI;
 use Core\Helper\Helper;
 
@@ -17,7 +18,7 @@ class Core extends CLI
 {
     private $environment = "production";
 
-    private $appName;
+    private $appName = 'web';
 
     private $appDirPath;
 
@@ -29,6 +30,7 @@ class Core extends CLI
 
     private $bowerCommonPackages = [
         'jquery' => 'latest',
+        'jquery.validate' => 'latest',
         'angular' => '1.3.8',
         'bootstrap' => '',
         'es5-shim' => '4.0.5',
@@ -142,7 +144,7 @@ class Core extends CLI
         $this->io->writeln('Core Framework Console (c) Shalom Sam <shalom.s@coreframework.in>', 'green');
     }
 
-    public function install($appName = "demoapp", $dev = false)
+    public function install($appName = "web", $dev = false)
     {
         if ($dev === true) {
             $this->environment = "development";
@@ -156,7 +158,7 @@ class Core extends CLI
         $this->checkNodeIsInstalled();
         $this->checkBowerIsInstalled();
 
-        if ($appName !== 'demoapp') {
+        if ($appName !== 'web') {
             $this->addCliConf('core.appList', $appName);
             $this->getFrontEndManager();
         }
@@ -272,7 +274,7 @@ class Core extends CLI
      */
     private function getBowerDependencies()
     {
-        if ($this->appName === 'demoapp') {
+        if ($this->appName === 'web') {
             return;
         }
 
@@ -311,7 +313,7 @@ class Core extends CLI
      */
     private function addDependenciesFile(array $dependencies)
     {
-        if ($this->appName === 'demoapp') {
+        if ($this->appName === 'web') {
             return;
         }
 
@@ -433,11 +435,12 @@ class Core extends CLI
     public function symResources($appName = null)
     {
         if (empty($appName)) {
-            $this->getAppNameFromUser();
+            $appName = $this->appName;
         }
-        $this->io->writeln("Attempting to sym links resources from Bower -> $appName", "green");
+        $this->io->writeln("Attempting to sym links resources from Bower -> $appName folder", "green");
         $appDir = _ROOT . DS . $appName . DS;
         $bowerDir = _ROOT . DS . "bower_components" . DS;
+
         if (!is_dir($appDir . "images" . DS)) {
             mkdir($appDir . "images" . DS, 0755);
         }
@@ -545,52 +548,16 @@ class Core extends CLI
      *
      * @throws \Exception
      */
-    public function setupApp($appName)
+    public function  setupApp($appName = 'web')
     {
         if (empty($appName)) {
-            $this->getAppNameFromUser();
+            $appName = $this->appName;
         }
 
-        $this->io->writeln("Setting up App - {$appName}");
-        $appDirPath = $this->appDirPath;
+        $this->io->writeln("Setting up App - {$appName} folder");
         if ($this->frontEndManager === "bower") {
-            if (!is_readable($appDirPath)) {
-                @mkdir($appDirPath, 0755);
-                @mkdir($appDirPath . DS . "Templates", 0755);
-                @copy(
-                    _ROOT . DS . "demoapp" . DS . "Templates" . DS . "root.tpl",
-                    $appDirPath . DS . "Templates" . DS . "root.tpl"
-                );
-                @chmod($appDirPath . DS . "Templates" . DS . "root.tpl", 0755);
-                @mkdir($appDirPath . DS . "Templates" . DS . "common", 0755);
-                Helper::copyr(
-                    _ROOT . DS . "demoapp" . DS . "Templates" . DS . "common",
-                    $appDirPath . DS . "Templates" . DS . "common"
-                );
-                @mkdir($appDirPath . DS . "Templates" . DS . "errors", 0755);
-                Helper::copyr(
-                    _ROOT . DS . "demoapp" . DS . "Templates" . DS . "errors",
-                    $appDirPath . DS . "Templates" . DS . "errors"
-                );
-                @mkdir($appDirPath . DS . "Templates" . DS . "root", 0755);
-                Helper::copyr(
-                    _ROOT . DS . "demoapp" . DS . "Templates" . DS . "root",
-                    $appDirPath . DS . "Templates" . DS . "root"
-                );
-
-                $this->createConf($appName);
-                $this->createIndex($appName);
-                $this->createHtaccess($appName);
-
-            } else {
-                $this->io->writeln("App Directory by $appName already exists", "yellow");
-                $this->createIndex($appName);
-                $this->createHtaccess($appName);
-                $this->createConf($appName);
-            }
+            $this->setupDbConf($appName);
         }
-
-
         $this->io->writeln("You can setup virtual hosts using the following command -", 'green');
         $consolePath = _ROOT . DS . "src" . DS . "Core" . DS . "Scripts" . DS . "Console";
         $name = empty($this->appName) ? '{appDirName}' : $this->appName;
@@ -608,23 +575,24 @@ class Core extends CLI
      * @param $appName
      * @throws \Exception
      */
-    public function createConf($appName = null)
+    public function setupDbConf($appName = 'web')
     {
         if (empty($appName)) {
-            $this->getAppNameFromUser();
+            $appName = $this->appName;
         }
 
         if ($this::$verbose === true) {
             $this->io->writeln("Creating config files for {$this->appName}");
         }
 
-        $confSource = __DIR__ . DS . "pak" . DS . "config.pak";
-        $appDirPath = _ROOT . DS . $appName;
-        $confDest = $appDirPath . DS . "config";
-        $confFile = $confDest . DS . "global.conf.php";
-        $routesConf = $confDest . DS . "routes.conf.php";
+        $appDirPath = _ROOT . "/web";
+        $confDest = $appDirPath . "/config";
+        $confFile = $confDest . "/global.conf.php";
+        $dbConf = $confDest . '/db.conf.php';
 
-        if (!is_readable($confFile) || !is_readable($routesConf)) {
+        $cliConf = $this->config->getCliConfig();
+
+        if (!isset($cliConf['core']['dbInstalled']) || $cliConf['core']['dbInstalled'] === false) {
 
             $accumilate['pdoDriver'] = $this->io->askAndValidate(
                 "Enter PDO Driver to use ",
@@ -640,7 +608,7 @@ class Core extends CLI
             );
 
             $accumilate['host'] = $this->io->ask('Enter host ip', '127.0.0.1');
-            $accumilate['db'] = $this->io->ask('Enter database name', 'coredb');
+            $accumilate['db'] = $this->io->ask('Enter database name', 'test');
             $accumilate['user'] = $this->io->ask('Enter database user', 'root');
             $accumilate['pass'] = $this->io->ask('Enter database password', null);
 
@@ -652,16 +620,18 @@ class Core extends CLI
                 @mkdir($confDest, 0755, true);
             }
 
-            Helper::copyr($confSource, $confDest);
+            //Helper::copyr($confSource, $confDest);
             Helper::chmodDirFiles($confDest, 0655);
 
-            $conf = require_once $confFile;
+            //$conf = require_once $dbConf;
+            $confContents = file_get_contents($dbConf);
+            $confContents = str_replace('{pdoDriver}', $accumilate['pdoDriver'], $confContents);
+            $confContents = str_replace('{db}', $accumilate['db'], $confContents);
+            $confContents = str_replace('{host}', $accumilate['host'], $confContents);
+            $confContents = str_replace('{user}', $accumilate['user'], $confContents);
+            $confContents = str_replace('{pass}', $accumilate['pass'], $confContents);
 
-            foreach ($conf as $key => $val) {
-                $conf[$key] = $accumilate[$key];
-            }
-
-            $check = file_put_contents($confFile, '<?php return ' . var_export($conf, true) . ";\n");
+            $check = file_put_contents($dbConf, $confContents);
 
             if ($check) {
                 $this->io->writeln("Conf file Created Successfully");
@@ -669,8 +639,12 @@ class Core extends CLI
                 $this->io->showErr("Error writing configuration file - " . $confFile);
                 exit;
             }
+
+            $cliConf['core']['dbInstalled'] = true;
+            $this->config->store($cliConf,$this->config->cliConfPath);
+
         } elseif ($this::$verbose === true) {
-            $this->io->writeln("Conf files exists! Continuing setup..", "yellow");
+            $this->io->writeln("DB conf already setup!", "yellow");
         }
 
     }
@@ -692,7 +666,7 @@ class Core extends CLI
         $newIndex = $appDirPath . "index.php";
         $contents = file_get_contents($index);
 
-        if ($appName !== 'demoapp') {
+        if ($appName !== 'web') {
             $newContents = preg_replace('/\{appName\}/', $appName, $contents);
         }
 
@@ -1206,5 +1180,57 @@ class Core extends CLI
         $cache = DI::get('Cache');
         $cache->clearCache();
         $this->io->writeln("Cache successfully cleared!", 'green');
+    }
+
+    public function configureDB() {
+
+        /**
+         * @var \Core\Config\Config $config
+         */
+        $config = $this->config;
+        $globalConf = $config->getGlobalConfig();
+        $cliConf = $config->getCliConfig();
+
+        if (!isset($cliConf['core']['dbInstalled']) || $cliConf['core']['dbInstalled'] === false) {
+            $this->setupDbConf();
+            $this->config->reloadConfig();
+            $globalConf = $config->getGlobalConfig();
+            $cliConf = $config->getCliConfig();
+        }
+
+
+        $dbConf = $globalConf['$db'];
+        $arr[] = [];
+        $arr['db'] = '';
+        //var_dump($config);
+        $arr['type'] = $dbConf['pdoDrivers'];
+        $arr['host'] = $dbConf['host'];
+        $arr['username'] = $dbConf['user'];
+        $arr['password'] = $dbConf['pass'];
+        $arr['port'] = $dbConf['port'];
+
+        $connection = new Database($arr);
+        $connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $dbname = $dbConf['db'];
+        $connection->query("CREATE DATABASE IF NOT EXISTS $dbname");
+        $connection->query("use $dbname");
+
+        $userTable = $connection->exec("CREATE TABLE IF NOT EXISTS user (
+            id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+            fname varchar(200) NOT NULL,
+            lname varchar(200),
+            name varchar(255),
+            userId varchar(255),
+            email varchar(255),
+            email_hash varchar(255),
+            pass_hash binary(60),
+            salt varchar(65),
+            register_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            modified_date TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP
+        ) CHARACTER SET utf8 COLLATE utf8_general_ci;");
+
+
+        $this->io->writeln("Tables created successfully!", "green");
+
     }
 }

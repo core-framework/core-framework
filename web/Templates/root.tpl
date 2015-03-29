@@ -20,7 +20,7 @@
         <!-- Styles -->
         <{block name="styles"}>
             <link href="/styles/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-            <link rel="stylesheet" href="/styles/demo.css"/>
+            <link rel="stylesheet" href="/styles/demo.min.css"/>
         <{/block}>
         <!-- END: Styles -->
         <{block name="IECondn"}>
@@ -53,8 +53,8 @@
     <!-- Scripts -->
     <{block name="scripts"}>
         <script type="text/javascript" src="/scripts/jquery/jquery.min.js"></script>
-        <script type="text/javascript" src="/scripts/bootstrap/bootstrap.js"></script>
-        <script type="text/javascript" src="/scripts/init.js"></script>
+        <script type="text/javascript" src="/scripts/bootstrap/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/scripts/init.min.js"></script>
     <{/block}>
     <!-- END: Scripts -->
 

@@ -15,8 +15,8 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
                 <{if isset($site.user)}>
-                    <li><a href="<{$site.user.link}>"><{$site.user.name}></a></li>
-                    <li><a href="<{$site.user.logoutLink}>"><{$site.user.name}></a></li>
+                    <li><a href="/"><{$site.user.name|capitalize}></a></li>
+                    <li><a href="/user/logout">Logout</a></li>
                 <{else}>
                     <li><a data-toggle="modal" data-target="#registerModal" href="#">Register</a></li>
                     <li><a data-toggle="modal" data-target="#loginModal" href="#">Login</a></li>

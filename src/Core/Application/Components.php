@@ -37,6 +37,9 @@ class Components extends DI
 
     public $view;
 
+    /**
+     * @var \Core\CacheSystem\Cache
+     */
     public $cache;
 
     public function __construct()
@@ -76,6 +79,10 @@ class Components extends DI
         } else {
             $di->register('Cache', '\\Core\\CacheSystem\\Cache');
         }
+
+        $di->register('Config', function () {
+            return $this->conf;
+        });
 
         $di->register('Router', '\\Core\\Routes\\Router')
             ->setArguments(array($this->conf));

@@ -86,55 +86,57 @@ abstract class BaseApplication extends Components
         /** @var \Core\CacheSystem\Cache $cache */
         $this->cache = $cache = $this->get('Cache');
 
+        if (isset($_GET['action']) && $_GET['action'] === 'clear_cache') {
+            $cache->clearCache();
+        }
+
         $path = $_SERVER['REQUEST_URI'];
-        $routeKey = md5($path . '_route');
-        $viewKey = md5($path . '_view');
+        $this->conf['$global']['routeKey'] = $routeKey = md5($path . '_route_' . session_id());
+        $this->conf['$global']['viewKey'] = $viewKey = md5($path . '_view_' . session_id());
 
         if ($cache->cacheExists($viewKey)) {
             $this->status = self::STATUS_LOADING_FROM_CACHE;
-            $this->loadFromCache($cache, $viewKey);
+            $this->renderFromCache($viewKey);
             return;
         }
 
+        $this->status = self::STATUS_HANDLING_REQUEST;
+
         if ($cache->cacheExists($routeKey)) {
-            $router = $cache->getCache($routeKey);
-            if ($router instanceof Router) {
-                $this->status = self::STATUS_HANDLING_REQUEST;
-                $this->router = $router;
-                $this->parseRoute($this->router);
-                return;
-            }
+            $this->router = $cache->getCache($routeKey);
         }
 
-        $this->status = self::STATUS_HANDLING_REQUEST;
-        $this->router = $this->get('Router');
-        $cache->cacheContent($routeKey, $this->router, $this->ttl);
-        $this->requestedURI = $this->router->path;
+        if (!($this->router instanceof Router)) {
+            $this->router = $this->get('Router');
+            $this->requestedURI = $this->router->path;
+        }
+
         $this->parseRoute($this->router);
 
     }
 
     /**
-     * @param \Core\CacheSystem\Cache $cache
      * @param $key
      */
-    public function loadFromCache($cache, $key)
+    public function renderFromCache($key)
     {
-        /**
-         * @var \Core\Views\View $view
-         */
-        $view = $cache->getCache($key);
-        $view->render();
+        /** @var \Core\Views\View $view */
+        $this->view = $this->cache->getCache($key);
+        $this->view->render();
     }
 
     public function parseRoute()
     {
         $this->status = self::STATUS_COMPUTING_RESPONSE;
         if (!is_object($this->router)) {
-            var_dump($this);
-            exit;
+            throw new \LogicException('Router not defined', 001);
         }
         $this->routeParams = $routeParams = $this->router->resolve();
+
+        if(!isset($routeParams['noCacheRoute']) || $routeParams['noCacheRoute'] === false) {
+            $this->cache->cacheContent($this->conf['$global']['routeKey'], $this->router, $this->ttl);
+        }
+
         $this->view = $this->get('View');
         if ($this->router->customServe === true) {
             $this->handleCustomServe($routeParams);
@@ -142,6 +144,12 @@ abstract class BaseApplication extends Components
             $this->loadController($routeParams);
             if ($this->view->disabled !== true) {
                 $this->view->render();
+
+                if (( isset($this->conf['$global']['noCache']) && $this->conf['$global']['noCache'] === true) || (isset($routeParams['noCache']) && $routeParams['noCache']) === true) {
+                    return;
+                }
+
+                $this->cache->cacheContent($this->conf['$global']['viewKey'], $this->view, $this->ttl);
             }
         }
 
@@ -188,7 +196,6 @@ abstract class BaseApplication extends Components
         if ($showHeader === true && $serveIframe === false && $fileExt === 'html') {
             $this->view->showHeader = $showHeader;
             $this->view->showFooter = $showFooter;
-            //$this->router->addRouteVars(['customServePath' => $realPath]);
             $this->view->tplEngine->assign('customServePath', $realPath);
             $this->view->setDebugMode(false);
             $this->loadController($routeVars);
@@ -218,7 +225,7 @@ abstract class BaseApplication extends Components
 
         $class = $routeParams['namespace'] . "\\" . $routeParams['controller'];
         $controllerObj = new $class($this->router, $this->view, $this->conf);
-        $controllerObj->$routeParams['method'](isset($routeParams['args']) ? $routeParams['args'] : '');
+        $controllerObj->$routeParams['method'](isset($routeParams['args']) ? $routeParams['args'] : null);
 
     }
 

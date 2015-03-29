@@ -65,6 +65,24 @@ return $routes = [
         'pageTitle' => 'Demo about Page',
         'controller' => '\\web\\Controllers:siteController:aboutAction'
     ],
+    '/user/register' => [
+        'method' => 'POST',
+        'controller' => '\\web\\Controllers:siteController:registerAction',
+        'noCache' => true
+    ],
+
+    '/user/login' => [
+        'method' => 'POST',
+        'controller' => '\\web\\Controllers:siteController:loginAction',
+        'noCache' => true
+    ],
+
+    '/user/logout' => [
+        'method' => 'GET',
+        'controller' => '\\web\\Controllers:siteController:logoutAction',
+        'noCache' => true
+    ],
+
     '/test/helloworld' => [
         'pageName' => 'test',
         'pageTitle' => 'Test',

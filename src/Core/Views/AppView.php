@@ -8,6 +8,7 @@
 
 namespace Core\Views;
 
+use Core\Application\Application;
 use Core\Application\CoreApp;
 use Core\CacheSystem\Cacheable;
 
@@ -119,6 +120,7 @@ class AppView implements viewInterface, Cacheable
         if (strpos($var, '.') !== false) {
             $this->assignArrayByPath($this->tplInfo['vars'], $var, $val);
         } else {
+            $this->tplInfo['varsCache'][$var] = $val;
             $this->tplEngine->assign($var, $val);
         }
     }
@@ -216,7 +218,7 @@ class AppView implements viewInterface, Cacheable
      */
     public function __sleep()
     {
-        return [];
+        return ['basePath', 'appPath', 'template', 'tplInfo', 'debugFile', 'debugMode', 'templateDir', 'baseTemplateDir'];
     }
 
     /**
@@ -224,7 +226,9 @@ class AppView implements viewInterface, Cacheable
      */
     public function __wakeup()
     {
-
+        $this->tplEngine = Application::get('Smarty');
+        $this->init();
+        $this->tplEngine->assign($this->tplInfo['varsCache']);
     }
 
 }

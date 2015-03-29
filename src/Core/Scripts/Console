@@ -66,7 +66,7 @@ $console->addCommand('make-resources', "Creates styles, scripts and font resourc
     ->addArguments('appName', false, "Application name");
 $console->addCommand('setup-app', "Sets up the given application folder", get_class($console)."::setupApp")
     ->addArguments('appName', true, "Application name");
-$console->addCommand('create-conf', "Sets up conf files for your application", get_class($console)."::createConf")
+$console->addCommand('setupDb', "Sets up the database for your application", get_class($console)."::setupDbConf")
     ->addArguments('appName', false, "Application name");
 $console->addCommand('create-index', "Set up the index.php for you application", get_class($console)."::createIndex")
     ->addArguments('appName', false, "Application name");
@@ -82,6 +82,7 @@ $console->addCommand('add-config-vars', "Adds given key => value pair to global 
     ->addArguments('key', true, "Config Key identifier")
     ->addArguments('val', true, "Config Key value");
 $console->addCommand('clear-cache', "Clears All cache", get_class($console)."::clearCache");
+$console->addCommand('configureDB', "Configure the test database" , get_class($console)."::configureDB");
 
 /** @var string $argv */
 /** @var string $argc */

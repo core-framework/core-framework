@@ -50,7 +50,7 @@ class Model
     /**
      * @var array Model properties array
      */
-    protected $props = [];
+    //protected $props = [];
 
     /**
      * Model Constructor
@@ -67,11 +67,14 @@ class Model
      *
      * @param array $conditions
      * @param null $orderBy
+     * @param null $order
      * @param null $startIndex
      * @param null $count
+     * @param $asArray
+     *
      * @return array
      */
-    static function getAllRows(array $conditions, $orderBy = null, $startIndex = null, $count = null)
+    static function getAllRows(array $conditions, $orderBy = null, $order = null, $startIndex = null, $count = null, $asArray = false)
     {
         $query = "SELECT * FROM " . static::$tableName;
         $params = [];
@@ -85,14 +88,20 @@ class Model
         $query = rtrim($query, ' AND ');
         if (!empty($orderBy)) {
             $query .= " ORDER BY " . $orderBy;
+            $query .= " " . $order;
         }
-        if (!empty($orderBy)) {
+        if (!is_null($startIndex) && !is_null($count)) {
             $query .= " LIMIT " . $startIndex;
             if (!empty($query)) {
                 $query .= "," . $count;
             }
         }
-        return self::get($query, $params);
+        if ($asArray === false) {
+            return self::get($query, $params);
+        } else {
+            return self::getAsArray($query, $params);
+        }
+
 
     }
 
@@ -103,7 +112,7 @@ class Model
      * @param array $params
      * @return array
      */
-    public static function get($query, array $params)
+    public static function get($query, $params = [])
     {
         //$db = database::getInstance();
         $prep = self::$db->getPrepared($query);
@@ -115,6 +124,18 @@ class Model
             $item = new $className();
             $item->getPropFromDb($row);
             array_push($collection, $item);
+        }
+        return $collection;
+    }
+
+    public static function getAsArray($query, $params = [])
+    {
+        $prep = self::$db->getPrepared($query);
+        $prep->execute($params);
+        $result = $prep->fetchAll(\PDO::FETCH_ASSOC);
+        $collection = [];
+        foreach ($result as $row) {
+            array_push($collection, $row);
         }
         return $collection;
     }
@@ -146,7 +167,7 @@ class Model
             $query .= " WHERE ";
             foreach ($conditions as $key => $val) {
                 $query .= $key . "=:" . $key . " AND ";
-                $condition[":" . $key] = $val;
+                $params[":" . $key] = $val;
             }
         }
         $query = rtrim($query, ' AND ');
@@ -160,15 +181,21 @@ class Model
      * @param array $params
      * @return mixed
      */
-    private function getFromDbandBuildObj($query, array $params)
+    private static function getFromDbandBuildObj($query, $params = [])
     {
         $prep = self::$db->getPrepared($query);
         $prep->execute($params);
         $row = $prep->fetch(\PDO::FETCH_ASSOC);
         $className = get_called_class();
         $obj = new $className();
-        $obj->getPropFromDb($row);
-        return $obj;
+        if ($row !== false) {
+            $obj->getPropFromDb($row);
+            return $obj;
+        } else {
+            return false;
+        }
+
+
     }
 
     /**
@@ -184,7 +211,7 @@ class Model
         if (!empty($conditions)) {
             $query .= " WHERE ";
             foreach ($conditions as $key => $val) {
-                $query .= $key . ":=" . $key . " AND ";
+                $query .= $key . "=:" . $key . " AND ";
                 $params[":" . $key] = $val;
             }
         }
@@ -199,7 +226,7 @@ class Model
      * @param array $params
      * @return mixed
      */
-    private function getFromDb($query, array $params)
+    public static function getFromDb($query, array $params)
     {
         $db = self::$db;
         $prep = $db->getPrepared($query);
@@ -209,41 +236,44 @@ class Model
     }
 
     /**
-     * Returns the array of properties set to be saved/updated
-     *
-     * @param $param
-     * @return mixed
-     */
-    public function getProps($param)
-    {
-        return $this->props[$param];
-    }
-
-    /**
-     * Sets the properties to be saved/updated on database into an array
-     *
-     * @param $param
-     * @param $val
-     */
-    public function setProps($param, $val)
-    {
-        $this->props[$param] = $val;
-    }
-
-    /**
      * Updates the database with the properties set
      */
     public function save()
     {
-        $query = "REPLACE INTO " . static::$tableName . " (" . implode(",", array_keys($this->props)) . ") VALUES(";
+        $query = "REPLACE INTO " . static::$tableName . " (" . implode(",", array_keys((array) $this)) . ") VALUES(";
         $keys = [];
-        foreach ($this->props as $key => $value) {
+        //foreach ($this->props as $key => $value) {
+        foreach ($this as $key => $value) {
             $keys[":" . $key] = $value;
         }
         $query .= implode(",", array_keys($keys)) . ")";
         $db = self::$db;
         $prep = $db->getPrepared($query);
-        $prep->execute($keys);
+        $r = $prep->execute($keys);
+
+        return $r;
+    }
+
+    public function update()
+    {
+        $query = "UPDATE " . static::$tableName . " SET ";
+        $keys = [];
+        foreach ($this as $key => $val) {
+            $keys[":" . $key] = $val;
+            $query .= "$key=:$key,";
+        }
+        $query = rtrim($query, ',');
+        $query .= " WHERE ";
+        $query .= static::$primaryKey . "=:" . static::$primaryKey;
+        $primaryKey = static::$primaryKey;
+        $keys[static::$primaryKey] = $this->$primaryKey;
+        $query = rtrim($query, ' AND ');
+
+        $db = self::$db;
+        $prep = $db->getPrepared($query);
+        $r = $prep->execute($keys);
+
+        return $r;
     }
 
     /**
@@ -254,7 +284,10 @@ class Model
         $query = "DELETE FROM " . static::$tableName . " WHERE " . static::$primaryKey . "=:id LIMIT 1";
         $db = self::$db;
         $prep = $db->getPrepared($query);
-        $prep->execute(array(':id' => $this->props[static::$primaryKey]));
+        $primaryKey = static::$primaryKey;
+        $r = $prep->execute(array(':id' => $this->$primaryKey));
+
+        return $r;
     }
 
     /**
@@ -265,7 +298,7 @@ class Model
     public function getPropFromDb(array $prop)
     {
         foreach ($prop as $key => $val) {
-            $this->props[$key] = $val;
+            $this->$key = $val;
         }
     }
 }
