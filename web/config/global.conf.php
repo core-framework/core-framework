@@ -19,7 +19,8 @@ $global = [
         'apcIsLoaded' => extension_loaded('apc'),
         'apcIsEnabled' => ini_get('apc.enabled'),
         'tplType' => 'tpl',
-        'useAPC' => true
+        'useAPC' => true,
+        'useAestheticRouting' => false
     ],
     '$db' => require('db.conf.php'),
     '$routes' => require('routes.conf.php')

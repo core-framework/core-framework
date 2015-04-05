@@ -103,7 +103,7 @@ class Router extends Request implements Cacheable
 
     }
 
-    public function resolve()
+    public function resolve($useAestheticRouting = false)
     {
         if (!empty($this->resolvedArr)) {
             return $this->resolvedArr;
@@ -112,6 +112,18 @@ class Router extends Request implements Cacheable
         if (empty($this->path)) {
 
             $this->pathVarsAssign($this->collection['/']);
+
+        } elseif ($useAestheticRouting === true) {
+
+            $pathArr = explode("/", $this->path);
+
+            $this->namespace = $namespace = '\\web\\Controllers';
+            $this->routeVars = isset($this->config[$namespace . '\\' . $pathArr[1]]) ? $this->config[$namespace . '\\' . $pathArr[1]] : [];
+            $this->controller = $pathArr[0] . 'Controller';
+            $pathArr = array_shift($pathArr);
+            $this->method = $pathArr[0] . 'Action';
+            $pathArr = array_shift($pathArr);
+            $this->args = $pathArr;
 
         } else {
 
