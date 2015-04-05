@@ -199,7 +199,7 @@ class Cache extends BaseCache
         if (is_file($cacheDir . $key . ".php")) {
             $cache = include_once $cacheDir . $key . ".php";
             $currentTime = time();
-            $ttlTime = $cache['cTime'] + $cache['ttl'];
+            $ttlTime = $cache['cTime'] + $cache['ttl'] + 100;
             if ($currentTime >> $ttlTime) {
                 unlink($cacheDir . $key . ".php");
                 return false;
