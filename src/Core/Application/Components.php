@@ -100,7 +100,7 @@ class Components extends DI
 
         } else {
 
-            // TODO: create other possible template types
+            // TODO: create/add other possible template types
             //Plug other template types here (as View)
             //$di->register('View', '\\Core\\Views\\AppView');
 
