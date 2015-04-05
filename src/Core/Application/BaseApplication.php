@@ -15,17 +15,17 @@ abstract class BaseApplication extends Components
 
     const STATUS_BEGIN = 0;
 
-    const STATUS_LOADING = 1;
+    const STATUS_INIT = 1;
 
     const STATUS_HANDLING_REQUEST = 2;
 
-    const STATUS_LOADING_FROM_CACHE = 3.1;
+    const STATUS_LOADING_FROM_CACHE = 3;
 
-    const STATUS_COMPUTING_RESPONSE = 3.2;
+    const STATUS_COMPUTING_RESPONSE = 4;
 
-    const STATUS_SENDING_RESPONSE = 4;
+    const STATUS_SENDING_RESPONSE = 5;
 
-    const STATUS_END = 5;
+    const STATUS_END = 6;
 
     public $_ENV = 'prod';
 
@@ -70,7 +70,7 @@ abstract class BaseApplication extends Components
 
     public function init($config)
     {
-        $this->status = self::STATUS_LOADING;
+        $this->status = self::STATUS_INIT;
 
         $this->loadConf($config);
         $this->loadComponents();
@@ -97,26 +97,23 @@ abstract class BaseApplication extends Components
         if ($cache->cacheExists($viewKey)) {
             $this->status = self::STATUS_LOADING_FROM_CACHE;
             $this->renderFromCache($viewKey);
-            return;
         }
 
-        $this->status = self::STATUS_HANDLING_REQUEST;
-
-        if ($cache->cacheExists($routeKey)) {
-            $this->router = $cache->getCache($routeKey);
-        }
+        $this->router = $cache->getCache($routeKey);
 
         if (!($this->router instanceof Router)) {
             $this->router = $this->get('Router');
             $this->requestedURI = $this->router->path;
         }
 
-        $this->parseRoute($this->router);
+        $this->parseRoute();
 
     }
 
     /**
      * @param $key
+     * @return bool
+     * @throws \ErrorException
      */
     public function renderFromCache($key)
     {
@@ -127,11 +124,8 @@ abstract class BaseApplication extends Components
 
     public function parseRoute()
     {
-        $this->status = self::STATUS_COMPUTING_RESPONSE;
-        if (!is_object($this->router)) {
-            throw new \LogicException('Router not defined', 001);
-        }
-        $this->routeParams = $routeParams = $this->router->resolve();
+        $this->status = self::STATUS_HANDLING_REQUEST;
+        $this->routeParams = $routeParams = $this->router->resolve($this->global['useAestheticRouting']);
 
         if(!isset($routeParams['noCacheRoute']) || $routeParams['noCacheRoute'] === false) {
             $this->cache->cacheContent($this->conf['$global']['routeKey'], $this->router, $this->ttl);
@@ -217,6 +211,7 @@ abstract class BaseApplication extends Components
 
     public function loadController($routeParams = [])
     {
+        $this->status = self::STATUS_COMPUTING_RESPONSE;
         if (empty($routeParams)) {
             $routeParams['namespace'] = '\\Core\\Controllers';
             $routeParams['controller'] = 'errorController';
@@ -288,10 +283,7 @@ abstract class BaseApplication extends Components
 
     public function __destruct()
     {
-//        if ($this->_DEBUG) {
-//            $html = include($this->basePath . '/src/Core/Views/debug.php');
-//            echo $html;
-//        }
+        $this->status = self::STATUS_END;
     }
 
 
