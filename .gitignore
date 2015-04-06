@@ -6,8 +6,8 @@ bower_components
 logs/
 src/Core/smarty_cache
 src/Core/cache
-web/config/global.conf.php
-web/config/db.conf.php
+#web/config/global.conf.php
+#web/config/db.conf.php
 src/Core/Scripts/cli.conf.php
 apigen.neon
 
