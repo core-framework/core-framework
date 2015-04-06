@@ -1,7 +1,7 @@
 #### REWRITE
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    
+
     #### Forcing HTTPS (uncomment these lines if HTTPS is required)
     #RewriteCond %{HTTPS} !=on [OR]
     #RewriteCond %{SERVER_PORT} 80

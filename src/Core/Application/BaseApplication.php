@@ -97,6 +97,7 @@ abstract class BaseApplication extends Components
         if ($cache->cacheExists($viewKey)) {
             $this->status = self::STATUS_LOADING_FROM_CACHE;
             $this->renderFromCache($viewKey);
+            return;
         }
 
         $this->router = $cache->getCache($routeKey);

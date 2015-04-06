@@ -11,7 +11,6 @@ namespace Core\Controllers;
 
 use Core\Application\Application;
 use Core\Application\CoreApp;
-use Core\DI\DI;
 use Core\Routes\Router;
 use Core\Views\AppView;
 
@@ -189,18 +188,14 @@ class BaseController
     }
 
 
-    public function resetCache($key = null)
+    public function resetCache()
     {
         $routes = $this->conf['$routes'];
         /** @var \Core\CacheSystem\BaseCache $cache */
         $cache = Application::get('Cache');
 
-        if (!empty ($key)) {
-            $cache->deleteCache($key);
-        }
-
         foreach($routes as $route => $params) {
-            $key = $route . '_view_' . session_id();
+            $key = md5($route . '_view_' . session_id());
             $cache->deleteCache($key);
         }
 

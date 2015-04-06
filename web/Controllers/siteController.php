@@ -74,7 +74,7 @@ class siteController extends BaseController
             $r = $user->save();
             $jsonArr = [];
             if ($r === true) {
-                //$this->resetCache();
+                $this->resetCache();
                 $_SESSION['user'] = (array) $user;
                 $jsonArr['status'] = 'success';
                 $jsonArr['redirectUrl'] = '/';
@@ -113,16 +113,16 @@ class siteController extends BaseController
             $proposedUserObj = $proposedUser->getOneRow(['email' => $postVars['email']]);
             $proposedUserArr = (array) $proposedUserObj;
 
-            if (empty($proposedUserArr)) {
+            if (!$proposedUserObj instanceof User) {
                 throw new \LogicException("Invalid User email or password");
             }
 
             $authenticated = User::check_hash($postVars['password'], $proposedUserObj->pass_hash);
 
             if ($authenticated === true) {
-                $_SESSION['user'] = (array) $proposedUserObj;
-                $json = [ 'status' => 'success', 'redirectUrl' => '/' ];
                 $this->resetCache();
+                $_SESSION['user'] = $proposedUserArr;
+                $json = ['status' => 'success', 'redirectUrl' => '/'];
 
             } else {
                 $json = [ 'status' => 'error', 'message' => 'Invalid User email or password' ];

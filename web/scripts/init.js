@@ -1,3 +1,7 @@
+window.app = {
+    $btn: null
+};
+
 $(document).ready(function () {
     hashScrollInit();
 
@@ -27,6 +31,8 @@ $(document).ready(function () {
 
     //register and login btn
     $('#loginBtn, #registerBtn').on('click', function () {
+        app.$btn = $(this);
+        app.$btn.button('loading');
         $(this).parents('.modal').find('form').submit();
     });
 
@@ -56,12 +62,13 @@ $(document).ready(function () {
             }
         }).error(function (data){
             showAlert('#' + id + ' .notice.alert', data.msg || data.message, 'error');
+        }).always(function () {
+            app.$btn.button('reset');
         });
 
     });
 
 });
-
 
 function showAlert(selector, msg, type) {
 
