@@ -57,7 +57,7 @@ $cache = DI::get('Cache');
  */
 $console = DI::get('Core');
 
-$console->setVersion("v2.0.0");
+$console->setVersion("v3.0.0");
 $console->addCommand('install', "Sets up the app environment", get_class($console)."::install")
     ->setOptions("dev", "d", "Installs in development mode")
     ->addArguments('appName', false, "Application name");
