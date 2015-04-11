@@ -50,11 +50,11 @@ class Request implements Cacheable
     /**
      * @var array Contains the sanitized array of the global $_GET variable
      */
-    public $getVars;
+    public $GET;
     /**
      * @var array Contains the sanitized array of the global $_POST variable
      */
-    public $postVars;
+    public $POST;
     /**
      * @var array Contains the $_SERVER data from the request
      */
@@ -67,6 +67,8 @@ class Request implements Cacheable
      * @var bool Defines if operating in development mode
      */
     public $devMode = false;
+    public $config;
+    public $isAjax = false;
     /**
      * @var array An array of illegal characters
      */
@@ -97,12 +99,22 @@ class Request implements Cacheable
     /**
      * Request Constructor
      *
-     * @param bool $devMode
+     * @param array $config
      */
-    public function __construct($devMode = false)
+    public function __construct($config = [])
     {
-        $this->devMode = $devMode;
+        if (empty($config)) {
+            trigger_error('Config is empty in ' . __CLASS__, E_USER_WARNING);
+        }
+
+        $this->config = $config;
+
+        if (isset($config['$global']['devMode'])) {
+            $this->devMode = $config['$global']['devMode'];
+        }
+
         $this->getServerRequest();
+
     }
 
     /**
@@ -110,71 +122,123 @@ class Request implements Cacheable
      */
     private function getServerRequest()
     {
+        $config = $this->config;
+
         //get method
         $this->method = $_SERVER['REQUEST_METHOD'] ? strtolower($_SERVER['REQUEST_METHOD']) : strtolower(
             $_SERVER['HTTP_X_HTTP_METHOD']
         );
+
         if (empty($this->method)) {
             $this->method = "get";
         }
 
+        if (filter_input(INPUT_SERVER, 'HTTP_X_REQUESTED_WITH') === 'xmlhttprequest') {
+            $this->isAjax = true;
+        }
+
         //get POST vars && GET vars sanitized
-        $this->requestInit();
+        if (isset($config['$global']['sanitizeGlobals']) && $config['$global']['sanitizeGlobals'] === true) {
+            $this->sanitizeGlobals();
+        } else {
+            $this->POST = $_POST;
+            $this->GET = $_GET;
+            $this->server = $_SERVER;
+            $this->cookies = $_COOKIE;
+        }
+
+        $this->checkInput();
 
         //path
-        $rawPath = isset($this->getVars['page']) ? $this->getVars['page'] : '';
+        $rawPath = isset($this->GET['page']) ? $this->GET['page'] : '';
         str_replace($this->illegal, '', $rawPath);
         $this->path = isset($rawPath) && $rawPath != 'index.php' ? $rawPath : '';
 
     }
 
-    public function requestInit()
+    public function sanitizeGlobals()
     {
-        foreach ($_GET as $key => $value) {
-            //$getVars[$key] = htmlentities(filter_var($val, FILTER_SANITIZE_STRING));
-            switch ($key) {
-                case 'email':
-                    $this->getVars[$key] = htmlentities(filter_var(trim($value), FILTER_SANITIZE_EMAIL), ENT_COMPAT, 'UTF-8', false);
-                    break;
+        $this->GET = $this->inputSanitize($_GET);
 
-                case 'phone':
-                case 'mobile':
-                    $this->getVars[$key] = htmlentities(filter_var(trim($value), FILTER_SANITIZE_NUMBER_INT), ENT_COMPAT, 'UTF-8', false);
-                    break;
+        $this->POST = $this->inputSanitize($_POST);
 
-                default:
-                    $this->getVars[$key] = htmlentities(filter_var(trim($value), FILTER_SANITIZE_STRING), ENT_COMPAT, 'UTF-8', false);
-                    break;
-            }
-        }
-
-        foreach ($_POST as $key => $value) {
-            //$postVars[$key] = htmlentities(filter_var($val, FILTER_SANITIZE_STRING));
-            switch ($key) {
-                case 'email':
-                    $this->postVars[$key] = htmlentities(filter_var(trim($value), FILTER_SANITIZE_EMAIL), ENT_COMPAT, 'UTF-8', false);
-                    break;
-
-                case 'phone':
-                case 'mobile':
-                    $this->postVars[$key] = htmlentities(filter_var(trim($value), FILTER_SANITIZE_NUMBER_INT), ENT_COMPAT, 'UTF-8', false);
-                    break;
-
-                default:
-                    $this->postVars[$key] = htmlentities(filter_var(trim($value), FILTER_SANITIZE_STRING), ENT_COMPAT, 'UTF-8', false);
-                    break;
-            }
-        }
-
-        foreach ($_SERVER as $key => $value) {
-            $this->server[$key] = $value;
-        }
+        $this->server = $_SERVER;
 
         foreach ($_COOKIE as $key => $value) {
-            $this->cookies[$key] = htmlentities(filter_var(trim($value), FILTER_SANITIZE_STRING), ENT_COMPAT, 'UTF-8', false);
+            $this->cookies[$key] = htmlentities(
+                filter_var(trim($value), FILTER_SANITIZE_STRING),
+                ENT_COMPAT,
+                'UTF-8',
+                false
+            );
         }
     }
 
+    /**
+     * Sanitize inputs
+     *
+     * @param $data
+     * @return array
+     */
+    public function inputSanitize($data)
+    {
+        $sanitizedData = [];
+        foreach ($data as $key => $val) {
+            switch ($key) {
+                case 'email':
+                    $sanitizedData[$key] = htmlentities(
+                        filter_var(trim($val), FILTER_SANITIZE_EMAIL),
+                        ENT_COMPAT,
+                        'UTF-8',
+                        false
+                    );
+                    break;
+
+                case 'phone':
+                case 'mobile':
+                $sanitizedData[$key] = htmlentities(
+                    filter_var(trim($val), FILTER_SANITIZE_NUMBER_INT),
+                    ENT_COMPAT,
+                    'UTF-8',
+                    false
+                );
+                    break;
+
+                case 'data':
+                    $sanitizedData[$key] = htmlentities(filter_var(trim($val), FILTER_UNSAFE_RAW));
+                    break;
+
+                default:
+                    $sanitizedData[$key] = htmlentities(
+                        filter_var(trim($val), FILTER_SANITIZE_STRING),
+                        ENT_COMPAT,
+                        'UTF-8',
+                        false
+                    );
+                    break;
+            }
+        }
+
+        return $sanitizedData;
+    }
+
+    /**
+     * check for input (support for angular POST)
+     *
+     */
+    public function checkInput()
+    {
+        $postData = file_get_contents("php://input");
+        if (!empty($postData) && is_array($postData)) {
+            $postData = $this->inputSanitize($postData);
+            $this->POST['json'] = json_decode($postData);
+        } elseif (!empty($postData) && is_string($postData)) {
+            if ($this->method === 'put') {
+                parse_str($postData, $this->POST['put']);
+                $this->POST['put'] = $this->inputSanitize($this->POST['put']);
+            }
+        }
+    }
 
     /**
      * Returns an array of server info
@@ -221,9 +285,9 @@ class Request implements Cacheable
      *
      * @return array
      */
-    public function getGetVars()
+    public function getGET()
     {
-        return $this->getVars;
+        return $this->GET;
     }
 
     /**
@@ -231,9 +295,9 @@ class Request implements Cacheable
      *
      * @return array
      */
-    public function getPostVars()
+    public function getPOST()
     {
-        return $this->postVars;
+        return $this->POST;
     }
 
     /**
@@ -243,7 +307,7 @@ class Request implements Cacheable
      */
     public function __sleep()
     {
-        return ['path', 'method', 'getVars', 'postVars', 'server', 'cookies', 'illegal', 'devMode'];
+        return ['path', 'isAjax', 'illegal', 'devMode', 'config'];
     }
 
     /**
@@ -251,7 +315,7 @@ class Request implements Cacheable
      */
     public function __wakeup()
     {
-
+        $this->getServerRequest();
     }
 
 }

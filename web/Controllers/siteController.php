@@ -52,7 +52,7 @@ class siteController extends BaseController
     public function registerAction()
     {
         $this->view->disable();
-        $postVars = $this->postVars;
+        $postVars = $this->post;
 
         try {
 
@@ -98,7 +98,7 @@ class siteController extends BaseController
     public function loginAction()
     {
         $this->view->disable();
-        $postVars = $this->postVars;
+        $postVars = $this->post;
         try {
 
             if ( empty($postVars['email']) || empty($postVars['password']) || empty($postVars['csrf']) ) {

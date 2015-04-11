@@ -25,7 +25,9 @@ abstract class BaseApplication extends Components
 
     const STATUS_SENDING_RESPONSE = 5;
 
-    const STATUS_END = 6;
+    const STATUS_SENT_RESPONSE = 6;
+
+    const STATUS_END = 7;
 
     public $_ENV = 'prod';
 
@@ -139,6 +141,7 @@ abstract class BaseApplication extends Components
             $this->loadController($routeParams);
             if ($this->view->disabled !== true) {
                 $this->view->render();
+                $this->status = self::STATUS_SENT_RESPONSE;
 
                 if (( isset($this->conf['$global']['noCache']) && $this->conf['$global']['noCache'] === true) || (isset($routeParams['noCache']) && $routeParams['noCache']) === true) {
                     return;

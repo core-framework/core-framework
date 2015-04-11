@@ -619,7 +619,7 @@ class Routes implements Cacheable
      */
     public function getGetVars()
     {
-        return $this->request->getGetVars();
+        return $this->request->getGet();
     }
 
     /**
@@ -629,7 +629,7 @@ class Routes implements Cacheable
      */
     public function getPostVars()
     {
-        return $this->request->getPostVars();
+        return $this->request->getPost();
     }
 
     /**

@@ -58,7 +58,7 @@ class Router extends Request implements Cacheable
     public function __construct($config = [])
     {
         $this->config = $config;
-        parent::__construct();
+        parent::__construct($config);
         $this->path = $this->getPath();
         $this->pathBurst();
         $this->loadRoutesConf($config);
@@ -360,8 +360,6 @@ class Router extends Request implements Cacheable
             'config'
         ];
 
-        //return array_merge(parent::__sleep(), $routerSleep);
-
         return $routerSleep;
     }
 
@@ -370,6 +368,6 @@ class Router extends Request implements Cacheable
      */
     public function __wakeup()
     {
-        $this->requestInit();
+
     }
 }

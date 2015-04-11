@@ -32,7 +32,9 @@ class BaseController
      */
     public $conf;
 
-    public $postVars;
+    public $POST;
+
+    public $GET;
 
     public $method;
 
@@ -44,61 +46,13 @@ class BaseController
         $this->view = $view;
         $this->conf = $conf;
 
-        $this->postVars = &$router->postVars;
-        $this->getVars = &$router->getVars;
+        $this->POST = &$router->POST;
+        $this->GET = &$router->GET;
         $this->method = &$router->method;
 
-        $this->checkForInput();
         $this->baseInit();
     }
 
-    /**
-     * check for input (support for angular POST)
-     *
-     */
-    private function checkForInput()
-    {
-        $postdata = file_get_contents("php://input");
-        if (!empty($postdata) && is_array($postdata)) {
-            $postdata = $this->inputSanitize($postdata);
-            $this->postVars['json'] = json_decode($postdata);
-        } elseif (!empty($postdata) && is_string($postdata)) {
-            if ($this->method === 'put') {
-                parse_str($postdata, $this->postVars['put']);
-                $this->postVars['put'] = $this->inputSanitize($this->postVars['put']);
-            }
-        }
-    }
-
-    /**
-     * Sanitize inputs
-     *
-     * @param $data
-     * @return array
-     */
-    private function inputSanitize($data)
-    {
-        $sanitizedData = [];
-        foreach ($data as $key => $val) {
-            switch ($key) {
-                case 'email':
-                    $sanitizedData[$key] = htmlentities(filter_var($val, FILTER_SANITIZE_EMAIL));
-                    break;
-
-                case 'phone':
-                case 'mobile':
-                    $sanitizedData[$key] = htmlentities(filter_var($val, FILTER_SANITIZE_NUMBER_INT));
-                    break;
-
-                default:
-                    $sanitizedData[$key] = htmlentities(filter_var($val, FILTER_SANITIZE_STRING));
-                    break;
-            }
-        }
-        //str_replace($this->illegal, '', $sanitizedData);
-
-        return $sanitizedData;
-    }
 
     public function baseInit()
     {
@@ -199,6 +153,24 @@ class BaseController
             $cache->deleteCache($key);
         }
 
+    }
+
+
+    public function sendJson(array $jsonArr)
+    {
+        ob_start();
+
+        if (!headers_sent()) {
+            header('Content-Type: application/json; charset: UTF-8');
+            header('Cache-Control: must-revalidate');
+        } else {
+            trigger_error('Headers set before calling baseController::sendJson');
+        }
+
+        $json = json_encode($jsonArr);
+        echo $json;
+
+        ob_end_flush();
     }
 
 }

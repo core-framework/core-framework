@@ -39,6 +39,14 @@ use Whoops\Run;
 class core
 {
     /**
+     * @var bool To force APC even if devMode is true ( considering that APC is available )
+     */
+    public $forceApc = false;
+    /**
+     * @var DI Service Container
+     */
+    protected $_di;
+    /**
      * @var array Controller directories
      */
     private $controllerDir = [];
@@ -58,14 +66,6 @@ class core
      * @var string Current URL path
      */
     private $path;
-    /**
-     * @var bool To force APC even if devMode is true ( considering that APC is available )
-     */
-    public $forceApc = false;
-    /**
-     * @var DI Service Container
-     */
-    protected $_di;
     /**
      * @var string Template directory
      */
@@ -378,63 +378,6 @@ class core
 //    }
 
     /**
-     * Set header
-     * @param null $type
-     */
-    private function setHeaders($type = null)
-    {
-        header('Cache-Control: max-age=3600');
-
-        switch ($type) {
-            case 'php':
-            case 'html':
-                header('Content-Type: text/html; charset=utf-8');
-                break;
-
-            case 'svg':
-                header('Content-Type: image/svg+xml;');
-                break;
-
-            case 'jpeg':
-            case 'jpg':
-                header('Content-Type: image/jpeg');
-                break;
-
-            case 'png':
-                header('Content-Type: image/png');
-                break;
-
-            case 'gif':
-                header('Content-Type: image/gif');
-                break;
-
-            case 'ico':
-                header('Content-Type: image/ico');
-                break;
-
-            case 'map':
-            case 'javascript':
-            case 'js':
-                header('Content-Type: text/javascript;');
-                break;
-
-            case 'css':
-                header('Content-Type: text/css;');
-                break;
-
-            case '404':
-                header('HTTP/1.0 404 Not Found');
-                break;
-
-            default:
-                //header('HTTP/1.0 404 Not Found');
-                header('Content-Type: text;');
-                //exit();
-                break;
-        }
-    }
-
-    /**
      * Serve Custom content. This is to handle
      * @throws \ErrorException
      */
@@ -537,6 +480,63 @@ class core
 
         $this->view->render();
 
+    }
+
+    /**
+     * Set header
+     * @param null $type
+     */
+    private function setHeaders($type = null)
+    {
+        header('Cache-Control: max-age=3600');
+
+        switch ($type) {
+            case 'php':
+            case 'html':
+                header('Content-Type: text/html; charset=utf-8');
+                break;
+
+            case 'svg':
+                header('Content-Type: image/svg+xml;');
+                break;
+
+            case 'jpeg':
+            case 'jpg':
+                header('Content-Type: image/jpeg');
+                break;
+
+            case 'png':
+                header('Content-Type: image/png');
+                break;
+
+            case 'gif':
+                header('Content-Type: image/gif');
+                break;
+
+            case 'ico':
+                header('Content-Type: image/ico');
+                break;
+
+            case 'map':
+            case 'javascript':
+            case 'js':
+                header('Content-Type: text/javascript;');
+                break;
+
+            case 'css':
+                header('Content-Type: text/css;');
+                break;
+
+            case '404':
+                header('HTTP/1.0 404 Not Found');
+                break;
+
+            default:
+                //header('HTTP/1.0 404 Not Found');
+                header('Content-Type: text;');
+                //exit();
+                break;
+        }
     }
 
     /**
@@ -692,8 +692,8 @@ class core
             'defaultController',
             'modelName',
             'templateInfo',
-            'getVars',
-            'postVars',
+            'get',
+            'post',
             'cookies',
             'validExtensions',
             'styleDir',
