@@ -1,6 +1,6 @@
 Core Framework
 ================
-**Core Framework** is PHP framework that helps developing and maintaining web applications easier. Core PHP Frameworks is light weight framework eliminating the complexity and overhead of most modern frameworks. Thus enabling high performance web applications to serve faster and better.
+**Core Framework** is a PHP web application framework, that makes build a web application simple and easy. CoreFramework is light weight PHP framework eliminating the complexity and overhead of most modern frameworks.
 
 
 # Documentation and other Details coming soon..
