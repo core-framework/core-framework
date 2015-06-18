@@ -264,6 +264,13 @@ class CLI implements Cacheable
      */
     public function parse($argv, $argc = null)
     {
+        if(sizeof($argv) < 2) {
+            //$argv[1] = "--help";
+            //var_dump($argv);
+            $this->showHelp();
+            return;
+        }
+
         array_shift($argv); //reset indices
 
         $optsArr = $this->getOptionsAsArray($this->options);

@@ -173,9 +173,7 @@ class Core extends CLI
                 break;
 
             // TODO : add support for other front-end dependency management systems
-            // case 'yeoman':
-            //    $this->installYeoMan();
-            //    break;
+
         }
 
         $this->createCacheFolder();
@@ -473,41 +471,48 @@ class Core extends CLI
                     @unlink($appStyles);
                 }
 
-                if (is_dir($bowerDir . $packName . DS . "dist") &&
-                    is_dir($bowerDir . $packName . DS . "dist" . DS . "css") &&
-                    is_dir($bowerDir . $packName . DS . "dist" . DS . "js") &&
-                    is_dir($bowerDir . $packName . DS . "dist" . DS . "fonts")
-                ) {
+                if (is_dir($bowerDir . $packName . DS . "dist" )) {
 
-                    $return = @symlink($bowerDir . $packName . DS . "dist" . DS . "js" . DS, $appScripts);
-                    $return2 = @symlink($bowerDir . $packName . DS . "dist" . DS . "css" . DS, $appStyles);
+                    if (is_dir($bowerDir . $packName . DS . "dist" . DS . "css")) {
 
-                    if ($return === true) {
-                        $this->io->writeln("Symlink created for $appScripts ..", 'green');
-                    } elseif ($return2 === true) {
-                        $this->io->writeln("Symlink created for $appStyles ..", 'green');
-                    } elseif ($return === false) {
-                        $this->io->writeln("Unable to create Symlink for $appScripts ..", 'yellow');
-                    } elseif ($return2 === false) {
-                        $this->io->writeln("Unable to create Symlink for $appStyles ..", 'yellow');
+                        if(@symlink($bowerDir . $packName . DS . "dist" . DS . "css" . DS, $appStyles))
+                        {
+                            $this->io->writeln("Symlink created for $appStyles ..", 'green');
+                        } else {
+                            $this->io->writeln("Unable to create Symlink for $appStyles ..", 'yellow');
+                        }
+
                     }
 
-                    $fonts = new \DirectoryIterator($bowerDir . $packName . DS . "dist" . DS . "fonts" . DS);
-                    foreach ($fonts as $font) {
-                        if (!$font->isDir() && !$font->isDot()) {
-                            $fontFilename = $font->getFilename();
-                            $fontFile = $appDir . "styles" . DS . "fonts" . DS . $fontFilename;
-                            $return = @symlink(
-                                $bowerDir . $packName . DS . "dist" . DS . "font" . DS . $fontFilename,
-                                $fontFile
-                            );
+                    if (is_dir($bowerDir . $packName . DS . "dist" . DS . "js")) {
 
-                            if ($return === true) {
-                                $this->io->writeln("Symlink created for $fontFile ..", 'green');
-                            } else {
-                                $this->io->writeln("Unable to create Symlink for $fontFile ..", 'yellow');
+                        if (@symlink($bowerDir . $packName . DS . "dist" . DS . "js" . DS, $appScripts))
+                        {
+                            $this->io->writeln("Symlink created for $appScripts ..", 'green');
+                        } else {
+                            $this->io->writeln("Unable to create Symlink for $appScripts ..", 'yellow');
+                        }
+
+                    }
+
+                    if (is_dir($bowerDir . $packName . DS . "dist" . DS . "fonts")) {
+
+                        $fonts = new \DirectoryIterator($bowerDir . $packName . DS . "dist" . DS . "fonts" . DS);
+                        foreach ($fonts as $font) {
+                            if (!$font->isDir() && !$font->isDot()) {
+                                $fontFilename = $font->getFilename();
+                                $fontFile = $appDir . "styles" . DS . "fonts" . DS . $fontFilename;
+                                $bowerFile = $bowerDir . $packName . DS . "dist" . DS . "fonts" . DS . $fontFilename;
+                                $return = copy($bowerFile, $fontFile);
+
+                                if ($return === true) {
+                                    $this->io->writeln("Copied font $fontFile ..", 'green');
+                                } else {
+                                    $this->io->writeln("Unable to copy font $fontFile ..", 'yellow');
+                                }
                             }
                         }
+
                     }
 
                 } elseif (is_dir($bowerDir . $packName . DS . "dist") && !(is_dir(
