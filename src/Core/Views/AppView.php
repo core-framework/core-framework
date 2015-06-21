@@ -1,9 +1,23 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: shalom.s
- * Date: 11/02/15
- * Time: 1:24 AM
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This file is part of the Core Framework package.
+ *
+ * (c) Shalom Sam <shalom.s@coreframework.in>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Core\Views;
@@ -12,45 +26,132 @@ use Core\Application\Application;
 use Core\Application\CoreApp;
 use Core\CacheSystem\Cacheable;
 
+/**
+ * Class AppView
+ * @package Core\Views
+ */
 class AppView implements viewInterface, Cacheable
 {
 
+    /**
+     * HTTP status code
+     *
+     * @var int
+     */
     public $httpStatus;
 
+    /**
+     * Show/include header section
+     *
+     * @var bool
+     */
     public $showHeader = true;
 
+    /**
+     * Show/include footer section
+     *
+     * @var bool
+     */
     public $showFooter = true;
 
+    /**
+     * Template directory path
+     *
+     * @var string
+     */
     public $templateDir;
 
+    /**
+     * Template file to use
+     *
+     * @var string
+     */
     public $template;
 
+    /**
+     * Debug template file location
+     *
+     * @var string
+     */
     public $debugFile;
 
+    /**
+     * True if Application is currently running in debug mode
+     *
+     * @var bool
+     */
     public $debugMode = false;
 
+    /**
+     * Disable view
+     *
+     * @var bool
+     */
     public $disabled = false;
 
+    /**
+     * Layout template file
+     *
+     * @var string
+     */
     public $layout = "root.tpl";
 
+    /**
+     * Base/core path of current project folder
+     *
+     * @var string
+     */
     public $basePath;
 
+    /**
+     * Base application folder path (DocumentRoot)
+     *
+     * @var string
+     */
     public $appPath;
 
     /**
+     * Template Engine Object
+     *
      * @var \Smarty
      */
     public $tplEngine;
 
+    /**
+     * Template variables
+     *
+     * @var array
+     */
     public $tplInfo;
 
+    /**
+     * Test directory path
+     *
+     * @var string
+     */
     public $httpTestsDir;
 
+    /**
+     * base Template directory path
+     *
+     * @var string
+     */
     public $baseTemplateDir;
 
+    /**
+     * Cache Time to live (TTL)
+     *
+     * @var int
+     */
     public $cache_lifetime;
 
 
+    /**
+     * View constructor
+     *
+     * @param null $tpl
+     * @param array $conf
+     */
     public function __construct($tpl = null, $conf = [])
     {
         if (isset($conf['tplType']) && $conf['tplType'] === 'tpl' && is_null($tpl)) {
@@ -70,6 +171,9 @@ class AppView implements viewInterface, Cacheable
 
     }
 
+    /**
+     * View Init
+     */
     public function init()
     {
         $this->debugFile = $this->basePath . '/src/Core/Views/debug.php';
@@ -93,6 +197,9 @@ class AppView implements viewInterface, Cacheable
         $this->tplEngine->cache_lifetime = $this->cache_lifetime;
     }
 
+    /**
+     * Disables the View component
+     */
     public function disable()
     {
         $this->disabled = true;
@@ -143,11 +250,21 @@ class AppView implements viewInterface, Cacheable
         $arr = $value;
     }
 
+    /**
+     * Add Template directory
+     *
+     * @param $path
+     */
     public function addTemplateDir($path)
     {
         $this->tplEngine->addTemplateDir($path);
     }
 
+    /**
+     * Sets current template to render
+     *
+     * @param $tpl
+     */
     public function setTemplate($tpl)
     {
         $this->template = $tpl;
@@ -165,17 +282,30 @@ class AppView implements viewInterface, Cacheable
         $this->$var = $val;
     }
 
+    /**
+     * Sets the HTTP header status
+     *
+     * @param $val
+     */
     public function setHeader($val)
     {
         $this->httpStatus = $val;
         CoreApp::$app->setHeaders($val);
     }
 
+    /**
+     * Gets the HTTP header status
+     *
+     * @return mixed
+     */
     public function getHeader()
     {
         return $this->httpStatus;
     }
 
+    /**
+     *  Renders the current view
+     */
     public function render()
     {
         if ($this->disabled === true) {

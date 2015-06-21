@@ -1,9 +1,23 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: shalom.s
- * Date: 08/02/15
- * Time: 1:54 AM
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This file is part of the Core Framework package.
+ *
+ * (c) Shalom Sam <shalom.s@coreframework.in>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Core\Routes;
@@ -12,6 +26,10 @@ namespace Core\Routes;
 use Core\CacheSystem\Cacheable;
 use Core\Request\Request;
 
+/**
+ * Class Router
+ * @package Core\Routes
+ */
 class Router extends Request implements Cacheable
 {
 
@@ -32,29 +50,106 @@ class Router extends Request implements Cacheable
      */
     public $routeVars;
     /**
+     * Use Aesthetic Routing i.e if set to true route conf will not be taken into consideration and requested URI will determine the controller, like so - {baseWebsiteURI}/{Controller}/{method}/{arguments}
+     *
      * @var bool
      */
     public $useAestheticRouting = false;
+    /**
+     * If a match for current requested Route (URI) was found
+     *
+     * @var bool
+     */
     public $foundMatch = false;
+    /**
+     * Response array
+     *
+     * @var array
+     */
     public $response = [];
+    /**
+     * Defined HTTP method
+     *
+     * @var string
+     */
     public $definedMethod;
+    /**
+     * To serve html as is. For static site(s)/page(s)/content(s)
+     *
+     * @var bool
+     */
     public $customServe;
+    /**
+     * Reference Path to the folder to serve as static content
+     *
+     * @var string
+     */
     public $referencePath;
+    /**
+     * namespace strings
+     *
+     * @var string
+     */
     public $namespace;
+    /**
+     * controller name
+     *
+     * @var string
+     */
     public $controller;
+    /**
+     * method name
+     *
+     * @var string
+     */
     public $method;
+    /**
+     * Arguments passed by the route
+     *
+     * @var array
+     */
     public $args;
+    /**
+     * model name
+     *
+     * @deprecated Deprecated since version 3.0.0
+     * @var string
+     */
     public $model;
+    /**
+     * Requested filename
+     *
+     * @var string
+     */
     public $fileName;
+    /**
+     * Requested file extension
+     *
+     * @var string
+     */
     public $fileExt;
+    /**
+     * Global ($global) config
+     *
+     * @var array
+     */
     public $global;
+    /**
+     * @var
+     */
     public $resolvedArr;
+    /**
+     * @var array
+     */
     public $config;
     /**
      * @var array Contains a collection of the defined routes in route.conf
      */
     private $collection;
 
+    /**
+     * @param array $config
+     */
     public function __construct($config = [])
     {
         $this->config = $config;
@@ -103,6 +198,11 @@ class Router extends Request implements Cacheable
 
     }
 
+    /**
+     * @param bool $useAestheticRouting
+     * @return array
+     * @throws \ErrorException
+     */
     public function resolve($useAestheticRouting = false)
     {
         if (!empty($this->resolvedArr)) {
@@ -160,16 +260,9 @@ class Router extends Request implements Cacheable
         //$this->setDefaultController();
         $urlPathArr = $this->urlPathArr;
         $this->routeVars = $val;
-        $this->definedMethod = !empty($val['method']) ? strtolower($val['method']) : 'get';
+        $this->definedMethod = !empty($val['httpMethod']) ? strtolower($val['httpMethod']) : 'get';
         if (!empty($this->routeVars['model'])) {
             $this->model = $this->routeVars['model'];
-        }
-
-        if (!empty($val['serveAsIs']) && $val['serveAsIs'] === true) {
-            $this->customServe = true;
-            $this->referencePath = $val['referencePath'];
-
-            return;
         }
 
         if (isset($val['useAestheticRouting']) && $val['useAestheticRouting'] === true) {
@@ -201,11 +294,17 @@ class Router extends Request implements Cacheable
             } elseif (empty($strArr) && $val['serveAsIs'] === false) {
 
                 throw new \ErrorException(
-                    "Controller not defined OR definition broken. Must be of pattern `{namespace}:{controller}:{method}` ",
+                    "Controller not defined OR definition broken. Must be of pattern `{namespace}:{controller}:{httpMethod}` ",
                     5,
                     1
                 );
             }
+
+        }
+
+        if (!empty($val['serveAsIs']) && $val['serveAsIs'] === true) {
+            $this->customServe = true;
+            $this->referencePath = $val['referencePath'];
 
             return;
         }

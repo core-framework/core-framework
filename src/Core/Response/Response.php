@@ -10,6 +10,12 @@
  */
 namespace Core\Response;
 
+/**
+ *
+ * @deprecated This class is unused yet
+ * Class BasesResponse
+ * @package Core\Response
+ */
 class BasesResponse
 {
 

@@ -10,56 +10,163 @@ namespace Core\Application;
 
 use Core\Routes\Router;
 
+/**
+ * Base Application class
+ *
+ * Class BaseApplication
+ * @package Core\Application
+ */
 abstract class BaseApplication extends Components
 {
 
+    /**
+     * Begin state
+     *
+     * @var int
+     */
     const STATUS_BEGIN = 0;
 
+    /**
+     * Initiated state
+     *
+     * @var int
+     */
     const STATUS_INIT = 1;
 
+    /**
+     * Request handling state
+     *
+     * @var int
+     */
     const STATUS_HANDLING_REQUEST = 2;
 
+    /**
+     * Loading from cache state
+     *
+     * @var int
+     */
     const STATUS_LOADING_FROM_CACHE = 3;
 
+    /**
+     * Computing response state
+     *
+     * @var int
+     */
     const STATUS_COMPUTING_RESPONSE = 4;
 
+    /**
+     * Response sending state
+     *
+     * @var int
+     */
     const STATUS_SENDING_RESPONSE = 5;
 
+    /**
+     * Post response state
+     *
+     * @var int
+     */
     const STATUS_SENT_RESPONSE = 6;
 
+    /**
+     * End state
+     *
+     * @var int
+     */
     const STATUS_END = 7;
 
+    /**
+     * The current environment status prod | dev
+     *
+     * @var string | 'prod' | 'dev'
+     */
     public $_ENV = 'prod';
 
+    /**
+     * If application is running in debug mode.
+     *
+     * @var bool
+     */
     public $_DEBUG = false;
 
+    /**
+     * Default controller namespace
+     *
+     * @var string
+     */
     public $controllerNamespace = 'Core\\Controllers';
 
+    /**
+     * Application Name
+     *
+     * @var string
+     */
     public $applicationName;
 
+    /**
+     * Application Version
+     *
+     * @var string
+     */
     public $version = '1.0.0';
 
+    /**
+     * default charset to us Application
+     *
+     * @var string
+     */
     public $charset = 'UTF-8';
 
-    public $language = 'en-US';
-
-    public $requestedURI;
-
-    public $routeParams;
-
-    public $action;
-
-    public $args;
-
-    public $status;
-
     /**
+     * Application default language
+     *
+     * @var string
+     */
+    public $language = 'en_US';
+    /**
+     * The parameters of the URI requested
+     *
+     * @var null | array
+     */
+    public $routeParams;
+    /**
+     * @var null | string
+     */
+    public $action;
+    /**
+     * @var null | array
+     */
+    public $args;
+    /**
+     * Application state/status
+     *
+     * @var int
+     */
+    public $status;
+    /**
+     * Application View
+     *
      * @var \Core\Views\AppView
      */
     public $view;
-
+    /**
+     * Application wide Time to Live (ttl)
+     *
+     * @var int
+     */
     public $ttl = 3600;
+    /**
+     * Requested URI
+     *
+     * @var null | string
+     */
+    private $requestedURI;
 
+    /**
+     * Application constructor
+     *
+     * @param array $config Application configuration from the config file(s)
+     */
     public function __construct($config = [])
     {
         $this->_ENV = defined('CORE_ENV') ? CORE_ENV : 'prod';
@@ -70,7 +177,12 @@ abstract class BaseApplication extends Components
         $this->init($config);
     }
 
-    public function init($config)
+    /**
+     * Application initiation
+     *
+     * @param array $config Application configuration from the config file(s)
+     */
+    public function init($config = [])
     {
         $this->status = self::STATUS_INIT;
 
@@ -114,6 +226,8 @@ abstract class BaseApplication extends Components
     }
 
     /**
+     * Render Application view from cache
+     *
      * @param $key
      * @return bool
      * @throws \ErrorException
@@ -125,6 +239,11 @@ abstract class BaseApplication extends Components
         $this->view->render();
     }
 
+    /**
+     * Parses the URI route requested
+     *
+     * @throws \ErrorException
+     */
     public function parseRoute()
     {
         $this->status = self::STATUS_HANDLING_REQUEST;
@@ -137,24 +256,16 @@ abstract class BaseApplication extends Components
         $this->view = $this->get('View');
         if ($this->router->customServe === true) {
             $this->handleCustomServe($routeParams);
+            $this->render();
         } else {
             $this->loadController($routeParams);
-            if ($this->view->disabled !== true) {
-                $this->view->render();
-                $this->status = self::STATUS_SENT_RESPONSE;
-
-                if (( isset($this->conf['$global']['noCache']) && $this->conf['$global']['noCache'] === true) || (isset($routeParams['noCache']) && $routeParams['noCache']) === true) {
-                    return;
-                }
-
-                $this->cache->cacheContent($this->conf['$global']['viewKey'], $this->view, $this->ttl);
-            }
+            $this->render();
         }
 
     }
 
     /**
-     * Serve Custom content. This is to handle
+     * Serve Custom content. This is to handle custom serving of view content
      *
      * @param array $routeParams
      */
@@ -178,7 +289,7 @@ abstract class BaseApplication extends Components
 
         $rPathArr = explode('/', $referencePath);
 
-        $realPath = _APPDIR . DS;
+        $realPath = $this->appPath . '/';
 
         foreach ($rPathArr as $part) {
             $realPath .= $part . DS;
@@ -194,16 +305,16 @@ abstract class BaseApplication extends Components
         if ($showHeader === true && $serveIframe === false && $fileExt === 'html') {
             $this->view->showHeader = $showHeader;
             $this->view->showFooter = $showFooter;
-            $this->view->tplEngine->assign('customServePath', $realPath);
+            $this->view->setTemplateVars('customServePath', $realPath);
             $this->view->setDebugMode(false);
-            $this->loadController($routeVars);
+            $this->loadController($routeParams);
 
         } elseif ($serveIframe === true && $showHeader === true) {
             $this->view->showHeader = $showHeader;
             $this->view->showFooter = $showFooter;
             $this->view->setTemplateVars('iframeUrl', $referencePath);
             $this->view->setDebugMode(false);
-            $this->loadController($routeVars);
+            $this->loadController($routeParams);
 
         } else {
             $this->setHeaders($fileExt);
@@ -213,6 +324,11 @@ abstract class BaseApplication extends Components
 
     }
 
+    /**
+     * Loads the controller from the provided route parameters
+     *
+     * @param array $routeParams
+     */
     public function loadController($routeParams = [])
     {
         $this->status = self::STATUS_COMPUTING_RESPONSE;
@@ -230,7 +346,7 @@ abstract class BaseApplication extends Components
 
     /**
      * Set header
-     * @param null $type
+     * @param null | string $type
      */
     public function setHeaders($type = null)
     {
@@ -285,6 +401,23 @@ abstract class BaseApplication extends Components
         }
     }
 
+    public function render()
+    {
+        if ($this->view->disabled !== true) {
+            $this->view->render();
+            $this->status = self::STATUS_SENT_RESPONSE;
+
+            if ((isset($this->conf['$global']['noCache']) && $this->conf['$global']['noCache'] === true) || (isset($routeParams['noCache']) && $routeParams['noCache']) === true) {
+                return;
+            }
+
+            $this->cache->cacheContent($this->conf['$global']['viewKey'], $this->view, $this->ttl);
+        }
+    }
+
+    /**
+     * Application End
+     */
     public function __destruct()
     {
         $this->status = self::STATUS_END;

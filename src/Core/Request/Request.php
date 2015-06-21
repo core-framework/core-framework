@@ -44,9 +44,9 @@ class Request implements Cacheable
      */
     public $path;
     /**
-     * @var string The request method .i.e. GET, POST, PUT and DELETE
+     * @var string The request httpMethod .i.e. GET, POST, PUT and DELETE
      */
-    public $method;
+    public $httpMethod;
     /**
      * @var array Contains the sanitized array of the global $_GET variable
      */
@@ -124,13 +124,13 @@ class Request implements Cacheable
     {
         $config = $this->config;
 
-        //get method
-        $this->method = $_SERVER['REQUEST_METHOD'] ? strtolower($_SERVER['REQUEST_METHOD']) : strtolower(
+        //get httpMethod
+        $this->httpMethod = $_SERVER['REQUEST_METHOD'] ? strtolower($_SERVER['REQUEST_METHOD']) : strtolower(
             $_SERVER['HTTP_X_HTTP_METHOD']
         );
 
-        if (empty($this->method)) {
-            $this->method = "get";
+        if (empty($this->httpMethod)) {
+            $this->httpMethod = "get";
         }
 
         if (filter_input(INPUT_SERVER, 'HTTP_X_REQUESTED_WITH') === 'xmlhttprequest') {
@@ -233,7 +233,7 @@ class Request implements Cacheable
             $postData = $this->inputSanitize($postData);
             $this->POST['json'] = json_decode($postData);
         } elseif (!empty($postData) && is_string($postData)) {
-            if ($this->method === 'put') {
+            if ($this->httpMethod === 'put') {
                 parse_str($postData, $this->POST['put']);
                 $this->POST['put'] = $this->inputSanitize($this->POST['put']);
             }
@@ -261,13 +261,13 @@ class Request implements Cacheable
     }
 
     /**
-     * Returns the method used for the current request
+     * Returns the httpMethod used for the current request
      *
      * @return string
      */
     public function getRqstMethod()
     {
-        return $this->method;
+        return $this->httpMethod;
     }
 
     /**

@@ -26,7 +26,6 @@ use Core\Config\Config;
 use Core\Models;
 use Core\Routes\Routes;
 use Core\Views\view;
-use SebastianBergmann\Exporter\Exception;
 
 /**
  * The base controller for Core Framework
@@ -41,9 +40,12 @@ class Controller
 {
     public $view;
     public $config;
-    protected $route;
     public $response;
     public $err404Tpl = "errors/404.tpl";
+    public $getVars;
+    public $postVars;
+    public $server;
+    protected $route;
     private $controller;
     private $method;
     private $args;
@@ -51,9 +53,6 @@ class Controller
     private $model;
     private $routeParams;
     private $req;
-    public  $getVars;
-    public  $postVars;
-    public  $server;
     private $modelDir;
     private $defaultTpl = 'homepage/home.tpl';
     private $illegal = [

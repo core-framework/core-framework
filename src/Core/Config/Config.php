@@ -45,22 +45,25 @@ namespace Core\Config;
 class Config
 {
     /**
-     * @var array Global configurations
-     */
-    private $globalConfig = [];
-    /**
      * @var string Global config file path
      */
     public $globalConfPath;
     /**
-     * @var array Routes Configurations
+     * @var string
      */
-    private $routesConfig = [];
     public $routeConfPath;
     /**
      * @var string Cli config path
      */
     public $cliConfPath;
+    /**
+     * @var array Global configurations
+     */
+    private $globalConfig = [];
+    /**
+     * @var array Routes Configurations
+     */
+    private $routesConfig = [];
     /**
      * @var array|mixed Cli script configurations
      */
@@ -146,21 +149,6 @@ class Config
     }
 
     /**
-     * Store new params to file
-     *
-     * @param $arr
-     * @param $filePath
-     * @return bool
-     */
-    public function store($arr, $filePath)
-    {
-        chmod($filePath, 0777);
-        $data = '<?php return ' . var_export($arr, true) . ";\n ?>";
-        file_put_contents($filePath, $data);
-        return chmod($filePath, 0655);
-    }
-
-    /**
      * Set/add config data
      *
      * @param string $name
@@ -189,6 +177,21 @@ class Config
     {
         $this->cliConf[$name] = $val;
         $this->store($this->cliConf, $this->cliConfPath);
+    }
+
+    /**
+     * Store new params to file
+     *
+     * @param $arr
+     * @param $filePath
+     * @return bool
+     */
+    public function store($arr, $filePath)
+    {
+        chmod($filePath, 0777);
+        $data = '<?php return ' . var_export($arr, true) . ";\n ?>";
+        file_put_contents($filePath, $data);
+        return chmod($filePath, 0655);
     }
 
     /**

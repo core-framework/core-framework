@@ -10,43 +10,95 @@ namespace Core\Application;
 
 use Core\DI\DI;
 
+/**
+ * Class Components
+ * @package Core\Application
+ */
 class Components extends DI
 {
-
+    /**
+     * Application base/root path
+     *
+     * @var string
+     */
     public $basePath;
 
+    /**
+     * Application folder path
+     *
+     * @var string
+     */
     public $appPath;
 
+    /**
+     * Application config
+     *
+     * @var array
+     */
     public $conf;
 
+    /**
+     * A part of $conf
+     *
+     * @var array
+     */
     public $global;
 
+    /**
+     * Template type
+     *
+     * @var string
+     */
     public $tplType = 'tpl'; // 'tpl' || 'html' || 'php'
 
+    /**
+     * Array of base/core Components
+     *
+     * @var array
+     */
     public $baseComponents = [];
 
     /**
+     * Router object
+     *
      * @var \Core\Routes\Router $router
      */
     public $router;
 
     /**
+     * Controller object
+     *
      * @var \Core\Controllers\Controller
      */
     public $controller;
 
+    /**
+     * View Object
+     *
+     * @var \Core\Views\AppView
+     */
     public $view;
 
     /**
+     * Cache object
+     *
      * @var \Core\CacheSystem\Cache
      */
     public $cache;
 
+    /**
+     *
+     */
     public function __construct()
     {
 
     }
 
+    /**
+     * loads configurations
+     *
+     * @param array $conf
+     */
     public function loadConf($conf = [])
     {
 
@@ -55,7 +107,7 @@ class Components extends DI
             $this->appPath = CoreApp::$appPath = realpath($conf['$global']['appPath']);
             CoreApp::addAlias('@base', $this->basePath);
             CoreApp::addAlias('@appBase', $this->appPath);
-            unset($conf['$global']['basePath'], $conf['$global']['appPath']);
+            //unset($conf['$global']['basePath'], $conf['$global']['appPath']);
             $this->conf = $conf;
             $this->global = &$this->conf['$global'];
             if (isset($conf['$components'])) {
@@ -65,6 +117,11 @@ class Components extends DI
 
     }
 
+    /**
+     * loads component objects
+     *
+     * @throws \ErrorException
+     */
     public function loadComponents()
     {
         $di = $this;
