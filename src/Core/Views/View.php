@@ -48,6 +48,7 @@ use Core\DI\DI;
  *
  * </code>
  *
+ * @deprecated Deprecated since version 3.0.0
  * @package Core\Views
  * @version $Revision$
  * @license http://creativecommons.org/licenses/by-sa/4.0/

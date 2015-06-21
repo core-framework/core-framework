@@ -30,6 +30,7 @@ use Whoops\Run;
 /**
  * Core Kernel
  *
+ * @deprecated deprecated since version 3.0.0
  * @package Core
  * @version $Revision$
  * @license http://creativecommons.org/licenses/by-sa/4.0/

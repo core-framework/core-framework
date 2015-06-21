@@ -38,6 +38,7 @@ use Core\Request\Request;
  *
  * </code>
  *
+ * @deprecated Deprecated since version 3.0.0
  * @package Core\Routes
  * @version $Revision$
  * @license http://creativecommons.org/licenses/by-sa/4.0/
@@ -253,7 +254,7 @@ class Routes implements Cacheable
         }
 
         if (!empty($val['controller'])) {
-            $this->definedMethod = !empty($val['method']) ? strtolower($val['method']) : 'get';
+            $this->definedMethod = !empty($val['httpMethod']) ? strtolower($val['httpMethod']) : 'get';
             $controllerStr = $this->controllerVerb = $val['controller'];
             $strArr = explode(':', $controllerStr);
             if (!empty($strArr) && sizeof($strArr) >= 2) {
@@ -272,7 +273,7 @@ class Routes implements Cacheable
             } elseif (empty($strArr) && $val['serveAsIs'] === false) {
 
                 throw new \ErrorException(
-                    "Controller not defined OR definition broken. Must be of pattern `{namespace}:{controller}:{method}` ",
+                    "Controller not defined OR definition broken. Must be of pattern `{namespace}:{controller}:{httpMethod}` ",
                     5,
                     1
                 );
@@ -691,7 +692,7 @@ class Routes implements Cacheable
             'require',
             'namespace',
             'controller',
-            'method',
+            'httpMethod',
             'model',
             'FEComponents',
             'customServe',

@@ -96,7 +96,7 @@ return $routes = [
         'pageName' => 'api',
         'argReq' => ['page' => '[\S]'],
         'argDefault' => 'index.html',
-        'method' => 'GET',
+        'httpMethod' => 'GET',
         'serveAsIs' => true,
         'referencePath' => 'Templates/api',
         'controller' => '\\demoapp\\Controllers:demoController:apiAction',
@@ -109,7 +109,7 @@ return $routes = [
         'pageTitle' => 'Demo about Page',
         'argReq' => ['page' => '[\w]'],
         'argDefault' => '',
-        'method' => 'GET',
+        'httpMethod' => 'GET',
         'controller' => '\\demoapp\\Controllers:documentationController:documentationAction',
         'metaAndTitleFromFile' => true,
         'metaFile' => 'metas/metas.php'
@@ -132,14 +132,14 @@ return $routes = [
         'pageTitle' => 'Demo about Page',
         'argReq' => ['page' => '[\w]'],
         'argDefault' => '',
-        'method' => 'GET',
+        'httpMethod' => 'GET',
         'controller' => '\\demoapp\\Controllers:tutorialController:tutorialAction'
     ],
 
     '/test/helloworld' => [
         'pageName' => 'test',
         'pageTitle' => 'Test',
-        'method' => 'GET',
+        'httpMethod' => 'GET',
         'controller' => '\\Core\\Controllers:testController:helloWorldAction'
     ],
 
@@ -148,7 +148,7 @@ return $routes = [
         'pageTitle' => 'Test',
         'argReq' => ['name' => '[\w]'],
         'argDefault' => 'name',
-        'method' => 'GET',
+        'httpMethod' => 'GET',
         'controller' => '\\Core\\Controllers:testController'
     ],
 
@@ -157,7 +157,7 @@ return $routes = [
         'pageTitle' => 'Testing',
         'argReq' => ['id' => '[\d]'],
         'argDefault' => '1',
-        'method' => 'GET',
+        'httpMethod' => 'GET',
         'controller' => '\\Core\\Controllers:testController'
     ],
 
@@ -166,7 +166,7 @@ return $routes = [
         'pageTitle' => 'Test',
         'argReq' =>  ['id' => '[\d]', 'slug' => '[\w]'],
         'argDefault' => ['id' => '1', 'slug' => 'awesome'],
-        'method' => 'post',
+        'httpMethod' => 'post',
         'controller' => '\\Core\\Controllers:testController:someMethod'
     ]
 ];

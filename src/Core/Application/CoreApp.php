@@ -8,6 +8,10 @@
 
 namespace Core\Application;
 
+/**
+ * Class CoreApp
+ * @package Core\Application
+ */
 class CoreApp extends BaseCoreApp
 {
 
