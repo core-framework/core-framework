@@ -560,12 +560,11 @@ class Core extends CLI
         }
 
         $this->io->writeln("Setting up App - {$appName} folder");
-        if ($this->frontEndManager === "bower") {
-            $this->setupDbConf($appName);
-        }
+        $this->setupDbConf($appName);
+
         $this->io->writeln("You can setup virtual hosts using the following command -", 'green');
         $consolePath = _ROOT . DS . "src" . DS . "Core" . DS . "Scripts" . DS . "Console";
-        $name = empty($this->appName) ? '{appDirName}' : $this->appName;
+        $name = empty($this->appName) ? '{appDirPath}' : $this->appName;
         $this->io->writeColoredLn(
             "sudo:yellow $consolePath:cyan setupHost:cyan $name:white"
         );
@@ -1234,8 +1233,11 @@ class Core extends CLI
             modified_date TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP
         ) CHARACTER SET utf8 COLLATE utf8_general_ci;");
 
-
-        $this->io->writeln("Tables created successfully!", "green");
+        if ($userTable === false) {
+            $this->io->showErr('Unable to create table');
+        } else {
+            $this->io->writeln("Tables created successfully!", "green");
+        }
 
     }
 }
