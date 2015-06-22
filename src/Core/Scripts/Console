@@ -59,29 +59,32 @@ $console = DI::get('Core');
 
 $console->setVersion("v3.0.0");
 $console->addCommand('install', "Sets up the app environment", get_class($console)."::install")
-    ->setOptions("dev", "d", "Installs in development mode")
+    //->setOptions("dev", "d", "Installs in development mode")
     ->addArguments('appName', false, "Application name");
-$console->addCommand('create-alias', "Creates an alias for the Console Cli application", get_class($console)."::createAlias");
+
 $console->addCommand('make-resources', "Creates styles, scripts and font resources symlinked from bower-components folder", get_class($console)."::symResources")
     ->addArguments('appName', false, "Application name");
-$console->addCommand('setup-app', "Sets up the given application folder", get_class($console)."::setupApp")
-    ->addArguments('appName', true, "Application name");
+
 $console->addCommand('setupDb', "Sets up the database for your application", get_class($console)."::setupDbConf")
     ->addArguments('appName', false, "Application name");
-$console->addCommand('create-index', "Set up the index.php for you application", get_class($console)."::createIndex")
-    ->addArguments('appName', false, "Application name");
+
 $console->addCommand('add-hosts', "Add entry to host file", get_class($console)."::addHosts")
     ->addArguments('domain', true, "domain name")
     ->addArguments('ip', true, "IP address");
+
 $console->addCommand('add-vhost', "Adds a virtual host entry", get_class($console)."::addVhost")
     ->addArguments('domain', true, "domain name")
     ->addArguments('ip', true, "IP address");
+
 $console->addCommand('remove-vhost', "Removes the given virtual host entry", get_class($console)."::removeVhost")
     ->addArguments('appName', true, "Application name");
+
 $console->addCommand('add-config-vars', "Adds given key => value pair to global config", get_class($console)."::addConfigVars")
     ->addArguments('key', true, "Config Key identifier")
     ->addArguments('val', true, "Config Key value");
+
 $console->addCommand('clear-cache', "Clears All cache", get_class($console)."::clearCache");
+
 $console->addCommand('configureDB', "Configure the test database" , get_class($console)."::configureDB");
 
 /** @var string $argv */
