@@ -14,7 +14,7 @@ use Core\Controllers\BaseController;
 class siteController extends BaseController
 {
 
-    public $appName = 'CoreFramework';
+    public $appName = 'Core Framework';
     public $appVersion = 'v3';
     public $language;
 
