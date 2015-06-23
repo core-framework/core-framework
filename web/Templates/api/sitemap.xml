@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>http://coreframework.in/documentation/api/index.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Application.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.CacheSystem.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Config.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Controllers.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Database.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.DI.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.ErrorHandler.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Helper.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Models.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Request.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Response.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Routes.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Scripts.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Views.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/namespace-None.html</loc>
+</url>
+
+
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Application.Application.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Application.BaseApplication.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Application.BaseCoreApp.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Application.Components.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Application.CoreApp.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.CacheSystem.BaseCache.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.CacheSystem.Cache.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.CacheSystem.OPCache.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Config.Config.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Controllers.BaseController.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Controllers.Controller.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Controllers.errorController.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Controllers.testController.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.core.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Database.Database.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.DI.DI.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.DI.Service.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.ErrorHandler.ErrorHandler.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Helper.Helper.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Models.Model.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Request.Request.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Response.BasesResponse.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Routes.Router.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Routes.Routes.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Scripts.Argument.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Scripts.CLI.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Scripts.cmdcolors.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Scripts.Command.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Scripts.Core.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Scripts.corecmd.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Scripts.IOStream.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Scripts.Options.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Views.AppView.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Views.View.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.CacheSystem.Cacheable.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.DI.serviceInterface.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Views.viewInterface.html</loc>
+</url>
+</urlset>

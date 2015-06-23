@@ -16,66 +16,70 @@ return $routes = [
 
 
     '/' => [
-        'pageName' => 'demo',
-        'pageTitle' => 'Demo Home Page',
+        'pageName' => 'homepage',
+        'pageTitle' => 'Core Framework - A new PHP framework',
         'controller' => '\\web\\Controllers:siteController:indexAction',
         'metas' => [
-            'keywords' => 'test, keywords, for test',
-            'description' => 'This is a test description',
+            'keywords' => 'core, php, framework, CoreFramework, CorePHPFramework, Core Framework, Shalom, Sam',
+            'description' => 'CoreFramework is brand new php framework',
             'author' => 'Shalom Sam'
         ]
     ],
+
     '/about' => [
-        'pageName' => 'demo',
-        'pageTitle' => 'Demo about Page',
+        'pageName' => 'about',
+        'pageTitle' => 'Core Framework - About page',
         'controller' => '\\web\\Controllers:siteController:aboutAction'
     ],
-    '/user/register' => [
-        'method' => 'POST',
-        'controller' => '\\web\\Controllers:siteController:registerAction',
-        'noCache' => true
+
+    '/get_started' => [
+        'pageName' => 'getStarted',
+        'pageTitle' => 'Core Framework - Get Started',
+        'controller' => '\\web\\Controllers:siteController:getstartedAction'
     ],
 
-    '/user/login' => [
-        'method' => 'POST',
-        'controller' => '\\web\\Controllers:siteController:loginAction',
-        'noCache' => true
+    '/documentation' => [
+        'pageName' => 'demo',
+        'pageTitle' => 'Demo about Page',
+        'controller' => '\\web\\Controllers:siteController:documentationAction'
     ],
 
-    '/user/logout' => [
-        'method' => 'GET',
-        'controller' => '\\web\\Controllers:siteController:logoutAction',
-        'noCache' => true
+    '/documentation/api' => [
+        'pageName' => 'api',
+        'pageTitle' => 'Core Framework - API',
+        'serveAsIs' => true,
+        'serveIframe' => true,
+        'referencePath' => '/documentation/api/index.html',
+        'controller' => '\\web\\Controllers:siteController:apiAction',
+        'showHeader' => true
     ],
 
-    '/test/helloworld' => [
-        'pageName' => 'test',
-        'pageTitle' => 'Test',
-        'method' => 'GET',
-        'controller' => '\\Core\\Controllers:testController:helloWorldAction'
+    '/documentation/api/{page}' => [
+        'pageName' => 'api',
+        'argReq' => ['page' => '[\S]'],
+        'argDefault' => 'index.html',
+        'httpMethod' => 'GET',
+        'serveAsIs' => true,
+        'referencePath' => 'Templates/api',
+        'controller' => '\\web\\Controllers:siteController:apiAction',
+        'showHeader' => false,
+        'showFooter' => false
     ],
-    '/test/hello/{name}' => [
-        'pageName' => 'test',
-        'pageTitle' => 'Test',
-        'argReq' => ['name' => '[\w]'],
-        'argDefault' => 'name',
-        'method' => 'GET',
-        'controller' => '\\Core\\Controllers:testController'
+
+    '/documentation/{page}' => [
+        'pageName' => 'Documentation',
+        'pageTitle' => 'Core Framework - Documentation',
+        'argReq' => ['page' => '[\w]'],
+        'argDefault' => '',
+        'httpMethod' => 'GET',
+        'controller' => '\\web\\Controllers:siteController:documentationAction',
+        'metaAndTitleFromFile' => true,
+        'metaFile' => 'metas/metas.php'
     ],
-    '/testing/{id}' => [
-        'pageName' => 'testing',
-        'pageTitle' => 'Testing',
-        'argReq' => ['id' => '[\d]'],
-        'argDefault' => '1',
-        'method' => 'GET',
-        'controller' => '\\Core\\Controllers:testController'
-    ],
-    'testingmulti/{id}/someMethod/{slug}' => [
-        'pageName' => 'test',
-        'pageTitle' => 'Test',
-        'argReq' => ['id' => '[\d]', 'slug' => '[\w]'],
-        'argDefault' => ['id' => '1', 'slug' => 'awesome'],
-        'method' => 'post',
-        'controller' => '\\Core\\Controllers:testController:someMethod'
+
+    '/download' => [
+        'pageName' => 'Download',
+        'pageTitle' => 'Core Framework - Download',
+        'controller' => '\\web\\Controllers:siteController:downloadAction'
     ]
 ];

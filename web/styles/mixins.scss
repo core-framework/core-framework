@@ -1,5 +1,34 @@
 //Mixins
 
+// ------ Variables -------
+
+// Colors
+$bgColor: #dddddd;
+$boxBorder: #c3cad3;
+$fontColor: #434343;
+$overlayColor: #3498db;
+$footerBg: #e1e1e1;
+$footerBg2: #111;
+
+// Fonts
+$fontSize: 16px;
+$fontFamily: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+$fontWeightxs: 100;
+$fontWeightsm: 300;
+$fontWeightlg: 400;
+
+
+// Screen breakpoints
+$screen-xs-min: 320px;
+$screen-xs-max: 480px;
+$screen-sm-min: 768px;
+$screen-md-min: 992px;
+$desktop-width: 1024px;
+$screen-lg-min: 1220px;
+
+
+// ------- Mixin Function --------
+
 @mixin word-wrap() {
   word-break: break-all;
   -webkit-hyphens: auto;
@@ -11,4 +40,159 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin transition($prop) {
+  -webkit-transition: #{$prop};
+  -moz-transition: #{$prop};
+  /*noinspection CssUnknownProperty*/
+  -ms-transition: #{$prop};
+  -o-transition: #{$prop};
+  transition: #{$prop};
+}
+
+@mixin opacity($val) {
+  -ms-opacity: $val;
+  filter: opacity($val * 100);
+  opacity: $val;
+}
+
+@mixin keyframe($animation_name) {
+
+  @-webkit-keyframes #{$animation_name} {
+    @content;
+  }
+
+  @-moz-keyframes #{$animation_name} {
+    @content;
+  }
+
+  @-o-keyframes #{$animation_name} {
+    @content;
+  }
+
+  @keyframes #{$animation_name} {
+    @content;
+  }
+}
+
+@mixin animate ($name) {
+  -webkit-animation-name: $name;
+  animation-name: $name;
+}
+
+@mixin animation ($delay, $duration, $animation:"", $timingFunction:"ease", $fillMode:"forwards", $iterationCount:"initial") {
+  -webkit-animation-delay: $delay;
+  -webkit-animation-duration: $duration;
+  -webkit-animation-timing-function: #{$timingFunction};
+  -webkit-animation-name: #{$animation};
+  -webkit-animation-iteration-count: #{$iterationCount};
+  -webkit-animation-fill-mode: #{$fillMode}; /* this prevents the animation from restarting! */
+
+  -moz-animation-delay: $delay;
+  -moz-animation-duration: $duration;
+  -moz-animation-timing-function: #{$timingFunction};
+  -moz-animation-name: #{$animation};
+  -moz-animation-iteration-count: #{$iterationCount};
+  -moz-animation-fill-mode: #{$fillMode}; /* this prevents the animation from restarting! */
+
+  -o-animation-delay: $delay;
+  -o-animation-duration: $duration;
+  -o-animation-timing-function: #{$timingFunction};
+  -o-animation-name: #{$animation};
+  -o-animation-iteration-count: #{$iterationCount};
+  -o-animation-fill-mode: #{$fillMode}; /* this prevents the animation from restarting! */
+
+  -ms-animation-delay: $delay;
+  -ms-animation-duration: $duration;
+  -ms-animation-timing-function: #{$timingFunction};
+  -ms-animation-name: #{$animation};
+  -ms-animation-iteration-count: #{$iterationCount};
+  -ms-animation-fill-mode: #{$fillMode}; /* this prevents the animation from restarting! */
+
+  animation-delay: $delay;
+  animation-duration: $duration;
+  animation-timing-function: #{$timingFunction};
+  animation-name: #{$animation};
+  animation-iteration-count: #{$iterationCount};
+  animation-fill-mode: #{$fillMode}; /* this prevents the animation from restarting! */
+}
+
+@mixin screen ($min, $max, $orientation:false) {
+  @if $orientation != false {
+    @media screen and (min-width: $min) and (max-width: $max) and (orientation: $orientation) {
+      @content
+    }
+  } @else {
+    @media screen and (min-width: $min) and (max-width: $max) {
+      @content
+    }
+  }
+}
+
+@mixin min-width ($minW) {
+  @media screen and (min-width: $minW) {
+    @content
+  }
+}
+
+@mixin max-width ($maxW) {
+  @media screen and (max-width: $maxW) {
+    @content
+  }
+}
+
+@mixin min-height ($minH) {
+  @media screen and (min-height: $minH) {
+    @content
+  }
+}
+
+@mixin max-height ($maxH) {
+  @media screen and (max-height: $maxH) {
+    @content
+  }
+}
+
+@mixin small-devices {
+  @media screen and (min-width: $screen-xs-min) and (max-width: $screen-sm-min - 1px) {
+    @content
+  }
+}
+
+@mixin landscape {
+  @media screen and (orientation: landscape) {
+    @content
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$screen-sm-min}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+@mixin retina {
+  @media
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min--moz-device-pixel-ratio: 2),
+  only screen and (-o-min-device-pixel-ratio: 2/1),
+  only screen and (min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
+    @content;
+  }
 }

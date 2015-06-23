@@ -8,144 +8,158 @@
 
 namespace web\Controllers;
 
+use Core\Application\CoreApp;
 use Core\Controllers\BaseController;
-use web\Models\User;
 
 class siteController extends BaseController
 {
 
-    public $appName = 'YourApp';
-
-    public $appVersion = 'v1';
+    public $appName = 'CoreFramework';
+    public $appVersion = 'v3';
+    public $language;
 
     public function indexAction()
     {
-        $this->init();
-        $this->view->setTemplate('home.tpl');
+        $this->commonFunction('home');
     }
 
-    public function init()
+    public function setSiteParams()
     {
-        if (isset($this->conf['$global']['google-site-verification'])) {
-            $googleVerification = $this->conf['global']['google-site-verification'];
-        } elseif (getenv('google-site-verification')) {
+        $this->view->setTemplateVars('site.appName', $this->appName);
+        $this->view->setTemplateVars('site.appVersion', $this->appVersion);
+        $this->view->setTemplateVars('site.language', $this->language);
+    }
+
+    public function commonFunction($pageName)
+    {
+        $this->language = $lang = strtolower(CoreApp::$app->language);
+        if (empty($lang)) {
+            $lang = 'en_us';
+        }
+
+        $this->setSiteParams();
+        $commonLangFile = $this->basePath . "/web/Templates/lang/" . $lang . "/common.php";
+        $pageLangFile = $this->basePath . "/web/Templates/lang/" . $lang . '/' . $pageName . ".php";
+        $pageTpl = 'layouts/' . $pageName . ".tpl";
+
+        $googleVerification = '';
+        if ($this->conf['$global']['google-site-verification']) {
+            $googleVerification = $this->conf['$global']['google-site-verification'];
+        } elseif(getenv('google-site-verification')) {
             $googleVerification = getenv('google-site-verification');
         } else {
             $googleVerification = "";
         }
 
-        $this->view->setTemplateVars('metas.google-site-verification', $googleVerification);
-        $this->view->setTemplateVars('site.appName', $this->appName);
-        $this->view->setTemplateVars('site.appVersion', $this->appVersion);
 
-        if (isset($_SESSION['user'])) {
-            $this->view->setTemplateVars('site.user', (array)$_SESSION['user']);
+        $this->view->setTemplateVars('metas.google-site-verification', $googleVerification);
+        $this->view->setTemplate('demo.tpl');
+
+        if (!$this->view->tplEngine->templateExists($pageTpl)) {
+            $pageTpl = "errors/404.tpl";
+            $this->view->setHeader('404');
+        }
+
+        $this->view->setTemplateVars('includeTpl', $pageTpl);
+        $this->view->setTemplateVars('pageName', $pageName);
+        $this->view->setTemplateVars('docVarsCom', include_once $commonLangFile);
+
+        if (is_readable($pageLangFile)) {
+            $this->view->setTemplateVars($pageName, include_once $pageLangFile);
+        } else {
+            $this->view->setTemplateVars('error', "Page not found");
         }
     }
 
     public function aboutAction()
     {
-        $this->init();
-        $this->view->setTemplate('about.tpl');
+        $license = $this->basePath . "/LICENSE";
+        $licenseTxt = file_get_contents($license);
+        $licenseTxt = preg_replace('/\n/', '<br/>', $licenseTxt);
+        $this->view->setTemplateVars('licensetxt', $licenseTxt);
+        $this->commonFunction('about');
     }
 
-    public function registerAction()
+    public function getstartedAction()
     {
-        $this->view->disable();
-        $postVars = $this->post;
+        $this->commonFunction('get_started');
+    }
 
-        try {
+    public function downloadAction()
+    {
+        $this->commonFunction('download');
+    }
 
-            if ( empty($postVars['lname']) || empty($postVars['fname']) || empty($postVars['email']) || empty($postVars['password']) || empty($postVars['password_confirm']) || empty($postVars['csrf']) ) {
-                throw new \ErrorException('One or more user data not provided.');
-            }
-
-            if ( $postVars['csrf'] !== $_SESSION['csrf'] ) {
-                throw new \ErrorException('CSRF miss match: the CSRF key has expired please reload the page and try again');
-            }
-
-            if ( $postVars['password'] !== $postVars['password_confirm'] ) {
-                throw new \ErrorException('Password and Confirm password do not match');
-            }
-
-            $postVars['name'] = $postVars['fname'] . " " . $postVars['lname'];
-            $user = new User($postVars);
-
-            $r = $user->save();
-            $jsonArr = [];
-            if ($r === true) {
-                $this->resetCache();
-                $_SESSION['user'] = (array) $user;
-                $jsonArr['status'] = 'success';
-                $jsonArr['redirectUrl'] = '/';
-            } else {
-                $r['status'] = 'error';
-                $jsonArr['message'] = 'Unable to write to database';
-            }
-
-        } catch (\Exception $e) {
-            $jsonArr['status'] = 'error';
-            $jsonArr['message'] = $e->getMessage();
-            $jsonArr['code'] = $e->getCode();
+    public function documentationAction($payload)
+    {
+        $pageName = $payload['page'];
+        $this->language = $lang = strtolower(CoreApp::$app->language);
+        if (empty($lang)) {
+            $lang = 'en_us';
         }
 
-        $json = json_encode($this->utf8ize($jsonArr), JSON_FORCE_OBJECT);
-        header('Content-Type: application/json');
-        echo $json;
+        $commonLangFile = $this->basePath . "/web/Templates/lang/" . $lang . "/common.php";
+        $pageLangFile = $this->basePath . "/web/Templates/lang/" . $lang . "/documentations/" . $pageName . ".php";
+        $pageTpl = "layouts/sub_pages.tpl";
 
-    }
-
-    public function loginAction()
-    {
-        $this->view->disable();
-        $postVars = $this->post;
-        try {
-
-            if ( empty($postVars['email']) || empty($postVars['password']) || empty($postVars['csrf']) ) {
-                throw new \ErrorException('One or more user data not provided.');
-            }
-
-            if ( $postVars['csrf'] !== $_SESSION['csrf'] ) {
-                throw new \ErrorException('CSRF miss match: the CSRF key has expired please reload the page and try again');
-            }
-
-            $proposedUser = new User();
-            $proposedUserObj = $proposedUser->getOneRow(['email' => $postVars['email']]);
-            $proposedUserArr = (array) $proposedUserObj;
-
-            if (!$proposedUserObj instanceof User) {
-                throw new \LogicException("Invalid User email or password");
-            }
-
-            $authenticated = User::check_hash($postVars['password'], $proposedUserObj->pass_hash);
-
-            if ($authenticated === true) {
-                $this->resetCache();
-                $_SESSION['user'] = $proposedUserArr;
-                $json = ['status' => 'success', 'redirectUrl' => '/'];
-
-            } else {
-                $json = [ 'status' => 'error', 'message' => 'Invalid User email or password' ];
-            }
-
-        } catch (\Exception $e) {
-            $json = [ 'status' => 'error', 'message' => $e->getMessage() ];
+        $googleVerification = '';
+        if ($this->conf['$global']['google-site-verification']) {
+            $googleVerification = $this->conf['$global']['google-site-verification'];
+        } elseif(getenv('google-site-verification')) {
+            $googleVerification = getenv('google-site-verification');
+        } else {
+            $googleVerification = "";
         }
 
-        echo json_encode($json);
+
+        $this->setSiteParams();
+        $this->view->setTemplateVars('metas.google-site-verification', $googleVerification);
+        $this->view->setTemplate('demo.tpl');
+        $this->view->setTemplateVars('includeTpl', $pageTpl);
+        $this->view->setTemplateVars('mainPage', 'documentation');
+        $this->view->setTemplateVars('subPage', true);
+        $this->view->setTemplateVars('pageName', $pageName);
+        $this->view->setTemplateVars('docVarsCom', include_once $commonLangFile);
+
+        if (is_readable($pageLangFile)) {
+            $this->view->setTemplateVars('documentation', include_once $pageLangFile);
+        } else {
+            //$this->response['vars']['error'] = "Page not found";
+            $this->view->setTemplateVars('error', "Page not found");
+        }
+
     }
 
-    public function logoutAction()
+    public function customServeAction()
     {
-        $this->view->disable();
-        $_SESSION = [];
-        session_unset();
-        $this->resetCache();
-        session_regenerate_id();
-        session_destroy();
-        header('Location: /');
-
-        exit();
+        $lang = $this->conf['$global']['language'];
+        if (empty($lang)) {
+            $lang = 'en_us';
+        }
+        $this->view->setTemplate('demo.tpl');
+        $commonLangFile = $this->basePath . "web/Templates/lang/" . $lang . "/common.php";
+        $this->view->setTemplateVars('docVarsCom', include_once $commonLangFile);
     }
 
+
+    public function apiAction($payload)
+    {
+        $this->setSiteParams();
+        //$routeParams = $this->router->routeVars;
+        $this->language = $lang = strtolower(CoreApp::$app->language);
+
+        if (empty($lang)) {
+            $lang = 'en_us';
+        }
+
+        $commonLangFile = $this->basePath . "/web/Templates/lang/" . $lang . "/common.php";
+        if (is_readable($commonLangFile)) {
+            $this->view->setTemplateVars('docVarsCom', include_once $commonLangFile);
+        }
+
+        $this->view->setTemplate('demo.tpl');
+        $this->view->setTemplateVars('pageName', 'documentation');
+        $this->view->setTemplateVars('mainPage', 'documentation');
+        $this->view->setTemplateVars('subPage', true);
+    }
 }

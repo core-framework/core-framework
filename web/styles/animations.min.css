@@ -1,0 +1,1 @@
+body:before{white-space:pre;font-family:monospace;content:"Syntax error: Undefined mixin 'keyframe'.\A         on line 1 of animations.scss, in `keyframe'\A         from line 1 of animations.scss\A \A 1: @include keyframe(slideUpHeader) {\A 2:   20% {\A 3:     transform: translate3d(0, -10px, 0);\A 4:   }\A 5: \A 6:   40%, 45% {"}

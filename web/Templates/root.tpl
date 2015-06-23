@@ -10,11 +10,13 @@
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <{foreach from=$metas key=k item=v}>
-                <{if not empty($v) }>
-                    <meta name="<{$k}>" content="<{$v}>"/>
-                <{/if}>
-            <{/foreach}>
+            <{if isset($metas) && not empty($metas)}>
+                <{foreach from=$metas key=k item=v}>
+                    <{if not empty($v) }>
+                        <meta name="<{$k}>" content="<{$v}>"/>
+                    <{/if}>
+                <{/foreach}>
+            <{/if}>
         <{/block}>
         <!-- END: Metas -->
         <!-- Styles -->
@@ -40,6 +42,7 @@
                 <{/block}>
             <{/if}>
             <{block name="maincontent"}> <{/block}>
+            <div class="push"></div>
         </div>
     <{/block}>
     <{if $showFooter === true }>

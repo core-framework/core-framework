@@ -20,7 +20,9 @@ $global = [
         'apcIsEnabled' => ini_get('apc.enabled'),
         'tplType' => 'tpl',
         'useAPC' => true,
-        'useAestheticRouting' => false
+        'useAestheticRouting' => false,
+        'language' => 'en_us',
+        'google-site-verification' => ''
     ],
     '$db' => require('db.conf.php'),
     '$routes' => require('routes.conf.php')
