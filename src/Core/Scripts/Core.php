@@ -213,7 +213,7 @@ class Core extends CLI
     }
 
     /**
-     * Returns true if bower is installed, else false
+     * Returns true if bower is installed, else attempts to install Bower
      *
      * @return bool
      */
@@ -224,7 +224,7 @@ class Core extends CLI
         if (strpos($output, "command not found") !== false) {
             if ($this->nodeIsInstalled === true) {
                 try {
-                    echo exec('npm install -g bower');
+                    exec('npm install -g bower');
                 } catch (\Exception $e) {
                     $this->io->showErr($e->getMessage());
                     return false;
@@ -654,125 +654,6 @@ class Core extends CLI
     }
 
     /**
-     * Creates app Index file
-     *
-     * @param $appName
-     * @return bool
-     */
-    public function createIndex($appName = null)
-    {
-        if (empty($appName)) {
-            $this->getAppNameFromUser();
-        }
-
-        $index = __DIR__ . DS . "pak" . DS . "index.pak";
-        $appDirPath = _ROOT . DS . $appName . DS;
-        $newIndex = $appDirPath . "index.php";
-        $contents = file_get_contents($index);
-
-        if ($appName !== 'web') {
-            $newContents = preg_replace('/\{appName\}/', $appName, $contents);
-        }
-
-        if (is_readable($newIndex)) {
-
-            if ($this::$verbose === true) {
-                $this->io->write("Merging current index with original index file", 'green');
-            }
-            $this->merge2Files($index, $newIndex);
-
-        } else {
-            if ($this::$verbose === true) {
-                $this->io->writeln("Creating app's index.php file...", "green");
-            }
-            if (touch($newIndex) === false) {
-                $this->io->showErr("Unable to create file - {$newIndex}");
-                return false;
-            }
-            if (file_put_contents($newIndex, $newContents) === false) {
-                $this->io->showErr("Failed to create index file!!");
-                return false;
-            } else {
-                $this->io->writeln("Index file created successfully!", 'green');
-                return true;
-            }
-        }
-
-    }
-
-    /**
-     * Merges $orgFile into $existingFile, both $orgFile & $existingFile must be valid readable (full)file paths
-     *
-     * @param $orgFile
-     * @param $existingFile
-     */
-    public function merge2Files($orgFile, $existingFile)
-    {
-        $fileArr1 = file($orgFile);
-        $fileArr2 = file($existingFile);
-        $diffs = array_diff($fileArr1, $fileArr2);
-        $diffContent = $fileArr1;
-
-        foreach ($diffs as $index => $diff) {
-            array_splice($diffContent, $index - 1, 0, "<<<<< Edited (your) content" . PHP_EOL);
-            array_splice($diffContent, $index, 0, $fileArr2[$index]);
-            array_splice($diffContent, $index + 1, 0, "===========" . PHP_EOL);
-            array_splice($diffContent, $index + 2, 0, $fileArr1[$index]);
-            array_splice($diffContent, $index + 3, 0, ">>>>> Original content" . PHP_EOL);
-        }
-        chmod($existingFile, 0755);
-        if (file_put_contents($existingFile, $diffContent) === false) {
-            $this->io->showErr("Unable write file {$existingFile}");
-            exit;
-        } elseif (sizeof($diffs) > 0) {
-            $this->io->showErr("Merge conflict in $existingFile");
-            $this->io->writeln("Continuing ....", 'green');
-        } elseif ($this::$verbose === true) {
-            $this->io->writeln("{$existingFile} Merged successfully!", 'green');
-        }
-        chmod($existingFile, 0655);
-    }
-
-    /**
-     * Creates the .htaccess file for the app
-     *
-     * @param $appName
-     * @return bool
-     */
-    private function createHtaccess($appName)
-    {
-        if (empty($appName)) {
-            $this->getAppNameFromUser();
-        }
-
-        $htaccess = __DIR__ . DS . "pak" . DS . ".htaccess.pak";
-        $appDir = _ROOT . DS . $appName . DS;
-        $newHtaccess = $appDir . ".htaccess";
-        $htaccessContents = file_get_contents($htaccess);
-
-        if (is_readable($newHtaccess)) {
-            if ($this::$verbose === true) {
-                $this->io->writeln("Merging current htaccess file with original htaccess file");
-            }
-            $this->merge2Files($htaccess, $newHtaccess);
-        }
-
-        if (touch($newHtaccess) === false) {
-            $this->io->showErr("Unable to create .htaccess file for {$this->appName}");
-        }
-
-        if (file_put_contents($newHtaccess, $htaccessContents) === false) {
-            $this->io->showErr("Failed to create .htaccess file!!");
-            return false;
-        } elseif ($this::$verbose === true) {
-            $this->io->writeln(".htaccess file created successfully!", 'green');
-            return true;
-        }
-
-    }
-
-
-    /**
      * Create cache folder, if exist changes the owner of the folder to right apache user
      */
     private function createCacheFolder()
@@ -844,7 +725,6 @@ class Core extends CLI
             }
         }
     }
-
 
     /**
      * Finds apache conf file path
@@ -931,6 +811,85 @@ class Core extends CLI
         }
     }
 
+    /**
+     * Creates app Index file
+     *
+     * @param $appName
+     * @return bool
+     */
+    public function createIndex($appName = null)
+    {
+        if (empty($appName)) {
+            $this->getAppNameFromUser();
+        }
+
+        $index = __DIR__ . DS . "pak" . DS . "index.pak";
+        $appDirPath = _ROOT . DS . $appName . DS;
+        $newIndex = $appDirPath . "index.php";
+        $contents = file_get_contents($index);
+
+        if ($appName !== 'web') {
+            $newContents = preg_replace('/\{appName\}/', $appName, $contents);
+        }
+
+        if (is_readable($newIndex)) {
+
+            if ($this::$verbose === true) {
+                $this->io->write("Merging current index with original index file", 'green');
+            }
+            $this->merge2Files($index, $newIndex);
+
+        } else {
+            if ($this::$verbose === true) {
+                $this->io->writeln("Creating app's index.php file...", "green");
+            }
+            if (touch($newIndex) === false) {
+                $this->io->showErr("Unable to create file - {$newIndex}");
+                return false;
+            }
+            if (file_put_contents($newIndex, $newContents) === false) {
+                $this->io->showErr("Failed to create index file!!");
+                return false;
+            } else {
+                $this->io->writeln("Index file created successfully!", 'green');
+                return true;
+            }
+        }
+
+    }
+
+    /**
+     * Merges $orgFile into $existingFile, both $orgFile & $existingFile must be valid readable (full)file paths
+     *
+     * @param $orgFile
+     * @param $existingFile
+     */
+    public function merge2Files($orgFile, $existingFile)
+    {
+        $fileArr1 = file($orgFile);
+        $fileArr2 = file($existingFile);
+        $diffs = array_diff($fileArr1, $fileArr2);
+        $diffContent = $fileArr1;
+
+        foreach ($diffs as $index => $diff) {
+            array_splice($diffContent, $index - 1, 0, "<<<<< Edited (your) content" . PHP_EOL);
+            array_splice($diffContent, $index, 0, $fileArr2[$index]);
+            array_splice($diffContent, $index + 1, 0, "===========" . PHP_EOL);
+            array_splice($diffContent, $index + 2, 0, $fileArr1[$index]);
+            array_splice($diffContent, $index + 3, 0, ">>>>> Original content" . PHP_EOL);
+        }
+        chmod($existingFile, 0755);
+        if (file_put_contents($existingFile, $diffContent) === false) {
+            $this->io->showErr("Unable write file {$existingFile}");
+            exit;
+        } elseif (sizeof($diffs) > 0) {
+            $this->io->showErr("Merge conflict in $existingFile");
+            $this->io->writeln("Continuing ....", 'green');
+        } elseif ($this::$verbose === true) {
+            $this->io->writeln("{$existingFile} Merged successfully!", 'green');
+        }
+        chmod($existingFile, 0655);
+    }
 
     /**
      * Adds an entry to hosts files for the app
@@ -1106,7 +1065,6 @@ class Core extends CLI
         }
     }
 
-
     /**
      * Gets the httpd-vhosts.conf file path
      *
@@ -1152,7 +1110,6 @@ class Core extends CLI
             return false;
         }
     }
-
 
     /**
      * Add Config params to file
@@ -1219,7 +1176,8 @@ class Core extends CLI
         $connection->query("CREATE DATABASE IF NOT EXISTS $dbname");
         $connection->query("use $dbname");
 
-        $userTable = $connection->exec("CREATE TABLE IF NOT EXISTS user (
+        $userTable = $connection->exec(
+            "CREATE TABLE IF NOT EXISTS user (
             id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
             fname varchar(200) NOT NULL,
             lname varchar(200),
@@ -1231,12 +1189,51 @@ class Core extends CLI
             salt varchar(65),
             register_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             modified_date TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP
-        ) CHARACTER SET utf8 COLLATE utf8_general_ci;");
+        ) CHARACTER SET utf8 COLLATE utf8_general_ci;"
+        );
 
         if ($userTable === false) {
             $this->io->showErr('Unable to create table');
         } else {
             $this->io->writeln("Tables created successfully!", "green");
+        }
+
+    }
+
+    /**
+     * Creates the .htaccess file for the app
+     *
+     * @param $appName
+     * @return bool
+     */
+    private function createHtaccess($appName)
+    {
+        if (empty($appName)) {
+            $this->getAppNameFromUser();
+        }
+
+        $htaccess = __DIR__ . DS . "pak" . DS . ".htaccess.pak";
+        $appDir = _ROOT . DS . $appName . DS;
+        $newHtaccess = $appDir . ".htaccess";
+        $htaccessContents = file_get_contents($htaccess);
+
+        if (is_readable($newHtaccess)) {
+            if ($this::$verbose === true) {
+                $this->io->writeln("Merging current htaccess file with original htaccess file");
+            }
+            $this->merge2Files($htaccess, $newHtaccess);
+        }
+
+        if (touch($newHtaccess) === false) {
+            $this->io->showErr("Unable to create .htaccess file for {$this->appName}");
+        }
+
+        if (file_put_contents($newHtaccess, $htaccessContents) === false) {
+            $this->io->showErr("Failed to create .htaccess file!!");
+            return false;
+        } elseif ($this::$verbose === true) {
+            $this->io->writeln(".htaccess file created successfully!", 'green');
+            return true;
         }
 
     }
