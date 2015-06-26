@@ -152,7 +152,7 @@ class BaseController
             $metaPath = $conf['$global']['appPath'] . DS . ltrim($metaFilePath, "/");
             if (is_readable($metaPath)) {
                 $metaContent = include($metaPath);
-                $metas = $metaContent["/" . $this->router->path];
+                $metas = isset($metaContent[$this->router->path]) ? $metaContent[$this->router->path] : '';
             } else {
                 trigger_error(
                     htmlentities("{$conf['$global']['mataFile']} file not found or is not readable"),
