@@ -166,11 +166,14 @@ class Router extends Request implements Cacheable
     private function pathBurst()
     {
         $path = $this->path;
-        if (empty($path)) {
-            $this->urlPathArr = ['/'];
-        } else {
+
+        // If not empty, path is broken into segments array
+        if (!empty($path))
+        {
             $this->urlPathArr = explode('/', $path);
             $last_string = end($this->urlPathArr);
+
+            // If requested URI is a file, fileName and extension are stored
             if (strpos($last_string, ".") > -1) {
                 $pi = pathinfo($last_string);
                 $this->fileName = $pi['filename'];
@@ -186,12 +189,14 @@ class Router extends Request implements Cacheable
      */
     private function loadRoutesConf(&$config = [])
     {
-        if (empty($config['$routes']) ||
-            (isset($config['$global']['useAestheticRouting']) &&
-                $config['$global']['useAestheticRouting'] === true)
-        ) {
+        // If Config is empty use Aesthetic Routing
+        if (empty($config['$routes']) || (isset($config['$global']['useAestheticRouting']) && $config['$global']['useAestheticRouting'] === true))
+        {
             $this->useAestheticRouting = true;
-        } else {
+        }
+        // Else store config components in variables
+        else
+        {
             $this->collection = $config['$routes'];
             $this->global = $config['$global'];
         }
@@ -205,18 +210,22 @@ class Router extends Request implements Cacheable
      */
     public function resolve($useAestheticRouting = false)
     {
+        // If was previously resolved then return that computed Array
         if (!empty($this->resolvedArr)) {
             return $this->resolvedArr;
         }
 
+        // Path is empty ? We're done resolve as root path (homepage)
         if (empty($this->path)) {
 
+            $this->urlPathArr = ['/'];
             $this->pathVarsAssign($this->collection['/']);
 
-        } elseif ($useAestheticRouting === true) {
+        }
+        // Use Aesthetic Routing ? if so we're done
+        elseif ($useAestheticRouting === true) {
 
             $pathArr = explode("/", $this->path);
-
             $this->namespace = $namespace = '\\web\\Controllers';
             $this->routeVars = isset($this->config[$namespace . '\\' . $pathArr[1]]) ? $this->config[$namespace . '\\' . $pathArr[1]] : [];
             $this->controller = $pathArr[0] . 'Controller';
@@ -225,10 +234,17 @@ class Router extends Request implements Cacheable
             $pathArr = array_shift($pathArr);
             $this->args = $pathArr;
 
-        } else {
-
+        }
+        // Is there a literal match ? if so we're done
+        elseif (isset($this->collection[$this->path])) {
+            $this->pathVarsAssign($this->collection[$this->path]);
+        }
+        // If all else failed
+        else {
+            // Check If match can be found using RegEx
             $this->checkIfPatternMatch();
 
+            // If no match was found then show page not found
             if ($this->foundMatch === false) {
                 $this->namespace = '\\Core\\Controllers';
                 $this->controller = 'errorController';
@@ -257,13 +273,11 @@ class Router extends Request implements Cacheable
      */
     private function pathVarsAssign($val)
     {
-        //$this->setDefaultController();
         $urlPathArr = $this->urlPathArr;
         $this->routeVars = $val;
+
+        // If http method was defined ? if not default assumes GET
         $this->definedMethod = !empty($val['httpMethod']) ? strtolower($val['httpMethod']) : 'get';
-        if (!empty($this->routeVars['model'])) {
-            $this->model = $this->routeVars['model'];
-        }
 
         if (isset($val['useAestheticRouting']) && $val['useAestheticRouting'] === true) {
             $this->namespace = '@appBase\\Controllers';
@@ -316,112 +330,33 @@ class Router extends Request implements Cacheable
      */
     public function checkIfPatternMatch()
     {
+        $path = $this->path;
         $collection = $this->collection;
         $foundMatch = &$this->foundMatch;
+
+        // loop through route definitions in Route.conf.php file
         foreach ($collection as $key => $val) {
-            $path = $this->path;
-            $key = ltrim($key, '/');
-            $path = rtrim($path, '/');
 
-            if (!empty($key) && ($foundMatch != true)) {
-                $keyArr = explode('/', $key);
-                $newkey = implode('\/', $keyArr);
-                $argReq = !empty($val['argReq']) ? $val['argReq'] : '[\w]';
-                $argDflt = empty($val['argDefault']) ? null : $val['argDefault'];
+            // If key's value has parameter argReq
+            if (isset($val['argReq']) && $foundMatch === false) {
 
-                if ($path === $key) {
-                    $foundMatch = true;
+                // Replace string conditions with RegEx
+                $paramType = str_replace(array(':any', ':num', ':alpha'), array('[^/]+', '[0-9]+', '[\w]+'), $val['argReq']);
+                // Get Parameter name
+                $paramName = key($paramType);
+                // Build RegEx
+                $newKey = preg_replace('/\{(\w+)\}/', '(?P<'.$paramName.'>'.$paramType[$paramName].')', $key);
+
+                // RegEx matches with path ? then we are done
+                if (preg_match('#^'. $newKey . '$#', $path, $matches)) {
+                    $this->foundMatch = true;
+                    foreach($matches as $k => $v) {
+                        if (is_numeric($k) === true) {
+                            unset($matches[$k]);
+                        }
+                    }
+                    $this->args = $matches;
                     $this->pathVarsAssign($val);
-
-                } elseif (preg_match_all('/\{(\w+)\}/', $newkey, $matches)) {
-                    $regExKey = "";
-                    $regExKey2 = "";
-                    $argKey = "";
-                    if (sizeof($matches[1]) > 1) {
-                        $tempKey1 = $newkey;
-                        foreach ($matches[1] as $i => $v) {
-                            $argKey[$i] = $matches[1][$i];
-                            if ($i === (sizeof($matches[1]) - 1)) {
-                                $regExKey = preg_replace(
-                                    '/\{' . $v . '\}/',
-                                    '((' . $argReq[$v] . '+)(.html)?)',
-                                    $tempKey1
-                                );
-                            } else {
-                                $regExKey = preg_replace('/\{' . $v . '\}/', '(' . $argReq[$v] . '+)', $tempKey1);
-                            }
-                            $tempKey1 = $regExKey;
-                        }
-                        $regExKey2 = substr($regExKey, 0, strrpos($regExKey, "\\/"));
-                    } else {
-                        $argKey = $matches[1][0];
-                        $regExKey = preg_replace('/\{(\w+)\}/', '((' . $argReq[$argKey] . '+)(.html)?)', $newkey);
-                        $regExKey2 = rtrim(preg_replace('/\{(\w+)\}/', '', $newkey), "\\/");
-                    }
-
-                    $arrKey = "/^" . $regExKey . "$/";
-                    $arrKey2 = "/^" . $regExKey2 . "$/";
-
-                    //if has slug match pattern with current path
-                    if (!empty($regExKey) && preg_match($arrKey, $path, $matches)) {
-                        if (is_array($argKey)) {
-
-                            foreach ($argKey as $i => $j) {
-
-                                if ($argReq[$argKey[$i]] === '[\d]') {
-                                    $this->args[$argKey[$i]] = (int)$matches[$i + 1];
-                                } else {
-                                    $this->args[$argKey[$i]] = $matches[$i + 1];
-                                }
-
-                            }
-
-                        } else {
-                            if ($argReq === '[\d]') {
-                                $this->args[$argKey] = (int)$matches[1];
-                            } else {
-                                $this->args[$argKey] = $matches[1];
-                            }
-
-                        }
-                        $foundMatch = true;
-                        $this->pathVarsAssign($val);
-                    }
-                    //if doesnt have slug check if matches pattern(without slug) to current path
-                    //and assign default value if match
-                    elseif (!empty($regExKey2) && preg_match($arrKey2, $path, $matches)) {
-
-                        if (is_array($argKey)) {
-
-                            foreach ($matches as $i => $j) {
-
-                                if ($argReq[$argKey[$i]] === '[\d]') {
-                                    $this->args[$argKey[$i]] = (int)$matches[$i + 1];
-                                } else {
-                                    $this->args[$argKey[$i]] = $j;
-                                }
-
-                            }
-
-                            end($argKey);
-                            $k = key($argKey);
-                            if ($argReq[$argKey[$k]] === '[\d]') {
-                                $this->args[$argKey[$k]] = (int)$val['argDefault'][$argKey[$k]];
-                            } else {
-                                $this->args[$argKey[$k]] = $val['argDefault'][$argKey[$k]];
-                            }
-
-
-                        } else {
-                            if ($argReq === '[\d]') {
-                                $this->args[$argKey] = (int)$val['argDefault'];
-                            } else {
-                                $this->args[$argKey] = $val['argDefault'];
-                            }
-                        }
-                        $foundMatch = true;
-                        $this->pathVarsAssign($val);
-                    }
                 }
             }
 

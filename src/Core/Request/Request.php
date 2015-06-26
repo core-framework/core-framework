@@ -152,7 +152,7 @@ class Request implements Cacheable
         //path
         $rawPath = isset($this->GET['page']) ? $this->GET['page'] : '';
         str_replace($this->illegal, '', $rawPath);
-        $this->path = isset($rawPath) && $rawPath != 'index.php' ? $rawPath : '';
+        $this->path = isset($rawPath) && $rawPath != 'index.php' ? '/' . $rawPath : '';
 
     }
 
