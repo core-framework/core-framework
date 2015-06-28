@@ -13,13 +13,16 @@
 	<loc>http://coreframework.in/documentation/api/namespace-Core.CacheSystem.html</loc>
 </url>
 <url>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Collections.html</loc>
+</url>
+<url>
 	<loc>http://coreframework.in/documentation/api/namespace-Core.Config.html</loc>
 </url>
 <url>
 	<loc>http://coreframework.in/documentation/api/namespace-Core.Controllers.html</loc>
 </url>
 <url>
-	<loc>http://coreframework.in/documentation/api/namespace-Core.Database.html</loc>
+	<loc>http://coreframework.in/documentation/api/namespace-Core.Databases.html</loc>
 </url>
 <url>
 	<loc>http://coreframework.in/documentation/api/namespace-Core.DI.html</loc>
@@ -78,6 +81,9 @@
 	<loc>http://coreframework.in/documentation/api/class-Core.CacheSystem.OPCache.html</loc>
 </url>
 <url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Collections.Collection.html</loc>
+</url>
+<url>
 	<loc>http://coreframework.in/documentation/api/class-Core.Config.Config.html</loc>
 </url>
 <url>
@@ -96,7 +102,7 @@
 	<loc>http://coreframework.in/documentation/api/class-Core.core.html</loc>
 </url>
 <url>
-	<loc>http://coreframework.in/documentation/api/class-Core.Database.Database.html</loc>
+	<loc>http://coreframework.in/documentation/api/class-Core.Databases.Database.html</loc>
 </url>
 <url>
 	<loc>http://coreframework.in/documentation/api/class-Core.DI.DI.html</loc>
@@ -109,6 +115,9 @@
 </url>
 <url>
 	<loc>http://coreframework.in/documentation/api/class-Core.Helper.Helper.html</loc>
+</url>
+<url>
+	<loc>http://coreframework.in/documentation/api/class-Core.Models.BaseModel.html</loc>
 </url>
 <url>
 	<loc>http://coreframework.in/documentation/api/class-Core.Models.Model.html</loc>

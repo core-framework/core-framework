@@ -76,6 +76,10 @@
 							CacheSystem						</a>
 							</li>
 					<li class="main">
+						<a href="namespace-Core.Collections.html">
+							Collections						</a>
+							</li>
+					<li class="main">
 						<a href="namespace-Core.Config.html">
 							Config						</a>
 							</li>
@@ -84,8 +88,8 @@
 							Controllers						</a>
 							</li>
 					<li class="main">
-						<a href="namespace-Core.Database.html">
-							Database						</a>
+						<a href="namespace-Core.Databases.html">
+							Databases						</a>
 							</li>
 					<li class="main">
 						<a href="namespace-Core.DI.html">
@@ -135,6 +139,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Core.Models.BaseModel.html">BaseModel</a></li>
 				<li class="active"><a href="class-Core.Models.Model.html">Model</a></li>
 			</ul>
 
@@ -158,6 +163,20 @@
 	<p>This is the base model class for Core Framework</p>
 	</div>
 
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+			<a href="class-Core.Models.BaseModel.html"><span>Core\Models\BaseModel</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>Core\Models\Model</span></b>			
+			
+			
+		</dd>
+	</dl>
 
 
 
@@ -180,7 +199,7 @@
 				$Revision$<br>
 				<b>Link:</b>
 				<a href="http://coreframework.in">http://coreframework.in</a><br>
-			<b>Located at</b> <a href="source-class-Core.Models.Model.html#27-304" title="Go to source code">Models/Model.php</a>
+			<b>Located at</b> <a href="source-class-Core.Models.Model.html#27-329" title="Go to source code">Models/Model.php</a>
 		<br>
 	</div>
 
@@ -200,7 +219,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Core.Models.Model.html#55-63" title="Go to source code">__construct</a>( <span><code><a href="class-Core.Database.Database.html">Core\Database\Database</a></code> <var>$db</var></span> )</code>
+			<code><a href="source-class-Core.Models.Model.html#55-71" title="Go to source code">__construct</a>( <span><code><a href="class-Core.Databases.Database.html">Core\Databases\Database</a></code> <var>$db</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Model Constructor</p>
@@ -234,7 +253,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getAllRows">#</a>
-			<code><a href="source-class-Core.Models.Model.html#65-106" title="Go to source code">getAllRows</a>( <span>array <var>$conditions</var></span>, <span>null <var>$orderBy</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$order</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$startIndex</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$count</var> = <span class="php-keyword1">null</span></span>, <span> <var>$asArray</var> = <span class="php-keyword1">false</span></span> )</code>
+			<code><a href="source-class-Core.Models.Model.html#73-120" title="Go to source code">getAllRows</a>( <span>array <var>$conditions</var> = []</span>, <span>null <var>$orderBy</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$order</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$startIndex</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$count</var> = <span class="php-keyword1">null</span></span>, <span> <var>$asArray</var> = <span class="php-keyword1">false</span> </span> )</code>
 
 			<div class="description short">
 				<p>Executes a simple 'SELECT * (all columns)' statement with parameters provided</p>
@@ -282,7 +301,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_get">#</a>
-			<code><a href="source-class-Core.Models.Model.html#108-129" title="Go to source code">get</a>( <span> <var>$query</var></span>, <span>array <var>$params</var> = []</span> )</code>
+			<code><a href="source-class-Core.Models.Model.html#122-143" title="Go to source code">get</a>( <span> <var>$query</var></span>, <span>array <var>$params</var> = []</span> )</code>
 
 			<div class="description short">
 				<p>Returns a collection of rows for the given query</p>
@@ -322,7 +341,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getAsArray">#</a>
-			<code><a href="source-class-Core.Models.Model.html#131-141" title="Go to source code">getAsArray</a>( <span> <var>$query</var></span>, <span> <var>$params</var> = []</span> )</code>
+			<code><a href="source-class-Core.Models.Model.html#145-155" title="Go to source code">getAsArray</a>( <span> <var>$query</var></span>, <span> <var>$params</var> = []</span> )</code>
 
 			<div class="description short">
 				
@@ -351,7 +370,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getByPrimaryKey">#</a>
-			<code><a href="source-class-Core.Models.Model.html#143-154" title="Go to source code">getByPrimaryKey</a>( <span> <var>$value</var></span> )</code>
+			<code><a href="source-class-Core.Models.Model.html#157-168" title="Go to source code">getByPrimaryKey</a>( <span> <var>$value</var></span> )</code>
 
 			<div class="description short">
 				<p>Outputs one row based on the primary key provided</p>
@@ -389,7 +408,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getOneRow">#</a>
-			<code><a href="source-class-Core.Models.Model.html#156-175" title="Go to source code">getOneRow</a>( <span>array <var>$conditions</var></span> )</code>
+			<code><a href="source-class-Core.Models.Model.html#170-189" title="Go to source code">getOneRow</a>( <span>array <var>$conditions</var></span> )</code>
 
 			<div class="description short">
 				<p>Returns one row based on the provided condition</p>
@@ -427,7 +446,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getFromDbandBuildObj">#</a>
-			<code><a href="source-class-Core.Models.Model.html#177-199" title="Go to source code">getFromDbandBuildObj</a>( <span> <var>$query</var></span>, <span>array <var>$params</var> = []</span> )</code>
+			<code><a href="source-class-Core.Models.Model.html#191-213" title="Go to source code">getFromDbandBuildObj</a>( <span> <var>$query</var></span>, <span>array <var>$params</var> = []</span> )</code>
 
 			<div class="description short">
 				<p>Returns an object of the class that calls this function, filled with values from the database, based on the query provided</p>
@@ -467,7 +486,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getCount">#</a>
-			<code><a href="source-class-Core.Models.Model.html#201-220" title="Go to source code">getCount</a>( <span>array <var>$conditions</var></span> )</code>
+			<code><a href="source-class-Core.Models.Model.html#215-234" title="Go to source code">getCount</a>( <span>array <var>$conditions</var></span> )</code>
 
 			<div class="description short">
 				<p>Returns count of rows according to the parameters provided</p>
@@ -505,7 +524,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getFromDb">#</a>
-			<code><a href="source-class-Core.Models.Model.html#222-236" title="Go to source code">getFromDb</a>( <span> <var>$query</var></span>, <span>array <var>$params</var></span> )</code>
+			<code><a href="source-class-Core.Models.Model.html#236-250" title="Go to source code">getFromDb</a>( <span> <var>$query</var></span>, <span>array <var>$params</var></span> )</code>
 
 			<div class="description short">
 				<p>Gets the query result from Database</p>
@@ -534,6 +553,35 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="unsetBeforeSave" id="_unsetBeforeSave">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_unsetBeforeSave">#</a>
+			<code><a href="source-class-Core.Models.Model.html#252-258" title="Go to source code">unsetBeforeSave</a>( )</code>
+
+			<div class="description short">
+				<p>Unset un-used parameters before storing in Database</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Unset un-used parameters before storing in Database</p>
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="save" id="_save">
 
 			<td class="attributes"><code>
@@ -545,7 +593,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_save">#</a>
-			<code><a href="source-class-Core.Models.Model.html#238-255" title="Go to source code">save</a>( )</code>
+			<code><a href="source-class-Core.Models.Model.html#260-280" title="Go to source code">save</a>( )</code>
 
 			<div class="description short">
 				<p>Updates the database with the properties set</p>
@@ -574,7 +622,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_update">#</a>
-			<code><a href="source-class-Core.Models.Model.html#257-277" title="Go to source code">update</a>( )</code>
+			<code><a href="source-class-Core.Models.Model.html#282-302" title="Go to source code">update</a>( )</code>
 
 			<div class="description short">
 				
@@ -603,7 +651,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_delete">#</a>
-			<code><a href="source-class-Core.Models.Model.html#279-291" title="Go to source code">delete</a>( )</code>
+			<code><a href="source-class-Core.Models.Model.html#304-316" title="Go to source code">delete</a>( )</code>
 
 			<div class="description short">
 				<p>Deletes row from the database table</p>
@@ -632,7 +680,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getPropFromDb">#</a>
-			<code><a href="source-class-Core.Models.Model.html#293-303" title="Go to source code">getPropFromDb</a>( <span>array <var>$prop</var></span> )</code>
+			<code><a href="source-class-Core.Models.Model.html#318-328" title="Go to source code">getPropFromDb</a>( <span>array <var>$prop</var></span> )</code>
 
 			<div class="description short">
 				<p>Simply fills the $prop array with properties from a given array</p>
@@ -658,6 +706,13 @@
 			</table>
 		</div>
 
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Core.Models.BaseModel.html#methods">Core\Models\BaseModel</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Core.Models.BaseModel.html#_configure">configure()</a></code>, 
+				<code><a href="class-Core.Models.BaseModel.html#_getConnection">getConnection()</a></code>
+			</p>
+		</div>
 
 
 
@@ -721,6 +776,31 @@
 				</div>
 			</td>
 		</tr>
+		<tr data-order="dbName" id="$dbName">
+			<td class="attributes"><code>
+				protected static 
+				string
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Core.Models.Model.html#46-49" title="Go to source code"><var>$dbName</var></a>
+
+				<div class="description short">
+					<p>Database name</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>Database name</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$dbName" class="anchor">#</a>
+					<code><span class="php-quote">''</span></code>
+				</div>
+			</td>
+		</tr>
 		<tr data-order="db" id="$db">
 			<td class="attributes"><code>
 				protected static 
@@ -728,7 +808,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Core.Models.Model.html#46-49" title="Go to source code"><var>$db</var></a>
+					<a href="source-class-Core.Models.Model.html#50-53" title="Go to source code"><var>$db</var></a>
 
 				<div class="description short">
 					<p>database object instance</p>

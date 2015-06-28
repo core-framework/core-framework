@@ -76,6 +76,10 @@
 							CacheSystem						</a>
 							</li>
 					<li class="main">
+						<a href="namespace-Core.Collections.html">
+							Collections						</a>
+							</li>
+					<li class="main">
 						<a href="namespace-Core.Config.html">
 							Config						</a>
 							</li>
@@ -84,8 +88,8 @@
 							Controllers						</a>
 							</li>
 					<li class="main">
-						<a href="namespace-Core.Database.html">
-							Database						</a>
+						<a href="namespace-Core.Databases.html">
+							Databases						</a>
 							</li>
 					<li class="main">
 						<a href="namespace-Core.DI.html">
@@ -143,17 +147,19 @@
 				<li><a href="class-Core.CacheSystem.BaseCache.html">Core\CacheSystem\BaseCache</a></li>
 				<li><a href="class-Core.CacheSystem.Cache.html">Core\CacheSystem\Cache</a></li>
 				<li><a href="class-Core.CacheSystem.OPCache.html">Core\CacheSystem\OPCache</a></li>
+				<li><a href="class-Core.Collections.Collection.html">Core\Collections\Collection</a></li>
 				<li><a href="class-Core.Config.Config.html">Core\Config\Config</a></li>
 				<li><a href="class-Core.Controllers.BaseController.html">Core\Controllers\BaseController</a></li>
-				<li><a href="class-Core.Controllers.Controller.html">Core\Controllers\Controller</a></li>
+				<li><a href="class-Core.Controllers.Controller.html" class="deprecated">Core\Controllers\Controller</a></li>
 				<li><a href="class-Core.Controllers.errorController.html">Core\Controllers\errorController</a></li>
 				<li><a href="class-Core.Controllers.testController.html">Core\Controllers\testController</a></li>
 				<li><a href="class-Core.core.html" class="deprecated">Core\core</a></li>
-				<li><a href="class-Core.Database.Database.html">Core\Database\Database</a></li>
+				<li><a href="class-Core.Databases.Database.html">Core\Databases\Database</a></li>
 				<li><a href="class-Core.DI.DI.html">Core\DI\DI</a></li>
 				<li><a href="class-Core.DI.Service.html">Core\DI\Service</a></li>
 				<li><a href="class-Core.ErrorHandler.ErrorHandler.html">Core\ErrorHandler\ErrorHandler</a></li>
 				<li><a href="class-Core.Helper.Helper.html">Core\Helper\Helper</a></li>
+				<li><a href="class-Core.Models.BaseModel.html">Core\Models\BaseModel</a></li>
 				<li><a href="class-Core.Models.Model.html">Core\Models\Model</a></li>
 				<li><a href="class-Core.Request.Request.html">Core\Request\Request</a></li>
 				<li><a href="class-Core.Response.BasesResponse.html" class="deprecated">Core\Response\BasesResponse</a></li>
@@ -168,7 +174,7 @@
 				<li><a href="class-Core.Scripts.IOStream.html">Core\Scripts\IOStream</a></li>
 				<li><a href="class-Core.Scripts.Options.html">Core\Scripts\Options</a></li>
 				<li><a href="class-Core.Views.AppView.html">Core\Views\AppView</a></li>
-				<li><a href="class-Core.Views.View.html">Core\Views\View</a></li>
+				<li><a href="class-Core.Views.View.html" class="deprecated">Core\Views\View</a></li>
 			</ul>
 
 			<h3>Interfaces</h3>
@@ -211,7 +217,7 @@
 </span></span><span id="20" class="l"><a href="#20"> 20 </a><span class="php-comment"> * file that was distributed with this source code.
 </span></span><span id="21" class="l"><a href="#21"> 21 </a><span class="php-comment"> */</span>
 </span><span id="22" class="l"><a href="#22"> 22 </a>
-</span><span id="23" class="l"><a href="#23"> 23 </a><span class="php-keyword1">namespace</span> Core\Database;
+</span><span id="23" class="l"><a href="#23"> 23 </a><span class="php-keyword1">namespace</span> Core\Databases;
 </span><span id="24" class="l"><a href="#24"> 24 </a>
 </span><span id="25" class="l"><a href="#25"> 25 </a><span class="php-keyword1">use</span> PDO;
 </span><span id="26" class="l"><a href="#26"> 26 </a>
@@ -241,7 +247,7 @@
 </span><span id="50" class="l"><a href="#50"> 50 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __construct(<span class="php-keyword1">array</span> <span class="php-var">$array</span> = [])
 </span><span id="51" class="l"><a href="#51"> 51 </a>    {
 </span><span id="52" class="l"><a href="#52"> 52 </a>
-</span><span id="53" class="l"><a href="#53"> 53 </a>        <span class="php-keyword1">if</span>(<span class="php-keyword1">empty</span>(<span class="php-var">$array</span>)) {
+</span><span id="53" class="l"><a href="#53"> 53 </a>        <span class="php-keyword1">if</span> (<span class="php-keyword1">empty</span>(<span class="php-var">$array</span>)) {
 </span><span id="54" class="l"><a href="#54"> 54 </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \ErrorException(<span class="php-quote">&quot;Connection parameters cannot be empty.&quot;</span>);
 </span><span id="55" class="l"><a href="#55"> 55 </a>        }
 </span><span id="56" class="l"><a href="#56"> 56 </a>
@@ -288,7 +294,7 @@
 </span><span id="97" class="l"><a href="#97"> 97 </a>        <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$array</span>[<span class="php-quote">'dsn'</span>])) {
 </span><span id="98" class="l"><a href="#98"> 98 </a>            <span class="php-var">$dsn</span> = <span class="php-var">$array</span>[<span class="php-quote">'type'</span>] . <span class="php-quote">&quot;:&quot;</span>;
 </span><span id="99" class="l"><a href="#99"> 99 </a>            <span class="php-var">$dsnAttrArr</span> = [];
-</span><span id="100" class="l"><a href="#100">100 </a>            <span class="php-keyword1">foreach</span>(<span class="php-var">$array</span>[<span class="php-quote">'dsn'</span>] <span class="php-keyword1">as</span> <span class="php-var">$key</span> =&gt; <span class="php-var">$val</span>) {
+</span><span id="100" class="l"><a href="#100">100 </a>            <span class="php-keyword1">foreach</span> (<span class="php-var">$array</span>[<span class="php-quote">'dsn'</span>] <span class="php-keyword1">as</span> <span class="php-var">$key</span> =&gt; <span class="php-var">$val</span>) {
 </span><span id="101" class="l"><a href="#101">101 </a>                <span class="php-var">$dsnAttrArr</span>[] = <span class="php-var">$key</span> . <span class="php-quote">&quot;=&quot;</span> . <span class="php-var">$val</span>;
 </span><span id="102" class="l"><a href="#102">102 </a>            }
 </span><span id="103" class="l"><a href="#103">103 </a>
@@ -331,6 +337,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?a7806d685346a01ab87f660c83f3dd35f9c89cd5"></script>
-<script src="elementlist.js?5c734cd0c44c4a44bdf17eacfe27484176e20786"></script>
+<script src="elementlist.js?5c996a1c01e969ef70b019d63f1ff42b157abe58"></script>
 </body>
 </html>

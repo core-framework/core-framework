@@ -76,6 +76,10 @@
 							CacheSystem						</a>
 							</li>
 					<li class="main">
+						<a href="namespace-Core.Collections.html">
+							Collections						</a>
+							</li>
+					<li class="main">
 						<a href="namespace-Core.Config.html">
 							Config						</a>
 							</li>
@@ -84,8 +88,8 @@
 							Controllers						</a>
 							</li>
 					<li class="main">
-						<a href="namespace-Core.Database.html">
-							Database						</a>
+						<a href="namespace-Core.Databases.html">
+							Databases						</a>
 							</li>
 					<li class="main">
 						<a href="namespace-Core.DI.html">
@@ -143,17 +147,19 @@
 				<li><a href="class-Core.CacheSystem.BaseCache.html">Core\CacheSystem\BaseCache</a></li>
 				<li><a href="class-Core.CacheSystem.Cache.html">Core\CacheSystem\Cache</a></li>
 				<li><a href="class-Core.CacheSystem.OPCache.html">Core\CacheSystem\OPCache</a></li>
+				<li><a href="class-Core.Collections.Collection.html">Core\Collections\Collection</a></li>
 				<li><a href="class-Core.Config.Config.html">Core\Config\Config</a></li>
 				<li><a href="class-Core.Controllers.BaseController.html">Core\Controllers\BaseController</a></li>
-				<li><a href="class-Core.Controllers.Controller.html">Core\Controllers\Controller</a></li>
+				<li><a href="class-Core.Controllers.Controller.html" class="deprecated">Core\Controllers\Controller</a></li>
 				<li><a href="class-Core.Controllers.errorController.html">Core\Controllers\errorController</a></li>
 				<li><a href="class-Core.Controllers.testController.html">Core\Controllers\testController</a></li>
 				<li><a href="class-Core.core.html" class="deprecated">Core\core</a></li>
-				<li><a href="class-Core.Database.Database.html">Core\Database\Database</a></li>
+				<li><a href="class-Core.Databases.Database.html">Core\Databases\Database</a></li>
 				<li><a href="class-Core.DI.DI.html">Core\DI\DI</a></li>
 				<li><a href="class-Core.DI.Service.html">Core\DI\Service</a></li>
 				<li><a href="class-Core.ErrorHandler.ErrorHandler.html">Core\ErrorHandler\ErrorHandler</a></li>
 				<li><a href="class-Core.Helper.Helper.html">Core\Helper\Helper</a></li>
+				<li><a href="class-Core.Models.BaseModel.html">Core\Models\BaseModel</a></li>
 				<li><a href="class-Core.Models.Model.html">Core\Models\Model</a></li>
 				<li><a href="class-Core.Request.Request.html">Core\Request\Request</a></li>
 				<li><a href="class-Core.Response.BasesResponse.html" class="deprecated">Core\Response\BasesResponse</a></li>
@@ -168,7 +174,7 @@
 				<li><a href="class-Core.Scripts.IOStream.html">Core\Scripts\IOStream</a></li>
 				<li><a href="class-Core.Scripts.Options.html">Core\Scripts\Options</a></li>
 				<li><a href="class-Core.Views.AppView.html">Core\Views\AppView</a></li>
-				<li><a href="class-Core.Views.View.html">Core\Views\View</a></li>
+				<li><a href="class-Core.Views.View.html" class="deprecated">Core\Views\View</a></li>
 			</ul>
 
 			<h3>Interfaces</h3>
@@ -299,12 +305,12 @@
 </span><span id="108" class="l"><a href="#108">108 </a>        <span class="php-var">$this</span>-&gt;router = <span class="php-var">$router</span>;
 </span><span id="109" class="l"><a href="#109">109 </a>        <span class="php-var">$this</span>-&gt;view = <span class="php-var">$view</span>;
 </span><span id="110" class="l"><a href="#110">110 </a>        <span class="php-var">$this</span>-&gt;conf = <span class="php-var">$conf</span>;
-</span><span id="111" class="l"><a href="#111">111 </a>        <span class="php-var">$this</span>-&gt;basePath = <span class="php-keyword1">isset</span>(<span class="php-var">$this</span>-&gt;conf[<span class="php-quote">'$global'</span>][<span class="php-quote">'basePath'</span>]) ? <span class="php-var">$this</span>-&gt;conf[<span class="php-quote">'$global'</span>][<span class="php-quote">'basePath'</span>] : <span class="php-keyword1">null</span> ;
-</span><span id="112" class="l"><a href="#112">112 </a>        <span class="php-var">$this</span>-&gt;appPath = <span class="php-keyword1">isset</span>(<span class="php-var">$this</span>-&gt;conf[<span class="php-quote">'$global'</span>][<span class="php-quote">'appPath'</span>]) ? <span class="php-var">$this</span>-&gt;conf[<span class="php-quote">'$global'</span>][<span class="php-quote">'appPath'</span>] : <span class="php-keyword1">null</span> ;
+</span><span id="111" class="l"><a href="#111">111 </a>        <span class="php-var">$this</span>-&gt;basePath = <span class="php-keyword1">isset</span>(<span class="php-var">$this</span>-&gt;conf[<span class="php-quote">'$global'</span>][<span class="php-quote">'basePath'</span>]) ? <span class="php-var">$this</span>-&gt;conf[<span class="php-quote">'$global'</span>][<span class="php-quote">'basePath'</span>] : <span class="php-keyword1">null</span>;
+</span><span id="112" class="l"><a href="#112">112 </a>        <span class="php-var">$this</span>-&gt;appPath = <span class="php-keyword1">isset</span>(<span class="php-var">$this</span>-&gt;conf[<span class="php-quote">'$global'</span>][<span class="php-quote">'appPath'</span>]) ? <span class="php-var">$this</span>-&gt;conf[<span class="php-quote">'$global'</span>][<span class="php-quote">'appPath'</span>] : <span class="php-keyword1">null</span>;
 </span><span id="113" class="l"><a href="#113">113 </a>
 </span><span id="114" class="l"><a href="#114">114 </a>        <span class="php-var">$this</span>-&gt;POST = &amp;<span class="php-var">$router</span>-&gt;POST;
 </span><span id="115" class="l"><a href="#115">115 </a>        <span class="php-var">$this</span>-&gt;GET = &amp;<span class="php-var">$router</span>-&gt;GET;
-</span><span id="116" class="l"><a href="#116">116 </a>        <span class="php-var">$this</span>-&gt;method = &amp;<span class="php-var">$router</span>-&gt;httpMethod;
+</span><span id="116" class="l"><a href="#116">116 </a>        <span class="php-var">$this</span>-&gt;method = &amp;<span class="php-var">$router</span>-&gt;method;
 </span><span id="117" class="l"><a href="#117">117 </a>
 </span><span id="118" class="l"><a href="#118">118 </a>        <span class="php-var">$this</span>-&gt;baseInit();
 </span><span id="119" class="l"><a href="#119">119 </a>    }
@@ -343,7 +349,7 @@
 </span><span id="152" class="l"><a href="#152">152 </a>            <span class="php-var">$metaPath</span> = <span class="php-var">$conf</span>[<span class="php-quote">'$global'</span>][<span class="php-quote">'appPath'</span>] . DS . <span class="php-keyword2">ltrim</span>(<span class="php-var">$metaFilePath</span>, <span class="php-quote">&quot;/&quot;</span>);
 </span><span id="153" class="l"><a href="#153">153 </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">is_readable</span>(<span class="php-var">$metaPath</span>)) {
 </span><span id="154" class="l"><a href="#154">154 </a>                <span class="php-var">$metaContent</span> = <span class="php-keyword1">include</span>(<span class="php-var">$metaPath</span>);
-</span><span id="155" class="l"><a href="#155">155 </a>                <span class="php-var">$metas</span> = <span class="php-var">$metaContent</span>[<span class="php-quote">&quot;/&quot;</span> . <span class="php-var">$this</span>-&gt;router-&gt;path];
+</span><span id="155" class="l"><a href="#155">155 </a>                <span class="php-var">$metas</span> = <span class="php-keyword1">isset</span>(<span class="php-var">$metaContent</span>[<span class="php-var">$this</span>-&gt;router-&gt;path]) ? <span class="php-var">$metaContent</span>[<span class="php-var">$this</span>-&gt;router-&gt;path] : <span class="php-quote">''</span>;
 </span><span id="156" class="l"><a href="#156">156 </a>            } <span class="php-keyword1">else</span> {
 </span><span id="157" class="l"><a href="#157">157 </a>                <span class="php-keyword2">trigger_error</span>(
 </span><span id="158" class="l"><a href="#158">158 </a>                    <span class="php-keyword2">htmlentities</span>(<span class="php-quote">&quot;</span><span class="php-var">{$conf['$global']['mataFile']}</span><span class="php-quote"> file not found or is not readable&quot;</span>),
@@ -456,6 +462,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?a7806d685346a01ab87f660c83f3dd35f9c89cd5"></script>
-<script src="elementlist.js?5c734cd0c44c4a44bdf17eacfe27484176e20786"></script>
+<script src="elementlist.js?5c996a1c01e969ef70b019d63f1ff42b157abe58"></script>
 </body>
 </html>

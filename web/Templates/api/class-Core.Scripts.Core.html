@@ -76,6 +76,10 @@
 							CacheSystem						</a>
 							</li>
 					<li class="main">
+						<a href="namespace-Core.Collections.html">
+							Collections						</a>
+							</li>
+					<li class="main">
 						<a href="namespace-Core.Config.html">
 							Config						</a>
 							</li>
@@ -84,8 +88,8 @@
 							Controllers						</a>
 							</li>
 					<li class="main">
-						<a href="namespace-Core.Database.html">
-							Database						</a>
+						<a href="namespace-Core.Databases.html">
+							Databases						</a>
 							</li>
 					<li class="main">
 						<a href="namespace-Core.DI.html">
@@ -195,7 +199,7 @@
 		<b>Namespace:</b> <a href="namespace-Core.html">Core</a>\<a href="namespace-Core.Scripts.html">Scripts</a><br>
 		<b>Package:</b> Core\Scripts<br>
 
-			<b>Located at</b> <a href="source-class-Core.Scripts.Core.html#17-1241" title="Go to source code">Scripts/Core.php</a>
+			<b>Located at</b> <a href="source-class-Core.Scripts.Core.html#17-1240" title="Go to source code">Scripts/Core.php</a>
 		<br>
 	</div>
 
@@ -404,11 +408,11 @@
 			<code><a href="source-class-Core.Scripts.Core.html#215-242" title="Go to source code">checkBowerIsInstalled</a>( )</code>
 
 			<div class="description short">
-				<p>Returns true if bower is installed, else false</p>
+				<p>Returns true if bower is installed, else attempts to install Bower</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>Returns true if bower is installed, else false</p>
+				<p>Returns true if bower is installed, else attempts to install Bower</p>
 
 
 
@@ -664,7 +668,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setupApp">#</a>
-			<code><a href="source-class-Core.Scripts.Core.html#551-575" title="Go to source code">setupApp</a>( <span> <var>$appName</var> = <span class="php-quote">'web'</span></span> )</code>
+			<code><a href="source-class-Core.Scripts.Core.html#551-574" title="Go to source code">setupApp</a>( <span> <var>$appName</var> = <span class="php-quote">'web'</span></span> )</code>
 
 			<div class="description short">
 				<p>Creates Conf files, index file, htaccess, and sumlinks to front-end resources</p>
@@ -697,7 +701,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setupDbConf">#</a>
-			<code><a href="source-class-Core.Scripts.Core.html#577-655" title="Go to source code">setupDbConf</a>( <span> <var>$appName</var> = <span class="php-quote">'web'</span></span> )</code>
+			<code><a href="source-class-Core.Scripts.Core.html#576-654" title="Go to source code">setupDbConf</a>( <span> <var>$appName</var> = <span class="php-quote">'web'</span></span> )</code>
 
 			<div class="description short">
 				<p>Create Conf files</p>
@@ -724,6 +728,97 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="createCacheFolder" id="_createCacheFolder">
+
+			<td class="attributes"><code>
+				 private 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_createCacheFolder">#</a>
+			<code><a href="source-class-Core.Scripts.Core.html#656-727" title="Go to source code">createCacheFolder</a>( )</code>
+
+			<div class="description short">
+				<p>Create cache folder, if exist changes the owner of the folder to right apache user</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Create cache folder, if exist changes the owner of the folder to right apache user</p>
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="findHttpdConf" id="_findHttpdConf">
+
+			<td class="attributes"><code>
+				 private 
+				boolean|string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_findHttpdConf">#</a>
+			<code><a href="source-class-Core.Scripts.Core.html#729-769" title="Go to source code">findHttpdConf</a>( )</code>
+
+			<div class="description short">
+				<p>Finds apache conf file path</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Finds apache conf file path</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean|string
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="createSmartyCache" id="_createSmartyCache">
+
+			<td class="attributes"><code>
+				 private 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_createSmartyCache">#</a>
+			<code><a href="source-class-Core.Scripts.Core.html#771-812" title="Go to source code">createSmartyCache</a>( )</code>
+
+			<div class="description short">
+				<p>Creates smarty cache directories</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates smarty cache directories</p>
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="createIndex" id="_createIndex">
 
 			<td class="attributes"><code>
@@ -735,7 +830,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_createIndex">#</a>
-			<code><a href="source-class-Core.Scripts.Core.html#657-702" title="Go to source code">createIndex</a>( <span> <var>$appName</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Core.Scripts.Core.html#814-859" title="Go to source code">createIndex</a>( <span> <var>$appName</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Creates app Index file</p>
@@ -773,7 +868,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_merge2Files">#</a>
-			<code><a href="source-class-Core.Scripts.Core.html#704-735" title="Go to source code">merge2Files</a>( <span> <var>$orgFile</var></span>, <span> <var>$existingFile</var></span> )</code>
+			<code><a href="source-class-Core.Scripts.Core.html#861-892" title="Go to source code">merge2Files</a>( <span> <var>$orgFile</var></span>, <span> <var>$existingFile</var></span> )</code>
 
 			<div class="description short">
 				<p>Merges $orgFile into $existingFile, both $orgFile &amp; $existingFile must be valid readable (full)file paths</p>
@@ -798,135 +893,6 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="createHtaccess" id="_createHtaccess">
-
-			<td class="attributes"><code>
-				 private 
-				boolean
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_createHtaccess">#</a>
-			<code><a href="source-class-Core.Scripts.Core.html#737-773" title="Go to source code">createHtaccess</a>( <span> <var>$appName</var></span> )</code>
-
-			<div class="description short">
-				<p>Creates the .htaccess file for the app</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Creates the .htaccess file for the app</p>
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$appName</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						boolean
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="createCacheFolder" id="_createCacheFolder">
-
-			<td class="attributes"><code>
-				 private 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_createCacheFolder">#</a>
-			<code><a href="source-class-Core.Scripts.Core.html#776-847" title="Go to source code">createCacheFolder</a>( )</code>
-
-			<div class="description short">
-				<p>Create cache folder, if exist changes the owner of the folder to right apache user</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Create cache folder, if exist changes the owner of the folder to right apache user</p>
-
-
-
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="findHttpdConf" id="_findHttpdConf">
-
-			<td class="attributes"><code>
-				 private 
-				boolean|string
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_findHttpdConf">#</a>
-			<code><a href="source-class-Core.Scripts.Core.html#850-890" title="Go to source code">findHttpdConf</a>( )</code>
-
-			<div class="description short">
-				<p>Finds apache conf file path</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Finds apache conf file path</p>
-
-
-
-					<h4>Returns</h4>
-					<div class="list">
-						boolean|string
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="createSmartyCache" id="_createSmartyCache">
-
-			<td class="attributes"><code>
-				 private 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_createSmartyCache">#</a>
-			<code><a href="source-class-Core.Scripts.Core.html#892-933" title="Go to source code">createSmartyCache</a>( )</code>
-
-			<div class="description short">
-				<p>Creates smarty cache directories</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Creates smarty cache directories</p>
-
-
-
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
 		<tr data-order="addHosts" id="_addHosts">
 
 			<td class="attributes"><code>
@@ -938,7 +904,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_addHosts">#</a>
-			<code><a href="source-class-Core.Scripts.Core.html#936-961" title="Go to source code">addHosts</a>( <span> <var>$domain</var></span>, <span> <var>$ip</var></span> )</code>
+			<code><a href="source-class-Core.Scripts.Core.html#894-919" title="Go to source code">addHosts</a>( <span> <var>$domain</var></span>, <span> <var>$ip</var></span> )</code>
 
 			<div class="description short">
 				<p>Adds an entry to hosts files for the app</p>
@@ -974,7 +940,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getHostsFile">#</a>
-			<code><a href="source-class-Core.Scripts.Core.html#963-993" title="Go to source code">getHostsFile</a>( )</code>
+			<code><a href="source-class-Core.Scripts.Core.html#921-951" title="Go to source code">getHostsFile</a>( )</code>
 
 			<div class="description short">
 				<p>Gets the host file location.</p>
@@ -1007,7 +973,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_removeVhost">#</a>
-			<code><a href="source-class-Core.Scripts.Core.html#995-1068" title="Go to source code">removeVhost</a>( <span> <var>$appName</var></span>, <span>boolean <var>$removeVhost</var> = <span class="php-keyword1">true</span></span>, <span>boolean <var>$removeHostEntry</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-Core.Scripts.Core.html#953-1026" title="Go to source code">removeVhost</a>( <span> <var>$appName</var></span>, <span>boolean <var>$removeVhost</var> = <span class="php-keyword1">true</span></span>, <span>boolean <var>$removeHostEntry</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				<p>Removes (previously added) virtual host entry from vhost.conf/httpd.conf file</p>
@@ -1049,7 +1015,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_addVhost">#</a>
-			<code><a href="source-class-Core.Scripts.Core.html#1070-1108" title="Go to source code">addVhost</a>( <span> <var>$domain</var></span>, <span> <var>$ip</var></span> )</code>
+			<code><a href="source-class-Core.Scripts.Core.html#1028-1066" title="Go to source code">addVhost</a>( <span> <var>$domain</var></span>, <span> <var>$ip</var></span> )</code>
 
 			<div class="description short">
 				<p>Add virtual host entery to httpd-vhosts.conf if found else httpd.conf</p>
@@ -1085,7 +1051,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getVhostPath">#</a>
-			<code><a href="source-class-Core.Scripts.Core.html#1111-1155" title="Go to source code">getVhostPath</a>( <span>null <var>$httpdConf</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Core.Scripts.Core.html#1068-1112" title="Go to source code">getVhostPath</a>( <span>null <var>$httpdConf</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Gets the httpd-vhosts.conf file path</p>
@@ -1127,7 +1093,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_addConfigVars">#</a>
-			<code><a href="source-class-Core.Scripts.Core.html#1158-1177" title="Go to source code">addConfigVars</a>( <span> <var>$key</var></span>, <span> <var>$val</var></span> )</code>
+			<code><a href="source-class-Core.Scripts.Core.html#1114-1133" title="Go to source code">addConfigVars</a>( <span> <var>$key</var></span>, <span> <var>$val</var></span> )</code>
 
 			<div class="description short">
 				<p>Add Config params to file</p>
@@ -1163,7 +1129,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_clearCache">#</a>
-			<code><a href="source-class-Core.Scripts.Core.html#1179-1188" title="Go to source code">clearCache</a>( )</code>
+			<code><a href="source-class-Core.Scripts.Core.html#1135-1144" title="Go to source code">clearCache</a>( )</code>
 
 			<div class="description short">
 				<p>Clear all cache</p>
@@ -1192,7 +1158,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_configureDB">#</a>
-			<code><a href="source-class-Core.Scripts.Core.html#1190-1240" title="Go to source code">configureDB</a>( )</code>
+			<code><a href="source-class-Core.Scripts.Core.html#1146-1201" title="Go to source code">configureDB</a>( )</code>
 
 			<div class="description short">
 				
@@ -1203,6 +1169,44 @@
 
 
 
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="createHtaccess" id="_createHtaccess">
+
+			<td class="attributes"><code>
+				 private 
+				boolean
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_createHtaccess">#</a>
+			<code><a href="source-class-Core.Scripts.Core.html#1203-1239" title="Go to source code">createHtaccess</a>( <span> <var>$appName</var></span> )</code>
+
+			<div class="description short">
+				<p>Creates the .htaccess file for the app</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates the .htaccess file for the app</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$appName</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean
+					</div>
 
 
 

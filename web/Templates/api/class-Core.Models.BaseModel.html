@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Core\Scripts\Argument | CoreFramework API</title>
+	<title>Class Core\Models\BaseModel | CoreFramework API</title>
 
 	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
 	<link rel="stylesheet" href="resources/style.css?49f43d3208c5d7e33fa16d36107a345bf11cc00d">
@@ -28,7 +28,7 @@
 
 				<ul class="nav navbar-nav">
 					<li>
-						<a href="namespace-Core.Scripts.html" title="Summary of Core\Scripts"><span>Namespace</span></a>
+						<a href="namespace-Core.Models.html" title="Summary of Core\Models"><span>Namespace</span></a>
 					</li>
 					<li class="active">
 <span>Class</span>					</li>
@@ -103,7 +103,7 @@
 						<a href="namespace-Core.Helper.html">
 							Helper						</a>
 							</li>
-					<li class="main">
+					<li class="active main">
 						<a href="namespace-Core.Models.html">
 							Models						</a>
 							</li>
@@ -119,7 +119,7 @@
 						<a href="namespace-Core.Routes.html">
 							Routes						</a>
 							</li>
-					<li class="active main">
+					<li class="main">
 						<a href="namespace-Core.Scripts.html">
 							Scripts						</a>
 							</li>
@@ -139,14 +139,8 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-Core.Scripts.Argument.html">Argument</a></li>
-				<li><a href="class-Core.Scripts.CLI.html">CLI</a></li>
-				<li><a href="class-Core.Scripts.cmdcolors.html">cmdcolors</a></li>
-				<li><a href="class-Core.Scripts.Command.html">Command</a></li>
-				<li><a href="class-Core.Scripts.Core.html">Core</a></li>
-				<li><a href="class-Core.Scripts.corecmd.html">corecmd</a></li>
-				<li><a href="class-Core.Scripts.IOStream.html">IOStream</a></li>
-				<li><a href="class-Core.Scripts.Options.html">Options</a></li>
+				<li class="active"><a href="class-Core.Models.BaseModel.html">BaseModel</a></li>
+				<li><a href="class-Core.Models.Model.html">Model</a></li>
 			</ul>
 
 
@@ -162,11 +156,17 @@
 <div id="right">
 	<div id="rightInner">
 <div id="content" class="class">
-	<h1>Class Argument</h1>
+	<h1>Class BaseModel</h1>
 
 
-	<div class="description">
-	<p>Class Argument</p>
+
+
+
+	<div>
+		<h3>Direct known subclasses</h3>
+		<p class="elementList">
+			<code><a href="class-Core.Models.Model.html">Core\Models\Model</a></code>
+		</p>
 	</div>
 
 
@@ -174,16 +174,13 @@
 
 
 
-
-
-
 	<div class="alert alert-info">
+		<b>Abstract</b><br>
 		
+		<b>Namespace:</b> <a href="namespace-Core.html">Core</a>\<a href="namespace-Core.Models.html">Models</a><br>
 		
-		<b>Namespace:</b> <a href="namespace-Core.html">Core</a>\<a href="namespace-Core.Scripts.html">Scripts</a><br>
-		<b>Package:</b> Core\Scripts<br>
 
-			<b>Located at</b> <a href="source-class-Core.Scripts.Argument.html#12-95" title="Go to source code">Scripts/Argument.php</a>
+			<b>Located at</b> <a href="source-class-Core.Models.BaseModel.html#15-62" title="Go to source code">Models/BaseModel.php</a>
 		<br>
 	</div>
 
@@ -192,10 +189,97 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h2>Methods summary</h2></div>
 			<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="save" id="_save">
+
+			<td class="attributes"><code>
+				abstract public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_save">#</a>
+			<code><a href="source-class-Core.Models.BaseModel.html#30" title="Go to source code">save</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="update" id="_update">
+
+			<td class="attributes"><code>
+				abstract public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_update">#</a>
+			<code><a href="source-class-Core.Models.BaseModel.html#32" title="Go to source code">update</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="unsetBeforeSave" id="_unsetBeforeSave">
+
+			<td class="attributes"><code>
+				abstract public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_unsetBeforeSave">#</a>
+			<code><a href="source-class-Core.Models.BaseModel.html#34" title="Go to source code">unsetBeforeSave</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="__construct" id="___construct">
 
 			<td class="attributes"><code>
-				 public 
+				abstract public 
 				
 				
 				</code>
@@ -203,45 +287,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Core.Scripts.Argument.html#31-43" title="Go to source code">__construct</a>( <span> <var>$name</var></span>, <span> <var>$required</var> = <span class="php-keyword1">true</span></span>, <span>null <var>$description</var> = <span class="php-keyword1">null</span></span> )</code>
-
-			<div class="description short">
-				<p>Argument constructor</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Argument constructor</p>
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$name</var></dt>
-						<dd></dd>
-						<dt><var>$required</var></dt>
-						<dd></dd>
-						<dt><var>$description</var></dt>
-						<dd></dd>
-					</dl></div>
-
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="getName" id="_getName">
-
-			<td class="attributes"><code>
-				 public 
-				mixed
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_getName">#</a>
-			<code><a href="source-class-Core.Scripts.Argument.html#46-52" title="Go to source code">getName</a>( )</code>
+			<code><a href="source-class-Core.Models.BaseModel.html#36" title="Go to source code">__construct</a>( <span> <var>$userData</var> = []</span> )</code>
 
 			<div class="description short">
 				
@@ -252,10 +298,6 @@
 
 
 
-					<h4>Returns</h4>
-					<div class="list">
-						mixed
-					</div>
 
 
 
@@ -263,7 +305,7 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="setName" id="_setName">
+		<tr data-order="getConnection" id="_getConnection">
 
 			<td class="attributes"><code>
 				 public 
@@ -273,8 +315,8 @@
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_setName">#</a>
-			<code><a href="source-class-Core.Scripts.Argument.html#54-60" title="Go to source code">setName</a>( <span>mixed <var>$name</var></span> )</code>
+			<a class="anchor" href="#_getConnection">#</a>
+			<code><a href="source-class-Core.Models.BaseModel.html#38-52" title="Go to source code">getConnection</a>( )</code>
 
 			<div class="description short">
 				
@@ -284,11 +326,6 @@
 				
 
 
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$name</var></dt>
-						<dd></dd>
-					</dl></div>
 
 
 
@@ -297,18 +334,18 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="getRequired" id="_getRequired">
+		<tr data-order="configure" id="_configure">
 
 			<td class="attributes"><code>
-				 public 
-				mixed
+				 public static
+				
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_getRequired">#</a>
-			<code><a href="source-class-Core.Scripts.Argument.html#62-68" title="Go to source code">getRequired</a>( )</code>
+			<a class="anchor" href="#_configure">#</a>
+			<code><a href="source-class-Core.Models.BaseModel.html#54-61" title="Go to source code">configure</a>( <span> <var>$object</var></span>, <span> <var>$props</var></span> )</code>
 
 			<div class="description short">
 				
@@ -318,111 +355,6 @@
 				
 
 
-
-					<h4>Returns</h4>
-					<div class="list">
-						mixed
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="setRequired" id="_setRequired">
-
-			<td class="attributes"><code>
-				 public 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_setRequired">#</a>
-			<code><a href="source-class-Core.Scripts.Argument.html#70-76" title="Go to source code">setRequired</a>( <span>mixed <var>$required</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$required</var></dt>
-						<dd></dd>
-					</dl></div>
-
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="getDescription" id="_getDescription">
-
-			<td class="attributes"><code>
-				 public 
-				mixed
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_getDescription">#</a>
-			<code><a href="source-class-Core.Scripts.Argument.html#78-84" title="Go to source code">getDescription</a>( )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-
-					<h4>Returns</h4>
-					<div class="list">
-						mixed
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="setDescription" id="_setDescription">
-
-			<td class="attributes"><code>
-				 public 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_setDescription">#</a>
-			<code><a href="source-class-Core.Scripts.Argument.html#86-92" title="Go to source code">setDescription</a>( <span>mixed <var>$description</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$description</var></dt>
-						<dd></dd>
-					</dl></div>
 
 
 
@@ -447,78 +379,78 @@
 		<div class="panel panel-default">
             <div class="panel-heading"><h2>Properties summary</h2></div>
 			<table class="summary table table-bordered table-striped properties" id="properties">
-		<tr data-order="name" id="$name">
+		<tr data-order="tableName" id="$tableName">
 			<td class="attributes"><code>
-				protected  
-				
+				protected static 
+				string
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Core.Scripts.Argument.html#18-21" title="Go to source code"><var>$name</var></a>
+					<a href="source-class-Core.Models.BaseModel.html#17-20" title="Go to source code"><var>$tableName</var></a>
 
 				<div class="description short">
-					
+					<p>Database table name</p>
 				</div>
 
 				<div class="description detailed hidden">
-					
+					<p>Database table name</p>
 
 				</div>
 			</td>
 			<td class="value">
 				<div>
-					<a href="#$name" class="anchor">#</a>
-					<code></code>
+					<a href="#$tableName" class="anchor">#</a>
+					<code><span class="php-quote">''</span></code>
 				</div>
 			</td>
 		</tr>
-		<tr data-order="required" id="$required">
+		<tr data-order="primaryKey" id="$primaryKey">
 			<td class="attributes"><code>
-				protected  
-				
+				protected static 
+				string
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Core.Scripts.Argument.html#22-25" title="Go to source code"><var>$required</var></a>
+					<a href="source-class-Core.Models.BaseModel.html#21-24" title="Go to source code"><var>$primaryKey</var></a>
 
 				<div class="description short">
-					
+					<p>Table primary key</p>
 				</div>
 
 				<div class="description detailed hidden">
-					
+					<p>Table primary key</p>
 
 				</div>
 			</td>
 			<td class="value">
 				<div>
-					<a href="#$required" class="anchor">#</a>
-					<code></code>
+					<a href="#$primaryKey" class="anchor">#</a>
+					<code><span class="php-quote">''</span></code>
 				</div>
 			</td>
 		</tr>
-		<tr data-order="description" id="$description">
+		<tr data-order="dbName" id="$dbName">
 			<td class="attributes"><code>
-				protected  
-				
+				protected static 
+				string
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Core.Scripts.Argument.html#26-29" title="Go to source code"><var>$description</var></a>
+					<a href="source-class-Core.Models.BaseModel.html#25-28" title="Go to source code"><var>$dbName</var></a>
 
 				<div class="description short">
-					
+					<p>Database name</p>
 				</div>
 
 				<div class="description detailed hidden">
-					
+					<p>Database name</p>
 
 				</div>
 			</td>
 			<td class="value">
 				<div>
-					<a href="#$description" class="anchor">#</a>
-					<code></code>
+					<a href="#$dbName" class="anchor">#</a>
+					<code><span class="php-quote">''</span></code>
 				</div>
 			</td>
 		</tr>

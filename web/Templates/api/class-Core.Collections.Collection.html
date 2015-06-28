@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Core\Scripts\Options | CoreFramework API</title>
+	<title>Class Core\Collections\Collection | CoreFramework API</title>
 
 	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
 	<link rel="stylesheet" href="resources/style.css?49f43d3208c5d7e33fa16d36107a345bf11cc00d">
@@ -28,7 +28,7 @@
 
 				<ul class="nav navbar-nav">
 					<li>
-						<a href="namespace-Core.Scripts.html" title="Summary of Core\Scripts"><span>Namespace</span></a>
+						<a href="namespace-Core.Collections.html" title="Summary of Core\Collections"><span>Namespace</span></a>
 					</li>
 					<li class="active">
 <span>Class</span>					</li>
@@ -75,7 +75,7 @@
 						<a href="namespace-Core.CacheSystem.html">
 							CacheSystem						</a>
 							</li>
-					<li class="main">
+					<li class="active main">
 						<a href="namespace-Core.Collections.html">
 							Collections						</a>
 							</li>
@@ -119,7 +119,7 @@
 						<a href="namespace-Core.Routes.html">
 							Routes						</a>
 							</li>
-					<li class="active main">
+					<li class="main">
 						<a href="namespace-Core.Scripts.html">
 							Scripts						</a>
 							</li>
@@ -139,14 +139,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-Core.Scripts.Argument.html">Argument</a></li>
-				<li><a href="class-Core.Scripts.CLI.html">CLI</a></li>
-				<li><a href="class-Core.Scripts.cmdcolors.html">cmdcolors</a></li>
-				<li><a href="class-Core.Scripts.Command.html">Command</a></li>
-				<li><a href="class-Core.Scripts.Core.html">Core</a></li>
-				<li><a href="class-Core.Scripts.corecmd.html">corecmd</a></li>
-				<li><a href="class-Core.Scripts.IOStream.html">IOStream</a></li>
-				<li class="active"><a href="class-Core.Scripts.Options.html">Options</a></li>
+				<li class="active"><a href="class-Core.Collections.Collection.html">Collection</a></li>
 			</ul>
 
 
@@ -162,7 +155,7 @@
 <div id="right">
 	<div id="rightInner">
 <div id="content" class="class">
-	<h1>Class Options</h1>
+	<h1>Class Collection</h1>
 
 
 
@@ -177,10 +170,10 @@
 	<div class="alert alert-info">
 		
 		
-		<b>Namespace:</b> <a href="namespace-Core.html">Core</a>\<a href="namespace-Core.Scripts.html">Scripts</a><br>
+		<b>Namespace:</b> <a href="namespace-Core.html">Core</a>\<a href="namespace-Core.Collections.html">Collections</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Core.Scripts.Options.html#5-151" title="Go to source code">Scripts/Options.php</a>
+			<b>Located at</b> <a href="source-class-Core.Collections.Collection.html#12-259" title="Go to source code">Collections/Collection.php</a>
 		<br>
 	</div>
 
@@ -200,53 +193,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Core.Scripts.Options.html#14-45" title="Go to source code">__construct</a>( <span> <var>$name</var></span>, <span>null <var>$shortName</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$description</var> = <span class="php-keyword1">null</span></span>, <span>null <var>$definition</var> = <span class="php-keyword1">null</span></span>, <span>null|boolean <var>$isRequired</var> = <span class="php-keyword1">null</span></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$name</var></dt>
-						<dd></dd>
-						<dt><var>$shortName</var></dt>
-						<dd></dd>
-						<dt><var>$description</var></dt>
-						<dd></dd>
-						<dt><var>$definition</var></dt>
-						<dd></dd>
-						<dt><var>$isRequired</var></dt>
-						<dd>Permitted values are null|true|false null=no value, false=has value but not required &amp; true=has value and required</dd>
-					</dl></div>
-
-
-					<h4>Throws</h4>
-					<div class="list">
-						ErrorException
-					</div>
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="getName" id="_getName">
-
-			<td class="attributes"><code>
-				 public 
-				mixed
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_getName">#</a>
-			<code><a href="source-class-Core.Scripts.Options.html#48-54" title="Go to source code">getName</a>( )</code>
+			<code><a href="source-class-Core.Collections.Collection.html#20-23" title="Go to source code">__construct</a>( <span>MongoDB <var>$db</var></span> )</code>
 
 			<div class="description short">
 				
@@ -257,10 +204,6 @@
 
 
 
-					<h4>Returns</h4>
-					<div class="list">
-						mixed
-					</div>
 
 
 
@@ -268,56 +211,18 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="setName" id="_setName">
+		<tr data-order="configure" id="_configure">
 
 			<td class="attributes"><code>
-				 public 
+				 public static
 				
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_setName">#</a>
-			<code><a href="source-class-Core.Scripts.Options.html#56-65" title="Go to source code">setName</a>( <span> <var>$name</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$name</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<br>$this
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="getShortName" id="_getShortName">
-
-			<td class="attributes"><code>
-				 public 
-				mixed
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_getShortName">#</a>
-			<code><a href="source-class-Core.Scripts.Options.html#67-73" title="Go to source code">getShortName</a>( )</code>
+			<a class="anchor" href="#_configure">#</a>
+			<code><a href="source-class-Core.Collections.Collection.html#25-43" title="Go to source code">configure</a>( <span> <var>$object</var></span>, <span> <var>$data</var></span> )</code>
 
 			<div class="description short">
 				
@@ -328,10 +233,6 @@
 
 
 
-					<h4>Returns</h4>
-					<div class="list">
-						mixed
-					</div>
 
 
 
@@ -339,18 +240,18 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="setShortName" id="_setShortName">
+		<tr data-order="findAll" id="_findAll">
 
 			<td class="attributes"><code>
-				 public 
+				 public static
 				
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_setShortName">#</a>
-			<code><a href="source-class-Core.Scripts.Options.html#75-84" title="Go to source code">setShortName</a>( <span> <var>$shortName</var></span> )</code>
+			<a class="anchor" href="#_findAll">#</a>
+			<code><a href="source-class-Core.Collections.Collection.html#45-59" title="Go to source code">findAll</a>( <span> <var>$condition</var> = []</span>, <span> <var>$orderBy</var> = <span class="php-keyword1">null</span></span>, <span> <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -360,16 +261,7 @@
 				
 
 
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$shortName</var></dt>
-						<dd></dd>
-					</dl></div>
 
-					<h4>Returns</h4>
-					<div class="list">
-						<br>$this
-					</div>
 
 
 
@@ -377,18 +269,18 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="getDescription" id="_getDescription">
+		<tr data-order="find" id="_find">
 
 			<td class="attributes"><code>
-				 public 
-				mixed
+				 public static
+				
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_getDescription">#</a>
-			<code><a href="source-class-Core.Scripts.Options.html#86-92" title="Go to source code">getDescription</a>( )</code>
+			<a class="anchor" href="#_find">#</a>
+			<code><a href="source-class-Core.Collections.Collection.html#61-71" title="Go to source code">find</a>( <span> <var>$parameters</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -399,10 +291,6 @@
 
 
 
-					<h4>Returns</h4>
-					<div class="list">
-						mixed
-					</div>
 
 
 
@@ -410,7 +298,94 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="setDescription" id="_setDescription">
+		<tr data-order="getCount" id="_getCount">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getCount">#</a>
+			<code><a href="source-class-Core.Collections.Collection.html#73-92" title="Go to source code">getCount</a>( <span> <var>$condition</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="aggregate" id="_aggregate">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_aggregate">#</a>
+			<code><a href="source-class-Core.Collections.Collection.html#94-111" title="Go to source code">aggregate</a>( <span> <var>$pipeline</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getResultSet" id="_getResultSet">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getResultSet">#</a>
+			<code><a href="source-class-Core.Collections.Collection.html#113-150" title="Go to source code">getResultSet</a>( <span> <var>$parameters</var></span>, <span><code><a href="class-Core.Collections.Collection.html">Core\Collections\Collection</a></code> <var>$collection</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getCollectionName" id="_getCollectionName">
 
 			<td class="attributes"><code>
 				 public 
@@ -420,46 +395,8 @@
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_setDescription">#</a>
-			<code><a href="source-class-Core.Scripts.Options.html#94-103" title="Go to source code">setDescription</a>( <span> <var>$description</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$description</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						<br>$this
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="getDefinition" id="_getDefinition">
-
-			<td class="attributes"><code>
-				 public 
-				mixed
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_getDefinition">#</a>
-			<code><a href="source-class-Core.Scripts.Options.html#105-111" title="Go to source code">getDefinition</a>( )</code>
+			<a class="anchor" href="#_getCollectionName">#</a>
+			<code><a href="source-class-Core.Collections.Collection.html#152-159" title="Go to source code">getCollectionName</a>( )</code>
 
 			<div class="description short">
 				
@@ -470,10 +407,6 @@
 
 
 
-					<h4>Returns</h4>
-					<div class="list">
-						mixed
-					</div>
 
 
 
@@ -481,7 +414,7 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="setDefinition" id="_setDefinition">
+		<tr data-order="getConnection" id="_getConnection">
 
 			<td class="attributes"><code>
 				 public 
@@ -491,8 +424,8 @@
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_setDefinition">#</a>
-			<code><a href="source-class-Core.Scripts.Options.html#113-119" title="Go to source code">setDefinition</a>( <span>mixed <var>$definition</var></span> )</code>
+			<a class="anchor" href="#_getConnection">#</a>
+			<code><a href="source-class-Core.Collections.Collection.html#161-169" title="Go to source code">getConnection</a>( )</code>
 
 			<div class="description short">
 				
@@ -502,11 +435,6 @@
 				
 
 
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$definition</var></dt>
-						<dd></dd>
-					</dl></div>
 
 
 
@@ -515,18 +443,18 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="getIsRequired" id="_getIsRequired">
+		<tr data-order="getDbName" id="_getDbName">
 
 			<td class="attributes"><code>
-				 public 
-				mixed
+				 public static
+				
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_getIsRequired">#</a>
-			<code><a href="source-class-Core.Scripts.Options.html#121-127" title="Go to source code">getIsRequired</a>( )</code>
+			<a class="anchor" href="#_getDbName">#</a>
+			<code><a href="source-class-Core.Collections.Collection.html#171-174" title="Go to source code">getDbName</a>( )</code>
 
 			<div class="description short">
 				
@@ -536,44 +464,6 @@
 				
 
 
-
-					<h4>Returns</h4>
-					<div class="list">
-						mixed
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="setIsRequired" id="_setIsRequired">
-
-			<td class="attributes"><code>
-				 public 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_setIsRequired">#</a>
-			<code><a href="source-class-Core.Scripts.Options.html#129-135" title="Go to source code">setIsRequired</a>( <span>mixed <var>$isRequired</var></span> )</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$isRequired</var></dt>
-						<dd></dd>
-					</dl></div>
 
 
 
@@ -582,18 +472,18 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="getSymbol" id="_getSymbol">
+		<tr data-order="createObjectFromArr" id="_createObjectFromArr">
 
 			<td class="attributes"><code>
-				 public 
-				string
+				 public static
+				
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_getSymbol">#</a>
-			<code><a href="source-class-Core.Scripts.Options.html#137-149" title="Go to source code">getSymbol</a>( )</code>
+			<a class="anchor" href="#_createObjectFromArr">#</a>
+			<code><a href="source-class-Core.Collections.Collection.html#176-189" title="Go to source code">createObjectFromArr</a>( <span>array <var>$arr</var></span> )</code>
 
 			<div class="description short">
 				
@@ -604,10 +494,122 @@
 
 
 
-					<h4>Returns</h4>
-					<div class="list">
-						string
-					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="findOne" id="_findOne">
+
+			<td class="attributes"><code>
+				 public static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_findOne">#</a>
+			<code><a href="source-class-Core.Collections.Collection.html#191-199" title="Go to source code">findOne</a>( <span> <var>$condition</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="save" id="_save">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_save">#</a>
+			<code><a href="source-class-Core.Collections.Collection.html#201-220" title="Go to source code">save</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="unsetBeforeSave" id="_unsetBeforeSave">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_unsetBeforeSave">#</a>
+			<code><a href="source-class-Core.Collections.Collection.html#222-227" title="Go to source code">unsetBeforeSave</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="update" id="_update">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_update">#</a>
+			<code><a href="source-class-Core.Collections.Collection.html#229-257" title="Go to source code">update</a>( <span> <var>$conditions</var> = []</span>, <span> <var>$fields</var> = []</span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
 
 
 
@@ -631,14 +633,14 @@
 		<div class="panel panel-default">
             <div class="panel-heading"><h2>Properties summary</h2></div>
 			<table class="summary table table-bordered table-striped properties" id="properties">
-		<tr data-order="name" id="$name">
+		<tr data-order="collectionName" id="$collectionName">
 			<td class="attributes"><code>
-				protected  
+				protected static 
 				
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Core.Scripts.Options.html#8" title="Go to source code"><var>$name</var></a>
+					<a href="source-class-Core.Collections.Collection.html#14" title="Go to source code"><var>$collectionName</var></a>
 
 				<div class="description short">
 					
@@ -651,19 +653,19 @@
 			</td>
 			<td class="value">
 				<div>
-					<a href="#$name" class="anchor">#</a>
+					<a href="#$collectionName" class="anchor">#</a>
 					<code></code>
 				</div>
 			</td>
 		</tr>
-		<tr data-order="shortName" id="$shortName">
+		<tr data-order="dbName" id="$dbName">
 			<td class="attributes"><code>
-				protected  
-				
+				protected static 
+				string
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Core.Scripts.Options.html#9" title="Go to source code"><var>$shortName</var></a>
+					<a href="source-class-Core.Collections.Collection.html#15" title="Go to source code"><var>$dbName</var></a>
 
 				<div class="description short">
 					
@@ -676,19 +678,44 @@
 			</td>
 			<td class="value">
 				<div>
-					<a href="#$shortName" class="anchor">#</a>
+					<a href="#$dbName" class="anchor">#</a>
+					<code><span class="php-quote">''</span></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="conn" id="$conn">
+			<td class="attributes"><code>
+				protected static 
+				
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Core.Collections.Collection.html#16" title="Go to source code"><var>$conn</var></a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$conn" class="anchor">#</a>
 					<code></code>
 				</div>
 			</td>
 		</tr>
-		<tr data-order="description" id="$description">
+		<tr data-order="primaryKey" id="$primaryKey">
 			<td class="attributes"><code>
-				protected  
+				protected static 
 				
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Core.Scripts.Options.html#10" title="Go to source code"><var>$description</var></a>
+					<a href="source-class-Core.Collections.Collection.html#17" title="Go to source code"><var>$primaryKey</var></a>
 
 				<div class="description short">
 					
@@ -701,19 +728,19 @@
 			</td>
 			<td class="value">
 				<div>
-					<a href="#$description" class="anchor">#</a>
+					<a href="#$primaryKey" class="anchor">#</a>
 					<code></code>
 				</div>
 			</td>
 		</tr>
-		<tr data-order="definition" id="$definition">
+		<tr data-order="db" id="$db">
 			<td class="attributes"><code>
-				protected  
+				protected static 
 				
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Core.Scripts.Options.html#11" title="Go to source code"><var>$definition</var></a>
+					<a href="source-class-Core.Collections.Collection.html#18" title="Go to source code"><var>$db</var></a>
 
 				<div class="description short">
 					
@@ -726,32 +753,7 @@
 			</td>
 			<td class="value">
 				<div>
-					<a href="#$definition" class="anchor">#</a>
-					<code></code>
-				</div>
-			</td>
-		</tr>
-		<tr data-order="isRequired" id="$isRequired">
-			<td class="attributes"><code>
-				protected  
-				
-			</code></td>
-
-			<td class="name">
-					<a href="source-class-Core.Scripts.Options.html#12" title="Go to source code"><var>$isRequired</var></a>
-
-				<div class="description short">
-					
-				</div>
-
-				<div class="description detailed hidden">
-					
-
-				</div>
-			</td>
-			<td class="value">
-				<div>
-					<a href="#$isRequired" class="anchor">#</a>
+					<a href="#$db" class="anchor">#</a>
 					<code></code>
 				</div>
 			</td>

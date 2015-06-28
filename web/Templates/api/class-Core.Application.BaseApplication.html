@@ -76,6 +76,10 @@
 							CacheSystem						</a>
 							</li>
 					<li class="main">
+						<a href="namespace-Core.Collections.html">
+							Collections						</a>
+							</li>
+					<li class="main">
 						<a href="namespace-Core.Config.html">
 							Config						</a>
 							</li>
@@ -84,8 +88,8 @@
 							Controllers						</a>
 							</li>
 					<li class="main">
-						<a href="namespace-Core.Database.html">
-							Database						</a>
+						<a href="namespace-Core.Databases.html">
+							Databases						</a>
 							</li>
 					<li class="main">
 						<a href="namespace-Core.DI.html">
@@ -205,7 +209,7 @@
 		<b>Namespace:</b> <a href="namespace-Core.html">Core</a>\<a href="namespace-Core.Application.html">Application</a><br>
 		<b>Package:</b> Core\Application<br>
 
-			<b>Located at</b> <a href="source-class-Core.Application.BaseApplication.html#13-428" title="Go to source code">Application/BaseApplication.php</a>
+			<b>Located at</b> <a href="source-class-Core.Application.BaseApplication.html#13-427" title="Go to source code">Application/BaseApplication.php</a>
 		<br>
 	</div>
 
@@ -225,7 +229,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Core.Application.BaseApplication.html#172-185" title="Go to source code">__construct</a>( <span>array <var>$config</var> = []</span> )</code>
+			<code><a href="source-class-Core.Application.BaseApplication.html#165-178" title="Go to source code">__construct</a>( <span>array <var>$config</var> = []</span> )</code>
 
 			<div class="description short">
 				<p>Application constructor</p>
@@ -261,7 +265,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_init">#</a>
-			<code><a href="source-class-Core.Application.BaseApplication.html#187-198" title="Go to source code">init</a>( <span>array <var>$config</var> = []</span> )</code>
+			<code><a href="source-class-Core.Application.BaseApplication.html#180-191" title="Go to source code">init</a>( <span>array <var>$config</var> = []</span> )</code>
 
 			<div class="description short">
 				<p>Application initiation</p>
@@ -295,7 +299,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_run">#</a>
-			<code><a href="source-class-Core.Application.BaseApplication.html#200-233" title="Go to source code">run</a>( )</code>
+			<code><a href="source-class-Core.Application.BaseApplication.html#193-226" title="Go to source code">run</a>( )</code>
 
 			<div class="description short">
 				<p>Runs the application</p>
@@ -328,7 +332,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_renderFromCache">#</a>
-			<code><a href="source-class-Core.Application.BaseApplication.html#235-247" title="Go to source code">renderFromCache</a>( <span> <var>$key</var></span> )</code>
+			<code><a href="source-class-Core.Application.BaseApplication.html#228-240" title="Go to source code">renderFromCache</a>( <span> <var>$key</var></span> )</code>
 
 			<div class="description short">
 				<p>Render Application view from cache</p>
@@ -370,7 +374,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_parseRoute">#</a>
-			<code><a href="source-class-Core.Application.BaseApplication.html#249-280" title="Go to source code">parseRoute</a>( )</code>
+			<code><a href="source-class-Core.Application.BaseApplication.html#242-265" title="Go to source code">parseRoute</a>( )</code>
 
 			<div class="description short">
 				<p>Parses the URI route requested</p>
@@ -403,7 +407,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_handleCustomServe">#</a>
-			<code><a href="source-class-Core.Application.BaseApplication.html#282-340" title="Go to source code">handleCustomServe</a>( <span>array <var>$routeParams</var> = []</span> )</code>
+			<code><a href="source-class-Core.Application.BaseApplication.html#267-325" title="Go to source code">handleCustomServe</a>( <span>array <var>$routeParams</var> = []</span> )</code>
 
 			<div class="description short">
 				<p>Serve Custom content. This is to handle custom serving of view content</p>
@@ -437,7 +441,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_loadController">#</a>
-			<code><a href="source-class-Core.Application.BaseApplication.html#342-360" title="Go to source code">loadController</a>( <span>array <var>$routeParams</var> = []</span> )</code>
+			<code><a href="source-class-Core.Application.BaseApplication.html#327-345" title="Go to source code">loadController</a>( <span>array <var>$routeParams</var> = []</span> )</code>
 
 			<div class="description short">
 				<p>Loads the controller from the provided route parameters</p>
@@ -471,7 +475,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setHeaders">#</a>
-			<code><a href="source-class-Core.Application.BaseApplication.html#362-417" title="Go to source code">setHeaders</a>( <span>null <var>$type</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Core.Application.BaseApplication.html#347-402" title="Go to source code">setHeaders</a>( <span>null <var>$type</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Set header</p>
@@ -494,6 +498,35 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="render" id="_render">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_render">#</a>
+			<code><a href="source-class-Core.Application.BaseApplication.html#404-416" title="Go to source code">render</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="__destruct" id="___destruct">
 
 			<td class="attributes"><code>
@@ -505,7 +538,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___destruct">#</a>
-			<code><a href="source-class-Core.Application.BaseApplication.html#419-425" title="Go to source code">__destruct</a>( )</code>
+			<code><a href="source-class-Core.Application.BaseApplication.html#418-424" title="Go to source code">__destruct</a>( )</code>
 
 			<div class="description short">
 				<p>Application End</p>
@@ -933,31 +966,6 @@
 				</div>
 			</td>
 		</tr>
-		<tr data-order="requestedURI" id="$requestedURI">
-			<td class="attributes"><code>
-				private  
-				null
-			</code></td>
-
-			<td class="name">
-					<a href="source-class-Core.Application.BaseApplication.html#127-132" title="Go to source code"><var>$requestedURI</var></a>
-
-				<div class="description short">
-					<p>Requested URI</p>
-				</div>
-
-				<div class="description detailed hidden">
-					<p>Requested URI</p>
-
-				</div>
-			</td>
-			<td class="value">
-				<div>
-					<a href="#$requestedURI" class="anchor">#</a>
-					<code></code>
-				</div>
-			</td>
-		</tr>
 		<tr data-order="routeParams" id="$routeParams">
 			<td class="attributes"><code>
 				public  
@@ -965,7 +973,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Core.Application.BaseApplication.html#134-139" title="Go to source code"><var>$routeParams</var></a>
+					<a href="source-class-Core.Application.BaseApplication.html#126-131" title="Go to source code"><var>$routeParams</var></a>
 
 				<div class="description short">
 					<p>The parameters of the URI requested</p>
@@ -990,7 +998,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Core.Application.BaseApplication.html#141-144" title="Go to source code"><var>$action</var></a>
+					<a href="source-class-Core.Application.BaseApplication.html#132-135" title="Go to source code"><var>$action</var></a>
 
 				<div class="description short">
 					<p>| string</p>
@@ -1015,7 +1023,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Core.Application.BaseApplication.html#146-149" title="Go to source code"><var>$args</var></a>
+					<a href="source-class-Core.Application.BaseApplication.html#136-139" title="Go to source code"><var>$args</var></a>
 
 				<div class="description short">
 					<p>| array</p>
@@ -1040,7 +1048,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Core.Application.BaseApplication.html#151-156" title="Go to source code"><var>$status</var></a>
+					<a href="source-class-Core.Application.BaseApplication.html#140-145" title="Go to source code"><var>$status</var></a>
 
 				<div class="description short">
 					<p>Application state/status</p>
@@ -1065,7 +1073,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Core.Application.BaseApplication.html#158-163" title="Go to source code"><var>$view</var></a>
+					<a href="source-class-Core.Application.BaseApplication.html#146-151" title="Go to source code"><var>$view</var></a>
 
 				<div class="description short">
 					<p>Application View</p>
@@ -1090,7 +1098,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Core.Application.BaseApplication.html#165-170" title="Go to source code"><var>$ttl</var></a>
+					<a href="source-class-Core.Application.BaseApplication.html#152-157" title="Go to source code"><var>$ttl</var></a>
 
 				<div class="description short">
 					<p>Application wide Time to Live (ttl)</p>
@@ -1105,6 +1113,31 @@
 				<div>
 					<a href="#$ttl" class="anchor">#</a>
 					<code><span class="php-num">3600</span></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="requestedURI" id="$requestedURI">
+			<td class="attributes"><code>
+				private  
+				null
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Core.Application.BaseApplication.html#158-163" title="Go to source code"><var>$requestedURI</var></a>
+
+				<div class="description short">
+					<p>Requested URI</p>
+				</div>
+
+				<div class="description detailed hidden">
+					<p>Requested URI</p>
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$requestedURI" class="anchor">#</a>
+					<code></code>
 				</div>
 			</td>
 		</tr>
