@@ -28,6 +28,27 @@ footer {
     color: white;
     background: #111;
   }
+
+  .editDocWrp {
+    position: fixed;
+    bottom: -53px;
+    right: 10px;
+    padding: 15px 20px;
+    background-color: #5cb85c;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 8px;
+    @include transition(1.2s ease-in all);
+
+    a {
+      color: #ffffff;
+    }
+
+    &.show {
+      bottom: -10px;
+    }
+  }
+
 }
 
 .permalink {
@@ -252,7 +273,7 @@ footer {
 }
 
 .introSection {
-  background-image:url('/images/background-img-mountains.jpg');
+  background-image:url('/images/background-img-mountains-super-low.jpg');
   background-repeat:no-repeat;
   background-size:cover;
   background-attachment: fixed;
@@ -261,6 +282,7 @@ footer {
   .imageContainer {
     padding:200px 0 170px;
     background: rgba(0,0,0,0.5);
+    background: linear-gradient(120deg, rgba(21,87,153, 0.4), rgba(21, 153, 87, 0.4));
 
     .contentWrp {
 

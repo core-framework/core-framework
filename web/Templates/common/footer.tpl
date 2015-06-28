@@ -1,4 +1,7 @@
 <footer>
+    <div class="editDocWrp">
+        <a href="https://github.com/core-framework/CoreFramework/fork">Wanna edit this Doc? Click here!</a>
+    </div>
     <div class="createdBySection text-center">
         Core Framework is designed and build by <a href="http://shalomsam.com">Shalom Sam</a>
     </div>

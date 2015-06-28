@@ -519,6 +519,25 @@ footer {
   footer .copyrightSection {
     color: white;
     background: #111; }
+  footer .editDocWrp {
+    position: fixed;
+    bottom: -53px;
+    right: 10px;
+    padding: 15px 20px;
+    background-color: #5cb85c;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 8px;
+    -webkit-transition: 1.2s ease-in all;
+    -moz-transition: 1.2s ease-in all;
+    /*noinspection CssUnknownProperty*/
+    -ms-transition: 1.2s ease-in all;
+    -o-transition: 1.2s ease-in all;
+    transition: 1.2s ease-in all; }
+    footer .editDocWrp a {
+      color: #ffffff; }
+    footer .editDocWrp.show {
+      bottom: -10px; }
 
 .permalink {
   font-size: 14px;
@@ -662,14 +681,15 @@ footer {
       padding-bottom: 25px; }
 
 .introSection {
-  background-image: url("/images/background-img-mountains.jpg");
+  background-image: url("/images/background-img-mountains-super-low.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
   background-position: 50% 50%; }
   .introSection .imageContainer {
     padding: 200px 0 170px;
-    background: rgba(0, 0, 0, 0.5); }
+    background: rgba(0, 0, 0, 0.5);
+    background: linear-gradient(120deg, rgba(21, 87, 153, 0.4), rgba(21, 153, 87, 0.4)); }
     .introSection .imageContainer .contentWrp h1 {
       margin-bottom: 20px;
       color: #ffffff;

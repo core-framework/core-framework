@@ -12,6 +12,8 @@ window.app = {
 
 $(document).ready(function () {
     hashScrollInit();
+    updateHeroImage();
+    showEditDocs();
 
     $('.minimize').on('click', function (e) {
         e.preventDefault();
@@ -78,7 +80,8 @@ $(document).ready(function () {
 
 });
 
-function showAlert(selector, msg, type) {
+function showAlert(selector, msg, type)
+{
 
     if ($(selector).length === 0) {
         throw new Error(selector + 'Element not found');
@@ -99,7 +102,8 @@ function showAlert(selector, msg, type) {
     });
 }
 
-$(window).on('scroll', function(){
+$(window).on('scroll', function()
+{
     if ($(window).scrollTop() > 40) {
         $('.navbar-custom').removeClass('zoomed');
     } else if ($(window).scrollTop() < 40) {
@@ -107,7 +111,8 @@ $(window).on('scroll', function(){
     }
 });
 
-function hashScrollInit() {
+function hashScrollInit()
+{
     var hash = window.location.hash;
     if (hash != "" && hash != undefined) {
         var x = "a[href=" + hash + "]";
@@ -126,3 +131,23 @@ function hashScrollInit() {
     });
 }
 
+function updateHeroImage()
+{
+    $('.introSection').delay(500).css('background-image', 'url(/images/background-img-mountains.jpg)');
+}
+
+function showEditDocs()
+{
+    var home = $('body').hasClass('home'),
+        download = $('body').hasClass('download'),
+        contribute = $('body').hasClass('contribute');
+
+    if (!home && !download && !contribute) {
+
+        setTimeout(function () {
+            $('.editDocWrp').addClass('show');
+        }, 2000);
+
+    }
+
+}

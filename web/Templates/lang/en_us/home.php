@@ -3,7 +3,7 @@
 return $page = [
 
     'mainTitle' => 'Welcome to Core Framework',
-    'mainSubTitle' => '<strong>Core Framework</strong> is a lightweight MVC (<a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">Model-View-Controller</a>) Framework that makes building mordern web applications in PHP simple and easy.',
+    'mainSubTitle' => '<strong>Core Framework</strong> is a lightweight MVC (<a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">Model-View-Controller</a>) Framework that makes building web applications in PHP simple and easy.',
     'mainBtnTxt' => 'Download Latest Version',
     'features' => [
         'title' => 'Why Use Core Framework?',
