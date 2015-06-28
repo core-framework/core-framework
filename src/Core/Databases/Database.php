@@ -20,7 +20,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Core\Database;
+namespace Core\Databases;
 
 use PDO;
 
@@ -50,7 +50,7 @@ class Database extends PDO
     public function __construct(array $array = [])
     {
 
-        if(empty($array)) {
+        if (empty($array)) {
             throw new \ErrorException("Connection parameters cannot be empty.");
         }
 
@@ -97,7 +97,7 @@ class Database extends PDO
         if (isset($array['dsn'])) {
             $dsn = $array['type'] . ":";
             $dsnAttrArr = [];
-            foreach($array['dsn'] as $key => $val) {
+            foreach ($array['dsn'] as $key => $val) {
                 $dsnAttrArr[] = $key . "=" . $val;
             }
 
