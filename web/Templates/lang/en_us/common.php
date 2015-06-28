@@ -1,7 +1,5 @@
 <?php
 
-// TODO: add tutorials page
-
 return $common = [
 
     'author' => [
@@ -20,16 +18,17 @@ return $common = [
         'Home' => '/',
         'About' => '/about',
         'Get Started' => '/get_started',
-        //'Tutorials' => '/tutorials',
         'Documentation' => [
             'link' => '/documentation',
+            'Download' => '/download',
             'Routing' => '/documentation/routing',
+            'Models' => '/documentation/models',
             'Controllers' => '/documentation/controllers',
             'View' => '/documentation/view',
             'Templates' => '/documentation/templates',
             'API Reference' => '/documentation/api'
         ],
-        'Download' => '/download'
+        'Contribute' => '/contribute'
     ]
 
 ];

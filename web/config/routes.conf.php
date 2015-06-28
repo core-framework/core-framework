@@ -12,39 +12,45 @@
 /**
  * Routes config
  */
-return $routes = [
+return $routes = array(
 
 
-    '/' => [
+    '/' => array(
         'pageName' => 'homepage',
         'pageTitle' => 'Core Framework - A new PHP framework',
         'controller' => '\\web\\Controllers:siteController:indexAction',
-        'metas' => [
+        'metas' => array(
             'keywords' => 'core, php, framework, CoreFramework, CorePHPFramework, Core Framework, Shalom, Sam',
             'description' => 'CoreFramework is brand new php framework',
             'author' => 'Shalom Sam'
-        ]
-    ],
+        )
+    ),
 
-    '/about' => [
+    '/about' => array(
         'pageName' => 'about',
         'pageTitle' => 'Core Framework - About page',
         'controller' => '\\web\\Controllers:siteController:aboutAction'
-    ],
+    ),
 
-    '/get_started' => [
+    '/get_started' => array(
         'pageName' => 'getStarted',
         'pageTitle' => 'Core Framework - Get Started',
         'controller' => '\\web\\Controllers:siteController:getstartedAction'
-    ],
+    ),
 
-    '/documentation' => [
-        'pageName' => 'demo',
-        'pageTitle' => 'Demo about Page',
+    '/documentation' => array(
+        'pageName' => 'documentation',
+        'pageTitle' => 'Core Framework - Documentation',
         'controller' => '\\web\\Controllers:siteController:documentationAction'
-    ],
+    ),
 
-    '/documentation/api' => [
+    '/contribute' => array(
+        'pageName' => 'contribute',
+        'pageTitle' => 'Core Framework - Contribute',
+        'controller' => '\\web\\Controllers:siteController:contributeAction'
+    ),
+
+    '/documentation/api' => array(
         'pageName' => 'api',
         'pageTitle' => 'Core Framework - API',
         'serveAsIs' => true,
@@ -52,11 +58,11 @@ return $routes = [
         'referencePath' => '/documentation/api/index.html',
         'controller' => '\\web\\Controllers:siteController:apiAction',
         'showHeader' => true
-    ],
+    ),
 
-    '/documentation/api/{page}' => [
+    '/documentation/api/{page}' => array(
         'pageName' => 'api',
-        'argReq' => ['page' => '[\S]'],
+        'argReq' => array('page' => ':any'),
         'argDefault' => 'index.html',
         'httpMethod' => 'GET',
         'serveAsIs' => true,
@@ -64,22 +70,33 @@ return $routes = [
         'controller' => '\\web\\Controllers:siteController:apiAction',
         'showHeader' => false,
         'showFooter' => false
-    ],
+    ),
 
-    '/documentation/{page}' => [
+    '/documentation/api/resources/{file}' => array(
+        'argReq' => array('file' => ':any'),
+        'argDefault' => '',
+        'httpMethod' => 'GET',
+        'serveAsIs' => true,
+        'referencePath' => 'Templates/api/resources',
+        'controller' => '\\web\\Controllers:siteController:apiAction',
+        'showHeader' => false,
+        'showFooter' => false
+    ),
+
+    '/documentation/{page}' => array(
         'pageName' => 'Documentation',
         'pageTitle' => 'Core Framework - Documentation',
-        'argReq' => ['page' => '[\w]'],
+        'argReq' => array('page' => ':alpha'),
         'argDefault' => '',
         'httpMethod' => 'GET',
         'controller' => '\\web\\Controllers:siteController:documentationAction',
         'metaAndTitleFromFile' => true,
         'metaFile' => 'metas/metas.php'
-    ],
+    ),
 
-    '/download' => [
+    '/download' => array(
         'pageName' => 'Download',
         'pageTitle' => 'Core Framework - Download',
         'controller' => '\\web\\Controllers:siteController:downloadAction'
-    ]
-];
+    )
+);

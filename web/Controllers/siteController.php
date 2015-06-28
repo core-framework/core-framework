@@ -90,6 +90,11 @@ class siteController extends BaseController
         $this->commonFunction('download');
     }
 
+    public function contributeAction()
+    {
+        $this->commonFunction('contribute');
+    }
+
     public function documentationAction($payload)
     {
         $pageName = $payload['page'];

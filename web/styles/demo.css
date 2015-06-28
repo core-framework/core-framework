@@ -544,6 +544,12 @@ footer {
   background-size: contain;
   text-indent: -999999px;
   padding: 25px 180px; }
+  @media screen and (max-width: 998px) {
+    .navbar-brand {
+      padding: 25px 140px; } }
+  @media screen and (max-width: 830px) {
+    .navbar-brand {
+      padding: 25px 100px; } }
 
 .navbar-nav, .navbar-brand {
   -webkit-transition: 0.5s all;
@@ -552,6 +558,13 @@ footer {
   -ms-transition: 0.5s all;
   -o-transition: 0.5s all;
   transition: 0.5s all; }
+
+@media screen and (max-width: 768px) {
+  .navbar-nav {
+    font-size: 12px; } }
+@media screen and (max-width: 960px) {
+  .navbar-nav > li > a {
+    padding: 15px 10px; } }
 
 .minimize-wrap {
   transition: all 1.5s ease-in-out 0s;
@@ -644,9 +657,6 @@ footer {
     height: 80px; }
   .home .navbar-inverse.zoomed .navbar-nav {
     font-size: 16px; }
-    @media screen and (max-width: 960px) {
-      .home .navbar-inverse.zoomed .navbar-nav {
-        font-size: 14px; } }
     .home .navbar-inverse.zoomed .navbar-nav > li > a {
       padding-top: 30px;
       padding-bottom: 25px; }

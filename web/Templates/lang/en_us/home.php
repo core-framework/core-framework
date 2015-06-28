@@ -16,6 +16,3 @@ return $page = [
     ]
 
 ];
-
-
-//or checkout the <a href="/tutorial">tutorial</a> section

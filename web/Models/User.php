@@ -8,8 +8,7 @@
 
 namespace web\Models;
 
-use Core\Database\Database;
-use Core\DI\DI;
+use Core\Databases\Database;
 use Core\Models\Model;
 
 class User extends Model {
@@ -28,30 +27,14 @@ class User extends Model {
     public $salt;
 
 
-    public function __construct($userData = [], $connection = null)
+    public function __construct($userData = [])
     {
         if (!empty($userData)) {
             self::configure($this, $userData);
             $this->createUserId();
         }
 
-        if (is_null($connection)) {
-
-            /** @var \Core\Config\Config $config */
-            $config = DI::get('Config');
-            $dbConf = $config['$db'];
-            $arr[] = [];
-            $arr['db'] = self::$dbName;
-            $arr['type'] = 'mysql';
-            $arr['host'] = $dbConf['host'];
-            $arr['username'] = $dbConf['user'];
-            $arr['password'] = $dbConf['pass'];
-            $arr['port'] = '';
-
-            $connection = new Database($arr);
-        }
-
-        parent::__construct($connection);
+        parent::__construct();
     }
 
     public function save()
@@ -67,7 +50,7 @@ class User extends Model {
         return parent::update();
     }
 
-    private function unsetBeforeSave()
+    public function unsetBeforeSave()
     {
         unset($this->csrf);
         unset($this->id);
