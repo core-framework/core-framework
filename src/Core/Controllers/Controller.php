@@ -30,6 +30,7 @@ use Core\Views\view;
 /**
  * The base controller for Core Framework
  *
+ * @deprecated Deprecated since v3.0.0
  * @package Core\Controllers
  * @version $Revision$
  * @license http://creativecommons.org/licenses/by-sa/4.0/

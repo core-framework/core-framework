@@ -22,7 +22,7 @@
 
 namespace Core\Models;
 
-use Core\Database\Database;
+use Core\Databases\Database;
 
 /**
  * This is the base model class for Core Framework
@@ -33,7 +33,7 @@ use Core\Database\Database;
  * @link http://coreframework.in
  * @author Shalom Sam <shalom.s@coreframework.in>
  */
-class Model
+class Model extends BaseModel
 {
     /**
      * @var string Database table name
@@ -44,22 +44,30 @@ class Model
      */
     protected static $primaryKey = '';
     /**
+     * @var string Database name
+     */
+    protected static $dbName = '';
+    /**
      * @var database database object instance
      */
     protected static $db;
-    /**
-     * @var array Model properties array
-     */
-    //protected $props = [];
 
     /**
      * Model Constructor
      *
      * @param Database $db
      */
-    public function __construct(Database $db)
+    public function __construct($db = null)
     {
-        self::$db = $db;
+        if (is_null($db)) {
+            self::$db = $this->getConnection();
+        }
+        elseif ($db instanceof Database) {
+            self::$db = $db;
+        }
+        else {
+            throw new \LogicException("Database object missing");
+        }
     }
 
     /**
@@ -74,14 +82,20 @@ class Model
      *
      * @return array
      */
-    static function getAllRows(array $conditions, $orderBy = null, $order = null, $startIndex = null, $count = null, $asArray = false)
-    {
+    static function getAllRows(
+        $conditions = [],
+        $orderBy = null,
+        $order = null,
+        $startIndex = null,
+        $count = null,
+        $asArray = false
+    ) {
         $query = "SELECT * FROM " . static::$tableName;
         $params = [];
         if (!empty($conditions)) {
             $query .= " WHERE ";
             foreach ($conditions as $key => $val) {
-                $query .= $conditions[':' . $key] = $key . " AND ";
+                $query .= $key . "=:" . $key . " AND ";
                 $params[':' . $key] = $val;
             }
         }
@@ -236,11 +250,22 @@ class Model
     }
 
     /**
+     * Unset un-used parameters before storing in Database
+     */
+    public function unsetBeforeSave()
+    {
+
+    }
+
+    /**
      * Updates the database with the properties set
      */
     public function save()
     {
-        $query = "REPLACE INTO " . static::$tableName . " (" . implode(",", array_keys((array) $this)) . ") VALUES(";
+        $query = "REPLACE INTO " . static::$tableName . " (" . implode(
+                ",",
+                array_filter(array_keys((array)$this))
+            ) . ") VALUES(";
         $keys = [];
         //foreach ($this->props as $key => $value) {
         foreach ($this as $key => $value) {
