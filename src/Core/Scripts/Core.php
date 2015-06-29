@@ -471,7 +471,10 @@ class Core extends CLI
                     @unlink($appStyles);
                 }
 
-                if (is_dir($bowerDir . $packName . DS . "dist" )) {
+                if (is_dir($bowerDir . $packName . DS . "dist") === true &&
+                    is_dir($bowerDir . $packName . DS . "dist" . DS . "css") === true &&
+                    is_dir($bowerDir . $packName . DS . "dist" . DS . "js") === true
+                ) {
 
                     if (is_dir($bowerDir . $packName . DS . "dist" . DS . "css")) {
 
@@ -515,9 +518,9 @@ class Core extends CLI
 
                     }
 
-                } elseif (is_dir($bowerDir . $packName . DS . "dist") && !(is_dir(
-                            $bowerDir . $packName . DS . "dist" . DS . "css"
-                        ) && !is_dir($bowerDir . $packName . DS . "dist" . DS . "js"))
+                } elseif ( is_dir( $bowerDir . $packName . DS . "dist") === true &&
+                        is_dir( $bowerDir . $packName . DS . "dist" . DS . "css") === false &&
+                        is_dir( $bowerDir . $packName . DS . "dist" . DS . "js") === false
                 ) {
                     $distDir = $bowerDir . $packName . DS . "dist" . DS;
                     $file = new \DirectoryIterator($distDir);
@@ -542,6 +545,9 @@ class Core extends CLI
 
                         }
                     }
+                } else {
+
+                    $this->io->writeln("No handling available for " . $$path . "..", 'red');
                 }
             }
         }
