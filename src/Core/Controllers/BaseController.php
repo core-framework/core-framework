@@ -138,8 +138,8 @@ class BaseController
         $pageTitle = isset($routeParams['pageTitle']) ? $routeParams['pageTitle'] : '';
         $this->view->setTemplateVars('title', $pageTitle);
 
-        if (isset($this->conf['routeVars']['pageName'])) {
-            $this->view->setTemplateVars('pageName', $this->conf['routeVars']['pageName']);
+        if (isset($routeParams['pageName'])) {
+            $this->view->setTemplateVars('pageName', $routeParams['pageName']);
         }
 
         if ((isset($conf['$global']['metaAndTitleFromFile']) &&
@@ -171,7 +171,7 @@ class BaseController
                 unset($metas['pageTitle']);
             }
 
-            $this->view->setTemplateVars('metas', $metas);
+            $this->view->tplInfo['vars']['metas'] = $metas;
         }
 
     }
