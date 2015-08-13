@@ -252,7 +252,7 @@ class Model extends BaseModel
     /**
      * Unset un-used parameters before storing in Database
      */
-    public function unsetBeforeSave()
+    public function beforeSave()
     {
 
     }
@@ -262,6 +262,7 @@ class Model extends BaseModel
      */
     public function save()
     {
+        $this->beforeSave();
         $query = "REPLACE INTO " . static::$tableName . " (" . implode(
                 ",",
                 array_filter(array_keys((array)$this))
@@ -281,6 +282,7 @@ class Model extends BaseModel
 
     public function update()
     {
+        $this->beforeSave();
         $query = "UPDATE " . static::$tableName . " SET ";
         $keys = [];
         foreach ($this as $key => $val) {
@@ -306,6 +308,7 @@ class Model extends BaseModel
      */
     public function delete()
     {
+        $this->beforeSave();
         $query = "DELETE FROM " . static::$tableName . " WHERE " . static::$primaryKey . "=:id LIMIT 1";
         $db = self::$db;
         $prep = $db->getPrepared($query);

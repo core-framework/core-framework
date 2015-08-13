@@ -57,7 +57,7 @@ return $routes = [
     '/test/hello/{name}' => [
         'pageName' => 'test',
         'pageTitle' => 'Test',
-        'argReq' => ['name' => '[\w]'],
+        'argReq' => ['name' => ':alpha'],
         'argDefault' => 'name',
         'method' => 'GET',
         'controller' => '\\Core\\Controllers:testController'
@@ -65,7 +65,7 @@ return $routes = [
     '/testing/{id}' => [
         'pageName' => 'testing',
         'pageTitle' => 'Testing',
-        'argReq' => ['id' => '[\d]'],
+        'argReq' => ['id' => ':num'],
         'argDefault' => '1',
         'method' => 'GET',
         'controller' => '\\Core\\Controllers:testController'
@@ -73,7 +73,7 @@ return $routes = [
     'testingmulti/{id}/someMethod/{slug}' => [
         'pageName' => 'test',
         'pageTitle' => 'Test',
-        'argReq' => ['id' => '[\d]', 'slug' => '[\w]'],
+        'argReq' => ['id' => ':num', 'slug' => ':alpha'],
         'argDefault' => ['id' => '1', 'slug' => 'awesome'],
         'method' => 'post',
         'controller' => '\\Core\\Controllers:testController:someMethod'

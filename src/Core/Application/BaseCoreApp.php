@@ -126,7 +126,11 @@ abstract class BaseCoreApp
             return self::$basePath;
         }
 
-        $aliasVal = self::$alias[$aliasKey];
+        if (isset(self::$alias[$aliasKey])) {
+            $aliasVal = self::$alias[$aliasKey];
+        } else {
+            return;
+        }
 
         if (strpos($aliasVal, '@') > -1) {
             $newAlias = substr($aliasVal, 0, strpos($aliasVal, '/'));

@@ -31,22 +31,22 @@ abstract class BaseModel {
 
     abstract public function update();
 
-    abstract public function unsetBeforeSave();
+    abstract public function beforeSave();
 
     abstract public function __construct($userData = []);
 
-    public function getConnection()
+    public static function getConnection()
     {
         /** @var \Core\Config\Config $config */
         $config = DI::get('Config');
         $dbConf = $config['$db'];
         $arr[] = [];
-        $arr['db'] = isset(self::$dbName) ? self::$dbName : $dbConf['db'];
-        $arr['type'] = $dbConf['pdoDriver'];
-        $arr['host'] = $dbConf['host'];
-        $arr['username'] = $dbConf['user'];
-        $arr['password'] = $dbConf['pass'];
-        $arr['port'] = $dbConf['port'];
+        $arr['db'] = isset(self::$dbName) && empty(self::$dbName) === false ? self::$dbName : $dbConf['db'];
+        $arr['type'] = isset($dbConf['pdoDriver']) ? $dbConf['pdoDriver'] : '';
+        $arr['host'] = isset($dbConf['host']) ? $dbConf['host'] : '';
+        $arr['username'] = isset($dbConf['user']) ? $dbConf['user'] : '';
+        $arr['password'] = isset($dbConf['pass']) ? $dbConf['pass'] : '';
+        $arr['port'] = isset($dbConf['port']) ? $dbConf['port'] : '';
 
         return new Database($arr);
     }

@@ -127,10 +127,16 @@ class BaseController
         $conf = $this->conf;
         $routeParams = $this->router->routeVars;
 
+        // Get debug mode
         if (CoreApp::$app->_DEBUG === true) {
             $this->view->setDebugMode(true);
         } else {
             $this->view->setDebugMode(false);
+        }
+
+        if ($this->router->httpMethod === 'post' || $this->router->httpMethod === 'put' || $this->router->httpMethod === 'delete') {
+
+            $this->view->disable();
         }
 
         $this->generateCSRFKey();
