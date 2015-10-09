@@ -332,7 +332,28 @@ abstract class BaseApplication extends Components
     public function loadController($routeParams = [])
     {
         $this->status = self::STATUS_COMPUTING_RESPONSE;
+
+        // default status var
+        $status = "success";
+        // $routeParams empty change set status to "error"
         if (empty($routeParams)) {
+            $status = "error";
+        }
+
+        // check if defined method is Array
+        if (is_array($this->router->definedMethod) && $status !== "error") {
+            // If not in array set status to "error"
+            if(!in_array($this->router->httpMethod, $this->router->definedMethod)) {
+                $status = "error";
+            }
+        }
+        // If defined method and current methods don't match change status to "error"
+        elseif ($this->router->httpMethod !== $this->router->definedMethod) {
+            $status = "error";
+        }
+
+        // status is "error" set error route params
+        if ($status === "error") {
             $routeParams['namespace'] = '\\Core\\Controllers';
             $routeParams['controller'] = 'errorController';
             $routeParams['method'] = 'pageNotFound';
