@@ -277,7 +277,7 @@ class Router extends Request implements Cacheable
         $this->routeVars = $val;
 
         // If http method was defined ? if not default assumes GET
-        $this->definedMethod = !empty($val['httpMethod']) ? strtolower($val['httpMethod']) : 'get';
+        $this->definedMethod = !empty($val['httpMethod']) ? $val['httpMethod'] : 'GET';
 
         if (isset($val['useAestheticRouting']) && $val['useAestheticRouting'] === true) {
             $this->namespace = '@appBase\\Controllers';
@@ -290,7 +290,15 @@ class Router extends Request implements Cacheable
         }
 
         if (!empty($val['controller'])) {
-            $controllerStr = $this->controllerVerb = $val['controller'];
+
+            if (is_array($val['controller']) && isset($val['controller'][strtoupper($this->httpMethod)])) {
+                $controllerStr = $this->controllerVerb = $val['controller'][strtoupper($this->httpMethod)];
+            } elseif (is_array($val['controller']) && !isset($val['controller'][strtoupper($this->httpMethod)])) {
+                $controllerStr = "\\Core\\Controllers:errorController:indexAction";
+            } else {
+                $controllerStr = $this->controllerVerb = $val['controller'];
+            }
+
             $strArr = explode(':', $controllerStr);
             if (!empty($strArr) && sizeof($strArr) >= 2) {
                 $this->namespace = $strArr[0];
@@ -357,13 +365,23 @@ class Router extends Request implements Cacheable
                 // RegEx matches with path ? then we are done
                 if (preg_match('#^'. $urlPattern . '$#', $path, $matches)) {
                     $this->foundMatch = true;
+
+                    // remove unwanted keys in matches array
                     foreach($matches as $k => $v) {
                         if (is_numeric($k) === true) {
                             unset($matches[$k]);
                         }
                     }
+
+                    // set arguments as matched parameters
                     $this->args = $matches;
-                    $this->pathVarsAssign($val);
+
+                    // If key value is closure ?
+                    if (is_callable($val)) {
+                        $val($this->args);
+                    } else {
+                        $this->pathVarsAssign($val);
+                    }
                 }
             }
 
