@@ -136,7 +136,7 @@ class BaseController
             $this->view->setDebugMode(false);
         }
 
-        if ($this->router->httpMethod === 'post' || $this->router->httpMethod === 'put' || $this->router->httpMethod === 'delete') {
+        if ($this->router->httpMethod === 'POST' || $this->router->httpMethod === 'PUT' || $this->router->httpMethod === 'DELETE') {
 
             $this->view->disable();
         }
