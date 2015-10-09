@@ -338,25 +338,38 @@ abstract class BaseApplication extends Components
         // $routeParams empty change set status to "error"
         if (empty($routeParams)) {
             $status = "error";
+            $routeParams['args']['message'] = "Route Parameter missing or not defined!";
         }
 
         // check if defined method is Array
         if (is_array($this->router->definedMethod) && $status !== "error") {
             // If not in array set status to "error"
-            if(!in_array($this->router->httpMethod, $this->router->definedMethod)) {
+            if (!in_array(strtoupper($this->router->httpMethod), $this->router->definedMethod) && !in_array(
+                    strtolower($this->router->httpMethod),
+                    $this->router->definedMethod
+                )
+            ) {
                 $status = "error";
+
+                $routeParams['args']['message'] = "HTTP method (" . $this->router->httpMethod . ") is unsupported or not defined for current Route.";
             }
         }
         // If defined method and current methods don't match change status to "error"
         elseif ($this->router->httpMethod !== $this->router->definedMethod) {
             $status = "error";
+            $routeParams['args']['message'] = "HTTP method (" . $this->router->httpMethod . ") is unsupported or not defined for current Route.";
         }
 
         // status is "error" set error route params
         if ($status === "error") {
             $routeParams['namespace'] = '\\Core\\Controllers';
             $routeParams['controller'] = 'errorController';
-            $routeParams['method'] = 'pageNotFound';
+
+            if ($this->_ENV !== 'prod') {
+                $routeParams['method'] = 'errorException';
+            } else {
+                $routeParams['method'] = 'pageNotFound';
+            }
         }
 
         $class = $routeParams['namespace'] . "\\" . $routeParams['controller'];
