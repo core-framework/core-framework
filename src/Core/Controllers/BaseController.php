@@ -98,6 +98,8 @@ class BaseController
      */
     public $csrf;
 
+    public $isSecure;
+
     /**
      * @param Router $router
      * @param AppView $view
@@ -261,6 +263,23 @@ class BaseController
         echo $json;
 
         ob_end_flush();
+    }
+
+
+    public function getIsSecure()
+    {
+        return $this->isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
+    }
+
+    public function redirect($url, $statusCode = 303)
+    {
+        header('Location: ' . $url, true, $statusCode);
+        die();
+    }
+
+    public function setHeader($val)
+    {
+        CoreApp::$app->setHeaders($val);
     }
 
 }
