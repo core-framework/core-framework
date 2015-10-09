@@ -342,13 +342,20 @@ class Router extends Request implements Cacheable
 
                 // Replace string conditions with RegEx
                 $paramType = str_replace(array(':any', ':num', ':alpha'), array('[^/]+', '[0-9]+', '[\w]+'), $val['argReq']);
-                // Get Parameter name
-                $paramName = key($paramType);
+
                 // Build RegEx
-                $newKey = preg_replace('/\{(\w+)\}/', '(?P<'.$paramName.'>'.$paramType[$paramName].')', $key);
+                foreach ($paramType as $param => $pattern) {
+
+                    $subject = isset($newKey) && $newKey !== "" ? $newKey : $key;
+                    $newKey = preg_replace('#\{'.$param.'\}#', '(?P<'.$param.'>'.$pattern.')', $subject);
+                }
+
+                // reset key for next loop
+                $urlPattern = $newKey;
+                $newKey = "";
 
                 // RegEx matches with path ? then we are done
-                if (preg_match('#^'. $newKey . '$#', $path, $matches)) {
+                if (preg_match('#^'. $urlPattern . '$#', $path, $matches)) {
                     $this->foundMatch = true;
                     foreach($matches as $k => $v) {
                         if (is_numeric($k) === true) {
