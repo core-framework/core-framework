@@ -12,18 +12,6 @@ use Core\DI\DI;
 
 class DITest extends \PHPUnit_Framework_TestCase {
 
-    public function testRoutesDI()
-    {
-        $di = new DI();
-        $di->register('Request', '\\Core\\Request\\Request');
-        $di->register('Routes', '\\Core\\Routes\\Routes')
-            ->setArguments(array('Request'));
-
-        $resultRoutes = $di->get('Routes');
-
-        $this->assertInstanceOf("Core\\Routes\\Routes", $resultRoutes);
-
-    }
 
     public function testReferenceMatch()
     {

@@ -44,26 +44,33 @@ namespace Core\Config;
  */
 class Config
 {
+    public static $global = [];
+    public $allConfPath;
+    private $allConfig = [];
     /**
-     * @var string Global config file path
+     * @var array Global configurations path
      */
-    public $globalConfPath;
-    /**
-     * @var string
-     */
-    public $routeConfPath;
-    /**
-     * @var string Cli config path
-     */
-    public $cliConfPath;
+    public $globalPath;
     /**
      * @var array Global configurations
      */
     private $globalConfig = [];
     /**
+     * @var array Routes configurations Path
+     */
+    public $routesConfPath;
+    /**
      * @var array Routes Configurations
      */
     private $routesConfig = [];
+    /**
+     * @var array DB configurations
+     */
+    private $dbConfig = [];
+    /**
+     * @var string Cli config path
+     */
+    public $cliConfPath;
     /**
      * @var array|mixed Cli script configurations
      */
@@ -78,30 +85,26 @@ class Config
             define('_APPDIR', _ROOT . "/web");
         }
 
-        $this->globalConfPath = $globalConfPath = _APPDIR . "/config/global.conf.php";
-        $this->routeConfPath = $routeConfPath = _APPDIR . "/config/routes.conf.php";
+        $this->allConfPath = $allConfPath = _APPDIR . "/config/all.conf.php";
+        $this->globalConfPath = _APPDIR . "/config/global.conf.php";
         $this->cliConfPath = $cliConfPath = _ROOT . "/src/Core/Scripts/cli.conf.php";
 
-        //GlobalConf
-        if(is_readable($globalConfPath)) {
-            $this->globalConfig = include $globalConfPath;
+        //allConf
+        if(is_readable($allConfPath)) {
+            $this->allConfig = include $allConfPath;
+            static::$global = $this->allConf;
 
-            if (!is_array($this->globalConfig)) {
-                $this->globalConfig = [];
+            $this->globalConfig = isset ($this->allConfig['$global']) ? $this->allConfig['$global'] : [];
+            $this->routesConfig = isset ($this->allConfig['$routes']) ? $this->allConfig['$routes'] : [];
+            $this->dbConfig = isset ($this->allConfig['$db']) ? $this->allConfig['$db'] : [];
+
+            if (!is_array($this->allConf)) {
+                $this->allConf = [];
             }
         } else {
-            touch($globalConfPath, 0755);
+            trigger_error("Config files missing!");
         }
 
-        //RouteConf
-        if(is_readable($routeConfPath)) {
-            $this->routesConfig = include $routeConfPath;
-            if (!is_array($this->routesConfig)) {
-                $this->globalConfig = [];
-            }
-        } else {
-            touch($routeConfPath, 0755);
-        }
         //CliConf
         if(is_readable($cliConfPath)) {
             $this->cliConf = include $cliConfPath;
@@ -116,9 +119,19 @@ class Config
 
     public function reloadConfig()
     {
-        $this->globalConfig = include $this->globalConfPath;
-        $this->routesConfig = include $this->routeConfPath;
-        $this->cliConf      = include $this->cliConfPath;
+        if(is_readable($this->allConfPath)) {
+            $this->allConf = include $this->allConfPath;
+            $this->globalConfig = isset ($this->allConfig['$global']) ? $this->allConfig['$global'] : [];
+            $this->routesConfig = isset ($this->allConfig['$routes']) ? $this->allConfig['$routes'] : [];
+            $this->dbConfig = isset ($this->allConfig['$db']) ? $this->allConfig['$db'] : [];
+        }
+
+        if(is_readable($this->cliConfPath)) {
+            $this->cliConf = include $this->cliConfPath;
+            if (!is_array($this->cliConf)) {
+                $this->cliConf = [];
+            }
+        }
     }
 
     /**
@@ -146,6 +159,63 @@ class Config
         } else {
             return false;
         }
+    }
+
+    /**
+     * Store new params to file
+     *
+     * @param $arr
+     * @param $filePath
+     * @return bool
+     */
+    public function store($arr, $filePath)
+    {
+        if (!is_array($arr)) {
+            $arr = [];
+        }
+
+        chmod($filePath, 0777);
+        if (is_readable($filePath)) {
+            $orgData = file_get_contents($filePath);
+        } else {
+            $orgData = [];
+        }
+
+        $newArr = array_merge($orgData, $arr);
+        $data = '<?php return ' . var_export($newArr, true) . ";\n ?>";
+        file_put_contents($filePath, $data);
+        return chmod($filePath, 0655);
+    }
+
+
+    public static function save(array $arr, $file = null)
+    {
+        $fileContents = [];
+        if (empty($arr)) {
+            throw new \ErrorException("Nothing to save!");
+        }
+
+        if (is_null($file)) {
+            $file = self::$globalPath;
+            $fileContents = self::$global;
+        } elseif (is_readable($file)) {
+            $fileContents = include $file;
+        }
+
+        foreach($arr as $k => $v) {
+            $fileContents[$k] = $v;
+        }
+
+        try {
+            chmod($file, 0777);
+            $data = '<?php return ' . var_export($fileContents, true) . ";\n ?>";
+            file_put_contents($file, $data);
+            chmod($file, 0655);
+        } catch (\Exception $e) {
+            throw new \ErrorException("Unable to write to save config! -" . $e->getMessage());
+        }
+
+        return true;
     }
 
     /**
@@ -177,21 +247,6 @@ class Config
     {
         $this->cliConf[$name] = $val;
         $this->store($this->cliConf, $this->cliConfPath);
-    }
-
-    /**
-     * Store new params to file
-     *
-     * @param $arr
-     * @param $filePath
-     * @return bool
-     */
-    public function store($arr, $filePath)
-    {
-        chmod($filePath, 0777);
-        $data = '<?php return ' . var_export($arr, true) . ";\n ?>";
-        file_put_contents($filePath, $data);
-        return chmod($filePath, 0655);
     }
 
     /**

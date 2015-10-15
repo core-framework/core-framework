@@ -10,29 +10,17 @@ namespace Core\Tests\CacheSystem;
 
 
 use Core\CacheSystem\Cache;
-use Core\Request\Request;
 
 class CacheTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function testIfCacheExists()
+    public function setUp()
     {
-        $cache = new Cache();
-        $request = new Request();
-        $cache->deleteCache('Request');
-        $cache->cacheContent('Request', $request, 100000);
-        $this->assertTrue($cache->cacheExists('Request'));
-
-        return $cache;
+        $this->cache = new Cache();
     }
 
-    /**
-     * @depends testIfCacheExists
-     */
-    public function testIfCacheReturnObject(Cache $cache)
+    public function testCreateCache()
     {
-        $request = $cache->getCache('Request');
-        $this->assertInstanceOf('Core\\Request\\Request', $request);
+        $this->assertInstanceOf('\\Core\\CacheSystem\\Cache', $this->cache);
     }
 
 }

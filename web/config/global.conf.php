@@ -11,26 +11,22 @@
 //global $_CONFIG;
 
 $global = [
-
-    '$global' => [
-        'metaAndTitleFromFile' => false,
-        'appPath' => realpath(__DIR__ . DIRECTORY_SEPARATOR . '..'),
-        'basePath' => realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'),
-        'apcIsLoaded' => extension_loaded('apc'),
-        'apcIsEnabled' => ini_get('apc.enabled'),
-        'tplType' => 'tpl',
-        'useAPC' => true,
-        'useAestheticRouting' => false
-    ],
-    '$db' => require('db.conf.php'),
-    '$routes' => require('routes.conf.php')
-
+    'metaAndTitleFromFile' => false,
+    'appPath' => realpath(__DIR__ . DIRECTORY_SEPARATOR . '..'),
+    'basePath' => realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'),
+    'apcIsLoaded' => extension_loaded('apc'),
+    'apcIsEnabled' => ini_get('apc.enabled'),
+    'tplType' => 'tpl',
+    'useAPC' => true,
+    'useAestheticRouting' => false
 ];
 
-if ($global['$global']['apcIsLoaded'] && $global['$global']['apcIsEnabled']) {
-    $global['$global']['hasAPC'] = true;
-} else {
-    $global['$global']['hasAPC'] = false;
+$editable = require("editable.conf.php");
+
+if (!is_array($editable)) {
+    $editable = [];
 }
+
+$global = array_merge($global, $editable);
 
 return $global;
