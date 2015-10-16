@@ -18,7 +18,8 @@ use Core\Routes\Router;
  */
 abstract class BaseApplication extends Components
 {
-
+    const DEVELOPMENT_STATE = 'prod';
+    const PRODUCTION_STATE = 'dev';
     /**
      * Begin state
      *
@@ -77,14 +78,14 @@ abstract class BaseApplication extends Components
 
     /**
      * The current environment status prod | dev
-     *
+     * @deprecated Deprecated since 16/10/15
      * @var string | 'prod' | 'dev'
      */
     public $_ENV = 'prod';
 
     /**
      * If application is running in debug mode.
-     *
+     * @deprecated Deprecated since 16/10/15
      * @var bool
      */
     public $_DEBUG = false;
@@ -169,12 +170,35 @@ abstract class BaseApplication extends Components
      */
     public function __construct($config = [])
     {
-        $this->_ENV = defined('CORE_ENV') ? CORE_ENV : 'prod';
-        $this->_DEBUG = defined('CORE_DEBUG') ? CORE_DEBUG : false;
-
         CoreApp::$app = $this;
         $this->status = self::STATUS_BEGIN;
         $this->init($config);
+    }
+
+    public function setEnvironment($config = [])
+    {
+        if (isset($config['$global']['app_env']) && strstr($config['$global']['app_env'], 'prod')) {
+            $GLOBALS['app_env'] = self::PRODUCTION_STATE;
+
+            if ($config['$global']['error_reporting'] === true) {
+                if (isset($config['$global']['error_reporting_type'])) {
+                    error_reporting($config['$global']['error_reporting_type']);
+                } else {
+                    error_reporting(E_ALL);
+                }
+            }
+
+        } else {
+            $GLOBALS['app_env'] = self::DEVELOPMENT_STATE;
+            error_reporting(E_ALL);
+        }
+
+        if (isset($config['$global']['debug']) && $config['$global']['debug'] === true ) {
+            $GLOBALS['debug'] = $config['$global']['debug'];
+            ini_set('display_errors', 'On');
+        } else {
+            $GLOBALS['debug'] = false;
+        }
     }
 
     /**
@@ -185,7 +209,7 @@ abstract class BaseApplication extends Components
     public function init($config = [])
     {
         $this->status = self::STATUS_INIT;
-
+        $this->setEnvironment($config);
         $this->loadConf($config);
         $this->loadComponents();
     }
@@ -214,7 +238,9 @@ abstract class BaseApplication extends Components
             return;
         }
 
-        $this->router = $cache->getCache($routeKey);
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) === true && $_SERVER['HTTP_X_REQUESTED_WITH'] !== 'XMLHttpRequest') {
+            $this->router = $cache->getCache($routeKey);
+        }
 
         if (!($this->router instanceof Router)) {
             $this->router = $this->get('Router');
@@ -249,11 +275,12 @@ abstract class BaseApplication extends Components
         $this->status = self::STATUS_HANDLING_REQUEST;
         $this->routeParams = $routeParams = $this->router->resolve($this->global['useAestheticRouting']);
 
-        if(!isset($routeParams['noCacheRoute']) || $routeParams['noCacheRoute'] === false) {
+        if((isset($routeParams['noCacheRoute']) === true && $routeParams['noCacheRoute'] === true) && $_SERVER['HTTP_X_REQUESTED_WITH'] !== 'XMLHttpRequest') {
             $this->cache->cacheContent($this->conf['$global']['routeKey'], $this->router, $this->ttl);
         }
 
         $this->view = $this->get('View');
+
         if ($this->router->customServe === true) {
             $this->handleCustomServe($routeParams);
             $this->render();
@@ -344,20 +371,16 @@ abstract class BaseApplication extends Components
         // check if defined method is Array
         if (is_array($this->router->definedMethod) && $status !== "error") {
             // If not in array set status to "error"
-            if (!in_array(strtoupper($this->router->httpMethod), $this->router->definedMethod) && !in_array(
-                    strtolower($this->router->httpMethod),
-                    $this->router->definedMethod
-                )
-            ) {
+            if(!in_array(strtoupper($this->router->httpMethod), $this->router->definedMethod) && !in_array(strtolower($this->router->httpMethod), $this->router->definedMethod)) {
                 $status = "error";
 
-                $routeParams['args']['message'] = "HTTP method (" . $this->router->httpMethod . ") is unsupported or not defined for current Route.";
+                $routeParams['args']['message'] = "HTTP method (".$this->router->httpMethod.") is unsupported or not defined for current Route.";
             }
         }
         // If defined method and current methods don't match change status to "error"
-        elseif ($this->router->httpMethod !== $this->router->definedMethod) {
+        elseif (strtoupper($this->router->httpMethod) !== strtoupper($this->router->definedMethod)) {
             $status = "error";
-            $routeParams['args']['message'] = "HTTP method (" . $this->router->httpMethod . ") is unsupported or not defined for current Route.";
+            $routeParams['args']['message'] = "HTTP method (".$this->router->httpMethod.") is unsupported or not defined for current Route.";
         }
 
         // status is "error" set error route params

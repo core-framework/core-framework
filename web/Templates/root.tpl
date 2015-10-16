@@ -28,20 +28,6 @@
             <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
             <![endif]-->
         <{/block}>
-
-        <script type="text/javascript" >
-
-            _baseUrl = 'http://localhost/feedbackWidget';
-
-            (function(w,d){
-                w.c;
-                w.c=d.createElement("script");
-                c.async=1;
-                c.src="http://localhost/feedbackWidget/scripts/task.min.js";
-                d.getElementsByTagName("head")[0].appendChild(c);
-            })(window, document);
-
-        </script>
     </head>
 <{/block}>
 <{block name="bodyBlock"}>

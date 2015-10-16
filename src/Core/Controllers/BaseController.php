@@ -130,7 +130,7 @@ class BaseController
         $routeParams = $this->router->routeVars;
 
         // Get debug mode
-        if (CoreApp::$app->_DEBUG === true) {
+        if ($GLOBALS['debug'] === true) {
             $this->view->setDebugMode(true);
         } else {
             $this->view->setDebugMode(false);
@@ -180,6 +180,14 @@ class BaseController
             }
 
             $this->view->tplInfo['vars']['metas'] = $metas;
+        }
+
+        if (isset($this->conf['$global']['websiteUrl'])) {
+            $this->view->setTemplateVars('websiteUrl', $this->conf['$global']['websiteUrl']);
+        }
+
+        if (isset($this->conf['$global']['domain'])) {
+            $this->view->setTemplateVars('domain', $this->conf['$global']['domain']);
         }
 
     }

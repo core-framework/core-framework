@@ -23,17 +23,11 @@
 
 session_start();
 
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
-
-defined('CORE_DEBUG') or define('CORE_DEBUG', true);
-defined('CORE_ENV') or define('CORE_ENV', 'dev');
-
 require(__DIR__ . '/../vendor/autoload.php');
 
 use Core\Application\Application;
 
-$conf = require(__DIR__ . '/config/global.conf.php');
+$conf = require(__DIR__ . '/config/all.conf.php');
 $app = new Application($conf);
 $app->run();
 
