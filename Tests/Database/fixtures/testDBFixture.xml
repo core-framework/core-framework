@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<database name="test">
+	<table_data name="phinxlog">
+	<row>
+		<field name="version">20151031044431</field>
+		<field name="start_time">2015-10-31 14:32:29</field>
+		<field name="end_time">2015-10-31 14:32:29</field>
+	</row>
+	</table_data>
+	<table_data name="user">
+	<row>
+		<field name="id">1</field>
+		<field name="fname">Shalom</field>
+		<field name="lname">Sam</field>
+		<field name="name">Shalom Sam</field>
+		<field name="userId">shalom5634d10f9a663</field>
+		<field name="email">test@test.com</field>
+		<field name="email_hash" xsi:nil="true" />
+		<field name="pass_hash">$2y$13$6YY1DczQim4JsRDTN3Cb0Oa.TtCUBDfoTZW.Cwj4MGQEV1rQkRV6y</field>
+		<field name="salt">$2y$13$6YY1DczQim4JsRDTN3Cb0c</field>
+		<field name="created_at">2015-10-31 20:02:48</field>
+		<field name="modified_at">2015-10-31 20:02:48</field>
+	</row>
+	</table_data>
+</database>
+</mysqldump>

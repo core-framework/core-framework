@@ -24,7 +24,6 @@ namespace Core\Controllers;
 
 
 use Core\Application\Application;
-use Core\Application\CoreApp;
 use Core\Routes\Router;
 use Core\Views\AppView;
 
@@ -273,7 +272,6 @@ class BaseController
         ob_end_flush();
     }
 
-
     public function getIsSecure()
     {
         return $this->isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
@@ -287,7 +285,10 @@ class BaseController
 
     public function setHeader($val)
     {
-        CoreApp::$app->setHeaders($val);
+        /**
+         * @var $app Application
+         */
+        Application::setHeaders($val);
     }
 
 }

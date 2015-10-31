@@ -33,11 +33,22 @@ class AppConfig
     public function __construct($conf = null)
     {
         if (is_null($conf)) {
-            $conf = _ROOT . "/web/config/editable.conf.php";
+            $conf = require(_ROOT . "/config/framework.conf.php");
         }
 
         static::configure($conf);
         return $this;
+    }
+
+    public static function get($confKey = null)
+    {
+        if (is_null($confKey)) {
+            return static::$allConf;
+        } elseif (isset(static::$allConf[$confKey])) {
+            return static::$allConf[$confKey];
+        } else {
+            return searchArrayByKey(static::$allConf, $confKey);
+        }
     }
 
     public static function setFile($filePath)

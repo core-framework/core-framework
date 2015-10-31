@@ -20,19 +20,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Core\Helper;
 
-/**
- * Helper class for some common handy methods
- *
- * @package Core\Helper
- * @version $Revision$
- * @license http://creativecommons.org/licenses/by-sa/4.0/
- * @link http://coreframework.in
- * @author Shalom Sam <shalom.s@coreframework.in>
- */
-class Helper
-{
+use Core\CacheSystem\AppCache;
+use Core\CacheSystem\Cache;
+
+if ( ! function_exists('core_serialize') ) {
+
     /**
      * Method to serialize array (comma separated values as single string)
      *
@@ -40,7 +33,7 @@ class Helper
      * @param string $delimiter
      * @return string
      */
-    public static function serialize(array $arr, $delimiter = ", ")
+    function core_serialize(array $arr, $delimiter = ", ")
     {
         $serialized = "";
         if (!key($arr)) {
@@ -57,16 +50,24 @@ class Helper
             return $serialized;
         }
     }
+}
+
+
+
+if (! function_exists('core_unserialize')) {
 
     /**
      * @param $serialized
      * @param string $delimiter
      * @return array
      */
-    public static function unserialize($serialized, $delimiter = ", ")
+    function core_unserialize($serialized, $delimiter = ", ")
     {
         return explode($delimiter, $serialized);
     }
+}
+
+if (! function_exists('copyr')) {
 
     /**
      * Method to copy files and directories recursively
@@ -76,7 +77,7 @@ class Helper
      * @param bool $override
      * @throws \Exception
      */
-    public static function copyr($source, $dest, $override = false)
+    function copyr($source, $dest, $override = false)
     {
         $dir = opendir($source);
         if (!is_dir($dest)) {
@@ -88,7 +89,7 @@ class Helper
             while (false !== ($file = readdir($dir))) {
                 if (($file != '.') && ($file != '..')) {
                     if (is_dir($source . DS . $file)) {
-                        self::copyr($source . DS . $file, $dest . DS . $file);
+                        copyr($source . DS . $file, $dest . DS . $file);
                     } elseif (is_readable($dest . DS . $file) && $override === true) {
                         copy($source . DS . $file, $dest . DS . $file);
                     } elseif (!is_readable($dest . DS . $file)) {
@@ -101,6 +102,10 @@ class Helper
         }
         closedir($dir);
     }
+}
+
+
+if (! function_exists('chmodDirFiles') ) {
 
     /**
      * Method to change the permission for files recursively
@@ -109,19 +114,23 @@ class Helper
      * @param null $mod
      * @param bool $recursive
      */
-    public static function chmodDirFiles($dir, $mod = null, $recursive = true)
+    function chmodDirFiles($dir, $mod = null, $recursive = true)
     {
         chmod($dir, 0755);
         if ($recursive && $objs = glob($dir . DS . "*")) {
             foreach ($objs as $file) {
                 if (is_dir($file)) {
-                    self::chmodDirFiles($file, $mod, $recursive);
+                    chmodDirFiles($file, $mod, $recursive);
                 } else {
-                    self::change_perms($file, $mod);
+                    change_perms($file, $mod);
                 }
             }
         }
     }
+}
+
+
+if (! function_exists('change_perms')) {
 
     /**
      * Method to change the permission of a single file
@@ -129,9 +138,55 @@ class Helper
      * @param $obj
      * @param null $mod
      */
-    public static function change_perms($obj, $mod = null)
+    function change_perms($obj, $mod = null)
     {
         chmod($obj, empty($mod) ? 0755 : $mod);
     }
+}
 
+
+if (! function_exists('searchArrayByKey')) {
+
+    /**
+     * Searches given array for given key and return the value of that key. Returns false if nothing was found
+     *
+     * @param array $array
+     * @param $search
+     * @return bool|mixed
+     */
+    function searchArrayByKey(array $array, $search) {
+        foreach (new RecursiveIteratorIterator(new RecursiveArrayIterator($array)) as $key => $value) {
+            if ($search === $key)
+            return $value;
+        }
+        return false;
+    }
+}
+
+
+if (! function_exists('requireCached') ) {
+
+    /**
+     * Requires cached version of file if exists else caches the given file and requires the given file
+     *
+     * @param $filePath
+     * @return bool|mixed
+     * @throws ErrorException
+     */
+    function requireCached($filePath) {
+        new AppCache();
+
+        if (AppCache::cacheExists($filePath)) {
+            $cache = AppCache::getCache($filePath);
+            if (is_bool($cache)) {
+                AppCache::cacheContent($filePath, require($filePath), 10000);
+                return require($filePath);
+            } else {
+                return $cache;
+            }
+        } else {
+            AppCache::cacheContent($filePath, require($filePath), 10000);
+            return require($filePath);
+        }
+    }
 }

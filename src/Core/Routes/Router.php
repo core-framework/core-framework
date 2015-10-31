@@ -147,18 +147,33 @@ class Router extends Request implements Cacheable
      */
     private $collection;
 
+    public $configSet = false;
+
     /**
      * @param array $config
      */
     public function __construct($config = [])
     {
+        if (!empty($config)) {
+            parent::__construct($config);
+            $this->init($config);
+        }
+    }
+
+    public function init($config)
+    {
         $this->config = $config;
-        parent::__construct($config);
+        $this->configSet = true;
         $this->path = $this->getPath();
         $this->pathBurst();
         $this->loadRoutesConf($config);
     }
 
+    public function setConfig(array $config)
+    {
+        parent::__construct($config);
+        $this->init($config);
+    }
 
     /**
      * build the urlPathArr prop
@@ -210,6 +225,10 @@ class Router extends Request implements Cacheable
      */
     public function resolve($useAestheticRouting = false)
     {
+        if(!$this->configSet) {
+            throw new \ErrorException("Config not set in Router!");
+        }
+
         // If was previously resolved then return that computed Array
         if (!empty($this->resolvedArr)) {
             return $this->resolvedArr;

@@ -18,8 +18,9 @@ use Core\Routes\Router;
  */
 abstract class BaseApplication extends Components
 {
-    const DEVELOPMENT_STATE = 'prod';
-    const PRODUCTION_STATE = 'dev';
+    const DEVELOPMENT_STATE = 'dev';
+    const PRODUCTION_STATE = 'prod';
+
     /**
      * Begin state
      *
@@ -77,7 +78,30 @@ abstract class BaseApplication extends Components
     const STATUS_END = 7;
 
     /**
+     * When static::DEVELOPMENT_STATE or 'dev' ensures errors are displayed
+     *
+     * @var $appEnv string
+     * @supported static::DEVELOPMENT_STATE || static::PRODUCTION_STATE
+     */
+    public static $appEnv;
+
+    /**
+     * Contains the Application object in its current state
+     *
+     * @var $app Application
+     */
+    public static $app;
+
+    /**
+     * To explicitly turn on error reporting and error display
+     *
+     * @var $isDebugMode
+     */
+    public static $isDebugMode;
+
+    /**
      * The current environment status prod | dev
+     *
      * @deprecated Deprecated since 16/10/15
      * @var string | 'prod' | 'dev'
      */
@@ -85,6 +109,7 @@ abstract class BaseApplication extends Components
 
     /**
      * If application is running in debug mode.
+     *
      * @deprecated Deprecated since 16/10/15
      * @var bool
      */
@@ -124,38 +149,45 @@ abstract class BaseApplication extends Components
      * @var string
      */
     public $language = 'en_US';
+
     /**
      * The parameters of the URI requested
      *
      * @var null | array
      */
     public $routeParams;
+
     /**
      * @var null | string
      */
     public $action;
+
     /**
      * @var null | array
      */
     public $args;
+
     /**
      * Application state/status
      *
      * @var int
      */
     public $status;
+
     /**
      * Application View
      *
      * @var \Core\Views\AppView
      */
     public $view;
+
     /**
      * Application wide Time to Live (ttl)
      *
      * @var int
      */
     public $ttl = 3600;
+
     /**
      * Requested URI
      *
@@ -170,35 +202,9 @@ abstract class BaseApplication extends Components
      */
     public function __construct($config = [])
     {
-        CoreApp::$app = $this;
+        static::$app = $this;
         $this->status = self::STATUS_BEGIN;
         $this->init($config);
-    }
-
-    public function setEnvironment($config = [])
-    {
-        if (isset($config['$global']['app_env']) && strstr($config['$global']['app_env'], 'prod')) {
-            $GLOBALS['app_env'] = self::PRODUCTION_STATE;
-
-            if ($config['$global']['error_reporting'] === true) {
-                if (isset($config['$global']['error_reporting_type'])) {
-                    error_reporting($config['$global']['error_reporting_type']);
-                } else {
-                    error_reporting(E_ALL);
-                }
-            }
-
-        } else {
-            $GLOBALS['app_env'] = self::DEVELOPMENT_STATE;
-            error_reporting(E_ALL);
-        }
-
-        if (isset($config['$global']['debug']) && $config['$global']['debug'] === true ) {
-            $GLOBALS['debug'] = $config['$global']['debug'];
-            ini_set('display_errors', 'On');
-        } else {
-            $GLOBALS['debug'] = false;
-        }
     }
 
     /**
@@ -209,9 +215,13 @@ abstract class BaseApplication extends Components
     public function init($config = [])
     {
         $this->status = self::STATUS_INIT;
-        $this->setEnvironment($config);
         $this->loadConf($config);
-        $this->loadComponents();
+        $this->getComponents();
+        $this->router = $this->get('Router');
+        $this->router->setConfig($this->conf);
+        //$this->controller = $this->get('Controller');
+        $this->view = $this->get('View');
+        $this->setEnvironment($config);
     }
 
     /**
@@ -221,7 +231,7 @@ abstract class BaseApplication extends Components
      */
     public function run()
     {
-        /** @var \Core\CacheSystem\Cache $cache */
+        /** @var \Core\CacheSystem\AppCache $cache */
         $this->cache = $cache = $this->get('Cache');
 
         if (isset($_GET['action']) && $_GET['action'] === 'clear_cache') {
@@ -275,7 +285,7 @@ abstract class BaseApplication extends Components
         $this->status = self::STATUS_HANDLING_REQUEST;
         $this->routeParams = $routeParams = $this->router->resolve($this->global['useAestheticRouting']);
 
-        if((isset($routeParams['noCacheRoute']) === true && $routeParams['noCacheRoute'] === true) && $_SERVER['HTTP_X_REQUESTED_WITH'] !== 'XMLHttpRequest') {
+        if ((isset($routeParams['noCacheRoute']) === true && $routeParams['noCacheRoute'] === true) && $_SERVER['HTTP_X_REQUESTED_WITH'] !== 'XMLHttpRequest') {
             $this->cache->cacheContent($this->conf['$global']['routeKey'], $this->router, $this->ttl);
         }
 
@@ -316,7 +326,7 @@ abstract class BaseApplication extends Components
 
         $rPathArr = explode('/', $referencePath);
 
-        $realPath = $this->appPath . '/';
+        $realPath = static::$appPath . '/';
 
         foreach ($rPathArr as $part) {
             $realPath .= $part . DS;
@@ -344,7 +354,7 @@ abstract class BaseApplication extends Components
             $this->loadController($routeParams);
 
         } else {
-            $this->setHeaders($fileExt);
+            static::setHeaders($fileExt);
             include_once $realPath;
             $this->view->disable();
         }
@@ -371,16 +381,19 @@ abstract class BaseApplication extends Components
         // check if defined method is Array
         if (is_array($this->router->definedMethod) && $status !== "error") {
             // If not in array set status to "error"
-            if(!in_array(strtoupper($this->router->httpMethod), $this->router->definedMethod) && !in_array(strtolower($this->router->httpMethod), $this->router->definedMethod)) {
+            if (!in_array(strtoupper($this->router->httpMethod), $this->router->definedMethod) && !in_array(
+                    strtolower($this->router->httpMethod),
+                    $this->router->definedMethod
+                )
+            ) {
                 $status = "error";
 
-                $routeParams['args']['message'] = "HTTP method (".$this->router->httpMethod.") is unsupported or not defined for current Route.";
+                $routeParams['args']['message'] = "HTTP method (" . $this->router->httpMethod . ") is unsupported or not defined for current Route.";
             }
-        }
-        // If defined method and current methods don't match change status to "error"
+        } // If defined method and current methods don't match change status to "error"
         elseif (strtoupper($this->router->httpMethod) !== strtoupper($this->router->definedMethod)) {
             $status = "error";
-            $routeParams['args']['message'] = "HTTP method (".$this->router->httpMethod.") is unsupported or not defined for current Route.";
+            $routeParams['args']['message'] = "HTTP method (" . $this->router->httpMethod . ") is unsupported or not defined for current Route.";
         }
 
         // status is "error" set error route params
@@ -388,7 +401,7 @@ abstract class BaseApplication extends Components
             $routeParams['namespace'] = '\\Core\\Controllers';
             $routeParams['controller'] = 'errorController';
 
-            if ($this->_ENV !== 'prod') {
+            if (static::$appEnv !== static::PRODUCTION_STATE) {
                 $routeParams['method'] = 'errorException';
             } else {
                 $routeParams['method'] = 'pageNotFound';
@@ -405,7 +418,7 @@ abstract class BaseApplication extends Components
      * Set header
      * @param null | string $type
      */
-    public function setHeaders($type = null)
+    public static function setHeaders($type = null)
     {
         header('Cache-Control: max-age=3600');
 
@@ -450,6 +463,10 @@ abstract class BaseApplication extends Components
                 header('HTTP/1.0 404 Not Found');
                 break;
 
+            case '500':
+                header('HTTP/1.0 500 Internal Server Error');
+                break;
+
             default:
                 //header('HTTP/1.0 404 Not Found');
                 header('Content-Type: text;');
@@ -469,6 +486,39 @@ abstract class BaseApplication extends Components
             }
 
             $this->cache->cacheContent($this->conf['$global']['viewKey'], $this->view, $this->ttl);
+        }
+    }
+
+    public function setEnvironment($config = [])
+    {
+        if (isset($config['$env']['app_env']) && strstr($config['$env']['app_env'], 'prod')) {
+            $GLOBALS['app_env'] = static::$appEnv = static::PRODUCTION_STATE;
+        } else {
+            $GLOBALS['app_env'] = static::$appEnv = static::DEVELOPMENT_STATE;
+            error_reporting(E_ALL);
+            ini_set('display_errors', 'On');
+            $this->view->setDebugMode(true);
+        }
+
+        if (isset($config['$env']['debug']) && $config['$env']['debug'] === true) {
+
+            $GLOBALS['debug'] = static::$isDebugMode = $config['$env']['debug'];
+            if (ini_get('display_errors') === 'off' || ini_get('display_errors') === false) {
+                ini_set('display_errors', 'On');
+            }
+
+            if (isset($config['$env']['error_reporting_type'])) {
+                error_reporting($config['$env']['error_reporting_type']);
+            } else {
+                error_reporting(E_ALL);
+            }
+
+//            if ($this->view->debugMode === false) {
+//                $this->view->setDebugMode(true);
+//            }
+
+        } else {
+            $GLOBALS['debug'] = false;
         }
     }
 

@@ -26,6 +26,7 @@ namespace Core\Application;
  * Base CoreFramework application
  *
  * Class BaseCoreApp
+ * @deprecated since 22/10/15
  * @package Core\Application
  */
 abstract class BaseCoreApp
@@ -84,15 +85,12 @@ abstract class BaseCoreApp
         } elseif (strpos($class, '\\') !== false) {
             $classFile = '@' . str_replace('\\', '/', $class);
         } else {
-            //\ComposerAutoloaderInit5a551ebbf056947890c145e646535d1e::loadClassLoader($class);
-
             return;
         }
 
         $realPath = self::getRealPath($classFile);
 
         if (!is_readable($realPath)) {
-            //\ComposerAutoloaderInit5a551ebbf056947890c145e646535d1e::loadClassLoader($class);
             return;
         }
 

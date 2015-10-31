@@ -12,6 +12,11 @@ use Core\DI\DI;
 
 class DITest extends \PHPUnit_Framework_TestCase {
 
+    public function tearDown()
+    {
+        DI::reset();
+        parent::tearDown();
+    }
 
     public function testReferenceMatch()
     {
@@ -29,6 +34,16 @@ class DITest extends \PHPUnit_Framework_TestCase {
 
         $this->assertEquals($a, $c);
         $this->assertEquals($b, $c);
+    }
+
+    public function testCanRegisterClass()
+    {
+        $di = new DI();
+        $di->register('Cache', \Core\CacheSystem\OPCache::class);
+
+        $cache = $di->get('Cache');
+
+        $this->assertInstanceOf('\\Core\\CacheSystem\\OPCache', $cache);
     }
 
 } 

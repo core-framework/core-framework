@@ -21,14 +21,14 @@ class Components extends DI
      *
      * @var string
      */
-    public $basePath;
+    public static $basePath;
 
     /**
      * Application folder path
      *
      * @var string
      */
-    public $appPath;
+    public static $appPath;
 
     /**
      * Application config
@@ -68,7 +68,7 @@ class Components extends DI
     /**
      * Controller object
      *
-     * @var \Core\Controllers\Controller
+     * @var \Core\Controllers\BaseController
      */
     public $controller;
 
@@ -82,17 +82,55 @@ class Components extends DI
     /**
      * Cache object
      *
-     * @var \Core\CacheSystem\Cache
+     * @var \Core\CacheSystem\AppCache
      */
     public $cache;
 
     /**
+     * Contains the class maps
      *
+     * @var array
      */
-    public function __construct()
-    {
+    public static $classmap;
 
+    /**
+     * Class map aliases
+     *
+     * @var array
+     */
+    public static $alias = [
+        '@Core' => '@base/src/Core',
+        '@web' => '@base/web'
+    ];
+
+    /**
+     * object Constructor
+     */
+    public function __construct() { }
+
+    /**
+     * loads component objects
+     *
+     * @throws \ErrorException
+     */
+    public function getComponents()
+    {
+        $this->baseComponents = $this->conf['$components'];
+
+        if (empty($this->baseComponents)) {
+            return;
+        }
+
+        $baseComponents = $this->baseComponents;
+        foreach ($baseComponents as $class => $definition) {
+            if (is_array($definition) && $class != "commands") {
+                $this->register($class, $definition['definition'])->setArguments($definition['dependencies']);
+            } else {
+                $this->register($class, $definition);
+            }
+        }
     }
+
 
     /**
      * loads configurations
@@ -101,81 +139,102 @@ class Components extends DI
      */
     public function loadConf($conf = [])
     {
-
         if (!empty($conf)) {
-            $this->basePath = CoreApp::$basePath = realpath($conf['$global']['basePath']);
-            $this->appPath = CoreApp::$appPath = realpath($conf['$global']['appPath']);
-            CoreApp::addAlias('@base', $this->basePath);
-            CoreApp::addAlias('@appBase', $this->appPath);
-            //unset($conf['$global']['basePath'], $conf['$global']['appPath']);
+            static::$basePath = $conf['$global']['basePath'];
+            static::$appPath = $conf['$global']['appPath'];
+            static::addAlias('@base', static::$basePath);
+            static::addAlias('@web', static::$appPath);
             $this->conf = $conf;
             $this->global = &$this->conf['$global'];
-            if (isset($conf['$components'])) {
+            if (isset($conf['$components']) && !empty($conf['$components'])) {
                 $this->baseComponents = array_merge($conf['$components'], $this->baseComponents);
             }
         }
 
     }
 
+
     /**
-     * loads component objects
+     * Application auto loader
      *
-     * @throws \ErrorException
+     * @param $class
      */
-    public function loadComponents()
+    public static function autoload($class)
     {
-        $di = $this;
-        if (isset($this->global['useAPC']) && $this->global['useAPC'] === true) {
-            $hasAPC = $this->global['hasAPC'];
-            if ($hasAPC === false) {
-                throw new \LogicException('`useAPC` is set to TRUE but not installed or enabled in php ini.');
+        if (static::$classmap[$class]) {
+            $classFile = static::$classmap[$class];
+            if (strpos($classFile, '@') === -1) {
+                include $classFile;
+                return;
             }
-
-            $di->register('Cache', '\\Core\\CacheSystem\\OPCache');
-
+        } elseif (strpos($class, '\\') !== false) {
+            $classFile = '@' . str_replace('\\', '/', $class);
         } else {
-            $di->register('Cache', '\\Core\\CacheSystem\\Cache');
-        }
-
-        $di->register('Config', function () {
-            return $this->conf;
-        });
-
-        $di->register('Router', '\\Core\\Routes\\Router')
-            ->setArguments(array($this->conf));
-
-        if (isset($this->global['tplType']) && $this->tplType = $this->global['tplType'] === 'tpl') {
-
-            $di->register('View', '\\Core\\Views\\AppView')
-                ->setArguments(array('Smarty'));
-            $di->register('Smarty', '')
-                ->setDefinition(
-                    function () {
-                        return new \Smarty();
-                    }
-                );
-
-        } else {
-
-            // TODO: create/add other possible template types
-            //Plug other template types here (as View)
-            //$di->register('View', '\\Core\\Views\\AppView');
-
-        }
-
-        if (empty($this->baseComponents)) {
             return;
         }
 
-        $baseComponents = $this->baseComponents;
-        foreach ($baseComponents as $class => $definition) {
-            if (is_array($definition)) {
-                $this->register($class, $definition['definition'])->setArguments($definition['dependencies']);
-            } else {
-                $this->register($class, $definition);
-            }
+        $realPath = self::getRealPath($classFile);
+
+        if (!is_readable($realPath)) {
+            return;
         }
+
+        include $realPath;
     }
+
+    /**
+     * Get real path from provided aliased path
+     *
+     * @param $aliasPath
+     * @return string
+     */
+    public static function getRealPath($aliasPath)
+    {
+        $alias = substr($aliasPath, 0, strpos($aliasPath, '/'));
+        $relativePath = substr($aliasPath, strpos($aliasPath, '/'));
+
+        $realPath = self::getAlias($alias) . $relativePath . '.php';
+        return $realPath;
+    }
+
+    /**
+     * Alias to path conversion
+     *
+     * @param $aliasKey
+     * @return string
+     */
+    public static function getAlias($aliasKey)
+    {
+        if ($aliasKey === '@base') {
+            return self::$basePath;
+        }
+
+        if (isset(self::$alias[$aliasKey])) {
+            $aliasVal = self::$alias[$aliasKey];
+        } else {
+            return;
+        }
+
+        if (strpos($aliasVal, '@') > -1) {
+            $newAlias = substr($aliasVal, 0, strpos($aliasVal, '/'));
+            $newAliasVal = substr($aliasVal, strpos($aliasVal, '/'));
+            $aliasVal = self::getAlias($newAlias) . $newAliasVal;
+        }
+
+        return $aliasVal;
+    }
+
+    /**
+     * Add alias
+     *
+     * @param $aliasName
+     * @param $path
+     */
+    public static function addAlias($aliasName, $path)
+    {
+        self::$alias[$aliasName] = $path;
+    }
+
 }
 
 

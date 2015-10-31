@@ -22,6 +22,8 @@
 
 namespace Core\Controllers;
 
+use SebastianBergmann\RecursionContext\Exception;
+
 /**
  * Controller class to handle (html header) errors
  *
@@ -50,7 +52,7 @@ class errorController extends BaseController
      */
     public function indexAction()
     {
-        if (strtoupper($this->router->httpMethod) === "GET") {
+        if (!$this->router->isAjax) {
             $this->view->setHeader('404');
             $this->view->setTemplate('errors/404.tpl');
             $this->view->setTemplateVars('pageName', "PageNotFound");

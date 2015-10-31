@@ -28,30 +28,30 @@ namespace Core\CacheSystem;
  * Class OPCache
  * @package Core\CacheSystem
  */
-class OPCache extends BaseCache
+class OPCache implements CacheInterface
 {
 
-    public function cacheContent($key, $payload, $ttl)
+    public static function cacheContent($key, $payload, $ttl)
     {
         return apc_store($key, $payload, $ttl);
     }
 
-    public function getCache($key)
+    public static function getCache($key)
     {
         return apc_fetch($key);
     }
 
-    public function cacheExists($key)
+    public static function cacheExists($key)
     {
         return apc_exists($key);
     }
 
-    public function deleteCache($key)
+    public static function deleteCache($key)
     {
         return apc_delete($key);
     }
 
-    public function clearCache()
+    public static function clearCache()
     {
         return apc_clear_cache();
     }

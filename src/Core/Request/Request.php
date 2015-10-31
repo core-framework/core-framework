@@ -125,9 +125,7 @@ class Request implements Cacheable
         $config = $this->config;
 
         //get httpMethod
-        $this->httpMethod = $_SERVER['REQUEST_METHOD'] ? strtoupper($_SERVER['REQUEST_METHOD']) : strtoupper(
-            $_SERVER['HTTP_X_HTTP_METHOD']
-        );
+        $this->httpMethod = $_SERVER['REQUEST_METHOD'] ? strtoupper($_SERVER['REQUEST_METHOD']) : strtoupper($_SERVER['HTTP_X_HTTP_METHOD']);
 
         if (empty($this->httpMethod)) {
             $this->httpMethod = "GET";

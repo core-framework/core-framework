@@ -273,6 +273,15 @@ class DI
     }
 
     /**
+     * Reset DI
+     */
+    public static function reset()
+    {
+        static::$services = [];
+        static::$sharedInstances = [];
+    }
+
+    /**
      * Magic sleep method for serialization
      *
      * @return array

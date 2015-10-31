@@ -24,7 +24,7 @@
         <!-- END: Metas -->
         <!-- Styles -->
         <{block name="styles"}>
-            <link href="/styles/base/main.css" type="text/css" rel="stylesheet" />
+            <link href="/styles/main.css" type="text/css" rel="stylesheet" />
         <{/block}>
         <!-- END: Styles -->
         <{block name="IECondn"}><{/block}>

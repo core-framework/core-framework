@@ -8,8 +8,7 @@
 
 namespace web\Models;
 
-use Core\Database\Database;
-use Core\DI\DI;
+use Core\Database\Connection;
 use Core\Models\Model;
 
 class User extends Model {
@@ -17,6 +16,8 @@ class User extends Model {
     protected static $tableName = 'user';
     protected static $primaryKey = 'userId';
     protected static $dbName = 'test';
+
+    public static $columnSaveBlacklist = ['csrf', 'id', 'password', 'password_confirm', 'register_date', 'submitted_date', 'modified_date'];
 
     public $fname;
     public $lname;
@@ -28,27 +29,12 @@ class User extends Model {
     public $salt;
 
 
-    public function __construct($userData = [], $connection = null)
+    public function __construct(array $userData = [], Connection $connection = null)
     {
         if (!empty($userData)) {
             self::configure($this, $userData);
             $this->createUserId();
-        }
-
-        if (is_null($connection)) {
-
-            /** @var \Core\Config\Config $config */
-            $config = DI::get('Config');
-            $dbConf = $config['$db'];
-            $arr[] = [];
-            $arr['db'] = self::$dbName;
-            $arr['type'] = 'mysql';
-            $arr['host'] = $dbConf['host'];
-            $arr['username'] = $dbConf['user'];
-            $arr['password'] = $dbConf['pass'];
-            $arr['port'] = '';
-
-            $connection = new Database($arr);
+            $this->createPassHash();
         }
 
         parent::__construct($connection);
@@ -57,25 +43,12 @@ class User extends Model {
     public function save()
     {
         self::checkIfUserExists($this->email);
-        $this->unsetBeforeSave();
         return parent::save();
     }
 
     public function update()
     {
-        $this->unsetBeforeSave();
         return parent::update();
-    }
-
-    private function unsetBeforeSave()
-    {
-        unset($this->csrf);
-        unset($this->id);
-        unset($this->password);
-        unset($this->password_confirm);
-        unset($this->register_date);
-        unset($this->submitted_date);
-        unset($this->modified_date);
     }
 
     public static function checkIfUserExists($email)
@@ -102,10 +75,16 @@ class User extends Model {
             }
 
             $object->$name = $value;
-            //self::setProps($name, $value);
         }
 
         return $object;
+    }
+
+    public function createPassHash()
+    {
+        $hashArr = self::hash($this->password);
+        $this->pass_hash = $hashArr['hash'];
+        $this->salt = $hashArr['salt'];
     }
 
     public static function hash($subject){
@@ -128,70 +107,5 @@ class User extends Model {
             $diff |= ord($givenHash[$i]) ^ ord($dbHash[$i]);
         }
         return !$diff;
-    }
-
-
-    /**
-     * @return Database
-     */
-    public static function getDb()
-    {
-        return self::$db;
-    }
-
-    /**
-     * @param Database $db
-     */
-    public static function setDb($db)
-    {
-        self::$db = $db;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getTableName()
-    {
-        return self::$tableName;
-    }
-
-    /**
-     * @param string $tableName
-     */
-    public static function setTableName($tableName)
-    {
-        self::$tableName = $tableName;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getPrimaryKey()
-    {
-        return self::$primaryKey;
-    }
-
-    /**
-     * @param string $primaryKey
-     */
-    public static function setPrimaryKey($primaryKey)
-    {
-        self::$primaryKey = $primaryKey;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getDbName()
-    {
-        return self::$dbName;
-    }
-
-    /**
-     * @param string $dbName
-     */
-    public static function setDbName($dbName)
-    {
-        self::$dbName = $dbName;
     }
 }

@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+
+use Core\Console\Console;
+use Core\Console\IOStream;
+
+require(__DIR__ . '/vendor/autoload.php');
+require(__DIR__ . '/src/Core/Helper/Helper.php');
+
+$conf = requireCached(__DIR__ . '/config/cli.conf.php');
+$stream = new IOStream();
+$console = new Console($stream, $conf);
+$console->parse();

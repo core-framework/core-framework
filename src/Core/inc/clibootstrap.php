@@ -3,11 +3,10 @@
 use Core\DI\DI;
 
 $di = new DI();
-$di->register('Cache', '\\Core\\CacheSystem\\Cache');
-$di->register('Config', '\\Core\\Config\\Config');
-$di->register('Helper', '\\Core\\Helper\\Helper');
-$di->register('IOStream', '\\Core\\Scripts\\IOStream');
-$di->register('CLI', "\\Core\\Scripts\\CLI")
+$di->register('Cache', '\\Core\\CacheSystem\\AppCache');
+$di->register('Config', '\\Core\\Config\\AppConfig');
+$di->register('IOStream', '\\Core\\Console\\IOStream');
+$di->register('CLI', "\\Core\\Console\\CLI")
     ->setArguments(array('IOStream', 'Config'));
-$di->register('Core', "\\Core\\Scripts\\Core")
+$di->register('Core', "\\Core\\Console\\Core")
     ->setArguments(array('IOStream', 'Config'));

@@ -32,3 +32,5 @@ class Application extends BaseApplication
 {
 
 }
+
+spl_autoload_register(['Core\\Application\\Application', 'autoload'], true, true);

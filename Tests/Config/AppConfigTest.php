@@ -17,7 +17,7 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase
      * @var $config AppConfig
      */
     public $config;
-    public static $editableConf = '/web/config/editable.conf.php';
+    public static $editableConf = '/config/override.conf.php';
 
     public function setUp()
     {
@@ -72,7 +72,7 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testSetFile()
     {
-        AppConfig::setFile(_ROOT . "/web/config/all.conf.php");
+        AppConfig::setFile(_ROOT . "/config/framework.conf.php");
         $this->assertArrayHasKey('$global', AppConfig::$allConf);
         $this->assertArrayHasKey('$db', AppConfig::$allConf);
         $this->assertArrayHasKey('$routes', AppConfig::$allConf);
@@ -80,7 +80,7 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testSetEditableConfFile()
     {
-        $editablePath = _ROOT . "/web/config/editable.conf.php";
+        $editablePath = _ROOT . "/config/override.conf.php";
         $this->config->setEditableConfFile($editablePath);
         $this->assertEquals($editablePath, AppConfig::$confEditablePath);
     }
@@ -129,19 +129,19 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testStoreThrowsExceptionWhenEditableFileNotReadable()
     {
-        AppConfig::$confEditablePath = "/web/config/editable.conf.php";
+        AppConfig::$confEditablePath = "/config/override.conf.php";
         AppConfig::store(['storedArr' => 'storedVal']);
     }
 
     public function testGetFileContentAllwaysReturnsArray()
     {
-        $content = AppConfig::getFileContent('/web/config/editable.conf.php');
+        $content = AppConfig::getFileContent('/config/override.conf.php');
         $this->assertInternalType('array', $content);
     }
 
     public function testGetFileContentWorksWithValidFile()
     {
-        $content = AppConfig::getFileContent(_ROOT . '/web/config/all.conf.php');
+        $content = AppConfig::getFileContent(_ROOT . '/config/framework.conf.php');
         $this->assertInternalType('array', $content);
         $this->assertArrayHasKey('$global', $content);
     }

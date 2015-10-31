@@ -3,7 +3,6 @@
     <testsuites>
         <testsuite name="Coreframework Test Suite">
             <directory>./Tests/</directory>
-            <exclude>./Tests/Database/</exclude>
         </testsuite>
     </testsuites>
 </phpunit>

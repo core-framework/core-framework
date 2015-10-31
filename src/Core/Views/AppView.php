@@ -23,7 +23,6 @@
 namespace Core\Views;
 
 use Core\Application\Application;
-use Core\Application\CoreApp;
 use Core\CacheSystem\Cacheable;
 
 /**
@@ -159,8 +158,8 @@ class AppView implements viewInterface, Cacheable
         }
 
         if (empty($conf)) {
-            $this->basePath = CoreApp::getAlias('@base');
-            $this->appPath = CoreApp::getAlias('@appBase');
+            $this->basePath = Application::getAlias('@base');
+            $this->appPath = Application::getAlias('@web');
         } else {
             $this->basePath = $conf['basePath'];
             $this->appPath = $conf['appPath'];
@@ -183,9 +182,9 @@ class AppView implements viewInterface, Cacheable
         $this->tplEngine->left_delimiter = '<{';
         $this->tplEngine->right_delimiter = '}>';
 
-        $this->tplEngine->setCompileDir($this->basePath . '/src/Core/smarty_cache/templates_c/');
-        $this->tplEngine->setConfigDir($this->basePath . '/src/Core/smarty_cache/config/');
-        $this->tplEngine->setCacheDir($this->basePath . '/src/Core/smarty_cache/cache/');
+        $this->tplEngine->setCompileDir($this->basePath . '/storage/smarty_cache/templates_c/');
+        $this->tplEngine->setConfigDir($this->basePath . '/storage/smarty_cache/config/');
+        $this->tplEngine->setCacheDir($this->basePath . '/storage/smarty_cache/cache/');
         $this->tplEngine->setTemplateDir($this->appPath . '/Templates/');
         $this->tplEngine->addTemplateDir($this->baseTemplateDir);
         $this->tplEngine->addTemplateDir($this->httpTestsDir);
@@ -290,7 +289,7 @@ class AppView implements viewInterface, Cacheable
     public function setHeader($val)
     {
         $this->httpStatus = $val;
-        CoreApp::$app->setHeaders($val);
+        Application::setHeaders($val);
     }
 
     /**

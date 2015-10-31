@@ -26,7 +26,7 @@ namespace Core\DI;
  * Interface serviceInterface
  * @package Core\DI
  */
-interface serviceInterface
+interface ServiceInterface
 {
     /**
      * Creates a service instance with the given params

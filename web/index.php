@@ -23,11 +23,12 @@
 
 session_start();
 
-require(__DIR__ . '/../vendor/autoload.php');
-
 use Core\Application\Application;
 
-$conf = require(__DIR__ . '/config/all.conf.php');
+require(__DIR__ . '/../vendor/autoload.php');
+require(__DIR__ . '/../src/Core/Helper/Helper.php');
+
+$conf = requireCached(__DIR__ . '/../config/framework.conf.php');
 $app = new Application($conf);
 $app->run();
 
