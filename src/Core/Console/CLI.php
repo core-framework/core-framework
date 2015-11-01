@@ -592,6 +592,16 @@ class CLI extends Components
     }
 
     /**
+     * Test helloWorld
+     *
+     * @param $name
+     */
+    public function helloWorld($name) {
+        $name = isset($name) && $name !== "" ? $name : "world";
+        echo "hello " . $name;
+    }
+
+    /**
      * Magic sleep method
      */
     public function __sleep()

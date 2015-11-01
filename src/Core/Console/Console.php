@@ -46,7 +46,8 @@ class Console extends CLI
         $this->setVersion('1.0.0');
         $this->setToolName('Reactor');
 
-        $this->addCommand('install', "Install Composer and bower to set up the framework", 'self::install');
+        $this->addCommand('install', "Install Composer and bower to set up the framework", '\\Core\\Console\\Console::install');
+        $this->addCommand('test:status', "Performs PHPUnit and Codeception tests", '\\Core\\Console\\Console::testStatus');
     }
 
     public function showHelp()
@@ -59,7 +60,18 @@ class Console extends CLI
     public function install()
     {
         $this->createCacheFolder();
-        $this->createSmartyCache();
+        $this->createSmartyCacheFolder();
+    }
+
+    public function testStatus()
+    {
+        $this->io->writeln("Running PHPUnit Tests ....", 'green');
+        passthru('./vendor/bin/phpunit');
+        $this->io->writeln("----------------------------------------");
+        $this->io->writeln('');
+        $this->io->writeln("Running Codeception Scenarios ....", 'green');
+        passthru('./vendor/bin/codecept run');
+        $this->io->writeln("----------------------------------------");
     }
 
     /**
@@ -234,7 +246,7 @@ class Console extends CLI
     /**
      * Creates smarty cache directories
      */
-    private function createSmartyCache()
+    private function createSmartyCacheFolder()
     {
         if ($this::$verbose === true) {
             $this->io->writeln('Creating smarty cache..', 'green');

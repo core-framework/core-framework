@@ -96,10 +96,7 @@ class CLITest extends \PHPUnit_Framework_TestCase
                     'name' => 'hello:world',
                     'shortName' => '',
                     'description' => 'Simple Hello World Command',
-                    'definition' => function ($name) {
-                        $name = isset($name) && $name !== "" ? $name : "world";
-                        return "hello " . $name;
-                    },
+                    'definition' => '\\Core\\Console\\CLI::helloWorld',
                     'arguments' => [
                         'name' => 'name',
                         'isRequired' => false,
@@ -126,9 +123,7 @@ class CLITest extends \PHPUnit_Framework_TestCase
                     'name' => 'hello:world',
                     'shortName' => 'H',
                     'description' => 'Simple Hello World Command',
-                    'definition' => function () {
-                        return "hello world";
-                    }
+                    'definition' => '\\Core\\Console\\CLI::helloWorld'
                 ]
             ]
         ];

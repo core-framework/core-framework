@@ -5,10 +5,7 @@ $options = [
     0 => [
         'name' => 'hello:world',
         'description' => 'Simple Hello World Command',
-        'definition' => function ($name) {
-            $name = isset($name) && $name !== "" ? $name : "world";
-            return "hello " . $name;
-        },
+        'definition' => '\\Core\\Console\\CLI::helloWorld',
         'arguments' => [
             'name' => 'name',
             'isRequired' => false,
