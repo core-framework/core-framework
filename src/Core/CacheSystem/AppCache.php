@@ -27,7 +27,6 @@ class AppCache implements CacheInterface
      */
     public function __construct()
     {
-        //defined('DS') or define('DS', DIRECTORY_SEPARATOR);
         defined('_ROOT') or define('_ROOT', realpath(__DIR__ . "/../../.."));
         static::setCacheDir(_ROOT . "/storage/framework/cache/");
     }
@@ -88,6 +87,11 @@ class AppCache implements CacheInterface
             $ttlTime = $cache['cTime'] + $cache['ttl'];
             if (($currentTime >> $ttlTime) && $cache['ttl'] !== 0) {
                 $content = $payload;
+
+                if ($type === 'closure') {
+                    throw new \InvalidArgumentException("Caching of Closure types is not currently supported");
+                }
+
                 if ($type === 'object' && $payload instanceof Cacheable) {
                     $content = serialize($payload);
                 }
