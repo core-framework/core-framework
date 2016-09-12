@@ -1,5 +1,4 @@
 <?php
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,10 +20,31 @@
  * file that was distributed with this source code.
  */
 
-use Core\Application\Application;
 
-require(__DIR__ . '/../vendor/autoload.php');
-$app = new Application(realpath(__DIR__ . '/../'));
-$app->run();
+namespace App\Migrations;
 
-?>
+
+use Core\Database\Migration\AbstractMigration;
+
+class CreateUserTableMigration extends AbstractMigration
+{
+    public function up()
+    {
+        $table = $this->table('user');
+        $table->addColumn('id', 'integer', array('primaryKey' => true, 'autoIncrement' => true))
+            ->addColumn('fname', 'string')
+            ->addColumn('lname', 'string')
+            ->addColumn('name', 'string')
+            ->addColumn('userId', 'string')
+            ->addColumn('email', 'string')
+            ->addColumn('email_hash', 'string', array('null' => true))
+            ->addColumn('pass_hash', 'string', array('size' => 255))
+            ->addTimestamps()
+            ->create();
+    }
+
+    public function down()
+    {
+        $this->dropTable('user');
+    }
+}

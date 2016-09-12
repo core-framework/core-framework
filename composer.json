@@ -1,7 +1,6 @@
 {
     "name": "core-framework/core-framework",
     "description": "Core PHP Framework",
-    "replace": {"shalomsam/Core": "self.version"},
     "type": "project",
     "license": "MIT",
     "keywords": [
@@ -10,21 +9,23 @@
         "Core",
         "Core PHP Framework"
     ],
+    "prefer-stable": false,
     "autoload": {
-        "psr-4": {"Core\\": "src/Core"}
+        "psr-4": {
+            "Core\\": "../core/src/Core",
+            "app\\": "/app"
+        }
     },
-    "prefer-stable": true,
     "require": {
         "smarty/smarty": "3.1.19",
         "php": ">=5.4.0",
         "pear/console_table": "^1.2",
-        "robmorgan/phinx": "^0.4.6",
-        "codeception/codeception": "^2.0.9"
+        "core-framework/core": "v0.0.2-alpha"
     },
     "require-dev": {
-        "filp/whoops": "1.*",
         "phpunit/phpunit": "4.3",
-        "phpunit/DbUnit": "1.3.1"
+        "phpunit/DbUnit": "1.3.1",
+        "codeception/codeception": "^2.0.9"
     },
     "suggest": {
         "ext-apc": "Allows for faster performance of Core Framework through APC caching",
@@ -38,7 +39,7 @@
     ],
     "scripts": {
         "post-install-cmd": [
-            "php reactor install"
+
         ],
         "post-update-cmd": [
 

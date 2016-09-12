@@ -14,8 +14,9 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
-                <{if isset($site.user)}>
-                    <li><a href="/"><{$site.user.name|capitalize}></a></li>
+                <{if isset($smarty.session.user)}>
+                    <{*<li><a href="/"><{$site.user.name|capitalize}></a></li>*}>
+                    <li><a href="/"><{$smarty.session.user.name}></a></li>
                     <li><a href="/user/logout">Logout</a></li>
                 <{else}>
                     <li><a data-toggle="modal" data-target="#registerModal" href="#">Register</a></li>

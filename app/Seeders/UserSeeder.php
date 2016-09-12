@@ -1,5 +1,4 @@
 <?php
-
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,10 +20,29 @@
  * file that was distributed with this source code.
  */
 
-use Core\Application\Application;
 
-require(__DIR__ . '/../vendor/autoload.php');
-$app = new Application(realpath(__DIR__ . '/../'));
-$app->run();
+namespace App\Seeders;
 
-?>
+
+use Core\Database\Seeder\AbstractSeeder;
+
+class UserSeeder extends AbstractSeeder
+{
+    public function run()
+    {
+        $data = [
+            [
+                'id' => 1,
+                'fname' => "Shalom",
+                'lname' => "Sam",
+                'name' => "Shalom Sam",
+                'userId' => "shalom57d68cd9ac93a",
+                'email' => "juz.cool1@gmail.com",
+                'email_hash' => null,
+                'pass_hash' => '$2y$13$lX0xHFTzU9LY3GzzMMGAG.EsE5MjMp21h0KWnJn3QV8MJFL7OuHVm'
+            ]
+        ];
+
+        $this->table('user')->insert($data);
+    }
+}

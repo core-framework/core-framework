@@ -1,11 +1,3 @@
 Core Framework Change Log
 ==========================
 
-Version 2.0.0-beta
---------------------
-* Major code revamp and restructuring
-* Added DI (dependency injection) class
-* Implemented DI in framework
-* Added features for micro-site serving in routes.conf.php
-* Added features for meta keyword and description in route.conf.php
-* minor bug fixes

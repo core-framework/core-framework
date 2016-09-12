@@ -1,13 +1,9 @@
 #!/usr/bin/env php
 <?php
 
-use Core\Console\Console;
-use Core\Console\IOStream;
+use Core\Application\ConsoleApplication;
 
 require(__DIR__ . '/vendor/autoload.php');
-require(__DIR__ . '/src/Core/Helper/Helper.php');
 
-$conf = requireCached(__DIR__ . '/config/cli.conf.php');
-$stream = new IOStream();
-$console = new Console($stream, $conf);
-$console->parse();
+$console = new ConsoleApplication(realpath(__DIR__));
+$console->run();

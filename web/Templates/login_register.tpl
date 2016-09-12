@@ -4,8 +4,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
@@ -30,7 +29,7 @@
                     <!-- error block -->
                 </div>
                 <form id="registerForm" class="container-fluid" action="/user/register">
-                    <input type="hidden" name="csrf" value="<{$csrf}>" />
+                    <input type="hidden" name="csrf-token" value="<{$csrfToken}>" />
                     <div class="row-fluid">
                         <div class="col-md-6 col-xs-12">
                             <input type="text" name="fname" placeholder="First Name *" required/>
