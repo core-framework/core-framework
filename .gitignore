@@ -5,10 +5,7 @@
 bower_components/
 logs/
 apigen.neon
-
-####
-web/styles/**
-web/scripts/**
+tests/_output/*
 
 ### Composer template
 composer.phar
@@ -34,4 +31,3 @@ $RECYCLE.BIN/
 *.msp
 
 ### NOTs
-tests/_output/*
