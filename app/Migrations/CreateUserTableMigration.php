@@ -30,6 +30,7 @@ class CreateUserTableMigration extends AbstractMigration
 {
     public function up()
     {
+        $this->createDatabase('coreframework_db');
         $table = $this->table('user');
         $table->addColumn('id', 'integer', array('primaryKey' => true, 'autoIncrement' => true))
             ->addColumn('fname', 'string')
