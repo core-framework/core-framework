@@ -12,7 +12,7 @@ return [
     'rightDelimiter' => '}>',
 
     /*
-     * Path to directory containing Templates
+     * Main template files directory path
      */
     //'dir' => '@base/web/Templates/'
 
@@ -20,5 +20,19 @@ return [
      * Array of paths to directories containing Templates
      */
     //'dirs' => []
-    
+
+    /*
+     * Smarty setting
+     */
+    'mergeCompiled' => false,
+
+    /*
+     * Smarty Caching setting
+     */
+    'caching' => 1,
+
+    /*
+     * Smarty cache rebuild settings
+     */
+    'compileCheck' => true
 ];

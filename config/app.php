@@ -22,6 +22,22 @@ return [
     'metaAndTitleFromFile' => false,
 
     /*
+     * File containing metas (titles and descriptions).
+     * Must be set if 'metaAndTitleFromFile' is set true
+     *
+     * ex:
+     * [
+     *      '/' => [
+     *           'pageTitle' => 'Some page title',
+     *           'description' => 'Some descriptions',
+     *           'keyword' => 'some, keywords',
+     *           .....
+     *       ]
+     * ]
+     */
+    //'metaFile' => '',
+
+    /*
      * Whether the APC caching extension is loaded
      */
     'apcIsLoaded' => extension_loaded('apc'),
@@ -56,5 +72,36 @@ return [
     /*
      * The template engine name (must be the same Key name as given in services)
      */
-    'templateEngine' => 'Smarty'
+    'templateEngine' => 'Smarty',
+
+    /*
+     * Array containing all Subscriber classes (must implement interface Subscriber)
+     */
+    'subscribers' => [],
+
+    /*
+     * Applications Time To Live (ttl) settings in seconds
+     */
+    'ttl' => 60,
+
+    /*
+     * Path to file containing application route definitions
+     */
+    //'routesFilePath' => '',
+
+    /*
+     * The cache directory path
+     */
+    'cachePath' => '/storage/framework/cache',
+
+    /*
+     * The storage directory path
+     */
+    'storagePath' => '/storage',
+
+    /*
+     * The web document root folder
+     */
+    'publicPath' => '/web',
+
 ];
