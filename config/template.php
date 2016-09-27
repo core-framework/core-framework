@@ -14,7 +14,7 @@ return [
     /*
      * Main template files directory path
      */
-    //'dir' => '@base/web/Templates/'
+    //'dir' => '/web/Templates/'
 
     /*
      * Array of paths to directories containing Templates
@@ -34,5 +34,20 @@ return [
     /*
      * Smarty cache rebuild settings
      */
-    'compileCheck' => true
+    'compileCheck' => true,
+
+    /*
+     * Smarty Compile directory path
+     */
+    'compileDir' => '/storage/smarty_cache/templates_c/',
+
+    /*
+     * Smarty config directory path
+     */
+    'configDir' => '/storage/smarty_cache/config/',
+
+    /*
+     * Smarty cache directory path
+     */
+    'cacheDir' => '/storage/smarty_cache/cache/',
 ];
