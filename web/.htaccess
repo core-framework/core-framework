@@ -18,7 +18,7 @@ DefaultLanguage en-US
     # Front Controller
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^([a-zA-Z0-9_\-/.]+)$ index.php?page=$1 [L,QSA]
+    RewriteRule ^ index.php [L,QSA]
 
     #### OTHERS
     #### Allow resource OR file access to only your domain (Edit as required)
