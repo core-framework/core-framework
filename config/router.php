@@ -1,6 +1,17 @@
 <?php
 
 return [
+
+    /*
+     * File Path to the routes file containing the route definitions
+     */
+    'routesFilePath' => '/app/Routes/routes.php',
+
+    /*
+     * Array of File Paths to the route files containing the route definitions
+     */
+    'routesFiles' => [],
+
     /*
      * Determines whether to ignore routes config and use Aesthetic routing.
      * i.e. www.domain.name/controller/method/argument1/argument2....
